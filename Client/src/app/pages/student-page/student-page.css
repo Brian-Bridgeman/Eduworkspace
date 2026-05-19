@@ -1,8 +1,33 @@
+.tableDiv{
+  background: #f7f8fc;
+  overflow-y: auto;
+  max-height: 25em;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 table {
-  border-collapse: collapse;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
 } 
 
-table.a {
-  table-layout: auto;
-  width: 100%;  
+table thead th {
+  text-align: left;
+  font-size: 13px;
+  padding: 10px 15px;
+}
+
+tbody tr {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+tbody td {
+  padding: 14px 15px;
+  font-size: 14px;
 }

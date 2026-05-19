@@ -1,25 +1,29 @@
-<app-template-header
-  title="Elever"
-  subtitle="Här ser du alla registrerade elever."
-  buttonText="Lägg till elev">
+<app-template-header title="Elever" subtitle="Här ser du alla registrerade elever." buttonText="Lägg till elev">
 </app-template-header>
 
-<div>
-    <table class="a">
-        <tr>
-            <th>Namn</th>
-            <th>TelefonNr</th>
-            <th>Epost</th>
-            <th>Företag</th>
-            <th>Kurs</th>
-        </tr>
+<div class="tableDiv">
+    <table>
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Telefonnummer</th>
+                <th>E-post</th>
+                <th>Företag</th>
+                <th>Kurs</th>
+            </tr>
+        </thead>
 
-        <tr *ngFor="let person of persons">
-            <td>{{ person.namn }}</td>
-            <td>{{ person.telefonNr }}</td>
-            <td>{{ person.epost }}</td>
-            <td>{{ person.foretag }}</td>
-            <td>{{ person.kurs }}</td>
-        </tr>
+        <tbody>
+            <tr *ngFor="let person of persons">
+                <td class="avatar">
+                    <p>O</p>
+                    <span>{{ person.namn }}</span>
+                </td>
+                <td>{{ person.telefonNr }}</td>
+                <td>{{ person.epost }}</td>
+                <td>{{ person.foretag }}</td>
+                <td>{{ person.kurs }}</td>
+            </tr>
+        </tbody>
     </table>
 </div>

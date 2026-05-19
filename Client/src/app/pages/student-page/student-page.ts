@@ -37,6 +37,34 @@ export class StudentPage {
     epost: 'alfred@mail.com',
     foretag: 'Digital AB',
     kurs: 'Angular'
+  },
+  {
+    namn: 'Kalle',
+    telefonNr: '070-333 33 33',
+    epost: 'kalle@mail.com',
+    foretag: 'IT Solutions',
+    kurs: 'Frontend'
+  },
+  {
+    namn: 'Kalle',
+    telefonNr: '070-333 33 33',
+    epost: 'kalle@mail.com',
+    foretag: 'IT Solutions',
+    kurs: 'Frontend'
+  },
+  {
+    namn: 'Kalle',
+    telefonNr: '070-333 33 33',
+    epost: 'kalle@mail.com',
+    foretag: 'IT Solutions',
+    kurs: 'Frontend'
+  },
+  {
+    namn: 'Kalle',
+    telefonNr: '070-333 33 33',
+    epost: 'kalle@mail.com',
+    foretag: 'IT Solutions',
+    kurs: 'Frontend'
   }
 ];
 }
