@@ -7,20 +7,13 @@
             <th>Företag</th>
             <th>Kurs</th>
         </tr>
-        <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-        </tr>
-        <tr>
-            <td>Island Trading</td>
-            <td>Helen Bennett</td>
-            <td>UK</td>
-        </tr>
-        <tr>
-            <td>Magazzini Alimentari Riuniti</td>
-            <td>Giovanni Rovelli</td>
-            <td>Italy</td>
+
+        <tr *ngFor="let person of persons">
+            <td>{{ person.namn }}</td>
+            <td>{{ person.telefonNr }}</td>
+            <td>{{ person.epost }}</td>
+            <td>{{ person.foretag }}</td>
+            <td>{{ person.kurs }}</td>
         </tr>
     </table>
 </div>
