@@ -8,19 +8,21 @@
 }
 
 .dropdown-menu {
-    background-color:  #eee6ff;
+    border-radius: 10px;
+    background-color:  transparent;
     position: absolute;
     display: flex;
     flex-direction: column;
     gap: 8px
+
 }
 
 .dropdown-menu button {
     border: none;
-    background-color: transparent;
     text-align: left;
     padding: 10px;
     cursor: pointer;
+    border-radius: 8px;
 }
 
 
