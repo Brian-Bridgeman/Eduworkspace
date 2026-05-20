@@ -1,28 +1,36 @@
-<app-template-header title="Grupp" subtitle="Här ser du alla grupper." buttonText="Lägg till grupp">
+<app-template-header title="Grupper" subtitle="Här ser du alla grupper." buttonText="Lägg till grupp">
 </app-template-header>
 
 <div class="tableDiv">
     <table>
         <thead>
             <tr>
-                <th>Namn</th>
-                <th>Telefonnummer</th>
-                <th>E-post</th>
-                <th>Företag</th>
+                <th>Namn på grupp</th>
                 <th>Kurs</th>
+                <th>Grupp</th>
+                <th>År</th>
+                <th>StartDatum</th>
+                <th>SlutDatum</th>
+                <th>Plats</th>
+                <th>Antal Elever</th>
+                <th>Status</th>
             </tr>
         </thead>
 
         <tbody>
             <tr *ngFor="let grupp of grupper">
                 <td class="avatar">
-                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="material-symbols-outlined">Folder</span>
                     <span>{{ grupp.namn }}</span>
                 </td>
-                <td>{{ grupp.telefonNr }}</td>
-                <td>{{ grupp.epost }}</td>
-                <td>{{ grupp.foretag }}</td>
                 <td>{{ grupp.kurs }}</td>
+                <td>{{ grupp.grupp }}</td>
+                <td>{{ grupp.ar }}</td>
+                <td>{{ grupp.startdatum }}</td>
+                <td>{{ grupp.slutdatum }}</td>
+                <td>{{ grupp.plats }}</td>
+                <td>{{ grupp.antalElever }}</td>
+                <td>{{ grupp.status }}</td>
             </tr>
         </tbody>
     </table>
