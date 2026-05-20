@@ -3,11 +3,29 @@ import { CoursesPage } from './pages/courses-page/courses-page';
 import { StudentPage } from './pages/student-page/student-page';
 
 export const routes: Routes = [
-    {path: 'courses-page',
+    {
+        path: 'start-page',
+        redirectTo: '/courses'
+    },
+    {
+        path: 'courses',
         component: CoursesPage
     },
     {
-    path: 'student-page',
-    component: StudentPage
+        path: 'students',
+        component: StudentPage
+    },
+    {
+        /* ÄNDRA HÄR NÄR RESPEKTIVE SIDOR FINNS */
+        path: 'classes',
+        redirectTo: '/courses'
+    },
+    {
+        path: 'calender',
+        redirectTo: '/courses'
+    },
+    {
+        path: 'checklist',
+        redirectTo: '/courses'
     }
 ];
