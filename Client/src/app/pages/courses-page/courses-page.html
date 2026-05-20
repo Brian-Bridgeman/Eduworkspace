@@ -1,0 +1,24 @@
+<div>
+    <p>courses-page works!</p>
+    <app-template-header title="Kurser" subtitle="Här ser du alla registrerade kurser." buttonText="Lägg till kurs">
+    </app-template-header>
+
+    <div class="tableDiv">
+        <table>
+            <thead>
+                <tr>
+                    <th>Kurs</th>
+                    <th>Kod</th>
+                    <th>Kategori</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let course of courses">
+                    <td>{{ course.name }}</td>
+                    <td>{{ course.code }}</td>
+                    <td>{{ course.category }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
