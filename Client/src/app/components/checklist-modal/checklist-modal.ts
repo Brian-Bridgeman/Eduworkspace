@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-checklist-modal',
@@ -8,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './checklist-modal.css'
 })
 export class ChecklistModal {
+
+  @Output() close = new EventEmitter<void>();
+
+  closeModal() {
+    this.close.emit();
+  }
 
 }

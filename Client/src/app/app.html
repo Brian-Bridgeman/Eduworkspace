@@ -6,7 +6,7 @@
 
     <router-outlet></router-outlet>
 
-    <app-checklist-modal *ngIf="showModal">
+    <app-checklist-modal *ngIf="showModal" (close)="showModal = false">
     </app-checklist-modal>
 
 </main>
