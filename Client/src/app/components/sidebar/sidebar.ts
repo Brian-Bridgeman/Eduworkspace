@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
-
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [
-      ],
+  imports: [],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
+
+  @Output() checklistClick = new EventEmitter<void>();
+
+  openChecklistModal() {
+    this.checklistClick.emit();
+  }
 
 }
