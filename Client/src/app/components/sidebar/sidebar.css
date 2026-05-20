@@ -1,17 +1,8 @@
-
-
-.sidebar-logga {
- height: 80px;
-  padding: 0 15px;
-  display: flex;
-  align-items: center;
-  border-bottom: 2px solid #ececec;
-}
 /* Hela Sidebaren */
 .sidebar {
   font-family: 'Nunito', sans-serif;
   width: 240px;
-  height: 100vh;
+  height: auto;
   background-color: #ffffff;
   border-right: 1px solid #e5e7eb;
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.08);
@@ -20,23 +11,9 @@
   flex-direction: column;
 }
 
-.logga {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 25px;
-  font-weight: 500;
-  color: #0f172a;
-  margin-bottom: 48px;
-}
-
-.logga span:first-child {
-  font-size: 28px;
-}
-
 /* Hover-effekt med större ikoner */
 .nav-link:hover .material-symbols-outlined {
-    transform: scale(1.4);
+  transform: scale(1.4);
 }
 
 .nav {
@@ -46,7 +23,7 @@
 }
 
 .nav-link {
-font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif;
   height: 48px;
   padding: 0 16px;
   border-radius: 10px;
@@ -62,7 +39,7 @@ font-family: 'Nunito', sans-serif;
 
 .nav-link:hover {
   background-color: #f3f0ff;
-  color: #6d28d9;  
+  color: #6d28d9;
 }
 
 .nav-link.active {
@@ -78,5 +55,3 @@ font-family: 'Nunito', sans-serif;
 .settings {
   margin-top: auto;
 }
-
-
