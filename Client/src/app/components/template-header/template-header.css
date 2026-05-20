@@ -1,0 +1,27 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 2rem;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+.header-text p {
+  color: gray;
+  margin-top: 4px;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+
+  background-color: #8b5cf6;
+  color: white;
+}
