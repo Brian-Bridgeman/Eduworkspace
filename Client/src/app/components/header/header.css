@@ -63,3 +63,26 @@
     color: #6d28d9;
     transform: scale(1.05);
 }
+
+.mode-btn .material-symbols-outlined,
+.profile-btn .material-symbols-outlined {
+    transition: transform 0.2s ease;
+}
+
+.mode-btn .material-symbols-outlined {
+    font-size: 16px;
+}
+
+.profile-btn .material-symbols-outlined {
+    font-size: 25px;
+}
+
+.profile-btn:hover .material-symbols-outlined {
+    transform: scale(1.2);
+}
+
+.separator {
+    font-size: 14px;
+    line-height: 1;
+    flex-shrink: 0;
+}
