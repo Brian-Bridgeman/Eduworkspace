@@ -5,67 +5,100 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-group-page',
-  imports: [CommonModule, TemplateHeaderComponent, RouterLink, RouterLinkActive],
+  imports: [CommonModule, TemplateHeaderComponent],
   templateUrl: './group-page.html',
   styleUrl: './group-page.css',
 })
+
 export class GroupPage {
   grupper = [
-  {
-    namn: 'Oscar',
-    telefonNr: '070-111 11 11',
-    epost: 'oscar@mail.com',
-    foretag: 'Tech AB',
-    kurs: 'Angular'
-  },
-  {
-    namn: 'Johan',
-    telefonNr: '070-222 22 22',
-    epost: 'johan@mail.com',
-    foretag: 'Webbbolaget',
-    kurs: 'TypeScript'
-  },
-  {
-    namn: 'Kalle',
-    telefonNr: '070-333 33 33',
-    epost: 'kalle@mail.com',
-    foretag: 'IT Solutions',
-    kurs: 'Frontend'
-  },
-  {
-    namn: 'Alfred',
-    telefonNr: '070-444 44 44',
-    epost: 'alfred@mail.com',
-    foretag: 'Digital AB',
-    kurs: 'Angular'
-  },
-  {
-    namn: 'Kalle',
-    telefonNr: '070-333 33 33',
-    epost: 'kalle@mail.com',
-    foretag: 'IT Solutions',
-    kurs: 'Frontend'
-  },
-  {
-    namn: 'Kalle',
-    telefonNr: '070-333 33 33',
-    epost: 'kalle@mail.com',
-    foretag: 'IT Solutions',
-    kurs: 'Frontend'
-  },
-  {
-    namn: 'Kalle',
-    telefonNr: '070-333 33 33',
-    epost: 'kalle@mail.com',
-    foretag: 'IT Solutions',
-    kurs: 'Frontend'
-  },
-  {
-    namn: 'Kalle',
-    telefonNr: '070-333 33 33',
-    epost: 'kalle@mail.com',
-    foretag: 'IT Solutions',
-    kurs: 'Frontend'
-  }
-];
+    {
+      namn: 'H1 26',
+      kurs: 'Elinstallation',
+      grupp: 'Grupp A',
+      ar: 2026,
+      startdatum: '2026-01-12',
+      slutdatum: '2026-03-22',
+      plats: 'Sal B',
+      antalElever: '18 / 20',
+      status: 'Kommande'
+    },
+    {
+      namn: 'H2 26',
+      kurs: 'Elinstallation',
+      grupp: 'Grupp B',
+      ar: 2026,
+      startdatum: '2026-01-12',
+      slutdatum: '2026-03-22',
+      plats: 'Sal C',
+      antalElever: '16 / 20',
+      status: 'Kommande'
+    },
+    {
+      namn: 'H3 26',
+      kurs: 'Systemutveckling med AI',
+      grupp: 'Grupp C',
+      ar: 2026,
+      startdatum: '2026-08-18',
+      slutdatum: '2026-12-19',
+      plats: 'Sal D',
+      antalElever: '22 / 25',
+      status: 'Pågående'
+    },
+    {
+      namn: 'H4 26',
+      kurs: 'Webbutveckling',
+      grupp: 'Grupp A',
+      ar: 2026,
+      startdatum: '2026-08-18',
+      slutdatum: '2026-12-19',
+      plats: 'Sal E',
+      antalElever: '20 / 22',
+      status: 'Pågående'
+    },
+    {
+      namn: 'H5 26',
+      kurs: 'Brandskydd',
+      grupp: 'Grupp A',
+      ar: 2026,
+      startdatum: '2026-09-01',
+      slutdatum: '2026-11-28',
+      plats: 'Sal B',
+      antalElever: '15 / 18',
+      status: 'Kommande'
+    },
+    {
+      namn: 'H10 26',
+      kurs: 'Elkraftteknik',
+      grupp: 'Grupp A',
+      ar: 2026,
+      startdatum: '2026-01-13',
+      slutdatum: '2026-05-23',
+      plats: 'Sal C',
+      antalElever: '19 / 20',
+      status: 'Avslutad'
+    },
+    {
+      namn: 'H11 26',
+      kurs: 'Nätverksteknik',
+      grupp: 'Grupp B',
+      ar: 2026,
+      startdatum: '2026-08-19',
+      slutdatum: '2026-12-20',
+      plats: 'Sal D',
+      antalElever: '17 / 20',
+      status: 'Avslutad'
+    },
+    {
+      namn: 'H12 26',
+      kurs: 'Systemutveckling med AI',
+      grupp: 'Grupp A',
+      ar: 2026,
+      startdatum: '2026-01-15',
+      slutdatum: '2026-06-07',
+      plats: 'Online',
+      antalElever: '24 / 25',
+      status: 'Avslutad'
+    }
+  ];
 }
