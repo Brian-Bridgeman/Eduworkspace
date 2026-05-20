@@ -4,6 +4,10 @@ import { StudentPage } from './pages/student-page/student-page';
 
 export const routes: Routes = [
     {
+        path: 'start-page',
+        redirectTo: '/courses'
+    },
+    {
         path: 'courses',
         component: CoursesPage
     },
@@ -12,7 +16,7 @@ export const routes: Routes = [
         component: StudentPage
     },
     {
-        /* ÄNDRA HÄR NÄR SIDAN FINNS */
+        /* ÄNDRA HÄR NÄR RESPEKTIVE SIDOR FINNS */
         path: 'classes',
         redirectTo: '/courses'
     },
