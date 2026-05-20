@@ -21,14 +21,24 @@
 
         </div>
 
-        <!-- Beskrivning -->
         <div class="form-group">
+            <label>Checklistpunkter</label>
 
-            <label>Beskrivning</label>
+            <div class="check-item" *ngFor="let item of checklistItems; let i = index; trackBy: trackByIndex">
 
-            <textarea placeholder="Beskriv checklistan...">
-      </textarea>
+                <input type="checkbox" [(ngModel)]="item.checked" aria-label="Checklist checkbox" />
 
+                <input type="text" [(ngModel)]="item.text" placeholder="Skriv punkt..." aria-label="Checklist punkt" />
+
+                <button type="button" class="delete-btn" (click)="removeItem(i)">
+                    ✕
+                </button>
+
+            </div>
+
+            <button type="button" class="add-btn" (click)="addItem()">
+                + Lägg till punkt
+            </button>
         </div>
 
         <div class="form-group">
