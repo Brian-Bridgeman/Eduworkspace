@@ -1,5 +1,5 @@
-<div class="overlay">
-  <div class="modal">
+<div class="overlay" (click)="close()">
+  <div class="modal" (click)="$event.stopPropagation()">
 
     <div class="modal-header">
       <div>
@@ -61,8 +61,8 @@
     </div>
 
     <div class="modal-footer">
-      <button class="btn-cancel">Avbryt</button>
-      <button class="btn-confirm">Skapa</button>
+      <button class="btn-cancel" (click)="close()">Avbryt</button>
+      <button class="btn-confirm" (click)="confirm()">Skapa</button>
     </div>
 
   </div>

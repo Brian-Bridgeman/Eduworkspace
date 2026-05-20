@@ -7,4 +7,15 @@ import { Component, Output, EventEmitter } from '@angular/core';
   templateUrl: './add-student-modal.html',
   styleUrl: './add-student-modal.css',
 })
-export class AddStudentModal { }
+export class AddStudentModal {
+  @Output() closed = new EventEmitter<void>();
+  @Output() confirmed = new EventEmitter<void>();
+
+  close() {
+    this.closed.emit();
+  }
+
+  confirm() {
+    this.confirmed.emit();
+  }
+}
