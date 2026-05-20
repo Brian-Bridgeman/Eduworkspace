@@ -101,8 +101,8 @@
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #8958f1;
+  box-shadow: 0 0 0 3px rgba(137, 88, 241, 0.15);
 }
 
 .form-group input::placeholder {
@@ -147,7 +147,7 @@
 .btn-confirm {
   padding: 10px 20px;
   border: none;
-  background: #1e4bc5;
+  background: #8958f1;
   color: white;
   font-size: 14px;
   font-weight: 600;
@@ -156,5 +156,5 @@
 }
 
 .btn-confirm:hover {
-  background: #0b399e;
+  background: #7345d6;
 }
