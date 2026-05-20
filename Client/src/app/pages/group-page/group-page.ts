@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-group-page',
-  imports: [CommonModule, TemplateHeaderComponent],
+  imports: [CommonModule, TemplateHeaderComponent, RouterLink, RouterLinkActive],
   templateUrl: './group-page.html',
   styleUrl: './group-page.css',
 })
