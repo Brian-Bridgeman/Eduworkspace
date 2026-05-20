@@ -1,0 +1,32 @@
+.wrapper {
+  background-color: #f6f9fc;
+  border: 1px solid red;
+}
+h1 {
+  font-size: 35px;
+  font-family:
+    'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
+    sans-serif;
+  margin-bottom: 5px;
+}
+p {
+  font-size: 25px;
+  margin-top: 0px;
+}
+.header {
+  margin: 60px 60px 40px;
+}
+.container-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px 70px;
+}
+.container {
+  border-radius: 10px;
+  background-color: white;
+  padding: 100px;
+  width: 15vw;
+  height: 40vh;
+  box-shadow: 0px 5px 10px 0px #d4e2f1;
+}
