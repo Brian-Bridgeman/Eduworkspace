@@ -1,1 +1,29 @@
-<p>group-page works!</p>
+<app-template-header title="Grupp" subtitle="Här ser du alla grupper." buttonText="Lägg till grupp">
+</app-template-header>
+
+<div class="tableDiv">
+    <table>
+        <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Telefonnummer</th>
+                <th>E-post</th>
+                <th>Företag</th>
+                <th>Kurs</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let grupp of grupper">
+                <td class="avatar">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span>{{ grupp.namn }}</span>
+                </td>
+                <td>{{ grupp.telefonNr }}</td>
+                <td>{{ grupp.epost }}</td>
+                <td>{{ grupp.foretag }}</td>
+                <td>{{ grupp.kurs }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
