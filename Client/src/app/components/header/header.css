@@ -31,6 +31,17 @@
     color: #0f172a;
 }
 
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.logo-icon.material-symbols-outlined {
+    font-size: 32px;
+}
+
 .header-right {
     display: flex;
     align-items: center;
