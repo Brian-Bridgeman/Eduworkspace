@@ -10,5 +10,18 @@ export const routes: Routes = [
     {
         path: 'students',
         component: StudentPage
+    },
+    {
+        /* ÄNDRA HÄR NÄR SIDAN FINNS */
+        path: 'classes',
+        redirectTo: '/courses'
+    },
+    {
+        path: 'calender',
+        redirectTo: '/courses'
+    },
+    {
+        path: 'checklist',
+        redirectTo: '/courses'
     }
 ];
