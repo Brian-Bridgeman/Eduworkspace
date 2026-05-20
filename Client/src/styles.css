@@ -1,41 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/*CSS for the tabels in student-page, courses-page and courses-session-page */
-.tableDiv{
-  background: #f7f8fc;
-  overflow-y: auto;
-  max-height: 25em;
-}
-
-.avatar {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 10px;
-} 
-
-table thead th {
-  text-align: left;
-  font-size: 13px;
-  padding: 10px 15px;
-}
-
-tbody tr {
-  background: #ffffff;
-  border-radius: 10px;
-}
-
-tbody td {
-  padding: 14px 15px;
-  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
 }
