@@ -2,11 +2,70 @@
 
     <div class="modal">
 
-        <h2>Skapa Checklista</h2>
+        <div class="modal-header">
 
-        <button (click)="closeModal()">
-            Stäng
-        </button>
+            <h2>Skapa Checklista</h2>
+
+            <button class="close-btn" (click)="closeModal()">
+                ✕
+            </button>
+
+        </div>
+
+        <!-- Namn -->
+        <div class="form-group">
+
+            <label>Namn på listan</label>
+
+            <input type="text" placeholder="T.ex. Grupparbete" />
+
+        </div>
+
+        <!-- Beskrivning -->
+        <div class="form-group">
+
+            <label>Beskrivning</label>
+
+            <textarea placeholder="Beskriv checklistan...">
+      </textarea>
+
+        </div>
+
+        <!-- Checklistpunkter -->
+        <div class="form-group">
+
+            <label>Checklistpunkter</label>
+
+            <div class="check-item">
+
+                <label class="checkbox-label">
+
+                    <input type="checkbox" />
+
+                    <input type="text" placeholder="Skriv punkt..." />
+
+                </label>
+
+            </div>
+
+            <button class="add-btn">
+                + Lägg till punkt
+            </button>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+
+            <button class="cancel-btn" (click)="closeModal()">
+                Avbryt
+            </button>
+
+            <button class="save-btn">
+                Spara
+            </button>
+
+        </div>
 
     </div>
 
