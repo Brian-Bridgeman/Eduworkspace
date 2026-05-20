@@ -1,1 +1,11 @@
-<p>checklist-set-card works!</p>
+@if (description) {
+<p>{{ description }}</p>
+}
+
+@if (checklistExamples?.length) {
+<ul>
+    @for (item of checklistExamples; track item) {
+    <li>{{ item }}</li>
+    }
+</ul>
+}
