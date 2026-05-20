@@ -31,26 +31,23 @@
 
         </div>
 
-        <!-- Checklistpunkter -->
         <div class="form-group">
 
-            <label>Checklistpunkter</label>
+            <label>Bilaga</label>
 
-            <div class="check-item">
+            <label for="fileUpload" class="upload-box">
 
-                <label class="checkbox-label">
+                <span class="material-symbols-outlined upload-icon">
+                    cloud_upload
+                </span>
 
-                    <input type="checkbox" />
+                <p>Ladda upp bild eller PDF</p>
 
-                    <input type="text" placeholder="Skriv punkt..." />
+                <small>PNG, JPG eller PDF</small>
 
-                </label>
+            </label>
 
-            </div>
-
-            <button class="add-btn">
-                + Lägg till punkt
-            </button>
+            <input id="fileUpload" type="file" accept="image/*,.pdf" hidden />
 
         </div>
 
