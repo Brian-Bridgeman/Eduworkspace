@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+
 @Component({
   selector: 'app-group-page',
   imports: [CommonModule, TemplateHeaderComponent, DropdownMenu],
@@ -11,6 +11,8 @@ import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 })
 
 export class GroupPage {
+  constructor(private router: Router) { }
+
   searchTerm: string = '';
 
   grupper = [
@@ -112,5 +114,9 @@ export class GroupPage {
       group.plats.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       group.grupp.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  navigateToCreateGroup() {
+    this.router.navigate(['/groups/create']);
   }
 }
