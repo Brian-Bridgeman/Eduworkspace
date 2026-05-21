@@ -39,7 +39,7 @@ export const routes: Routes = [
     },
     {
         path: 'students/:id',
-        component: StudentPage
+        component: StudentDetailsPage
     },
     
      {
