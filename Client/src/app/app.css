@@ -31,3 +31,10 @@ app-sidebar {
 .layout {
     display: contents;
 }
+
+.checklist-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 24px;
+}
