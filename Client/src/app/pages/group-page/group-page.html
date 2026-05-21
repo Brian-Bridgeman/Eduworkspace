@@ -1,4 +1,5 @@
-<app-template-header title="Grupper" subtitle="Här ser du alla grupper." buttonText="Lägg till grupp" (searchChange)="searchTerm = $event">
+<app-template-header title="Grupper" subtitle="Här ser du alla grupper." buttonText="Lägg till grupp"
+    (searchChange)="searchTerm = $event">
 </app-template-header>
 
 <div class="tableDiv">
@@ -19,7 +20,7 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let grupp of filteredGroups">
+            <tr *ngFor="let grupp of filteredGroups" [routerLink]="['/groups', grupp.id]" class="clickable-row">
                 <td class="avatar">
                     <span class="material-symbols-outlined">Folder</span>
                     <span>{{ grupp.namn }}</span>
@@ -32,7 +33,8 @@
                 <td>{{ grupp.plats }}</td>
                 <td>{{ grupp.antalElever }}</td>
                 <td>{{ grupp.status }}</td>
-                <td class="actions-column"><app-dropdown-menu></app-dropdown-menu></td>
+                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu>
+                </td>
             </tr>
         </tbody>
     </table>
