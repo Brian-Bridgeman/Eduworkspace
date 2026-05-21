@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { SearchBar } from '../search-bar/search-bar';
 
 @Component({
   selector: 'app-template-header',
   standalone: true,
-  imports: [],
+  imports: [SearchBar],
   templateUrl: './template-header.html',
   styleUrl: './template-header.css'
 })
