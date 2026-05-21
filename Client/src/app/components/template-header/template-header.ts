@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { SearchBar } from '../search-bar/search-bar';
 
 @Component({
@@ -10,6 +10,8 @@ import { SearchBar } from '../search-bar/search-bar';
 })
 export class TemplateHeaderComponent {
 
+  @Output() searchChange = new EventEmitter<string>();
+  
   @Input() title: string = '';
 
   @Input() subtitle: string = '';

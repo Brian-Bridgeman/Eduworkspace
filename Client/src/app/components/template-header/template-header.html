@@ -11,4 +11,6 @@
 
 </div>
 
-<app-search-bar></app-search-bar>
+<app-search-bar
+  (searchChange)="searchChange.emit($event)">
+</app-search-bar>
