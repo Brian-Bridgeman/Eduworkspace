@@ -5,6 +5,7 @@ import { GroupPage } from './pages/group-page/group-page';
 import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 import { StartPage } from './pages/start-page/start-page';
 import { TeamsPage } from './pages/teams-page/teams-page';
+import { ChecklistPage } from './pages/checklist-page/checklist-page';
 
 export const routes: Routes = [
     {
@@ -27,6 +28,7 @@ export const routes: Routes = [
         path: 'groups/lag1',
         component: TeamsPage,
     },
+ 
     {
         /* ÄNDRA HÄR NÄR RESPEKTIVE SIDOR FINNS */
         path: 'classes',
@@ -38,7 +40,7 @@ export const routes: Routes = [
     },
     {
         path: 'checklist',
-        redirectTo: '/courses'
+        component: ChecklistPage
     }
 
 ];

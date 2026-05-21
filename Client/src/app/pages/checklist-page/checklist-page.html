@@ -1,0 +1,41 @@
+<app-template-header
+  title="Checklista"
+  subtitle="Skapa och hantera checklistor"
+  buttonText="Skapa"
+  (buttonClick)="openModal()">
+</app-template-header>
+
+<app-checklist-modal
+  *ngIf="showModal"
+  [checklist]="selectedChecklist"
+  (close)="closeModal()"
+  (save)="saveChecklist($event)">
+</app-checklist-modal>
+
+<div class="checklist-card"
+     *ngFor="let checklist of checklists; let i = index">
+
+  <div class="checklist-header">
+
+    <h3 class="checklist-title"
+       (click)="editChecklist(i)">
+      {{ checklist.name }}
+    </h3>
+
+    <button class="delete-btn"
+            (click)="deleteChecklist(i)">
+      Ta bort
+    </button>
+
+  </div>
+
+  <ul class="checklist-items"
+      *ngIf="checklist.open">
+
+    <li *ngFor="let item of checklist.items">
+      {{ item.text }}
+    </li>
+
+  </ul>
+
+</div>

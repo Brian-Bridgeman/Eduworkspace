@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,6 +17,10 @@ import { FormsModule } from '@angular/forms';
 export class ChecklistModal {
 
     @Output() close = new EventEmitter<void>();
+    @Output() save = new EventEmitter<any>();
+    @Input() checklist: any;
+
+    checklistName = '';
 
     checklistItems = [
         {
@@ -29,6 +33,14 @@ export class ChecklistModal {
         this.close.emit();
     }
 
+    saveChecklist() {
+        this.save.emit({
+            name: this.checklistName,
+            items: this.checklistItems
+        });
+
+        this.closeModal();
+    }
     addItem() {
         this.checklistItems.push({
             text: '',
