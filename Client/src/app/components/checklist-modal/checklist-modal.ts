@@ -21,6 +21,7 @@ export class ChecklistModal {
     @Input() checklist: any;
 
     checklistName = '';
+    title = '';
 
     checklistItems = [
         {
@@ -35,12 +36,13 @@ export class ChecklistModal {
 
     saveChecklist() {
         this.save.emit({
-            name: this.checklistName,
-            items: this.checklistItems
+            id: Date.now(),
+            title: this.title
         });
 
-        this.closeModal();
+        this.close.emit();
     }
+
     addItem() {
         this.checklistItems.push({
             text: '',

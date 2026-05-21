@@ -9,5 +9,8 @@
         }
         <router-outlet></router-outlet>
     </section>
-    <app-checklist-modal *ngIf="showModal" (close)="showModal = false"> </app-checklist-modal>
+    @if (showModal) {
+    <app-checklist-modal (close)="showModal = false" (save)="addChecklist($event)">
+    </app-checklist-modal>
+    }
 </div>

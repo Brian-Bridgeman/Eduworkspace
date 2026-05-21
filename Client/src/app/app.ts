@@ -13,9 +13,15 @@ import { SearchBar } from './components/search-bar/search-bar';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App {
   protected readonly title = signal('Client');
+
   showModal = false;
 
   checklists: any[] = [];
+
+  addChecklist(checklist: any) {
+    this.checklists.push(checklist);
+  }
 }
