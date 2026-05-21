@@ -12,10 +12,12 @@
     background: transparent;
     cursor: pointer;
     padding: 4px 8px;
-    transition: background 0.2s;
+    transition: background-color 0.2s;
     justify-content: center;
     display: flex;
     align-items: center;
+    margin-right: 20px;
+    border-radius: 10px;
 }
 
 .dropdown-menu {
