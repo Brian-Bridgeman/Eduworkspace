@@ -1,6 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { SearchBar } from '../search-bar/search-bar';
-
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-template-header',
   standalone: true,
@@ -18,4 +16,5 @@ export class TemplateHeaderComponent {
 
   @Input() buttonText: string = '';
 
+  @Output() buttonClick = new EventEmitter<void>();
 }
