@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { RouterLink } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-group-page',
   imports: [CommonModule, TemplateHeaderComponent, DropdownMenu, RouterLink],
