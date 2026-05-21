@@ -100,8 +100,30 @@ hr {
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
+    margin-top: 10px;
 }
 
 .details-btn:hover {
     background: #e9d5ff;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.check-item input {
+    width: 18px;
+    height: 18px;
+    accent-color: #7c3aed;
+    cursor: pointer;
+}
+
+.checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }

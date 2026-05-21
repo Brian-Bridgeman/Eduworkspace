@@ -10,7 +10,11 @@ import { Component, Input } from '@angular/core';
 export class ChecklistSetCard {
   @Input() title = 'Checklista';
   @Input() description = 'Beskrivning av checklistan?';
-  @Input() checklistExamples = ['A', 'B', 'C', 'D'];
+  @Input() checklistExamples = [{ text: 'aaa', done: false },
+  { text: 'bbb', done: false },
+  { text: 'ccc', done: false },
+  { text: 'ddd', done: false }
+  ];
 
   showAll = false;
 
@@ -22,6 +26,10 @@ export class ChecklistSetCard {
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
+  }
+
+  toggleItem(item: any) {
+    item.done = !item.done;
   }
 }
 
