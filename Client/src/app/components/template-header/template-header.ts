@@ -7,6 +7,7 @@ import { SearchBar } from '../search-bar/search-bar';
   templateUrl: './template-header.html',
   styleUrl: './template-header.css'
 })
+
 export class TemplateHeaderComponent {
 
   @Output() searchChange = new EventEmitter<string>();

@@ -1,0 +1,206 @@
+.student-details-page {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* TOP CARD */
+.student-card {
+  width: 100%;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--box-shadow);
+  box-sizing: border-box;
+}
+
+.student-left {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.student-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.student-info h1 {
+  margin: 0;
+  font-size: 42px;
+}
+
+.course {
+  color: #8b5cf6;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.student-info p {
+  margin: 10px 0;
+}
+
+.edit-btn {
+  background: #8b5cf6;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* GRID */
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* GENERAL CARD */
+.card {
+  width: 100%;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: var(--box-shadow);
+  box-sizing: border-box;
+}
+
+/* CARD HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* NOTES */
+.note {
+  border-left: 3px solid #8b5cf6;
+  padding-left: 16px;
+  margin-bottom: 24px;
+}
+
+.left-column .card {
+  flex: 1;
+}
+
+.date {
+  color: gray;
+  font-size: 14px;
+}
+
+/* BUTTONS */
+.small-btn,
+.upload-btn,
+.card-link-btn {
+  background: #8b5cf6;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* CHECKLIST */
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 17px;
+}
+
+.done {
+  color: green;
+}
+
+/* IMAGES */
+.images img {
+  width: 100px;
+  height: 100px;
+  border-radius: 14px;
+  object-fit: cover;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.images img:hover {
+  transform: scale(1.03);
+}
+
+.images img {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px 24px;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-light);
+  transition: 0.2s ease;
+}
+
+.tab-button:hover {
+  background: rgba(139, 92, 246, 0.08);
+  color: var(--primary-color);
+}
+
+.tab-button.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+@media (max-width: 1200px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .student-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+}

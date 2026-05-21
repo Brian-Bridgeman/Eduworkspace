@@ -1,0 +1,255 @@
+.kalender-kontainer {
+  width: 100%;
+  max-width: 1350px;
+  min-height: 400px;
+  height: calc(100vh - 160px);
+  padding: 14px;
+  border-radius: 24px;
+  background: #f8f7fb;
+  box-shadow: 0 10px 30px rgba(45, 35, 66, 0.08);
+  overflow: hidden;
+}
+
+.kalender-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: fit-content;
+   margin: 0 auto 14px auto;
+  padding: 8px 14px;
+  border-radius: 18px;
+  background: white;
+  color: #2f2937;
+  box-shadow: 0 6px 18px rgba(45, 35, 66, 0.08);
+}
+
+.kalender-header h1,
+.kalender-header h2 {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.back-button,
+.forward-button {
+  border: none;
+  background: #f0e9ff;
+  color: #7c3aed;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-button:hover,
+.forward-button:hover {
+  background: #e4d4ff;
+  transform: translateY(-1px);
+}
+
+.veckodagar {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #6b6475;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.veckodagar > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(45, 35, 66, 0.05);
+}
+
+.kalender-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: calc(100% - 90px);
+}
+
+.week-row {
+  display: grid;
+  grid-template-columns: 52px repeat(7, 1fr);
+  gap: 6px;
+  flex: 1;
+  min-height: 0;
+}
+
+.week-row .veckonummer {
+  height: 120px;
+  border-radius: 18px;
+  background: #f0e9ff;
+  color: #7c3aed;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dagruta,
+.empty-day {
+  height: 120px;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(45, 35, 66, 0.06);
+  
+}
+
+.dagruta,
+.empty-day,
+.week-row .veckonummer {
+  height: auto;
+  min-height: 0;
+}
+
+.dagruta {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 14px;
+  cursor: pointer;
+  overflow-y: auto;
+}
+
+.dagruta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.14);
+}
+
+.today {
+  border: 2px solid #a855f7;
+  box-shadow:
+    0 0 0 4px rgba(168, 85, 247, 0.12),
+    0 8px 22px rgba(124, 58, 237, 0.16);
+}
+/* Visar händeler i dagsrutan */
+.event-preview {
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: #f3e8ff;
+  color: #6d28d9;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: grab;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.event-preview:hover {
+  background: #ead5ff;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(31, 25, 45, 0.35);
+}
+
+.modal-layer {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+  z-index: 1;
+  width: min(380px, 100%);
+  padding: 24px;
+  border-radius: 24px;
+  background: #ffffff;
+  color: #2f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 18px 50px rgba(45, 35, 66, 0.18);
+}
+
+.modal input,
+.modal textarea {
+  padding: 12px;
+  border: 1px solid #e6e0ee;
+  border-radius: 14px;
+  background: #fbfaff;
+  color: #2f2937;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+  outline: none;
+  border-color: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
+}
+
+.save-btn,
+.modal button:not(.modal-backdrop):not(.close-btn) {
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  background: #7c3aed;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+}
+
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: #f4f0fb;
+  color: #6b6475;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.beskrivning {
+  min-height: 120px;
+  resize: vertical;
+}
+
+@media (max-width: 768px) {
+  .kalender-kontainer {
+    width: 100%;
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .veckodagar,
+  .week-row {
+    grid-template-columns: 42px repeat(7, minmax(70px, 1fr));
+  }
+
+  .kalender-wrapper {
+    overflow-x: auto;
+  }
+
+  .dagruta,
+  .empty-day,
+  .week-row .veckonummer {
+    height: 90px;
+  }
+}
