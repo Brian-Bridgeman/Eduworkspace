@@ -23,6 +23,10 @@ export class ChecklistPage {
 
   checklists: any[] = [];
 
+  selectedChecklist: any = null;
+
+  selectedIndex: number | null = null;
+
   openModal() {
     this.showModal = true;
   }
@@ -31,10 +35,44 @@ export class ChecklistPage {
     this.showModal = false;
   }
 
-  addChecklist(checklist: any) {
-    this.checklists.push(checklist);
+  saveChecklist(checklist: any) {
+
+    checklist.open = false;
+
+    if (this.selectedIndex !== null) {
+
+      this.checklists[this.selectedIndex] = checklist;
+
+    } else {
+
+      this.checklists.push(checklist);
+    }
+
+    this.selectedChecklist = null;
+
+    this.selectedIndex = null;
 
     this.closeModal();
+  }
+
+  toggleChecklist(index: number) {
+    this.checklists[index].open =
+      !this.checklists[index].open;
+  }
+
+  deleteChecklist(index: number) {
+    this.checklists.splice(index, 1);
+  }
+
+  editChecklist(index: number) {
+
+    this.selectedChecklist = {
+      ...this.checklists[index]
+    };
+
+    this.selectedIndex = index;
+
+    this.showModal = true;
   }
 
 }

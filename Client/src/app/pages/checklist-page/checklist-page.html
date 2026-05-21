@@ -1,24 +1,41 @@
 <app-template-header
-  title="Checklist"
-  subtitle="Create checklist page"
-  buttonText="Create"
+  title="Checklista"
+  subtitle="Skapa och hantera checklistor"
+  buttonText="Skapa"
   (buttonClick)="openModal()">
 </app-template-header>
 
 <app-checklist-modal
   *ngIf="showModal"
+  [checklist]="selectedChecklist"
   (close)="closeModal()"
-  (save)="addChecklist($event)">
+  (save)="saveChecklist($event)">
 </app-checklist-modal>
 
-<div *ngFor="let checklist of checklists">
+<div class="checklist-card"
+     *ngFor="let checklist of checklists; let i = index">
 
-  <h3>{{ checklist.name }}</h3>
+  <div class="checklist-header">
 
-  <ul>
+    <h3 class="checklist-title"
+       (click)="editChecklist(i)">
+      {{ checklist.name }}
+    </h3>
+
+    <button class="delete-btn"
+            (click)="deleteChecklist(i)">
+      Ta bort
+    </button>
+
+  </div>
+
+  <ul class="checklist-items"
+      *ngIf="checklist.open">
+
     <li *ngFor="let item of checklist.items">
       {{ item.text }}
     </li>
+
   </ul>
 
 </div>
