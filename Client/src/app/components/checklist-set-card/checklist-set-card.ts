@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './checklist-set-card.css',
 })
 export class ChecklistSetCard {
-  @Input() title = 'Granska riskbedömning';
-  @Input() description = 'Checklista';
+  @Input() title = 'Checklista';
+  @Input() description = 'Beskrivning av checklistan?';
   @Input() checklistExamples = ['A', 'B', 'C', 'D'];
 
   showAll = false;
