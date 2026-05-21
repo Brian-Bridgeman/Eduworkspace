@@ -1,0 +1,11 @@
+<app-template-header
+  title="Checklist"
+  subtitle="Create checklist page"
+  buttonText="Create"
+  (buttonClick)="openModal()">
+</app-template-header>
+
+<app-checklist-modal
+  *ngIf="showModal"
+  (close)="closeModal()">
+</app-checklist-modal>
