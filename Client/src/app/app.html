@@ -1,21 +1,9 @@
 <app-header></app-header>
 
 <div class="layout">
-    <app-sidebar (checklistClick)="showModal = true">
-    </app-sidebar>
+    <app-sidebar (checklistClick)="showModal = true"> </app-sidebar>
     <section class="page">
         <router-outlet></router-outlet>
     </section>
-    <app-checklist-modal *ngIf="showModal" (close)="showModal = false">
-    </app-checklist-modal>
-
-    <section class="page">
-        <div class="checklist-container">
-            <app-checklist-set-card></app-checklist-set-card>
-            <app-checklist-set-card></app-checklist-set-card>
-            <app-checklist-set-card></app-checklist-set-card>
-            <app-checklist-set-card></app-checklist-set-card>
-        </div>
-        <router-outlet></router-outlet>
-    </section>
+    <app-checklist-modal *ngIf="showModal" (close)="showModal = false"> </app-checklist-modal>
 </div>
