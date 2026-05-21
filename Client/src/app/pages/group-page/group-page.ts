@@ -11,6 +11,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 
 export class GroupPage {
+  searchTerm: string = '';
+
   grupper = [
     {
       namn: 'H1 26',
@@ -101,4 +103,14 @@ export class GroupPage {
       status: 'Avslutad'
     }
   ];
+
+  get filteredGroups() {
+    return this.grupper.filter(group =>
+      group.namn.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      group.kurs.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      group.grupp.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      group.plats.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      group.grupp.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 }
