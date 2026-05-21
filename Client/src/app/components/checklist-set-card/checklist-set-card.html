@@ -1,13 +1,22 @@
-<h2>{{ title }}</h2>
+<div class="checklist-card">
 
-@if (description) {
-<p>{{ description }}</p>
-}
+    <div class="card-header">
 
-@if (checklistExamples?.length) {
-<ul>
-    @for (item of checklistExamples; track item) {
-    <li>{{ item }}</li>
-    }
-</ul>
-}
+        <span class="material-symbols-outlined">
+            assignment_turned_in
+        </span>
+
+        <div class="header-text">
+            <h2>{{ title }}</h2>
+
+            @if (description) {
+            <p>{{ description }}</p>
+            }
+        </div>
+
+        <button class="menu-btn">⋯</button>
+
+    </div>
+
+    <hr />
+</div>
