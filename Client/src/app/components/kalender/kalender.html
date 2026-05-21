@@ -1,1 +1,199 @@
-<p>kalender works!</p>
+<div class="kalender-kontainer">
+
+  <!-- HEADER -->
+  <div class="kalender-header">
+
+    <button id="back-button" class="back-button">
+      ←
+    </button>
+
+    <h1>{{ monthName }}</h1>
+    <h2>{{ year }}</h2>
+
+    <button id="forward-button" class="forward-button">
+      →
+    </button>
+
+  </div>
+
+  <!-- VECKODAGAR -->
+  <div class="veckodagar">
+
+    <div class="veckonummer">
+      Vecka
+    </div>
+
+    @for (day of veckodagar; track day) {
+      <div class="veckodag">
+        {{ day }}
+      </div>
+    }
+
+  </div>
+
+  <!-- KALENDER -->
+  <div class="kalender-wrapper">
+
+    @for (week of weeks; track week; let index = $index) {
+
+      <div class="week-row">
+
+        <div class="veckonummer">
+          {{ 18 + index }}
+        </div>
+
+        @for (day of week; track day) {
+
+          @if (day === null) {
+
+            <div class="empty-day"></div>
+
+          } @else {
+
+            <div
+              class="dagruta"
+              [class.today]="day === todayDay"
+
+              role="button"
+              tabindex="0"
+
+              (click)="openDay(day)"
+              (keydown)="handleDayKeydown($event, day)"
+
+              (dragover)="handleDragOver($event)"
+              (drop)="copyEventToDay($event, day)"
+            >
+
+              <span class="dagnummer">
+                {{ day }}
+              </span>
+
+              @for (event of getEventsForDay(day); track event.id) {
+
+                <div
+                  class="event-preview"
+
+                  role="button"
+                  tabindex="0"
+
+                  draggable="true"
+
+                  (click)="$event.stopPropagation(); openEvent(event)"
+
+                  (keydown)="handleEventKeydown($event, event)"
+
+                  (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
+
+                  (dragend)="draggedEventId = null"
+                >
+
+                  {{ event.time }} {{ event.title }}
+
+                </div>
+
+              }
+
+            </div>
+
+          }
+
+        }
+
+      </div>
+
+    }
+
+  </div>
+
+
+  <!-- MODAL för händelse-fönster-->
+   @if (selectedDay !== null) {
+  <div class="modal-layer">
+
+    <button
+      type="button"
+      class="modal-backdrop"
+      aria-label="Stäng modal"
+      (click)="closeModal()">
+    </button>
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="new-event-title">
+
+      <button
+        type="button"
+        class="close-btn"
+        aria-label="Stäng"
+        (click)="closeModal()">
+        ×
+      </button>
+
+      <h2 id="new-event-title">
+        @if (selectedEvent) {
+          Ändra händelse
+        } @else {
+          Ny händelse
+        }
+      </h2>
+
+      <p>Dag {{ selectedDay }}</p>
+
+      <label for="event-title">Titel</label>
+      <input
+        id="event-title"
+        type="text"
+        placeholder="Titel"
+        [(ngModel)]="title"
+      />
+
+      <label for="event-time">Tid</label>
+      <input
+        id="event-time"
+        type="time"
+        [(ngModel)]="time"
+      />
+
+      <label for="event-place">Plats</label>
+      <input
+        id="event-place"
+        type="text"
+        placeholder="Plats"
+        [(ngModel)]="place"
+      />
+
+      <label for="event-description">Beskrivning</label>
+      <textarea
+        id="event-description"
+        class="beskrivning"
+        placeholder="Beskrivning"
+        [(ngModel)]="description"
+      ></textarea>
+
+      <button
+        type="button"
+        (click)="saveEvent()">
+        Spara
+      </button>
+
+      @if (selectedEvent) {
+        <button
+          type="button"
+          class="delete-btn"
+          (click)="deleteEvent()">
+          Radera
+        </button>
+      }
+
+    </div>
+
+  </div>
+}
+
+
+  
+</div>
+
+
