@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { CoursesPage } from './pages/courses-page/courses-page';
 import { StudentPage } from './pages/student-page/student-page';
+import { GroupPage } from './pages/group-page/group-page';
 import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 import { StartPage } from './pages/start-page/start-page';
 
