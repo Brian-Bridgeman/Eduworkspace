@@ -9,12 +9,12 @@
                 <th>E-post</th>
                 <th>Företag</th>
                 <th>Kurs</th>
+                <th class="actions-column"></th>
             </tr>
         </thead>
 
         <tbody>
-            <tr *ngFor="let person of filteredPersons"
-                [routerLink]="['/students', person.id]">
+            <tr *ngFor="let person of filteredPersons" [routerLink]="['/students', person.id]" class="clickable-row">
                 <td class="avatar">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span>{{ person.namn }}</span>
@@ -23,6 +23,7 @@
                 <td>{{ person.epost }}</td>
                 <td>{{ person.foretag }}</td>
                 <td>{{ person.kurs }}</td>
+                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
             </tr>
         </tbody>
     </table>

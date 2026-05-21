@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-start-page-card',
-  imports: [NgClass],
+  imports: [NgClass, RouterLink],
   templateUrl: './start-page-card.html',
   styleUrl: './start-page-card.css',
 })
@@ -19,4 +20,6 @@ export class StartPageCard {
   @Input() createText: string = '';
 
   @Input() type: 'kurser' | 'elever' | 'grupper' | 'kalender' = 'kurser';
+
+  @Input() page: 'courses' | 'students' | 'groups' | 'calender' = 'courses';
 }
