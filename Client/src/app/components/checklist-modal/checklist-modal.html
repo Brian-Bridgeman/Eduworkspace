@@ -1,0 +1,79 @@
+<div class="overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2>Skapa Checklista</h2>
+
+            <button class="close-btn" (click)="closeModal()">
+                ✕
+            </button>
+
+        </div>
+
+        <!-- Namn -->
+        <div class="form-group">
+
+            <label>Namn på listan</label>
+
+            <input type="text" placeholder="T.ex. Grupparbete" />
+
+        </div>
+
+        <div class="form-group">
+            <label>Checklistpunkter</label>
+
+            <div class="check-item" *ngFor="let item of checklistItems; let i = index; trackBy: trackByIndex">
+
+                <input type="checkbox" [(ngModel)]="item.checked" aria-label="Checklist checkbox" />
+
+                <input type="text" [(ngModel)]="item.text" placeholder="Skriv punkt..." aria-label="Checklist punkt" />
+
+                <button type="button" class="delete-btn" (click)="removeItem(i)">
+                    ✕
+                </button>
+
+            </div>
+
+            <button type="button" class="add-btn" (click)="addItem()">
+                + Lägg till punkt
+            </button>
+        </div>
+
+        <div class="form-group">
+
+            <label>Bilaga</label>
+
+            <label for="fileUpload" class="upload-box">
+
+                <span class="material-symbols-outlined upload-icon">
+                    cloud_upload
+                </span>
+
+                <p>Ladda upp bild eller PDF</p>
+
+                <small>PNG, JPG eller PDF</small>
+
+            </label>
+
+            <input id="fileUpload" type="file" accept="image/*,.pdf" hidden />
+
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+
+            <button class="cancel-btn" (click)="closeModal()">
+                Avbryt
+            </button>
+
+            <button class="save-btn">
+                Spara
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
