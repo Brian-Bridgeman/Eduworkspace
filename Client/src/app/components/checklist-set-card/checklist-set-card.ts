@@ -10,5 +10,12 @@ import { Component, Input } from '@angular/core';
 export class ChecklistSetCard {
   @Input() title = 'Granska riskbedömning';
   @Input() description = 'Checklista';
-  @Input() checklistExamples = ['A', 'B', 'C'];
+  @Input() checklistExamples = ['A', 'B', 'C', 'D'];
+
+  showAll = false;
+
+  toggleDetails() {
+    this.showAll = !this.showAll;
+  }
 }
+

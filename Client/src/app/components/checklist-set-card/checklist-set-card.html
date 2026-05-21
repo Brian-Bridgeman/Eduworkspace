@@ -24,7 +24,7 @@
 
         <ul class="checklist">
 
-            @for (item of checklistExamples.slice(0, 3); track item) {
+            @for (item of (showAll ? checklistExamples : checklistExamples.slice(0, 3)); track item) {
             <li>
                 <span class="check">✓</span>
                 {{ item }}
@@ -32,6 +32,16 @@
             }
 
         </ul>
+
+        @if (checklistExamples.length > 3) {
+
+        <button class="details-btn" (click)="toggleDetails()">
+
+            {{ showAll ? 'Visa mindre' : 'Visa mer' }}
+
+        </button>
+
+        }
 
     </div>
 </div>
