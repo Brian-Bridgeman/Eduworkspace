@@ -21,11 +21,13 @@ export class ChecklistModal {
     @Input() checklist: any;
 
     checklistName = '';
+    title = '';
+    description = '';
 
     checklistItems = [
         {
             text: '',
-            checked: false
+            done: false
         }
     ];
 
@@ -34,17 +36,20 @@ export class ChecklistModal {
     }
 
     saveChecklist() {
+        console.log('SAVE EMITTED', this.title);
+
         this.save.emit({
-            name: this.checklistName,
+            id: Date.now(),
+            title: this.title,
+            description: this.description,
             items: this.checklistItems
         });
-
-        this.closeModal();
     }
+
     addItem() {
         this.checklistItems.push({
             text: '',
-            checked: false
+            done: false
         });
     }
 

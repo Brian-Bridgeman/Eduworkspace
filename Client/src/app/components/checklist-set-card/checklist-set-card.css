@@ -1,0 +1,130 @@
+.checklist-card {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 8px 24px #0f172a14;
+    margin: 10px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.icon-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header-text h2 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+}
+
+.header-text p {
+    margin: 6px 0 0;
+    font-size: 15px;
+    color: #6b7280;
+}
+
+.card-header .material-symbols-outlined {
+    font-size: 40px;
+    color: #7c3aed;
+    margin-right: 12px;
+}
+
+.menu-btn {
+    border: none;
+    background: transparent;
+    font-size: 26px;
+    cursor: pointer;
+    color: #6b7280;
+    transition: 0.2s;
+}
+
+.menu-btn:hover {
+    color: #111827;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px #0f172a1f;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    min-width: 140px;
+}
+
+.dropdown-menu button {
+    background: transparent;
+    border: none;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 14px;
+    color: #374151;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.dropdown-menu button:hover {
+    background: #f3e8ff;
+    color: #7c3aed;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 0 0 20px;
+}
+
+.details-btn {
+    font-family: inherit;
+    border: none;
+    background: #f3e8ff;
+    color: #7c3aed;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+.details-btn:hover {
+    background: #e9d5ff;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.check-item input {
+    width: 18px;
+    height: 18px;
+    accent-color: #7c3aed;
+    cursor: pointer;
+}
+
+.checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
