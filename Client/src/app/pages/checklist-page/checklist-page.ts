@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { ChecklistModal } from '../../components/checklist-modal/checklist-modal';
 import { CommonModule } from '@angular/common';
+import { ChecklistSetCard } from '../../components/checklist-set-card/checklist-set-card';
 
 @Component({
   selector: 'app-checklist-page',
@@ -10,7 +11,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     TemplateHeaderComponent,
-    ChecklistModal
+    ChecklistModal,
+    ChecklistSetCard
   ],
 
   templateUrl: './checklist-page.html',

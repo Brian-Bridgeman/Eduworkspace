@@ -17,7 +17,7 @@
 
             <label>Namn på listan</label>
 
-            <input type="text" [(ngModel)]="checklistName" placeholder="T.ex. Grupparbete" />
+            <input type="text" [(ngModel)]="title" placeholder="T.ex. Grupparbete" />
 
         </div>
 
@@ -26,7 +26,7 @@
 
             <div class="check-item" *ngFor="let item of checklistItems; let i = index; trackBy: trackByIndex">
 
-                <input type="checkbox" [(ngModel)]="item.checked" aria-label="Checklist checkbox" />
+                <input type="checkbox" [(ngModel)]="item.done" aria-label="Checklist checkbox" />
 
                 <input type="text" [(ngModel)]="item.text" placeholder="Skriv punkt..." aria-label="Checklist punkt" />
 
@@ -68,7 +68,7 @@
                 Avbryt
             </button>
 
-            <button class="save-btn" (click)="saveChecklist()">
+            <button class="save-btn" type="button" (click)="saveChecklist()">
                 Spara
             </button>
 

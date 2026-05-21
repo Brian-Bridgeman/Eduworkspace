@@ -1,20 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 @Component({
   selector: 'app-group-page',
-  imports: [CommonModule, TemplateHeaderComponent, DropdownMenu],
+  imports: [CommonModule, TemplateHeaderComponent, DropdownMenu, RouterLink],
   templateUrl: './group-page.html',
   styleUrl: './group-page.css',
 })
 
 export class GroupPage {
+  constructor(private router: Router) { }
+
   searchTerm: string = '';
 
   grupper = [
     {
+      id: '1',
       namn: 'H1 26',
       kurs: 'Elinstallation',
       grupp: 'Grupp A',
@@ -26,6 +29,7 @@ export class GroupPage {
       status: 'Kommande'
     },
     {
+      id: '2',
       namn: 'H2 26',
       kurs: 'Elinstallation',
       grupp: 'Grupp B',
@@ -37,6 +41,7 @@ export class GroupPage {
       status: 'Kommande'
     },
     {
+      id: '3',
       namn: 'H3 26',
       kurs: 'Systemutveckling med AI',
       grupp: 'Grupp C',
@@ -48,6 +53,7 @@ export class GroupPage {
       status: 'Pågående'
     },
     {
+      id: '4',
       namn: 'H4 26',
       kurs: 'Webbutveckling',
       grupp: 'Grupp A',
@@ -59,6 +65,7 @@ export class GroupPage {
       status: 'Pågående'
     },
     {
+      id: '5',
       namn: 'H5 26',
       kurs: 'Brandskydd',
       grupp: 'Grupp A',
@@ -70,6 +77,7 @@ export class GroupPage {
       status: 'Kommande'
     },
     {
+      id: '6',
       namn: 'H10 26',
       kurs: 'Elkraftteknik',
       grupp: 'Grupp A',
@@ -81,6 +89,7 @@ export class GroupPage {
       status: 'Avslutad'
     },
     {
+      id: '7',
       namn: 'H11 26',
       kurs: 'Nätverksteknik',
       grupp: 'Grupp B',
@@ -92,6 +101,7 @@ export class GroupPage {
       status: 'Avslutad'
     },
     {
+      id: '8',
       namn: 'H12 26',
       kurs: 'Systemutveckling med AI',
       grupp: 'Grupp A',
@@ -112,5 +122,9 @@ export class GroupPage {
       group.plats.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       group.grupp.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  navigateToCreateGroup() {
+    this.router.navigate(['/groups/create']);
   }
 }

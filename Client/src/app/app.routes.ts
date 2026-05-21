@@ -7,6 +7,8 @@ import { StartPage } from './pages/start-page/start-page';
 import { Kalender } from './components/kalender/kalender';
 import { TeamsPage } from './pages/teams-page/teams-page';
 import { ChecklistPage } from './pages/checklist-page/checklist-page';
+import { StudentDetailsPage } from './pages/student-details-page/student-details-page';
+import { CreateGroupPage } from './pages/create-group-page/create-group-page';
 
 export const routes: Routes = [
     {
@@ -26,14 +28,20 @@ export const routes: Routes = [
         component: StartPage,
     },
     {
-        path: 'groups/lag1',
-        component: TeamsPage,
+        path: 'students/:id',
+        component: StudentPage
     },
- 
     {
-        /* ÄNDRA HÄR NÄR RESPEKTIVE SIDOR FINNS */
-        path: 'classes',
-        redirectTo: '/courses'
+        path: 'courses/:id',
+        component: CoursesPage
+    },
+    {
+        path: 'groups/create',
+        component: CreateGroupPage
+    },
+    {
+        path: 'groups/:id',
+        component: TeamsPage
     },
     {
         path: 'calender',

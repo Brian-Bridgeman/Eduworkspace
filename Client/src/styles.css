@@ -1,15 +1,40 @@
+:root {
+
+  /* COLORS */
+  --primary-color: #8b5cf6;
+  --primary-hover: #7c3aed;
+  --background-color: #f5f5f5;
+  --card-background: #ffffff;
+  --text-color: #111111;
+  --text-light: #666666;
+  --border-color: #eeeeee;
+
+  /* SHADOW */
+  --box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+
+  /* RADIUS */
+  --border-radius: 20px;
+
+  /* SPACING */
+  --spacing-sm: 12px;
+  --spacing-md: 24px;
+  --spacing-lg: 32px;
+}
+
 /* You can add global styles to this file, and also import other style files */
 body {
   font-family: 'Nunito', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: var(--background-color);
+  color: var(--text-color);
 }
 
 /*CSS for the tabels in student-page, courses-page and courses-session-page */
 .tableDiv {
   background: #f7f8fc;
-  overflow: visible;
+  overflow-y: scroll;
   max-height: 24em;
 }
 
@@ -46,4 +71,12 @@ tbody td {
   padding: 0;
   text-align: left;
 
+}
+
+.clickable-row {
+   cursor: pointer;
+}
+
+.clickable-row:hover {
+  background-color: #f5f5f5;
 }
