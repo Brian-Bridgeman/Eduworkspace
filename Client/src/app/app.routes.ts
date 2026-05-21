@@ -1,13 +1,11 @@
 import { Routes } from '@angular/router';
 import { CoursesPage } from './pages/courses-page/courses-page';
 import { StudentPage } from './pages/student-page/student-page';
+import { GroupPage } from './pages/group-page/group-page';
 import { ChecklistModal } from './components/checklist-modal/checklist-modal';
-import {GroupPage} from "./pages/group-page/group-page";
+import { StartPage } from './pages/start-page/start-page';
+
 export const routes: Routes = [
-    {
-        path: 'start-page',
-        redirectTo: '/courses'
-    },
     {
         path: 'courses',
         component: CoursesPage
@@ -20,6 +18,10 @@ export const routes: Routes = [
         path: 'groups',
         component: GroupPage
     },
+   {
+    path: 'start',
+    component: StartPage,
+  },
     {
         /* ÄNDRA HÄR NÄR RESPEKTIVE SIDOR FINNS */
         path: 'classes',
@@ -33,4 +35,5 @@ export const routes: Routes = [
         path: 'checklist',
         redirectTo: '/courses'
     }
+
 ];
