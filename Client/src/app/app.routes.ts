@@ -43,12 +43,10 @@ export const routes: Routes = [
     {
         path: 'groups/:groupId',
         component: TeamsPage,
-        children: [
-            {
-                path: 'teams/:teamId',
-                component: TeamDetailsPage
-            }
-        ]
+    },
+    {
+      path: 'groups/:groupId/teams/:teamId',
+      component: TeamDetailsPage
     },
     {
         path: 'calender',
