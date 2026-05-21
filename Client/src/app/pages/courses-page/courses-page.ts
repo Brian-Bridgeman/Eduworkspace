@@ -10,15 +10,31 @@ import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
   styleUrl: './courses-page.css',
 })
 export class CoursesPage {
-   courses = [
-    { name: 'C# Grund',
-       code: 'C#',
-     category: 'Databaser' },
-     { name: 'C# Grund',
-       code: 'C#',
-     category: 'Databaser' },
-     { name: 'C# Grund',
-       code: 'C#',
-     category: 'Databaser' }
+  searchTerm: string = '';
+
+  courses = [
+    {
+      name: 'C# Grund',
+      code: 'C#',
+      category: 'Databaser'
+    },
+    {
+      name: 'Fiber Grund',
+      code: 'PHP',
+      category: 'Frontend'
+    },
+    {
+      name: 'Kebab Grund',
+      code: 'Python',
+      category: 'Backend'
+    }
   ];
+
+  get filteredCourses() {
+    return this.courses.filter(course =>
+      course.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      course.code.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      course.category.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
+  }
 }

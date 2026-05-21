@@ -1,5 +1,5 @@
 <div>
-    <app-template-header title="Kurser" subtitle="Här ser du alla registrerade kurser." buttonText="Lägg till kurs">
+    <app-template-header title="Kurser" subtitle="Här ser du alla registrerade kurser." buttonText="Lägg till kurs" (searchChange)="searchTerm = $event">
     </app-template-header>
 
     <div class="tableDiv">
@@ -14,7 +14,7 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let course of courses">
+                <tr *ngFor="let course of filteredCourses">
                     <td>{{ course.name }}</td>
                     <td>{{ course.code }}</td>
                     <td>{{ course.category }}</td>

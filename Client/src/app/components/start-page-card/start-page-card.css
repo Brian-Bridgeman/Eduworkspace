@@ -1,0 +1,95 @@
+h1 {
+  color: #202e41;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 10px;
+  text-align: center;
+}
+p {
+  color: #6b768c;
+  font-size: 20px;
+  margin-top: 0px;
+  margin-bottom: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.container {
+  border-radius: 1rem;
+  background-color: white;
+  padding: 40px 50px 100px 50px;
+  width: 15vw;
+  box-shadow: 0px 5px 10px 0px #d4e2f1;
+  transition: all 0.2s ease;
+}
+.icon-bubble {
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+.icon-bubble .material-symbols-outlined {
+  font-size: 60px;
+}
+.kurser {
+  --bg: #e8f0fe;
+  --border: #3b82f6;
+  --text: #3b82f6;
+}
+
+.elever {
+  --bg: #ebf7eb;
+  --border: #41ab4b;
+  --text: #41ab4b;
+}
+
+.grupper {
+  --bg: #f1ebfc;
+  --border: #8337e7;
+  --text: #8337e7;
+}
+
+.kalender {
+  --bg: #fef4eb;
+  --border: #fe9314;
+  --text: #fe9314;
+}
+button {
+  background-color: var(--bg);
+  color: var(--text);
+  border-color: var(--border);
+  font-weight: bold;
+  font-size: 15px;
+  width: inherit;
+  height: 60px;
+  margin-bottom: 20px;
+  border-radius: 1rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.viewButton {
+  border-color: transparent;
+}
+.createButton {
+  background-color: transparent;
+}
+.viewButton:hover,
+.createButton:hover {
+  filter: brightness(95%);
+}
+.viewButton:hover,
+.createButton:hover,
+.container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
