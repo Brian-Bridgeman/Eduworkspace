@@ -12,6 +12,7 @@ import { CreateGroupPage } from './pages/create-group-page/create-group-page';
 import { Overview } from './pages/overview/overview';
 
 export const routes: Routes = [
+
     {
         path: 'courses',
         component: CoursesPage
@@ -29,6 +30,10 @@ export const routes: Routes = [
         component: StartPage,
     },
     {
+        path: 'groups/create',
+        component: CreateGroupPage
+    },
+    {
         path: 'groups/:id',
         component: TeamsPage
     },
@@ -36,13 +41,10 @@ export const routes: Routes = [
         path: 'students/:id',
         component: StudentPage
     },
-    {
+    
+     {
         path: 'courses/:id',
         component: CoursesPage
-    },
-    {
-        path: 'groups/create',
-        component: CreateGroupPage
     },
     {
         path: 'kalender',
