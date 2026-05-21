@@ -54,8 +54,12 @@
             <span class="material-symbols-outlined search-icon">search</span>
             <input type="text" class="form-input search-input" placeholder="Sök elev namn eller kontaktuppgifter" />
           </div>
-          <button class="btn btn-outline">Lägg till</button>
+          <button class="btn btn-outline" (click)="showAddStudentModal = true">Lägg till</button>
         </div>
+
+        @if (showAddStudentModal) {
+          <app-add-student-modal (closed)="showAddStudentModal = false" (confirmed)="showAddStudentModal = false" />
+        }
 
         <div class="form-group">
           <label class="form-label">Tillagda elever (0)</label>
