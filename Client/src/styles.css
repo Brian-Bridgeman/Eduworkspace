@@ -9,7 +9,7 @@ body {
 /*CSS for the tabels in student-page, courses-page and courses-session-page */
 .tableDiv {
   background: #f7f8fc;
-  overflow: visible;
+  overflow-y: scroll;
   max-height: 24em;
 }
 
@@ -46,4 +46,12 @@ tbody td {
   padding: 0;
   text-align: left;
 
+}
+
+.clickable-row {
+   cursor: pointer;
+}
+
+.clickable-row:hover {
+  background-color: #f5f5f5;
 }

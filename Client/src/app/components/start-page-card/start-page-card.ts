@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-start-page-card',
-  imports: [NgClass, RouterLink, RouterLinkActive],
+  imports: [NgClass, RouterLink],
   templateUrl: './start-page-card.html',
   styleUrl: './start-page-card.css',
 })
