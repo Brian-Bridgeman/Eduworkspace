@@ -11,6 +11,8 @@ import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 })
 
 export class GroupPage {
+  constructor(private router: Router) { }
+
   searchTerm: string = '';
 
   grupper = [
@@ -120,5 +122,9 @@ export class GroupPage {
       group.plats.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       group.grupp.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  navigateToCreateGroup() {
+    this.router.navigate(['/groups/create']);
   }
 }
