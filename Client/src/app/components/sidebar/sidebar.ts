@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 
@@ -10,5 +10,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
+
+  @Output() checklistClick = new EventEmitter<void>();
+
+  openChecklistModal() {
+    this.checklistClick.emit();
+  }
 
 }

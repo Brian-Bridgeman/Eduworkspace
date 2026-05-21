@@ -2,14 +2,16 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Header } from './components/header/header';
-import { ChecklistSetCard } from './components/checklist-set-card/checklist-set-card';
+import { CommonModule } from '@angular/common';
+import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Sidebar, Header, ChecklistSetCard],
+  imports: [RouterOutlet, Sidebar, Header, CommonModule, ChecklistModal],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('Client');
+  showModal = false;
 }
