@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 export class ChecklistModal {
 
     @Output() close = new EventEmitter<void>();
+    @Output() save = new EventEmitter<any>();
+
+    checklistName = '';
 
     checklistItems = [
         {
@@ -29,6 +32,14 @@ export class ChecklistModal {
         this.close.emit();
     }
 
+    saveChecklist() {
+        this.save.emit({
+            name: this.checklistName,
+            items: this.checklistItems
+        });
+
+        this.closeModal();
+    }
     addItem() {
         this.checklistItems.push({
             text: '',

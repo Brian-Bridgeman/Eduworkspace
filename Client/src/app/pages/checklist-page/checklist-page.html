@@ -7,5 +7,18 @@
 
 <app-checklist-modal
   *ngIf="showModal"
-  (close)="closeModal()">
+  (close)="closeModal()"
+  (save)="addChecklist($event)">
 </app-checklist-modal>
+
+<div *ngFor="let checklist of checklists">
+
+  <h3>{{ checklist.name }}</h3>
+
+  <ul>
+    <li *ngFor="let item of checklist.items">
+      {{ item.text }}
+    </li>
+  </ul>
+
+</div>

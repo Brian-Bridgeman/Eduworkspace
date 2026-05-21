@@ -6,20 +6,35 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-checklist-page',
   standalone: true,
-  imports: [TemplateHeaderComponent, ChecklistModal, CommonModule],
+
+  imports: [
+    CommonModule,
+    TemplateHeaderComponent,
+    ChecklistModal
+  ],
+
   templateUrl: './checklist-page.html',
   styleUrl: './checklist-page.css'
 })
+
 export class ChecklistPage {
 
   showModal = false;
 
-  openModal() {
-  this.showModal = true;
-}
+  checklists: any[] = [];
 
-closeModal() {
-  this.showModal = false;
-}
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  addChecklist(checklist: any) {
+    this.checklists.push(checklist);
+
+    this.closeModal();
+  }
 
 }
