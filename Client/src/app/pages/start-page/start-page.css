@@ -2,16 +2,26 @@
   background-color: #f6f9fc;
   border: 1px solid red;
 }
+.title {
+  font-size: 40px;
+  text-align: left;
+}
+.under-title {
+  text-align: left;
+}
 h1 {
-  font-size: 35px;
-  font-family:
-    'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-    sans-serif;
+  color: #202e41;
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
   margin-bottom: 5px;
+  text-align: center;
 }
 p {
-  font-size: 25px;
+  color: #6b768c;
+  font-size: 22px;
   margin-top: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 .header {
   margin: 60px 60px 40px;
@@ -20,13 +30,7 @@ p {
   display: flex;
   justify-content: center;
   gap: 30px;
-  padding: 20px 70px;
-}
-.container {
-  border-radius: 10px;
-  background-color: white;
-  padding: 100px;
-  width: 15vw;
-  height: 40vh;
-  box-shadow: 0px 5px 10px 0px #d4e2f1;
+  padding: 20px 0px;
+  flex-wrap: wrap;
+  margin: 0;
 }
