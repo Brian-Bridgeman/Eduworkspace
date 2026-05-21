@@ -1,4 +1,4 @@
-<app-template-header title="Elever" subtitle="Här ser du alla registrerade elever." buttonText="Lägg till elev" (searchChange)="searchTerm = $event"></app-template-header>
+<app-template-header title="Elever" subtitle="Här ser du alla registrerade elever." buttonText="Lägg till elev" (searchChange)="searchTerm = $event" (buttonClick)="openModal()"></app-template-header>
 
 <div class="tableDiv">
     <table>
@@ -28,3 +28,9 @@
         </tbody>
     </table>
 </div>
+@if (showModal()) {
+    <app-add-student-modal
+        (close)="showModal.set(false)"
+        (save)="addStudent($event)">
+    </app-add-student-modal>
+}

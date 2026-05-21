@@ -1,19 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { RouterModule } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { RouterLink } from '@angular/router';
-
+import { Signal } from '@angular/core';
+import { AddStudentModal } from '../../components/add-student-modal/add-student-modal';
 @Component({
   selector: 'app-student-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterModule, DropdownMenu, RouterLink],
+  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterModule, DropdownMenu, RouterLink,AddStudentModal],
   templateUrl: './student-page.html',
   styleUrl: './student-page.css',
 })
 
 export class StudentPage {
+  addStudent(student: any) {
+    this.persons.push(student);
+    this.showModal.set(false);
+  }
+
+  showModal = signal(false);
+  openModal() {
+    this.showModal.set(true);
+  }
   searchTerm: string = '';
 
   persons = [

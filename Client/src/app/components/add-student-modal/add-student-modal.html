@@ -1,4 +1,4 @@
-<div class="overlay" (click)="close()">
+<div class="overlay" (click)="closeModal()">
   <div class="modal" (click)="$event.stopPropagation()">
 
     <div class="modal-header">
@@ -6,7 +6,7 @@
         <h2>Lägg till student</h2>
         <!-- <p>Fält markerad med * ''</p> -->
       </div>
-      <button class="modal-close-button">✕</button>
+      <button class="modal-close-button" (click)="closeModal()">✕</button>
     </div>
 
     <div class="modal-body">
@@ -61,8 +61,8 @@
     </div>
 
     <div class="modal-footer">
-      <button class="btn-cancel" (click)="close()">Avbryt</button>
-      <button class="btn-confirm" (click)="confirm()">Skapa</button>
+      <button class="btn-cancel" (click)="closeModal()">Avbryt</button>
+      <button class="btn-confirm" (click)="saveModal()">Skapa</button>
     </div>
 
   </div>
