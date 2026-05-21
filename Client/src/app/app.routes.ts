@@ -1,14 +1,11 @@
 import { Routes } from '@angular/router';
 import { CoursesPage } from './pages/courses-page/courses-page';
 import { StudentPage } from './pages/student-page/student-page';
+import { GroupPage } from './pages/group-page/group-page';
 import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 import { ChecklistPage } from './pages/checklist-page/checklist-page';
 
 export const routes: Routes = [
-    {
-        path: 'start-page',
-        redirectTo: '/courses'
-    },
     {
         path: 'courses',
         component: CoursesPage
@@ -34,4 +31,5 @@ export const routes: Routes = [
         path: 'checklist',
         component: ChecklistPage
     }
+
 ];

@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="icon-bubble" [ngClass]="type">
+    <span class="material-symbols-outlined"> {{ symbol }} </span>
+  </div>
+  <h1>{{ title }}</h1>
+  <p>{{ description }}</p>
+  <button class="viewButton" [ngClass]="type">{{ viewText }}</button>
+  <button class="createButton" [ngClass]="type">{{ createText }}</button>
+</div>

@@ -1,5 +1,4 @@
-<app-template-header title="Elever" subtitle="Här ser du alla registrerade elever." buttonText="Lägg till elev">
-</app-template-header>
+<app-template-header title="Elever" subtitle="Här ser du alla registrerade elever." buttonText="Lägg till elev" (searchChange)="searchTerm = $event"></app-template-header>
 
 <div class="tableDiv">
     <table>
@@ -14,7 +13,7 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let person of persons">
+            <tr *ngFor="let person of filteredPersons">
                 <td class="avatar">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span>{{ person.namn }}</span>
