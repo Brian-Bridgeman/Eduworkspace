@@ -1,0 +1,26 @@
+<app-template-header title="Arbetslag" subtitle="Här ser du alla lagen." buttonText="Lägg till ett lag"
+    (searchChange)="searchTerm = $event"></app-template-header>
+
+<div class="tableDiv">
+    <table>
+        <thead>
+            <tr>
+                <th>Gruppnamn</th>
+                <th>Kurs</th>
+                <th>Grupp</th>
+                <th>Plats</th>
+                <th>Deltagare</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let team of filteredTeams">
+                <td>{{ team.gruppNamn }}</td>
+                <td>{{ team.kurs }}</td>
+                <td>{{ team.grupp }}</td>
+                <td>{{ team.plats }}</td>
+                <td>{{ team.deltagare }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
