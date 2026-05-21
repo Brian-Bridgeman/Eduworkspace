@@ -1,11 +1,9 @@
 <div class="checklist-card">
 
     <div class="card-header">
-
         <span class="material-symbols-outlined">
             assignment_turned_in
         </span>
-
         <div class="header-text">
             <h2>{{ title }}</h2>
 
@@ -14,33 +12,31 @@
             }
         </div>
 
-        <button class="menu-btn">⋯</button>
+        <button class="menu-btn" (click)="toggleMenu()">⋯</button>
 
+        @if (menuOpen) {
+        <div class="dropdown-menu">
+            <button>Redigera</button>
+            <button>Radera</button>
+        </div>
+        }
     </div>
-
     <hr />
 
     <div class="checklist-preview">
-
         <ul class="checklist">
-
             @for (item of (showAll ? checklistExamples : checklistExamples.slice(0, 3)); track item) {
             <li>
                 <span class="check">✓</span>
                 {{ item }}
             </li>
             }
-
         </ul>
 
         @if (checklistExamples.length > 3) {
-
         <button class="details-btn" (click)="toggleDetails()">
-
             {{ showAll ? 'Visa mindre' : 'Visa mer' }}
-
         </button>
-
         }
 
     </div>

@@ -17,5 +17,11 @@ export class ChecklistSetCard {
   toggleDetails() {
     this.showAll = !this.showAll;
   }
+
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
 }
 
