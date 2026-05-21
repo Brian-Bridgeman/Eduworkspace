@@ -16,4 +16,6 @@ import { SearchBar } from './components/search-bar/search-bar';
 export class App {
   protected readonly title = signal('Client');
   showModal = false;
+
+  checklists: any[] = [];
 }

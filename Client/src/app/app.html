@@ -3,6 +3,10 @@
 <div class="layout">
     <app-sidebar (checklistClick)="showModal = true"> </app-sidebar>
     <section class="page">
+        @for (checklist of checklists; track checklist.id) {
+        <app-checklist-set-card [title]="checklist.title" [description]="checklist.description">
+        </app-checklist-set-card>
+        }
         <router-outlet></router-outlet>
     </section>
     <app-checklist-modal *ngIf="showModal" (close)="showModal = false"> </app-checklist-modal>
