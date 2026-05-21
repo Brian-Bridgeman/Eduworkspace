@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     width: 320px;
-    padding: 10px 12px;
+    padding: 8px 8px;
     border: 2px solid #e5e7eb;
     border-radius: 14px;
     background: white;
@@ -18,7 +18,7 @@
     border: none;
     outline: none;
     width: 100%;
-    font-size: 20px;
+    font-size: 16px;
     color: #374151;
     background: transparent;
 }

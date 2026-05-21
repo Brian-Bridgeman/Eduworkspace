@@ -1,9 +1,12 @@
 .header-container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
 
-  margin-bottom: 2rem;
+.header-wrapper {
+  margin-bottom: 2em;
 }
 
 .header-text h1 {
