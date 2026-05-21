@@ -4,7 +4,8 @@
     <app-sidebar (checklistClick)="showModal = true"> </app-sidebar>
     <section class="page">
         @for (checklist of checklists; track checklist.id) {
-        <app-checklist-set-card [title]="checklist.title" [description]="checklist.description">
+        <app-checklist-set-card [title]="checklist.title" [description]="checklist.description"
+            [checklistExamples]="checklist.items">
         </app-checklist-set-card>
         }
         <router-outlet></router-outlet>
