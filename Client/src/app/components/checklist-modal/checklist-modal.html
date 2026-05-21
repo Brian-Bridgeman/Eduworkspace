@@ -17,7 +17,7 @@
 
             <label>Namn på listan</label>
 
-            <input type="text" placeholder="T.ex. Grupparbete" />
+            <input type="text" [(ngModel)]="checklistName" placeholder="T.ex. Grupparbete" />
 
         </div>
 
@@ -68,7 +68,7 @@
                 Avbryt
             </button>
 
-            <button class="save-btn">
+            <button class="save-btn" (click)="saveChecklist()">
                 Spara
             </button>
 
