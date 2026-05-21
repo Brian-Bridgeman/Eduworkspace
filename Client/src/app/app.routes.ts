@@ -7,6 +7,7 @@ import { StartPage } from './pages/start-page/start-page';
 import { Kalender } from './components/kalender/kalender';
 import { TeamsPage } from './pages/teams-page/teams-page';
 import { ChecklistPage } from './pages/checklist-page/checklist-page';
+import { StudentDetailsPage } from './pages/student-details-page/student-details-page';
 import { CreateGroupPage } from './pages/create-group-page/create-group-page';
 
 export const routes: Routes = [

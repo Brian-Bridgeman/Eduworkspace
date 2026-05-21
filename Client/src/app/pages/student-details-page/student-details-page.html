@@ -1,0 +1,205 @@
+<div class="student-details-page">
+
+    <!-- TOP PROFILE CARD -->
+
+    <div class="student-card">
+
+        <!-- LEFT SIDE -->
+
+        <div class="student-left">
+
+            <img src="https://i.pravatar.cc/200" class="student-image" alt="Elevbild" />
+
+            <div class="student-info">
+
+                <div class="student-top">
+
+                    <h1>Oscar Nilsson</h1>
+
+                    <span class="status">
+                        Aktiv
+                    </span>
+
+                </div>
+
+                <p class="course">
+                    Frontendutveckling
+                </p>
+
+                <div class="student-details">
+
+                    <p>070-111 11 11</p>
+
+                    <p>oscar@mail.com</p>
+
+                    <p>Tech AB</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+
+        <div class="student-right">
+
+            <div class="student-meta">
+
+                <div class="meta-item">
+                    <span>Startdatum</span>
+                    <p>2024-08-19</p>
+                </div>
+
+                <div class="meta-item">
+                    <span>Kurs</span>
+                    <p>Angular</p>
+                </div>
+
+                <div class="meta-item">
+                    <span>Handledare</span>
+                    <p>Johan Andersson</p>
+                </div>
+
+            </div>
+
+            <button class="edit-btn">
+                Redigera elev
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+
+        <button class="tab-button active">
+            Översikt
+        </button>
+
+        <button class="tab-button">
+            Anteckningar
+        </button>
+
+        <button class="tab-button">
+            Checklistor
+        </button>
+
+        <button class="tab-button">
+            Filer
+        </button>
+
+        <button class="tab-button">
+            Närvaro
+        </button>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="content-grid">
+
+        <!-- LEFT COLUMN -->
+
+        <div class="left-column">
+
+            <!-- NOTES -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>Anteckningar</h2>
+
+                    <button class="small-btn">
+                        + Ny anteckning
+                    </button>
+
+                </div>
+
+                <div class="note" *ngFor="let note of notes">
+
+                    <p class="date">
+                        {{ note.date }}
+                    </p>
+
+                    <p>
+                        {{ note.text }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+
+        <div class="right-column">
+
+            <!-- CHECKLISTS -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>Checklistor</h2>
+
+                    <button class="card-link-btn">
+                        Visa alla
+                    </button>
+
+                </div>
+
+                <div class="check-item" *ngFor="let item of checklists">
+
+                    <span *ngIf="item.done">
+                        ✔
+                    </span>
+
+                    <span *ngIf="!item.done">
+                        ○
+                    </span>
+
+                    {{ item.title }}
+
+                </div>
+
+            </div>
+
+            <!-- FILES -->
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h2>Filer och bilder</h2>
+
+                    <button class="card-link-btn">
+                        Visa alla
+                    </button>
+
+                </div>
+
+                <div class="images">
+
+                    <img src="https://picsum.photos/200" alt="bild" />
+
+                    <img src="https://picsum.photos/201" alt="bild" />
+
+                    <img src="https://picsum.photos/202" alt="bild" />
+
+                </div>
+
+                <button class="upload-btn">
+                    Ladda upp fil eller bild
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

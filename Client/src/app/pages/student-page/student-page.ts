@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
+import { RouterModule } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-student-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule, DropdownMenu, RouterLink],
+  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterModule, DropdownMenu, RouterLink],
   templateUrl: './student-page.html',
   styleUrl: './student-page.css',
 })
