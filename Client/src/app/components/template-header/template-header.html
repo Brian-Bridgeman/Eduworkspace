@@ -1,16 +1,16 @@
-<div class="header-container">
-
-  <div class="header-text">
-    <h1>{{ title }}</h1>
-    <p>{{ subtitle }}</p>
+<div class="header-wrapper">
+  <div class="header-container">
+    <div class="header-text">
+      <h1>{{ title }}</h1>
+      <p>{{ subtitle }}</p>
+    </div>
   </div>
 
-  <button>
-    {{ buttonText }}
-  </button>
-
+  <div class="header-container">
+    <app-search-bar (searchChange)="searchChange.emit($event)">
+    </app-search-bar>
+    <button>
+      {{ buttonText }}
+    </button>
+  </div>
 </div>
-
-<app-search-bar
-  (searchChange)="searchChange.emit($event)">
-</app-search-bar>

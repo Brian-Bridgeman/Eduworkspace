@@ -10,7 +10,7 @@ body {
 .tableDiv {
   background: #f7f8fc;
   overflow-y: auto;
-  max-height: 25em;
+  max-height: 24em;
 }
 
 .avatar {
