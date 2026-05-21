@@ -14,6 +14,7 @@
                 <th>Plats</th>
                 <th>Antal Elever</th>
                 <th>Status</th>
+                <th class="actions-column"></th>
             </tr>
         </thead>
 
@@ -31,6 +32,7 @@
                 <td>{{ grupp.plats }}</td>
                 <td>{{ grupp.antalElever }}</td>
                 <td>{{ grupp.status }}</td>
+                <td class="actions-column"><app-dropdown-menu></app-dropdown-menu></td>
             </tr>
         </tbody>
     </table>

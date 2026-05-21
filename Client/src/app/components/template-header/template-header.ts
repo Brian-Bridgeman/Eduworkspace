@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { SearchBar } from '../search-bar/search-bar';
 @Component({
   selector: 'app-template-header',
   standalone: true,

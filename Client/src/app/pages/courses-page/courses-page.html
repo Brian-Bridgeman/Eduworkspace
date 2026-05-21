@@ -9,6 +9,7 @@
                     <th>Kurs</th>
                     <th>Kod</th>
                     <th>Kategori</th>
+                    <th class="actions-column"></th>
                 </tr>
             </thead>
 
@@ -17,6 +18,7 @@
                     <td>{{ course.name }}</td>
                     <td>{{ course.code }}</td>
                     <td>{{ course.category }}</td>
+                    <td class="actions-column"><app-dropdown-menu></app-dropdown-menu></td>
                 </tr>
             </tbody>
         </table>

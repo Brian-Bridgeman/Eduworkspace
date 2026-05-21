@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-
+import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 @Component({
   selector: 'app-group-page',
-  imports: [CommonModule, TemplateHeaderComponent],
+  imports: [CommonModule, TemplateHeaderComponent, DropdownMenu],
   templateUrl: './group-page.html',
   styleUrl: './group-page.css',
 })

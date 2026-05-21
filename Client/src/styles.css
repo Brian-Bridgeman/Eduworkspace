@@ -9,7 +9,7 @@ body {
 /*CSS for the tabels in student-page, courses-page and courses-session-page */
 .tableDiv {
   background: #f7f8fc;
-  overflow-y: auto;
+  overflow: visible;
   max-height: 24em;
 }
 
@@ -39,4 +39,11 @@ tbody tr {
 tbody td {
   padding: 14px 15px;
   font-size: 14px;
+}
+
+.actions-column {
+  width: 1px;
+  padding: 0;
+  text-align: left;
+
 }
