@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { StudentDetailsPage } from './student-details-page';
+
+describe('StudentDetailsPage', () => {
+  let component: StudentDetailsPage;
+  let fixture: ComponentFixture<StudentDetailsPage>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [StudentDetailsPage],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(StudentDetailsPage);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

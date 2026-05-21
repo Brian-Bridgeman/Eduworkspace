@@ -13,7 +13,8 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let person of filteredPersons">
+            <tr *ngFor="let person of filteredPersons"
+                [routerLink]="['/students', person.id]">
                 <td class="avatar">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span>{{ person.namn }}</span>
