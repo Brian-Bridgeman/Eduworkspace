@@ -45,8 +45,8 @@ export const routes: Routes = [
         component: CreateGroupPage
     },
     {
-        path: 'calender',
-        redirectTo: '/courses'
+        path: 'kalender',
+        component: Kalender
     },
     {
         path: 'checklist',
