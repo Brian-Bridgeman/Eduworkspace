@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
-
+import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 @Component({
   selector: 'app-student-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule],
+  imports: [CommonModule, TemplateHeaderComponent, FormsModule,DropdownMenu],
   templateUrl: './student-page.html',
   styleUrl: './student-page.css',
 })
