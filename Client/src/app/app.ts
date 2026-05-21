@@ -5,11 +5,11 @@ import { Header } from './components/header/header';
 import { CommonModule } from '@angular/common';
 import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 import { ChecklistSetCard } from './components/checklist-set-card/checklist-set-card';
-import { SearchBar } from './components/search-bar/search-bar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Sidebar, Header, CommonModule, ChecklistModal, ChecklistSetCard, SearchBar],
+  standalone: true,
+  imports: [RouterOutlet, Sidebar, Header, CommonModule, ChecklistModal, ChecklistSetCard],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -17,11 +17,10 @@ import { SearchBar } from './components/search-bar/search-bar';
 export class App {
   protected readonly title = signal('Client');
 
-  showModal = false;
-
-  checklists: any[] = [];
+  checklists = signal<any[]>([]);
+  showModal = signal(false);
 
   addChecklist(checklist: any) {
-    this.checklists.push(checklist);
+    this.checklists.update(list => [...list, checklist]);
   }
 }

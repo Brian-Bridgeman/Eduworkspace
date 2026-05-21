@@ -1,17 +1,18 @@
 <app-header></app-header>
-
 <div class="layout">
-    <app-sidebar (checklistClick)="showModal = true"> </app-sidebar>
+    <app-sidebar (checklistClick)="showModal.set(true)"> </app-sidebar>
     <section class="page">
-        @for (checklist of checklists; track checklist.id) {
-        <app-checklist-set-card [title]="checklist.title" [description]="checklist.description"
-            [checklistExamples]="checklist.items">
-        </app-checklist-set-card>
-        }
+        <div class="checklist-container">
+            @for (checklist of (checklists()); track $index) {
+            <app-checklist-set-card [title]="checklist?.title" [description]="checklist?.description"
+                [checklistExamples]="checklist?.items ?? []">
+            </app-checklist-set-card>
+            }
+        </div>
         <router-outlet></router-outlet>
     </section>
-    @if (showModal) {
-    <app-checklist-modal (close)="showModal = false" (save)="addChecklist($event)">
+    @if (showModal()) {
+    <app-checklist-modal (close)="showModal.set(false)" (save)="addChecklist($event)">
     </app-checklist-modal>
     }
 </div>
