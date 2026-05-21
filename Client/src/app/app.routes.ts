@@ -9,6 +9,7 @@ import { TeamsPage } from './pages/teams-page/teams-page';
 import { ChecklistPage } from './pages/checklist-page/checklist-page';
 import { StudentDetailsPage } from './pages/student-details-page/student-details-page';
 import { CreateGroupPage } from './pages/create-group-page/create-group-page';
+import { Overview } from './pages/overview/overview';
 
 export const routes: Routes = [
     {
@@ -50,6 +51,10 @@ export const routes: Routes = [
     {
         path: 'checklist',
         component: ChecklistPage
+    },
+    {
+        path: 'overview',
+        component: Overview
     }
 
 ];
