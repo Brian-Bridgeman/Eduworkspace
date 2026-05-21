@@ -4,6 +4,7 @@ import { StudentPage } from './pages/student-page/student-page';
 import { GroupPage } from './pages/group-page/group-page';
 import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 import { StartPage } from './pages/start-page/start-page';
+import { Kalender } from './components/kalender/kalender';
 import { TeamsPage } from './pages/teams-page/teams-page';
 import { ChecklistPage } from './pages/checklist-page/checklist-page';
 
