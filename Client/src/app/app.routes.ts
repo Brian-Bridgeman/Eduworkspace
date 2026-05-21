@@ -16,10 +16,10 @@ export const routes: Routes = [
         path: 'students',
         component: StudentPage
     },
-    {
+   /* {
         path: 'groups',
         component: GroupPage
-    },
+    },*/
     {
         /* ÄNDRA HÄR NÄR RESPEKTIVE SIDOR FINNS */
         path: 'classes',
