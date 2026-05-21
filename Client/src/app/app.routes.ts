@@ -28,10 +28,6 @@ export const routes: Routes = [
         component: StartPage,
     },
     {
-        path: 'groups/:id',
-        component: TeamsPage
-    },
-    {
         path: 'students/:id',
         component: StudentPage
     },
@@ -42,6 +38,10 @@ export const routes: Routes = [
     {
         path: 'groups/create',
         component: CreateGroupPage
+    },
+    {
+        path: 'groups/:id',
+        component: TeamsPage
     },
     {
         path: 'calender',
