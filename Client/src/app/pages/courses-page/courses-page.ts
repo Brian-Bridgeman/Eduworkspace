@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
-
+import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 
 @Component({
   selector: 'app-courses-page',
-  imports: [TemplateHeaderComponent, CommonModule],
+  imports: [TemplateHeaderComponent, CommonModule, DropdownMenu],
   templateUrl: './courses-page.html',
   styleUrl: './courses-page.css',
 })
