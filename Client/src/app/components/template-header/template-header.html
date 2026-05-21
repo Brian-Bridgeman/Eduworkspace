@@ -6,11 +6,8 @@
     </div>
   </div>
 
-  <div class="header-container">
-    <app-search-bar (searchChange)="searchChange.emit($event)">
-    </app-search-bar>
-    <button>
-      {{ buttonText }}
-    </button>
-  </div>
+  <button (click)="buttonClick.emit()">
+    {{ buttonText }}
+  </button>
+
 </div>
