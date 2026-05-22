@@ -10,6 +10,7 @@ import { StudentDetailsPage } from './pages/student-details-page/student-details
 import { CreateGroupPage } from './pages/create-group-page/create-group-page';
 import { TeamDetailsPage } from './pages/team-details-page/team-details-page';
 import { Overview } from './pages/overview/overview';
+import { Settings } from './pages/settings/settings';
 
 export const routes: Routes = [
 
@@ -71,6 +72,10 @@ export const routes: Routes = [
         path: '',
         redirectTo: 'start',
         pathMatch: 'full'
+    },
+    {
+        path: 'settings',
+        component: Settings
     }
 
 ];

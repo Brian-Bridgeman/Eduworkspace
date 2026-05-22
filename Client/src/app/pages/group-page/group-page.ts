@@ -20,7 +20,6 @@ export class GroupPage {
       id: '1',
       namn: 'H1 26',
       kurs: 'Elinstallation',
-      grupp: 'Grupp A',
       ar: 2026,
       startdatum: '2026-01-12',
       slutdatum: '2026-03-22',
@@ -32,7 +31,6 @@ export class GroupPage {
       id: '2',
       namn: 'H2 26',
       kurs: 'Elinstallation',
-      grupp: 'Grupp B',
       ar: 2026,
       startdatum: '2026-01-12',
       slutdatum: '2026-03-22',
@@ -44,7 +42,6 @@ export class GroupPage {
       id: '3',
       namn: 'H3 26',
       kurs: 'Systemutveckling med AI',
-      grupp: 'Grupp C',
       ar: 2026,
       startdatum: '2026-08-18',
       slutdatum: '2026-12-19',
@@ -56,7 +53,6 @@ export class GroupPage {
       id: '4',
       namn: 'H4 26',
       kurs: 'Webbutveckling',
-      grupp: 'Grupp A',
       ar: 2026,
       startdatum: '2026-08-18',
       slutdatum: '2026-12-19',
@@ -68,7 +64,6 @@ export class GroupPage {
       id: '5',
       namn: 'H5 26',
       kurs: 'Brandskydd',
-      grupp: 'Grupp A',
       ar: 2026,
       startdatum: '2026-09-01',
       slutdatum: '2026-11-28',
@@ -80,7 +75,6 @@ export class GroupPage {
       id: '6',
       namn: 'H10 26',
       kurs: 'Elkraftteknik',
-      grupp: 'Grupp A',
       ar: 2026,
       startdatum: '2026-01-13',
       slutdatum: '2026-05-23',
@@ -92,7 +86,6 @@ export class GroupPage {
       id: '7',
       namn: 'H11 26',
       kurs: 'Nätverksteknik',
-      grupp: 'Grupp B',
       ar: 2026,
       startdatum: '2026-08-19',
       slutdatum: '2026-12-20',
@@ -104,7 +97,7 @@ export class GroupPage {
       id: '8',
       namn: 'H12 26',
       kurs: 'Systemutveckling med AI',
-      grupp: 'Grupp A',
+
       ar: 2026,
       startdatum: '2026-01-15',
       slutdatum: '2026-06-07',
@@ -118,9 +111,7 @@ export class GroupPage {
     return this.grupper.filter(group =>
       group.namn.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       group.kurs.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      group.grupp.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      group.plats.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      group.grupp.toLowerCase().includes(this.searchTerm.toLowerCase())
+      group.plats.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 
