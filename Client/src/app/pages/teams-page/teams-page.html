@@ -14,7 +14,7 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let team of filteredTeams">
+            <tr *ngFor="let team of filteredTeams" [routerLink]="['/groups', groupId, 'teams', team.id]" class="clickable-row">
                 <td>{{ team.gruppNamn }}</td>
                 <td>{{ team.kurs }}</td>
                 <td>{{ team.grupp }}</td>

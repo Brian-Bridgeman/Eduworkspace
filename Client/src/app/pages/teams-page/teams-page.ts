@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, ActivatedRoute } from '@angular/router';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 
 @Component({
   selector: 'app-teams-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule],
+  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterLink],
   templateUrl: './teams-page.html',
   styleUrl: './teams-page.css',
 })
 export class TeamsPage {
   searchTerm: string = '';
+  groupId: string | null = null;
 
+  constructor(private route: ActivatedRoute) {
+    this.groupId = this.route.snapshot.paramMap.get('groupId');
+  }
   teams = [
     {
+      id: 1,
       gruppNamn: 'Oscar & Johan',
       kurs: 'Elinstallation',
       grupp: 'Grupp A',
@@ -21,6 +27,7 @@ export class TeamsPage {
       deltagare: ['Oscar', 'Johan']
     },
     {
+      id: 2,
       gruppNamn: 'Kalle & Alfred',
       kurs: 'Webbutveckling',
       grupp: 'Grupp B',
@@ -28,6 +35,7 @@ export class TeamsPage {
       deltagare: ['Kalle', 'Alfred']
     },
     {
+      id: 3,
       gruppNamn: 'Lisa & Emma',
       kurs: 'Systemutveckling med AI',
       grupp: 'Grupp C',
@@ -35,6 +43,7 @@ export class TeamsPage {
       deltagare: ['Lisa', 'Emma']
     },
     {
+      id: 4,
       gruppNamn: 'Erik & Viktor',
       kurs: 'Brandskydd',
       grupp: 'Grupp A',
@@ -42,6 +51,7 @@ export class TeamsPage {
       deltagare: ['Erik', 'Viktor']
     },
     {
+      id: 5,
       gruppNamn: 'Simon & Hugo',
       kurs: 'Industrisäkerhet',
       grupp: 'Grupp B',
