@@ -2,13 +2,13 @@ import { Routes } from '@angular/router';
 import { CoursesPage } from './pages/courses-page/courses-page';
 import { StudentPage } from './pages/student-page/student-page';
 import { GroupPage } from './pages/group-page/group-page';
-import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 import { StartPage } from './pages/start-page/start-page';
 import { Kalender } from './components/kalender/kalender';
 import { TeamsPage } from './pages/teams-page/teams-page';
 import { ChecklistPage } from './pages/checklist-page/checklist-page';
 import { StudentDetailsPage } from './pages/student-details-page/student-details-page';
 import { CreateGroupPage } from './pages/create-group-page/create-group-page';
+import { TeamDetailsPage } from './pages/team-details-page/team-details-page';
 import { Overview } from './pages/overview/overview';
 
 export const routes: Routes = [
@@ -34,10 +34,6 @@ export const routes: Routes = [
         component: CreateGroupPage
     },
     {
-        path: 'groups/:id',
-        component: TeamsPage
-    },
-    {
         path: 'students/:id',
         component: StudentDetailsPage
     },
@@ -46,9 +42,18 @@ export const routes: Routes = [
         path: 'courses/:id',
         component: CoursesPage
     },
+    
     {
         path: 'kalender',
         component: Kalender
+    },
+     {
+        path: 'groups/:groupId',
+        component: TeamsPage,
+    },
+    {
+      path: 'groups/:groupId/teams/:teamId',
+      component: TeamDetailsPage
     },
     {
         path: 'checklist',
@@ -57,6 +62,10 @@ export const routes: Routes = [
     {
         path: 'overview',
         component: Overview
-    }
+    },
+     {
+        path: 'groups/:id', //kolla om groups/id ersätts med groups/groupId
+        component: TeamsPage
+    },
 
 ];

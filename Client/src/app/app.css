@@ -1,31 +1,40 @@
+:host.start-route {
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'header'
+    'page';
+}
 :host {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: 80px 1fr;
-    grid-template-areas:
-        "header header"
-        "sidebar page";
-    height: 100vh;
-    overflow: hidden;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 80px 1fr;
+  grid-template-areas:
+    'header header'
+    'sidebar page';
+  height: 100vh;
+  overflow: hidden;
 }
 
 app-header {
-    grid-area: header;
-    display: block;
-    height: 64px;
+  grid-area: header;
+  display: block;
+  height: 64px;
 }
 
 app-sidebar {
-    grid-area: sidebar;
-    display: block;
-    overflow: auto;
+  grid-area: sidebar;
+  display: block;
+  overflow: auto;
 }
 
 .page {
-    grid-area: page;
-    padding: 1rem;
-    overflow: auto;
-    overflow-y: auto;
+  grid-area: page;
+  padding: 1rem;
+  overflow: auto;
+  overflow-y: auto;
+}
+.page.start-route {
+  padding: 0px;
 }
 
 .layout {

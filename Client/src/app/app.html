@@ -1,9 +1,10 @@
 <app-header></app-header>
+
 <div class="layout">
-    <app-sidebar (checklistClick)="showModal.set(true)"> </app-sidebar>
-    <section class="page">
+     @if (showSidebar) {<app-sidebar (checklistClick)="showModal.set(true)"> </app-sidebar>}
+    <section class= "page"[class.start-route]="!showSidebar">
         <div class="checklist-container">
-            @for (checklist of (checklists()); track $index) {
+             @for (checklist of (checklists()); track $index) {
             <app-checklist-set-card [title]="checklist?.title" [description]="checklist?.description"
                 [checklistExamples]="checklist?.items ?? []">
             </app-checklist-set-card>
@@ -11,5 +12,4 @@
         </div>
         <router-outlet></router-outlet>
     </section>
-  
 </div>
