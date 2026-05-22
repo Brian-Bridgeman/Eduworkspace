@@ -5,12 +5,12 @@ import { Header } from './components/header/header';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 import { HostBinding } from '@angular/core';
-import { ChecklistSetCard } from './components/checklist-set-card/checklist-set-card';
+import { Settings } from './pages/settings/settings';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Header, CommonModule, ChecklistSetCard],
+  imports: [RouterOutlet, Sidebar, Header, CommonModule, Settings],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
