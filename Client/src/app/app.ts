@@ -28,7 +28,7 @@ export class App {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        const isStart = event.url === '/start';
+        const isStart = event.urlAfterRedirects === '/start';
 
         this.isStartRoute = isStart;
         this.showSidebar = !isStart;
