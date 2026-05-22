@@ -36,3 +36,6 @@ p {
   flex-wrap: wrap;
   margin: 0;
 }
+.name {
+  color: #8337e7;
+}
