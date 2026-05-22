@@ -67,5 +67,10 @@ export const routes: Routes = [
         path: 'groups/:id', //kolla om groups/id ersätts med groups/groupId
         component: TeamsPage
     },
+    {
+        path: '',
+        redirectTo: 'start',
+        pathMatch: 'full'
+    }
 
 ];

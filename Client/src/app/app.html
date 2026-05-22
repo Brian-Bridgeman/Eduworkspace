@@ -1,8 +1,8 @@
 <app-header></app-header>
 
 <div class="layout">
-     @if (showSidebar) {<app-sidebar (checklistClick)="showModal.set(true)"> </app-sidebar>}
-    <section class= "page"[class.start-route]="!showSidebar">
+     @if (showSidebar) {<app-sidebar> </app-sidebar>}
+    <section class= "page" [class.start-route]="isStartRoute">
         <div class="checklist-container">
              @for (checklist of (checklists()); track $index) {
             <app-checklist-set-card [title]="checklist?.title" [description]="checklist?.description"
