@@ -1,1 +1,149 @@
-<p>overview works!</p>
+<app-template-header title="Översikt" subtitle="Här får du en snabb överblick av grupper och anteckningar."
+    buttonText="Lägg till kommentar">
+</app-template-header>
+
+<div class="cards">
+    <div class="card">
+        <span class="material-symbols-outlined">groups</span>
+        <h2>4</h2>
+        <p>Pågående grupper</p>
+    </div>
+    <div class="card">
+        <span class="material-symbols-outlined">
+            people
+        </span>
+        <h2>18</h2>
+        <p>Aktiva elever</p>
+    </div>
+    <div class="card">
+        <span class="material-symbols-outlined">menu_book</span>
+        <h2>6</h2>
+        <p>Kurser</p>
+    </div>
+    <div class="card">
+        <span class="material-symbols-outlined">calendar_month</span>
+        <h2>2</h2>
+        <p>Kommande grupper</p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Pågående grupper</h2>
+    <div class="tableDiv">
+        <table>
+            <thead>
+                <tr>
+                    <th>Arbetslag</th>
+                    <th>Kurs</th>
+                    <th>Grupp</th>
+                    <th>Plats</th>
+                    <th>Status</th>
+                    <th>Deltagare</th>
+                    <th class="action-menu"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let group of ongoingGroups" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
+
+                    <td>{{ group.groupName }}</td>
+                    <td>{{ group.course }}</td>
+                    <td>{{ group.group }}</td>
+                    <td>{{ group.location }}</td>
+
+                    <td>
+                        <span class="ongoing">
+                            {{ group.status }}
+                        </span>
+                    </td>
+
+                    <td class="link">
+                        <div class="participants">
+                            @for (participant of group.participants; track participant.name)
+                            {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> <span> </span>}
+                        </div>
+                    </td>
+                    <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<div class="section">
+
+    <h2>Kommande grupper</h2>
+
+    <div class="tableDiv">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Arbetslag</th>
+                    <th>Kurs</th>
+                    <th>Grupp</th>
+                    <th>Plats</th>
+                    <th>Status</th>
+                    <th>Deltagare</th>
+                    <th class="action-menu"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let group of upcomingGroups" class="clickable-row" >
+
+                    <td>{{ group.groupName }}</td>
+                    <td>{{ group.course }}</td>
+                    <td>{{ group.group }}</td>
+                    <td>{{ group.location }}</td>
+
+                    <td>
+                        <span class="upcoming">
+                            {{ group.status }}
+                        </span>
+                    </td>
+                    <td class="link">
+                        <div class="participants">
+                            @for (participant of group.participants; track participant.name)
+                            {<a href="#">{{ participant.name }}</a>}
+                        </div>
+                    </td>
+                    <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<div class="section">
+
+    <h2>Senaste anteckningar</h2>
+
+    <div class="tableDiv">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Grupp / Kurs</th>
+                    <th>Anteckning</th>
+                    <th class="actions-column"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let note of latestNotes" class="clickable-row">
+
+                    <td>{{ note.date }}</td>
+                    <td>{{ note.group }}</td>
+                    <td>{{ note.note }}</td><td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
