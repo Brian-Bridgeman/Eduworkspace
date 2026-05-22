@@ -8,14 +8,14 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrl: './add-student-modal.css',
 })
 export class AddStudentModal {
-  @Output() closed = new EventEmitter<void>();
-  @Output() confirmed = new EventEmitter<void>();
+  @Output() close = new EventEmitter<void>();
+  @Output() save = new EventEmitter<any>();
 
-  close() {
-    this.closed.emit();
+  closeModal() {
+    this.close.emit();
   }
 
-  confirm() {
-    this.confirmed.emit();
+  saveModal() {
+    this.save.emit();
   }
 }

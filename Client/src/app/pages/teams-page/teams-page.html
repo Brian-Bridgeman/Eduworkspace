@@ -5,11 +5,12 @@
     <table>
         <thead>
             <tr>
-                <th>Gruppnamn</th>
+                <th>Arbetslag</th>
                 <th>Kurs</th>
                 <th>Grupp</th>
                 <th>Plats</th>
                 <th>Deltagare</th>
+                <th class="actions-column"></th>
             </tr>
         </thead>
 
@@ -20,6 +21,7 @@
                 <td>{{ team.grupp }}</td>
                 <td>{{ team.plats }}</td>
                 <td>{{ team.deltagare }}</td>
+                 <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
             </tr>
         </tbody>
     </table>
