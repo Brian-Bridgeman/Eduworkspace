@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
-
+import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 @Component({
   selector: 'app-teams-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterLink],
+  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterLink, DropdownMenu],
   templateUrl: './teams-page.html',
   styleUrl: './teams-page.css',
 })
