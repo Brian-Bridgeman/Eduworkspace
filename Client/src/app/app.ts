@@ -3,7 +3,6 @@ import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Header } from './components/header/header';
 import { CommonModule } from '@angular/common';
-import { ChecklistModal } from './components/checklist-modal/checklist-modal';
 import { filter } from 'rxjs';
 import { HostBinding } from '@angular/core';
 import { ChecklistSetCard } from './components/checklist-set-card/checklist-set-card';
@@ -11,7 +10,7 @@ import { ChecklistSetCard } from './components/checklist-set-card/checklist-set-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Header, CommonModule, ChecklistModal, ChecklistSetCard],
+  imports: [RouterOutlet, Sidebar, Header, CommonModule, ChecklistSetCard],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
