@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Sidebar } from './components/sidebar/sidebar';
 import { Header } from './components/header/header';
+import { Footer } from './components/footer/footer';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 import { HostBinding } from '@angular/core';
@@ -10,7 +11,7 @@ import { Settings } from './pages/settings/settings';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Header, CommonModule, Settings],
+  imports: [RouterOutlet, Sidebar, Header, CommonModule, Settings, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
