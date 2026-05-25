@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChecklistModal }
+  from '../../components/checklist-modal/checklist-modal';
+
+import {
+  ChecklistService,
+  Checklist
+} from '../../services/checklist.service';
 
 @Component({
   selector: 'app-student-details-page',
 
   standalone: true,
 
-  imports: [CommonModule],
+  imports: [CommonModule, ChecklistModal],
 
   templateUrl: './student-details-page.html',
 
@@ -14,6 +21,20 @@ import { CommonModule } from '@angular/common';
 })
 
 export class StudentDetailsPage {
+
+  showChecklistModal = false;
+
+  checklists: Checklist[] = [];
+  activeChecklist: Checklist | null = null;
+
+  constructor(private checklistService: ChecklistService) {
+
+    this.checklists =
+      this.checklistService.getChecklistsForStudent(1);
+
+    this.activeChecklist = this.checklists[0];
+
+  }
 
   notes = [
 
@@ -29,24 +50,6 @@ export class StudentDetailsPage {
 
   ];
 
-  checklists = [
-
-    {
-      title: 'Fibersvetsning',
-      done: true
-    },
-
-    {
-      title: 'Mätning',
-      done: true
-    },
-
-    {
-      title: 'Felsökning',
-      done: false
-    }
-
-  ];
   courses = [
 
     {
@@ -63,4 +66,28 @@ export class StudentDetailsPage {
 
   ];
 
+  toggleChecklistItem(checklist: Checklist, item: any) {
+
+    item.completed = !item.completed;
+
+    this.checklistService.updateChecklist(checklist);
+
+  }
+
+  openChecklistModal() {
+
+    this.showChecklistModal = true;
+
+  }
+
+  closeChecklistModal() {
+
+    this.showChecklistModal = false;
+
+  }
+  selectChecklist(checklist: Checklist) {
+
+  this.activeChecklist = checklist;
+
+}
 }
