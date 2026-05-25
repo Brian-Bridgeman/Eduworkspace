@@ -22,9 +22,21 @@
 
                 </div>
 
-                <p class="course">
-                    Frontendutveckling
-                </p>
+                <div class="course-list">
+
+                    <div class="course-item" *ngFor="let course of courses">
+
+                        <span class="status-dot" [class.active-course]="course.active"
+                            [class.inactive-course]="!course.active">
+                        </span>
+
+                        <span class="course-name">
+                            {{ course.name }}
+                        </span>
+
+                    </div>
+
+                </div>
 
                 <div class="student-details">
 

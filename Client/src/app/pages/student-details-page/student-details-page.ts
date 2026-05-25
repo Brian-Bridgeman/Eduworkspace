@@ -47,5 +47,20 @@ export class StudentDetailsPage {
     }
 
   ];
+  courses = [
+
+    {
+      id: 1,
+      name: 'Frontendutveckling',
+      active: true
+    },
+
+    {
+      id: 2,
+      name: 'Java Backend',
+      active: false
+    }
+
+  ];
 
 }
