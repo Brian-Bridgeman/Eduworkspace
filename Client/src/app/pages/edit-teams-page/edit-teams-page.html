@@ -63,7 +63,7 @@
 
       <div class="arbetslag-body" [class.open]="group.isOpen">
         <div class="user-list">
-          <div class="user-row" *ngFor="let user of users" [class.checked]="isUserInArbetstlag(user, group.id)"
+          <div class="user-row" *ngFor="let user of sortedUsers" [class.checked]="isUserInArbetstlag(user, group.id)"
             (click)="toggleUserInArbetstlag(user, group.id)">
             <div class="user-checkbox">
               <div class="checkbox" [class.checked]="isUserInArbetstlag(user, group.id)">

@@ -50,6 +50,14 @@ export class EditTeamsPage {
   arbetslag: Arbetslag[] = [
   ];
 
+  get sortedUsers(): User[] {
+    return [...this.users].sort((a, b) => {
+      if (a.arbetslag === null && b.arbetslag !== null) return -1;
+      if (a.arbetslag !== null && b.arbetslag === null) return 1;
+      return 0;
+    });
+  }
+
   get visibleArbetstlag(): Arbetslag[] {
     return this.arbetslag.slice(0, this.numberOfArberslag);
   }
