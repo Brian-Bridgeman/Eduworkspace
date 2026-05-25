@@ -56,24 +56,3 @@ app-footer {
   padding: 24px;
   align-items: stretch;
 }
-
-/* För mobila enheter */
-@media (max-width: 768px) {
-  :host {
-    grid-template-columns: 1fr;
-    grid-template-rows: 80px auto 1fr;
-    grid-template-areas:
-      'header'
-      'sidebar'
-      'page';
-  }
-
-  app-sidebar {
-    display: block;
-    overflow-x: auto;
-  }
-
-  .page {
-    padding: 12px;
-  }
-}
