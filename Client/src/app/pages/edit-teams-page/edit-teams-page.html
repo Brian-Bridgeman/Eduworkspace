@@ -77,8 +77,9 @@
               <div class="user-info">
                 <span class="user-name">{{ user.name }}</span>
                 <select class="role-select" [(ngModel)]="user.role" (click)="$event.stopPropagation()">
-                  <option selected value="Tekniker">Tekniker</option>
-                  <option value="Arbetsledare">Arbetsledare</option>
+                  <option *ngFor="let role of roles" [value]="role">
+                    {{ role }}
+                  </option>
                 </select>
               </div>
             </div>

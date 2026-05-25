@@ -50,6 +50,9 @@ export class EditTeamsPage {
   arbetslag: Arbetslag[] = [
   ];
 
+  // TODO: hamta roller fran databas
+  roles: string[] = ['Tekniker', 'Arbetsledare'];
+
   get sortedUsers(): User[] {
     return [...this.users].sort((a, b) => {
       if (a.arbetslag === null && b.arbetslag !== null) return -1;
