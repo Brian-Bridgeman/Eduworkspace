@@ -20,6 +20,8 @@
 }
 
 button {
+  flex-shrink: 0;
+  
   padding: 10px 16px;
   border-radius: 8px;
   border: none;
