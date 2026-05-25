@@ -1,0 +1,101 @@
+<div class="page-wrapper">
+
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Hantera Arbetslag</h1>
+      <p class="page-subtitle">Fördela deltagare i arbetslag</p>
+    </div>
+    <button class="btn-save" (click)="save()">Spara</button>
+  </div>
+
+  <div class="card controls-card">
+    <div class="controls-row">
+      <div class="control-group">
+        <label class="control-label">
+          <span class="material-symbols-outlined icon-sm">group_work</span>
+          Antal arbetslag
+        </label>
+        <div class="number-input-wrapper">
+          <button class="stepper-btn" (click)="onNumberChange(numberOfArberslag - 1)">
+            <span class="material-symbols-outlined">remove</span>
+          </button>
+          <input type="number" class="number-input" [(ngModel)]="numberOfArberslag"
+            (ngModelChange)="onNumberChange($event)" min="1" max="10" />
+          <button class="stepper-btn" (click)="onNumberChange(numberOfArberslag + 1)">
+            <span class="material-symbols-outlined">add</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-chip">
+          <span class="material-symbols-outlined icon-sm">people</span>
+          <span>{{ users.length }} deltagare totalt</span>
+        </div>
+        <div class="stat-chip warn">
+          <span class="material-symbols-outlined icon-sm">person_off</span>
+          <span>{{ users.length - getMemberCount(1) - getMemberCount(2) - getMemberCount(3) }} ej tilldelade</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arbetslag-list">
+    <div class="card arbetslag-card" *ngFor="let group of visibleArbetstlag; let i = index">
+      <div class="arbetslag-header" (click)="toggleArbetstlag(group)">
+        <div class="header-left">
+          <div class="arbetslag-badge" [attr.data-index]="i">
+            {{ i + 1 }}
+          </div>
+          <div class="header-text">
+            <span class="arbetslag-name">{{ group.name }}</span>
+            <span class="member-count">
+              {{ getMemberCount(group.id) }} tilldelade medlemmar
+            </span>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="expand-icon material-symbols-outlined" [class.rotated]="group.isOpen">
+            expand_more
+          </span>
+        </div>
+      </div>
+
+      <div class="arbetslag-body" [class.open]="group.isOpen">
+        <div class="user-list">
+          <div class="user-row" *ngFor="let user of users" [class.checked]="isUserInArbetstlag(user, group.id)"
+            (click)="toggleUserInArbetstlag(user, group.id)">
+            <div class="user-checkbox">
+              <div class="checkbox" [class.checked]="isUserInArbetstlag(user, group.id)">
+                <span class="material-symbols-outlined check-icon" *ngIf="isUserInArbetstlag(user, group.id)">
+                  check
+                </span>
+              </div>
+            </div>
+
+            <div class="avatar">
+              <div class="user-info">
+                <span class="user-name">{{ user.name }}</span>
+                <select class="role-select" [(ngModel)]="user.role" (click)="$event.stopPropagation()">
+                  <option selected value="Tekniker">Tekniker</option>
+                  <option value="Arbetsledare">Arbetsledare</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="user-tag-wrapper">
+              <span class="user-tag" [class.assigned]="user.arbetslag !== null"
+                [class.unassigned]="user.arbetslag === null">
+                <span class="material-symbols-outlined icon-xs">
+                  {{ user.arbetslag !== null ? 'group' : 'person_off' }}
+                </span>
+                {{ getArbetstlagLabel(user) }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
