@@ -10,7 +10,7 @@
   --border-color: #eeeeee;
 
   /* SHADOW */
-  --box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  --box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 
   /* RADIUS */
   --border-radius: 20px;
@@ -74,9 +74,50 @@ tbody td {
 }
 
 .clickable-row {
-   cursor: pointer;
+  cursor: pointer;
 }
 
 .clickable-row:hover {
   background-color: #f5f5f5;
+}
+
+/* Media quarys för mobil*/
+
+@media screen and (max-width: 480px) {}
+
+@media screen and (max-width: 768px) {
+  app-sidebar {
+    display: none !important;
+  }
+
+  app-root {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      'header'
+      'page'
+      'footer'
+      !important;
+  }
+
+  app-footer {
+    display: block;
+    grid-area: footer;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  app-footer {
+    display: none !important;
+  }
+
+  app-root {
+    grid-template-areas:
+      'header header'
+      'sidebar page'
+      !important;
+  }
+
+  app-root {
+    grid-template-rows: 80px 1fr !important;
+  }
 }

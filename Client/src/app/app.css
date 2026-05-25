@@ -4,13 +4,15 @@
     'header'
     'page';
 }
+
 :host {
   display: grid;
   grid-template-columns: 250px 1fr;
   grid-template-rows: 80px 1fr;
   grid-template-areas:
     'header header'
-    'sidebar page';
+    'sidebar page'
+    'footer footer';
   height: 100vh;
   overflow: hidden;
 }
@@ -27,28 +29,33 @@ app-sidebar {
   overflow: auto;
 }
 
+app-footer {
+  grid-area: footer;
+  display: block;
+}
+
 .page {
   grid-area: page;
   padding: 1rem;
   overflow: auto;
   overflow-y: auto;
 }
+
 .page.start-route {
   padding: 0px;
 }
 
 .layout {
-    display: contents;
+  display: contents;
 }
 
 .checklist-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    padding: 24px;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 24px;
+  align-items: stretch;
 }
-
 
 /* För mobila enheter */
 @media (max-width: 768px) {
