@@ -1,13 +1,14 @@
 .kalender-kontainer {
   width: 100%;
   max-width: 1350px;
-  min-height: 400px;
-  height: calc(100vh - 160px);
+  height: 100%;
+  min-width: 0;
   padding: 14px;
   border-radius: 24px;
-  background: #f8f7fb;
+  background: #f4f0f7;
   box-shadow: 0 10px 30px rgba(45, 35, 66, 0.08);
-  overflow: hidden;
+  overflow: visible;
+  box-sizing: border-box;
 }
 
 .kalender-header {
@@ -16,7 +17,7 @@
   justify-content: center;
   gap: 14px;
   width: fit-content;
-   margin: 0 auto 14px auto;
+  margin: 0 auto 14px auto;
   padding: 8px 14px;
   border-radius: 18px;
   background: white;
@@ -27,7 +28,8 @@
 .kalender-header h1,
 .kalender-header h2 {
   margin: 0;
-  font-family: "Inter", sans-serif;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 100;
 }
 
 .back-button,
@@ -51,42 +53,47 @@
 
 .veckodagar {
   display: grid;
-  grid-template-columns: 60px repeat(7, 1fr);
-  gap: 10px;
+  grid-template-columns: 52px repeat(7, minmax(0, 1fr));
+  gap: 6px;
   margin-bottom: 10px;
   color: #6b6475;
   font-family: "Inter", sans-serif;
-  font-size: 13px;
+  font-size: clamp(10px, 1.1vw, 13px);
   font-weight: 600;
 }
-
+/* Mån, Tis, Ons, Tor, Fre, Lör, Sön */
 .veckodagar > div {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
-  border-radius: 14px;
+  min-width: 0;
+  padding: 8px 8px;
+  border-radius: 8px;
   background: #ffffff;
   box-shadow: 0 4px 12px rgba(45, 35, 66, 0.05);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .kalender-wrapper {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  height: calc(100% - 90px);
+  height: calc(100% - 92px);
+  min-height: 0;
+  padding-bottom: 6px;
 }
 
 .week-row {
   display: grid;
-  grid-template-columns: 52px repeat(7, 1fr);
+  grid-template-columns: 52px repeat(7, minmax(0, 1fr));
   gap: 6px;
-  flex: 1;
+  flex: 1 1 0;
   min-height: 0;
 }
 
 .week-row .veckonummer {
-  height: 120px;
   border-radius: 18px;
   background: #f0e9ff;
   color: #7c3aed;
@@ -97,24 +104,23 @@
 }
 
 .dagruta,
-.empty-day {
-  height: 120px;
-  border-radius: 18px;
-  background: #ffffff;
-  box-shadow: 0 4px 14px rgba(45, 35, 66, 0.06);
-  
-}
-
-.dagruta,
 .empty-day,
 .week-row .veckonummer {
   height: auto;
   min-height: 0;
 }
 
+.dagruta,
+.empty-day {
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(45, 35, 66, 0.06);
+}
+
 .dagruta {
-  padding: 8px;
-  font-size: 14px;
+  min-width: 0;
+  padding: clamp(4px, 0.8vw, 8px);
+  font-size: clamp(11px, 1.1vw, 14px);
   border-radius: 14px;
   cursor: pointer;
   overflow-y: auto;
@@ -131,14 +137,15 @@
     0 0 0 4px rgba(168, 85, 247, 0.12),
     0 8px 22px rgba(124, 58, 237, 0.16);
 }
-/* Visar händeler i dagsrutan */
+
+/* Visar händelser i dagsrutan */
 .event-preview {
   margin-top: 6px;
   padding: 6px 8px;
   border-radius: 12px;
   background: #f3e8ff;
   color: #6d28d9;
-  font-size: 12px;
+  font-size: clamp(10px, 1vw, 12px);
   font-weight: 500;
   cursor: grab;
   overflow-wrap: break-word;
@@ -231,25 +238,84 @@
   resize: vertical;
 }
 
+
+
+
+
+
+/* Mobil/platta-anpassning kalender */
+
 @media (max-width: 768px) {
   .kalender-kontainer {
-    width: 100%;
-    padding: 12px;
-    border-radius: 16px;
+    margin-top: 10%;
+    height: auto;
+    padding: 10px;
+    overflow: visible;
   }
 
-  .veckodagar,
-  .week-row {
-    grid-template-columns: 42px repeat(7, minmax(70px, 1fr));
+  .veckodagar {
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+    gap: 5px;
+    margin-bottom: 8px;
+    font-size: 9px;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  /* Dölj den tomma rutan före Måndag */
+  .veckodagar > div:first-child {
+    display: none !important;
   }
 
   .kalender-wrapper {
-    overflow-x: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: visible;
+  }
+
+  .week-row {
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+    gap: 6px;
+    flex: none !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .veckonummer,
+  .week-number,
+  .week-nr {
+    display: none !important;
   }
 
   .dagruta,
-  .empty-day,
-  .week-row .veckonummer {
-    height: 90px;
+  .empty-day {
+    aspect-ratio: 1 / 1.8;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 4px;
+    border-radius: 12px;
+    font-size: 10px;
+    overflow: hidden;
   }
+
+  .event-preview {
+    font-size: 8px;
+    padding: 2px 4px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.kalender-header h1,
+.kalender-header h2 {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  font-size: 19px;
+  font-weight: 100;
+}
+
+
+
 }
