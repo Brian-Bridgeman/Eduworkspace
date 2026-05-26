@@ -1,4 +1,5 @@
-<app-template-header title="Grupper" subtitle="Här ser du alla grupper." buttonText="Lägg till grupp" (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
+<app-template-header title="Grupper" subtitle="Här ser du alla grupper." buttonText="Lägg till grupp"
+    (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
 </app-template-header>
 
 <div class="tableDiv">
@@ -6,12 +7,12 @@
         <thead>
             <tr>
                 <th>Grupp</th>
-                <th>Program</th>
-                <th>År</th>
-                <th>StartDatum</th>
-                <th>SlutDatum</th>
-                <th>Plats</th>
-                <th>Antal Elever</th>
+                <th>Kurs</th>
+                <th class="mobile-hidden">År</th>
+                <th class="mobile-hidden">StartDatum</th>
+                <th class="mobile-hidden">SlutDatum</th>
+                <th class="mobile-hidden">Plats</th>
+                <th class="mobile-hidden">Antal Elever</th>
                 <th>Status</th>
                 <th class="actions-column"></th>
             </tr>
@@ -24,11 +25,11 @@
                     <span>{{ grupp.namn }}</span>
                 </td>
                 <td>{{ grupp.kurs }}</td>
-                <td>{{ grupp.ar }}</td>
-                <td>{{ grupp.startdatum }}</td>
-                <td>{{ grupp.slutdatum }}</td>
-                <td>{{ grupp.plats }}</td>
-                <td>{{ grupp.antalElever }}</td>
+                <td class="mobile-hidden">{{ grupp.ar }}</td>
+                <td class="mobile-hidden">{{ grupp.startdatum }}</td>
+                <td class="mobile-hidden">{{ grupp.slutdatum }}</td>
+                <td class="mobile-hidden">{{ grupp.plats }}</td>
+                <td class="mobile-hidden">{{ grupp.antalElever }}</td>
                 <td>{{ grupp.status }}</td>
                 <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu>
                 </td>
