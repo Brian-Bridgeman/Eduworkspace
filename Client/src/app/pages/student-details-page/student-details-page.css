@@ -138,47 +138,49 @@
 .done {
   color: green;
 }
-.checklist-card {
-    height: 380px;
 
-    display: flex;
-    flex-direction: column;
+.checklist-card {
+  height: 380px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .checklist-scroll {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 
-    overflow-x: auto;
+  overflow-x: auto;
 
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .checklist-tab {
-    border: none;
+  border: none;
 
-    background: #f3f3f3;
+  background: #f3f3f3;
 
-    padding: 8px 14px;
+  padding: 8px 14px;
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .checklist-tab.active {
-    background: #8b5cf6;
+  background: #8b5cf6;
 
-    color: white;
+  color: white;
 }
 
 .active-checklist {
-    overflow-y: auto;
+  overflow-y: auto;
 
-    flex: 1;
+  flex: 1;
 }
+
 /* IMAGES */
 .images img {
   width: 100px;
@@ -199,6 +201,7 @@
   border-radius: 12px;
   object-fit: cover;
 }
+
 .tabs {
   display: flex;
   gap: 12px;
@@ -230,6 +233,7 @@
   background: var(--primary-color);
   color: white;
 }
+
 .course-list {
   display: flex;
   flex-direction: column;
@@ -266,13 +270,199 @@
   box-shadow: 0 0 8px rgba(239, 68, 68, 0.4);
 }
 
+.notes-card {
+  height: 600px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-scroll {
+  display: flex;
+
+  gap: 10px;
+
+  overflow-x: auto;
+
+  margin-bottom: 16px;
+}
+
+.note-tab {
+  border: none;
+
+  background: #f3f3f3;
+
+  padding: 8px 14px;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.note-tab.active {
+  background: #8b5cf6;
+
+  color: white;
+}
+
+.active-notes {
+  overflow-y: auto;
+
+  flex: 1;
+
+  padding-right: 6px;
+}
+.test-modal {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.test-modal-content {
+    background: white;
+
+    width: 520px;
+
+    border-radius: 22px;
+
+    padding: 32px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+.test-modal-content h2 {
+    margin: 0;
+
+    font-size: 36px;
+
+    font-weight: 700;
+}
+
+.test-modal textarea {
+    width: 100%;
+
+    height: 220px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 16px;
+
+    padding: 18px;
+
+    resize: none;
+
+    font-size: 16px;
+
+    font-family: inherit;
+
+    outline: none;
+
+    transition: 0.2s;
+
+    box-sizing: border-box;
+}
+
+.test-modal textarea:focus {
+    border-color: #8b5cf6;
+
+    box-shadow: 0 0 0 4px rgba(139,92,246,0.15);
+}
+
+.modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+}
+
+.modal-actions button {
+    border: none;
+
+    padding: 12px 22px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-weight: 600;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+.modal-actions button:first-child {
+    background: #f3f4f6;
+}
+
+.modal-actions button:first-child:hover {
+    background: #e5e7eb;
+}
+
+.modal-actions button:last-child {
+    background: #8b5cf6;
+
+    color: white;
+}
+
+.modal-actions button:last-child:hover {
+    background: #7c3aed;
+}
+
+.note-top {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+.delete-note-btn {
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  color: #999;
+
+  transition: 0.2s;
+}
+
+.delete-note-btn:hover {
+  color: #ef4444;
+}
+
 @media (max-width: 1200px) {
   .content-grid {
     grid-template-columns: 1fr;
   }
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .student-card {
     flex-direction: column;
     align-items: flex-start;

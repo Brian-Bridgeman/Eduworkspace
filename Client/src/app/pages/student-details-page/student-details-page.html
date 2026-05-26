@@ -118,27 +118,59 @@
 
             <!-- NOTES -->
 
-            <div class="card">
+            <div class="card notes-card">
 
                 <div class="card-header">
 
                     <h2>Anteckningar</h2>
 
-                    <button class="small-btn">
+                    <button class="small-btn" (click)="openNoteModal()">
+
                         + Ny anteckning
+
                     </button>
 
                 </div>
 
-                <div class="note" *ngFor="let note of notes">
+                <!-- NOTE COURSE TABS -->
 
-                    <p class="date">
-                        {{ note.date }}
-                    </p>
+                <div class="notes-scroll">
 
-                    <p>
-                        {{ note.text }}
-                    </p>
+                    <button class="note-tab" *ngFor="let collection of noteCollections"
+                        [class.active]="activeNoteCollection?.id === collection.id"
+                        (click)="selectNoteCollection(collection)">
+
+                        {{ collection.title }}
+
+                    </button>
+
+                </div>
+
+                <!-- ACTIVE NOTES -->
+
+                <div *ngIf="activeNoteCollection" class="active-notes">
+
+                    <div class="note" *ngFor="let note of activeNoteCollection.notes">
+
+                        <div class="note-top">
+
+                            <p class="date">
+                                {{ note.date }}
+                            </p>
+
+                            <button class="delete-note-btn" (click)="deleteNote(note)">
+
+                                ✕
+
+                            </button>
+
+                        </div>
+
+                        <p>
+                            {{ note.text }}
+                        </p>
+
+                    </div>
 
                 </div>
 
@@ -240,3 +272,28 @@
 <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()">
 
 </app-checklist-modal>
+<div class="test-modal" *ngIf="showNoteModal">
+
+    <div class="test-modal-content">
+
+        <h2>Ny anteckning</h2>
+
+        <textarea [(ngModel)]="newNoteText" placeholder="Skriv anteckning...">
+
+        </textarea>
+
+        <div class="modal-actions">
+
+            <button (click)="closeNoteModal()">
+                Avbryt
+            </button>
+
+            <button (click)="saveNote()">
+                Spara
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
