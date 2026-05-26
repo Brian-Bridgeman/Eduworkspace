@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink, ActivatedRoute } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 @Component({
@@ -14,7 +14,7 @@ export class TeamsPage {
   searchTerm: string = '';
   groupId: string | null = null;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.groupId = this.route.snapshot.paramMap.get('groupId');
   }
   teams = [
@@ -66,5 +66,9 @@ export class TeamsPage {
       team.kurs.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       team.grupp.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  navigateToEditTeamsPage() {
+    this.router.navigate([`/groups/${this.groupId}/editTeams`])
   }
 }
