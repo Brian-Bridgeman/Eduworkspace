@@ -18,7 +18,6 @@ export class Overview {
     {
       groupName: 'Oscar & Johan',
       course: 'Elinstallation',
-      group: 'Grupp A',
       location: 'Sal B',
       status: 'Pågående',
       participants: [
@@ -29,7 +28,6 @@ export class Overview {
     {
       groupName: 'Kalle & Alfred',
       course: 'Webbutveckling',
-      group: 'Grupp B',
       location: 'Sal C',
       status: 'Pågående',
       participants: [
@@ -42,7 +40,6 @@ export class Overview {
     {
       groupName: 'Simon & Hugo',
       course: 'Industrisäkerhet',
-      group: 'Grupp B',
       location: 'Sal E',
       status: 'Kommande',
       participants: [
