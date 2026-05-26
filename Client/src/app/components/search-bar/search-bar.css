@@ -1,7 +1,11 @@
 .search-box {
     display: flex;
     align-items: center;
-    width: 320px;
+    
+    flex: 1;
+    max-width: 320px;
+    min-width: 0;
+
     padding: 8px 8px;
     border: 2px solid #e5e7eb;
     border-radius: 14px;
