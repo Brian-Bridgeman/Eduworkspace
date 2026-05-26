@@ -82,3 +82,23 @@ hr {
     color: #6b7280;
     box-shadow: 0 8px 24px #0f172a14;
 }
+
+@media (max-width: 768px) {
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .course-card {
+        padding: 20px;
+    }
+
+    .material-symbols-outlined {
+        font-size: 32px;
+    }
+
+    .header-text h2 {
+        font-size: 18px;
+    }
+
+}
