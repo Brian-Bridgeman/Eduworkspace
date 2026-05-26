@@ -1,0 +1,12 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tableDiv {
+    flex: 1;
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: auto;
+}
