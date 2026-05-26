@@ -1,25 +1,3 @@
-<div>
-    <app-template-header title="Program" subtitle="Här ser du alla program." buttonText="Lägg till program" (searchChange)="searchTerm = $event">
-    </app-template-header>
-
-    <div class="tableDiv">
-        <table>
-            <thead>
-                <tr>
-                    <th>Program</th>
-                    <th>Kod</th>
-                    <th>Kategori</th>
-                    <th class="actions-column"></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor="let course of filteredCourses" [routerLink]="['/courses', course.id]" class="clickable-row">
-                    <td>{{ course.name }}</td>
-                    <td>{{ course.code }}</td>
-                    <td>{{ course.category }}</td>
-                    <td class="actions-column"><app-dropdown-menu></app-dropdown-menu></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<app-template-header title="Program" subtitle="Här ser du alla program." buttonText="Lägg till program"
+    (searchChange)="searchTerm = $event">
+</app-template-header>
