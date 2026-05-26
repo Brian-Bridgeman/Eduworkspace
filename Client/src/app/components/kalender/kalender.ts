@@ -43,6 +43,7 @@ export class Kalender implements OnInit {
   selectedDay: number | null = null;
   selectedEventId: string | null = null;
   draggedEventId: string | null = null;
+  showEventOverview = false;
 
   ngOnInit() {
     this.createCalendar();
@@ -74,15 +75,17 @@ export class Kalender implements OnInit {
     }
   }
 
-  openDay(day: number) {
+ openDay(day: number) {
   this.selectedDay = day;
   this.selectedEventId = null;
+  this.showEventOverview = false;
   this.prepareModal();
 }
 
-  openEvent(event: CalendarEvent) {
+openEvent(event: CalendarEvent) {
   this.selectedDay = event.day;
   this.selectedEventId = event.id;
+  this.showEventOverview = true;
   this.prepareModal();
 }
   getEventsForDay(day: number) {
@@ -182,6 +185,7 @@ prepareModal() {
 closeModal() {
   this.selectedDay = null;
   this.selectedEventId = null;
+  this.showEventOverview = false;
 }
 
 saveEvent() {
