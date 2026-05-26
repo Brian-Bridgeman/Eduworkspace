@@ -17,29 +17,25 @@ export class CoursesPage {
   courses = [
     {
       id: '1',
-      name: 'C# Grund',
-      code: 'C#',
-      category: 'Databaser'
+      name: 'C#',
+      educator: 'Oscar'
     },
     {
       id: '2',
-      name: 'Fiber Grund',
-      code: 'PHP',
-      category: 'Frontend'
+      name: 'FIB',
+      educator: 'Johan'
     },
     {
       id: '3',
-      name: 'Kebab Grund',
-      code: 'Python',
-      category: 'Backend'
+      name: 'NIB',
+      educator: 'Johan'
     }
   ];
 
   get filteredCourses() {
     return this.courses.filter(course =>
       course.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      course.code.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      course.category.toLowerCase().includes(this.searchTerm.toLowerCase())
+      course.educator.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
   }
 }
