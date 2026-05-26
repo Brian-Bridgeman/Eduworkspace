@@ -8,6 +8,77 @@
 .course-card {
     background: white;
     border-radius: 12px;
-    padding: 24px;
+    padding: 28px;
+    box-shadow: 0 8px 24px #0f172a14;
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 20px;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.material-symbols-outlined {
+    font-size: 40px;
+    color: #7c3aed;
+}
+
+.header-text h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.header-text p {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 20px 0;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.label {
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.empty-state {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    color: #6b7280;
     box-shadow: 0 8px 24px #0f172a14;
 }
