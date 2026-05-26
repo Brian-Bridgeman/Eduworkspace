@@ -7,7 +7,7 @@
 }
 
 .menu-button {
-    font-size: 15px;
+    font-size: var(--dropdown-font-size, 15px);
     border: none;
     background: transparent;
     cursor: pointer;
