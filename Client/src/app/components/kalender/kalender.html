@@ -32,7 +32,7 @@
   </div>
 
   <!-- KALENDER -->
-  <div class="kalender-wrapper">
+  <div class="kalender-wrapper" (mouseup)="stopResize()">
 
     @for (week of weeks; track week; let index = $index) {
 
@@ -60,6 +60,8 @@
               (click)="openDay(day)"
               (keydown)="handleDayKeydown($event, day)"
 
+              (mouseenter)="resizeEventToDay(day)"
+
               (dragover)="handleDragOver($event)"
               (drop)="copyEventToDay($event, day)"
             >
@@ -69,25 +71,36 @@
               </span>
 
               @for (event of getEventsForDay(day); track event.id) {
-
+                
                 <div
-                  class="event-preview"
-
-                  role="button"
-                  tabindex="0"
-
-                  draggable="true"
-
-                  (click)="$event.stopPropagation(); openEvent(event)"
-
-                  (keydown)="handleEventKeydown($event, event)"
-
-                  (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
-
-                  (dragend)="draggedEventId = null"
+                class="event-preview"
+                [class.event-start]="day === event.startDay && event.startDay !== event.endDay"
+                [class.event-middle]="day > event.startDay && day < event.endDay"
+                [class.event-end]="day === event.endDay && event.startDay !== event.endDay"
+                [class.event-single]="event.startDay === event.endDay"
+                
+                role="button"
+                tabindex="0"
+                
+                draggable="true"
+                
+                (click)="$event.stopPropagation(); openEvent(event)"
+                
+                (keydown)="handleEventKeydown($event, event)"
+                
+                (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
+                
+                (dragend)="draggedEventId = null"
                 >
 
+                <span class="event-title">
                   {{ event.time }} {{ event.title }}
+                </span>
+
+                <span
+                class="resize-handle"
+                (mousedown)="startResize($event, event)">
+              </span>
 
                 </div>
 
