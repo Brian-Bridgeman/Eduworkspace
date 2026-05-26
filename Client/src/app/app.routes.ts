@@ -11,6 +11,8 @@ import { CreateGroupPage } from './pages/create-group-page/create-group-page';
 import { TeamDetailsPage } from './pages/team-details-page/team-details-page';
 import { Overview } from './pages/overview/overview';
 import { Settings } from './pages/settings/settings';
+import { EditTeamsPage } from './pages/edit-teams-page/edit-teams-page';
+import { CourseDetailsPage } from './pages/course-details-page/course-details-page';
 
 export const routes: Routes = [
 
@@ -38,12 +40,12 @@ export const routes: Routes = [
         path: 'students/:id',
         component: StudentDetailsPage
     },
-    
+
      {
         path: 'courses/:id',
-        component: CoursesPage
+        component: CourseDetailsPage
     },
-    
+
     {
         path: 'kalender',
         component: Kalender
@@ -51,6 +53,10 @@ export const routes: Routes = [
      {
         path: 'groups/:groupId',
         component: TeamsPage,
+    },
+    {
+      path: 'groups/:groupId/editTeams',
+      component: EditTeamsPage
     },
     {
       path: 'groups/:groupId/teams/:teamId',
@@ -77,5 +83,4 @@ export const routes: Routes = [
         path: 'settings',
         component: Settings
     }
-
 ];
