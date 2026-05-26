@@ -1,0 +1,37 @@
+<app-template-header title="C#" subtitle="Här ser du alla kurstillfällen som tillhör kursen." buttonText="Lägg till kurstillfällen" (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()"></app-template-header>
+
+<div class="tableDiv">
+    <table>
+        <thead>
+            <tr>
+                <th>Grupp</th>
+                <th>År</th>
+                <th>StartDatum</th>
+                <th>SlutDatum</th>
+                <th>Plats</th>
+                <th>Antal Elever</th>
+                <th>Status</th>
+                <th class="actions-column"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let grupp of filteredGroups" [routerLink]="['/groups', grupp.id]" class="clickable-row">
+                <td class="avatar">
+                    <span class="material-symbols-outlined">Folder</span>
+                    <span>{{ grupp.namn }}</span>
+                </td>
+                <td>{{ grupp.ar }}</td>
+                <td>{{ grupp.startdatum }}</td>
+                <td>{{ grupp.slutdatum }}</td>
+                <td>{{ grupp.plats }}</td>
+                <td>{{ grupp.antalElever }}</td>
+                <td>{{ grupp.status }}</td>
+                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+// Här ska komponenten för anteckningar, checklistor och bilder vara (radera kommentar efter du lagt in det)

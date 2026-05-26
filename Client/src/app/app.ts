@@ -11,7 +11,7 @@ import { Settings } from './pages/settings/settings';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Header, CommonModule, Settings, Footer],
+  imports: [RouterOutlet, Sidebar, Header, CommonModule, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
