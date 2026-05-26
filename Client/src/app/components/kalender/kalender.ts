@@ -4,7 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 type CalendarEvent = {
   id: string;
-  day: number;
+  startDay: number;
+  endDay: number;
   title: string;
   time: string;
   place: string;
@@ -43,6 +44,7 @@ export class Kalender implements OnInit {
   selectedDay: number | null = null;
   selectedEventId: string | null = null;
   draggedEventId: string | null = null;
+  resizingEventId: string | null = null;
   showEventOverview = false;
 
   ngOnInit() {
@@ -83,14 +85,16 @@ export class Kalender implements OnInit {
 }
 
 openEvent(event: CalendarEvent) {
-  this.selectedDay = event.day;
+  this.selectedDay = event.startDay;
   this.selectedEventId = event.id;
   this.showEventOverview = true;
   this.prepareModal();
 }
-  getEventsForDay(day: number) {
-    return this.events.filter(event => event.day === day);
-  }
+ getEventsForDay(day: number) {
+  return this.events.filter(event =>
+    day >= event.startDay && day <= event.endDay
+  );
+}
 
   handleDayKeydown(event: KeyboardEvent, day: number) {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -116,31 +120,63 @@ openEvent(event: CalendarEvent) {
     }
   }
 
-  copyEventToDay(dragEvent: DragEvent, day: number) {
-    dragEvent.preventDefault();
 
-    const draggedId =
-      dragEvent.dataTransfer?.getData('text/plain') || this.draggedEventId;
+copyEventToDay(dragEvent: DragEvent, day: number) {
+  dragEvent.preventDefault();
 
-    const eventToCopy = this.events.find(event => event.id === draggedId);
+  const draggedId =
+    dragEvent.dataTransfer?.getData('text/plain') || this.draggedEventId;
 
-    if (!eventToCopy || eventToCopy.day === day) {
-      this.draggedEventId = null;
-      return;
+  const eventToCopy = this.events.find(event => event.id === draggedId);
+
+  if (!eventToCopy || eventToCopy.startDay === day) {
+    this.draggedEventId = null;
+    return;
+  }
+
+  this.events = [
+    ...this.events,
+    {
+      ...eventToCopy,
+      id: crypto.randomUUID(),
+      startDay: day,
+      endDay: day
+    }
+  ];
+
+  this.draggedEventId = null;
+  this.saveEvents();
+}
+
+startResize(event: MouseEvent, calendarEvent: CalendarEvent) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  this.resizingEventId = calendarEvent.id;
+}
+
+resizeEventToDay(day: number) {
+  if (!this.resizingEventId) return;
+
+  this.events = this.events.map(event => {
+    if (event.id !== this.resizingEventId) {
+      return event;
     }
 
-    this.events = [
-      ...this.events,
-      {
-        ...eventToCopy,
-        id: crypto.randomUUID(),
-        day
-      }
-    ];
+    return {
+      ...event,
+      endDay: Math.max(event.startDay, day)
+    };
+  });
 
-    this.draggedEventId = null;
-    this.saveEvents();
-  }
+  this.saveEvents();
+}
+
+stopResize() {
+  this.resizingEventId = null;
+}
+
+
 
   handleEventKeydown(keyboardEvent: KeyboardEvent, calendarEvent: CalendarEvent) {
     if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
@@ -193,7 +229,8 @@ saveEvent() {
 
   const savedEvent: CalendarEvent = {
     id: this.selectedEvent?.id ?? crypto.randomUUID(),
-    day: this.selectedDay,
+    startDay: this.selectedDay,
+    endDay: this.selectedEvent?.endDay ?? this.selectedDay,
     title: this.title,
     time: this.time,
     place: this.place,
