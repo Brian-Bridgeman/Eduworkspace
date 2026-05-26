@@ -33,6 +33,7 @@
 
 app-dropdown-menu {
     transform: translateX(20px);
+    --dropdown-font-size: 24px;
 }
 
 .material-symbols-outlined {
