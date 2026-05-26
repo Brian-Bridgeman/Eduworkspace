@@ -4,7 +4,7 @@
 
 <div class="courses-grid">
     @for (course of filteredCourses; track course.id) {
-    <div class="course-card">
+    <div class="course-card" [routerLink]="['/courses', course.id]">
         <div class="card-header">
             <div class="header-content">
                 <span class="material-symbols-outlined">
