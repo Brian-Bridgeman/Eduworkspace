@@ -15,6 +15,7 @@ export interface Arbetslag {
   id: number;
   name: string;
   isOpen: boolean;
+  isEditing: boolean;
 }
 
 @Component({
@@ -90,12 +91,24 @@ export class EditTeamsPage {
     this.numberOfArberslag = Math.max(1, Math.min(10, value));
     while (this.arbetslag.length < this.numberOfArberslag) {
       const nextId = this.arbetslag.length + 1;
-      this.arbetslag.push({ id: nextId, name: `Arbetslag ${nextId}`, isOpen: false });
+      this.arbetslag.push({ id: nextId, name: `Arbetslag ${nextId}`, isOpen: false, isEditing: false });
     }
   }
 
   save() {
     // TODO: spara arbetslag i databas
     this.router.navigate([`/groups/${this.groupId}`])
+  }
+
+  toggleEditName(event: Event, group: Arbetslag): void {
+    event.stopPropagation();
+    group.isEditing = !group.isEditing;
+
+    if (group.isEditing) {
+      const input = (event.currentTarget as HTMLElement)
+        ?.closest('.arbetslag-card')
+        ?.querySelector<HTMLInputElement>('.name-edit-input');
+      input?.focus();
+    }
   }
 }
