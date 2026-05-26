@@ -306,6 +306,42 @@
 }
 
 
+
+/* Resize funktionen med handle */
+
+.event-single {
+  border-radius: 12px;
+}
+
+.event-start {
+  border-radius: 12px 0 0 12px;
+  margin-right: -6px;
+}
+
+.event-middle {
+  border-radius: 0;
+  margin-left: -6px;
+  margin-right: -6px;
+}
+
+.event-end {
+  border-radius: 0 12px 12px 0;
+  margin-left: -6px;
+}
+
+.event-preview {
+  position: relative;
+}
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+}
+
 /* Mobil/platta-anpassning kalender */
 
 @media (max-width: 768px) {
