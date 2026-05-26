@@ -157,6 +157,9 @@
   background: #ead5ff;
 }
 
+
+
+/* Modal */
 .modal-backdrop {
   position: absolute;
   inset: 0;
@@ -241,15 +244,75 @@
 
 
 
+/* Visar händelser - Modalen */
+
+.event-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.overview-card {
+  background: #f8f5ff;
+  border: 1px solid #ece4ff;
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.side-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+/* Titel, Tid, Plats i händelseöversikten */
+.overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+/* Titel, Tid, Plats i händelseöversikten */
+.overview-section strong {
+  color: #7c3aed;
+  font-size: 16px;
+}
+/* Beskrivning i händelseöversikten */
+.overview-section span {
+  color: #2f2937;
+  line-height: 1.4;
+}
+
+.delete-btn {
+  align-self: flex-start;
+  padding:50 16px!important;
+  font-size: 14px!important;
+  color: #b91c1c!important;
+  margin-top : 10px!important;
+}
+
+.delete-btn:hover {
+  background: #fca5a581 !important;
+  color: #7f1d1d !important;
+}
+
+.edit-btn:hover {
+  background: #9752e0c5 !important;
+  
+}
 
 
 /* Mobil/platta-anpassning kalender */
 
 @media (max-width: 768px) {
   .kalender-kontainer {
-    margin-top: 10%;
+    margin-top: 15%;
     height: auto;
-    padding: 10px;
+    padding: 5px;
     overflow: visible;
   }
 
@@ -260,8 +323,7 @@
     font-size: 9px;
     font-family: 'Nunito', sans-serif;
   }
-
-  /* Dölj den tomma rutan före Måndag */
+  
   .veckodagar > div:first-child {
     display: none !important;
   }
@@ -315,7 +377,5 @@
   font-size: 19px;
   font-weight: 100;
 }
-
-
 
 }
