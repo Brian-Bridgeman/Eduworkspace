@@ -1,5 +1,5 @@
-<app-template-header title="Arbetslag" subtitle="Här ser du alla lagen." buttonText="Lägg till ett lag" (buttonClick)="navigateToEditTeamsPage()"
-    (searchChange)="searchTerm = $event"></app-template-header>
+<app-template-header title="Arbetslag" subtitle="Här ser du alla lagen." buttonText="Lägg till ett lag"
+    (buttonClick)="navigateToEditTeamsPage()" (searchChange)="searchTerm = $event"></app-template-header>
 
 <div class="tableDiv">
     <table>
@@ -15,13 +15,15 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let team of filteredTeams" [routerLink]="['/groups', groupId, 'teams', team.id]" class="clickable-row">
+            <tr *ngFor="let team of filteredTeams" [routerLink]="['/groups', groupId, 'teams', team.id]"
+                class="clickable-row">
                 <td>{{ team.gruppNamn }}</td>
                 <td>{{ team.kurs }}</td>
                 <td>{{ team.grupp }}</td>
                 <td>{{ team.plats }}</td>
                 <td>{{ team.deltagare }}</td>
-                 <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu [item]="team"
+                        (delete)="removeTeam($event)"></app-dropdown-menu></td>
             </tr>
         </tbody>
     </table>
