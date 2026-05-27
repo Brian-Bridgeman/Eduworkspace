@@ -91,22 +91,20 @@ export class StudentDetailsPage {
     }
 
   ];
-
-  courses = [
-
-    {
-      id: 1,
-      name: 'Frontendutveckling',
-      active: true
-    },
-
-    {
-      id: 2,
-      name: 'Java Backend',
-      active: false
-    }
-
-  ];
+courses = [
+  {
+    name: 'Frontendutveckling',
+    status: 'active'
+  },
+  {
+    name: 'Java Backend',
+    status: 'inactive'
+  },
+  {
+    name: 'React Native',
+    status: 'paused'
+  }
+];
 
   toggleChecklistItem(checklist: Checklist, item: any) {
 

@@ -1,21 +1,24 @@
 /* =========================
    PAGE LAYOUT
 ========================= */
-
 .student-details-page {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
   padding: 24px;
 }
-
+.student-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 28px;
+}
 .content-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 24px;
   margin-top: 24px;
 }
-
 .left-column,
 .right-column {
   display: flex;
@@ -27,7 +30,6 @@
 /* =========================
    CARDS
 ========================= */
-
 .card,
 .student-card,
 .tabs {
@@ -36,22 +38,20 @@
   box-shadow: var(--box-shadow);
   box-sizing: border-box;
 }
-
 .card {
   width: 100%;
   padding: 24px;
   overflow: hidden;
 }
-
 .student-card {
   width: 100%;
   padding: 32px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-radius: 14px;
+  font-weight: 600;
 }
-
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -59,69 +59,109 @@
   gap: 12px;
   margin-bottom: 24px;
 }
-
 /* =========================
    STUDENT INFO
 ========================= */
 
 .student-left {
   display: flex;
-  align-items: center;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 34px;
 }
-
+.student-right {
+  min-width: 260px;
+  padding: 24px;
+  border-radius: 24px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+}
 .student-image {
-  width: 140px;
-  height: 140px;
-  border-radius: 20px;
+  width: 270px;
+  height: 270px;
+  border-radius: 32px;
   object-fit: cover;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
-
 .student-top h1 {
   margin: 0;
-  font-size: 42px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1px;
 }
-
 .student-info p {
   margin: 10px 0;
 }
-
 .course-list {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 18px 0;
+  flex-direction: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid #eef2f7;
 }
-
 .course-item {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 10px;
+  transition: 0.2s ease;
 }
-
 .course-name {
-  color: #8b5cf6;
+  color: #374151;
   font-weight: 600;
+  font-size: 14px;
 }
-
-.status-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+.course-badge {
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
-
-.active-course {
-  background: #22c55e;
+.course-badge.active {
+  background: #dcfce7;
+  color: #166534;
 }
-
-.inactive-course {
-  background: #ef4444;
+.course-badge.inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+.course-badge.paused {
+  background: #fef3c7;
+  color: #92400e;
+}
+.student-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.meta-item p {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+.meta-item span {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #9ca3af;
 }
 
 /* =========================
    BUTTONS
 ========================= */
-
 .edit-btn,
 .small-btn,
 .card-link-btn,
@@ -133,7 +173,6 @@
   color: white;
   transition: 0.2s ease;
 }
-
 .edit-btn {
   padding: 14px 24px;
 }
@@ -157,46 +196,29 @@
 
 .tabs {
   display: flex;
-
   gap: 8px;
-
   margin-top: 24px;
-
   padding: 12px;
-
   background: var(--card-background);
-
   border-radius: var(--border-radius);
-
   box-shadow: var(--box-shadow);
-
   overflow-x: auto;
-
   overflow-y: hidden;
-
   white-space: nowrap;
-
   width: 100%;
-
   box-sizing: border-box;
 }
+
 .tab-button {
   flex: 0 0 auto;
-
   border: none;
   background: transparent;
-
   padding: 10px 14px;
-
   border-radius: 10px;
-
   cursor: pointer;
-
   font-size: 14px;
   font-weight: 600;
-
   white-space: nowrap;
-
   transition: 0.2s ease;
 }
 
@@ -209,9 +231,11 @@
   background: #8b5cf6;
   color: white;
 }
+
 .tabs::-webkit-scrollbar {
   display: none;
 }
+
 /* =========================
    SCROLL TABS
 ========================= */
@@ -281,9 +305,11 @@
 .delete-note-btn:hover {
   color: #ef4444;
 }
+
 .notes-card {
   height: 820px;
 }
+
 /* =========================
    CHECKLIST
 ========================= */
@@ -322,10 +348,12 @@
 .images img:hover {
   transform: scale(1.03);
 }
+
 .upload-section {
   padding-top: 8px;
   border-top: 1px solid var(--border-color);
 }
+
 /* =========================
    MODAL
 ========================= */
@@ -398,6 +426,7 @@
   background: #8b5cf6;
   color: white;
 }
+
 /* =========================
    TABLET
 ========================= */

@@ -16,18 +16,22 @@
 
                     <h1>Oscar Nilsson</h1>
 
-                    <span class="status">
-                        Aktiv
-                    </span>
-
                 </div>
 
                 <div class="course-list">
 
                     <div class="course-item" *ngFor="let course of courses">
 
-                        <span class="status-dot" [class.active-course]="course.active"
-                            [class.inactive-course]="!course.active">
+                        <span class="course-badge" [ngClass]="course.status">
+
+                            {{
+                            course.status === 'active'
+                            ? 'Pågående'
+                            : course.status === 'inactive'
+                            ? 'Avslutad'
+                            : 'Pausad'
+                            }}
+
                         </span>
 
                         <span class="course-name">
@@ -40,11 +44,29 @@
 
                 <div class="student-details">
 
-                    <p>070-111 11 11</p>
+                    <div class="detail-item">
 
-                    <p>oscar@mail.com</p>
+                        <i class="fa-solid fa-phone"></i>
 
-                    <p>Tech AB</p>
+                        <span>070-111 11 11</span>
+
+                    </div>
+
+                    <div class="detail-item">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <span>oscar@mail.com</span>
+
+                    </div>
+
+                    <div class="detail-item">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        <span>Tech AB</span>
+
+                    </div>
 
                 </div>
 
