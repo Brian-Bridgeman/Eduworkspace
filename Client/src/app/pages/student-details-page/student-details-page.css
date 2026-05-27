@@ -282,7 +282,7 @@
   color: #ef4444;
 }
 .notes-card {
-  height: 800px;
+  height: 820px;
 }
 /* =========================
    CHECKLIST
@@ -305,6 +305,9 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+
+  margin-top: 20px;
+  margin-bottom: 24px;
 }
 
 .images img {
@@ -319,7 +322,10 @@
 .images img:hover {
   transform: scale(1.03);
 }
-
+.upload-section {
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
 /* =========================
    MODAL
 ========================= */
