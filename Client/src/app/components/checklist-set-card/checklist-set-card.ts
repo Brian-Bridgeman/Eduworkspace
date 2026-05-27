@@ -26,5 +26,11 @@ export class ChecklistSetCard {
   toggleItem(item: any) {
     item.done = !item.done;
   }
+
+  removeChecklist(id: string) {
+    // fetch anrop till delete här, med id
+  }
+
+
 }
 
