@@ -16,6 +16,7 @@ export class AddStudentModal {
   }
 
   saveModal() {
+    // TODO:emit newly created student object
     this.save.emit();
   }
 }

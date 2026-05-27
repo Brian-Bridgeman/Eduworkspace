@@ -58,7 +58,7 @@
         </div>
 
         @if (showAddStudentModal) {
-          <app-add-student-modal (closed)="showAddStudentModal = false" (confirmed)="showAddStudentModal = false" />
+          <app-add-student-modal (close)="showAddStudentModal = false" (save)="addStudent($event)" />
         }
 
         <div class="form-group">
