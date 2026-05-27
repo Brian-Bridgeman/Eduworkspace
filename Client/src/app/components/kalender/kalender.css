@@ -23,6 +23,7 @@
   background: white;
   color: #2f2937;
   box-shadow: 0 6px 18px rgba(45, 35, 66, 0.08);
+  
 }
 
 .kalender-header h1,
@@ -62,7 +63,7 @@
   font-weight: 600;
 }
 /* Mån, Tis, Ons, Tor, Fre, Lör, Sön */
-.veckodagar > div {
+.veckodagar div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -159,7 +160,7 @@
 
 
 
-/* Modal */
+/* ======================================================  Modal */
 .modal-backdrop {
   position: absolute;
   inset: 0;
@@ -241,11 +242,173 @@
   resize: vertical;
 }
 
+/*=============================================== Dropdown vyn */
+.dropdownvy {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownvy-content {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  background: #ffffff;
+}
+
+.dropdownvy:hover .dropdownvy-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.kalender-wrapper {
+  height: calc(100% - 92px);
+}
+
+
+/* ============================================== Månad, Vecko och Dag vyer */
+.week-view-header {
+  display: grid;
+  grid-template-columns: 64px repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.week-time-heading {
+  min-width: 0;
+}
+
+.week-view-heading {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #4b4257;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.week-view-heading strong {
+  color: #7c3aed;
+  font-size: 16px;
+}
+
+.veckovy,
+.veckovy-tidsvy {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  height: calc(100% - 92px);
+  min-height: 0;
+}
+
+.veckovy-tidsvy {
+  /* 64px till tidskolumnen, resten delas mellan veckans sju dagar. */
+  grid-template-columns: 64px repeat(7, minmax(0, 1fr));
+  overflow-y: auto;
+  padding-bottom: 8px;
+}
+
+.week-day {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 12px;
+  min-height: 280px;
+  overflow-y: auto;
+  box-shadow: 0 4px 14px rgba(45, 35, 66, 0.06);
+}
+
+.week-day.empty-day {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.week-time-column,
+.week-day-time {
+  /* Varje rad motsvarar en timme i dygnet. */
+  display: grid;
+  grid-template-rows: repeat(14, 52px);
+}
+
+.week-time-label {
+  color: #6b6475;
+  font-size: 12px;
+  padding-top: 4px;
+  text-align: right;
+  padding-right: 8px;
+  border-top: 1px solid #e7deef;
+}
+
+.week-day-time {
+  position: relative;
+  min-width: 0;
+  border-radius: 18px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(45, 35, 66, 0.06);
+}
+
+.week-hour-slot {
+  border-top: 1px solid #eee7f4;
+  min-width: 0;
+}
+
+.week-event {
+  /* Händelsen placeras ovanpå timraderna med grid-row från TypeScript. */
+  z-index: 1;
+  align-self: start;
+  margin: 4px 6px 0;
+  min-height: 36px;
+  overflow: hidden;
+}
+
+.view-navigation {
+  display: grid;
+  grid-template-columns: 40px auto 40px;align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.view-navigation button   {
+ border: none;
+  background: #e2d6fc;
+  color: #723b92;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: grid;
+  }
+
+  .view-navigation button:hover {
+    background: #d1bdf9;
+    transform: translateY(-1px);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 /* Visar händelser - Modalen */
-
 .event-overview {
   display: flex;
   flex-direction: column;
@@ -304,8 +467,6 @@
   background: #9752e0c5 !important;
   
 }
-
-
 
 /* Resize funktionen med handle */
 
