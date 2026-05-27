@@ -14,7 +14,8 @@
                     <h2>{{ course.name }}</h2>
                 </div>
             </div>
-            <app-dropdown-menu (click)="$event.stopPropagation()"></app-dropdown-menu>
+            <app-dropdown-menu (click)="$event.stopPropagation()" [item]="course"
+                (delete)="removeCourse($event)"></app-dropdown-menu>
         </div>
         <hr />
         <div class="card-body">
