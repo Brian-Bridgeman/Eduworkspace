@@ -1,5 +1,5 @@
-<app-template-header title="Översikt" subtitle="Här får du en snabb överblick av kurstillfälle och anteckningar."
-    buttonText="Lägg till kommentar">
+<app-template-header class="header" title="Översikt"
+    subtitle="Här får du en snabb överblick av kurstillfälle och anteckningar." buttonText="Lägg till kommentar">
 </app-template-header>
 
 <div class="cards">
@@ -9,6 +9,7 @@
         <p>Pågående kurstillfälle</p>
     </div>
     <div class="card">
+
         <span class="material-symbols-outlined">
             people
         </span>
@@ -16,11 +17,13 @@
         <p>Aktiva deltagare</p>
     </div>
     <div class="card">
+
         <span class="material-symbols-outlined">menu_book</span>
         <h2>6</h2>
         <p>Kurser</p>
     </div>
     <div class="card">
+
         <span class="material-symbols-outlined">calendar_month</span>
         <h2>2</h2>
         <p>Kommande kurstillfälle</p>
@@ -60,7 +63,9 @@
                             {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> <span> </span>}
                         </div>
                     </td>
-                    <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                    <td class="actions-column" (click)="$event.stopPropagation()">
+                        <app-dropdown-menu></app-dropdown-menu>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -89,7 +94,7 @@
 
             <tbody>
 
-                <tr *ngFor="let group of upcomingGroups" class="clickable-row" >
+                <tr *ngFor="let group of upcomingGroups" class="clickable-row">
 
                     <td>{{ group.groupName }}</td>
                     <td>{{ group.course }}</td>
@@ -106,7 +111,9 @@
                             {<a href="#">{{ participant.name }}</a>}
                         </div>
                     </td>
-                    <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                    <td class="actions-column" (click)="$event.stopPropagation()">
+                        <app-dropdown-menu></app-dropdown-menu>
+                    </td>
                 </tr>
 
             </tbody>
@@ -137,9 +144,111 @@
 
                     <td>{{ note.date }}</td>
                     <td>{{ note.group }}</td>
-                    <td>{{ note.note }}</td><td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                    <td>{{ note.note }}</td>
+                    <td class="actions-column" (click)="$event.stopPropagation()">
+                        <app-dropdown-menu></app-dropdown-menu>
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="mobile-section-cards">
+<div class="mobile-statistik-button">
+    <div class="mobile-statistik-name"><span class="material-symbols-outlined">groups</span>
+    <p>Pågående kurstillfälle</p></div>
+    <p>4</p>
+
+</div>
+
+
+<div class="mobile-statistik-button clickable-row">
+    <div class="mobile-statistik-name"><span class="material-symbols-outlined">
+            people
+        </span>
+        <p>Aktiva deltagare</p>
+    </div>
+    <p>18</p>
+</div>
+
+<div class="mobile-statistik-button">
+    <div class="mobile-statistik-name"><span class="material-symbols-outlined">menu_book</span>
+        <p>Kurser</p>
+    </div>
+    <p>6</p>
+</div>
+
+<div class="mobile-statistik-button">
+    <div class="mobile-statistik-name"><span class="material-symbols-outlined">calendar_month</span>
+        <p>Kommande kurstillfälle</p>
+    </div>
+    <p>2</p>
+</div>
+
+</div>
+
+
+<div class="mobile-cards">
+    <div class="mobile-section">
+        <h2>Pågående kurstillfälle</h2>
+    </div>
+</div>
+
+
+<div class="mobile-card" *ngFor="let group of ongoingGroups">
+    <div class="mobile-card-header">
+        <h3>{{ group.groupName }}</h3>
+        <button class="btn-outline icon-btn">
+            <span class="material-symbols-outlined">photo_camera</span>
+        </button>
+        <button class="btn-outline icon-btn">
+            <span class="material-symbols-outlined">edit</span>
+        </button>
+    </div>
+    <p>{{ group.course }}</p>
+    <p>{{ group.location }}</p>
+    <p>
+        <span class="ongoing">
+            {{ group.status }}
+        </span>
+    </p>
+    <p class="link">
+    <div class="participants">
+        @for (participant of group.participants; track participant.name)
+        {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> <span> </span>}
+    </div>
+</div>
+
+
+<div class="mobile-cards">
+    <div class="mobile-section">
+        <h2>Kommande kurstillfälle</h2>
+
+        <div class="mobile-card" *ngFor="let group of upcomingGroups">
+            <div class="mobile-card-header">
+                <h3>{{ group.groupName }}</h3>
+                <button class="btn-outline icon-btn">
+                    <span class="material-symbols-outlined">photo_camera</span>
+                </button>
+                <button class="btn-outline icon-btn">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+            <p>{{ group.course }}</p>
+            <p>{{ group.location }}</p>
+
+            <p>
+                <span class="ongoing">
+                    {{ group.status }}
+                </span>
+            </p>
+            <p class="link">
+            <div class="participants">
+                @for (participant of group.participants; track participant.name)
+                {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> <span> </span>}
+            </div>
+        </div>
+
     </div>
 </div>
