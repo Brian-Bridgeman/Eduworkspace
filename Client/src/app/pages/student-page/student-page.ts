@@ -9,7 +9,7 @@ import { Signal } from '@angular/core';
 import { AddStudentModal } from '../../components/add-student-modal/add-student-modal';
 @Component({
   selector: 'app-student-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterModule, DropdownMenu, RouterLink,AddStudentModal],
+  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterModule, DropdownMenu, RouterLink, AddStudentModal],
   templateUrl: './student-page.html',
   styleUrl: './student-page.css',
 })
@@ -24,6 +24,11 @@ export class StudentPage {
   openModal() {
     this.showModal.set(true);
   }
+
+  removeStudent(id: string) {
+    // fetch anrop till delete här, med id
+  }
+
   searchTerm: string = '';
 
   persons = [
