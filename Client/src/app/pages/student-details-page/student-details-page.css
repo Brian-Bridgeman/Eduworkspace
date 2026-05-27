@@ -281,7 +281,9 @@
 .delete-note-btn:hover {
   color: #ef4444;
 }
-
+.notes-card {
+  height: 800px;
+}
 /* =========================
    CHECKLIST
 ========================= */
