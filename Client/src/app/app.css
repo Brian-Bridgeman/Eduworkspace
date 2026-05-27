@@ -1,8 +1,10 @@
 :host.start-route {
+  display: block;
   grid-template-columns: 1fr;
   grid-template-areas:
     'header'
     'page';
+  overflow: auto;
 }
 
 :host {

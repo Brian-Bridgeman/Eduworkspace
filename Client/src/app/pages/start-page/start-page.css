@@ -42,3 +42,14 @@ p {
 .name {
   color: #8337e7;
 }
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px;
+  }
+  .under-title {
+    font-size: 15px;
+  }
+  .header {
+    margin: 10px 0px 0px 20px;
+  }
+}

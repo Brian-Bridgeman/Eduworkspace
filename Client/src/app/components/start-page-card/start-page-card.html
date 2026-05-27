@@ -1,9 +1,13 @@
 <div class="container">
-  <div class="icon-bubble" [ngClass]="type">
-    <span class="material-symbols-outlined"> {{ symbol }} </span>
+  <div class="icon">
+    <div class="icon-bubble" [ngClass]="type">
+      <span class="material-symbols-outlined"> {{ symbol }} </span>
+    </div>
   </div>
-  <h1>{{ title }}</h1>
-  <p>{{ description }}</p>
-  <button class="viewButton" [ngClass]="type" routerLink="/{{ page }}">{{ viewText }}</button>
-  <button class="createButton" [ngClass]="type">{{ createText }}</button>
+  <div class="menu">
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+    <button class="viewButton" [ngClass]="type" routerLink="/{{ page }}">{{ viewText }}</button>
+    <button class="createButton" [ngClass]="type">{{ createText }}</button>
+  </div>
 </div>
