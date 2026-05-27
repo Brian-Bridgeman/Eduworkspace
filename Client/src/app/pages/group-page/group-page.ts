@@ -14,6 +14,10 @@ import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 export class GroupPage {
   constructor(private router: Router) { }
 
+  removeGroup(id: string) {
+    // fetch anrop till delete här, med id
+  }
+
   searchTerm: string = '';
 
   grupper = [

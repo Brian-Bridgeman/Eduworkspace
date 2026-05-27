@@ -1,9 +1,16 @@
 <div class="menu-container">
     <button class="menu-button" (click)="toggleMenu()">⋮</button>
 
-    <div class="dropdown-menu" *ngIf="isOpen">
+    @if (isOpen) {
+    <div class="dropdown-menu">
         <button>Redigera</button>
         <button>Ladda ner</button>
-        <button>Radera</button>
+        <button (click)="openModal()">Radera</button>
     </div>
+    }
 </div>
+
+@if (showModal) {
+<app-confirmation-modal [item]="item?.namn || item?.name || item?.gruppNamn" (close)="closeModal()" (confirm)="deleteItem()">
+</app-confirmation-modal>
+}

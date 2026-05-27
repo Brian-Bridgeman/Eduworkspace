@@ -15,7 +15,7 @@
 }
 
 .course-card:hover {
-    transform: translateY(-2px);
+    margin-top: 0.2em;
 }
 
 .card-header {
@@ -32,8 +32,8 @@
 }
 
 app-dropdown-menu {
-    transform: translateX(20px);
     --dropdown-font-size: 24px;
+    --dropdown-margin-right: 0px;
 }
 
 .material-symbols-outlined {

@@ -24,6 +24,11 @@ export class StudentPage {
   openModal() {
     this.showModal.set(true);
   }
+
+  removeStudent(id: string) {
+    // fetch anrop till delete här, med id
+  }
+
   searchTerm: string = '';
 
   persons = [
