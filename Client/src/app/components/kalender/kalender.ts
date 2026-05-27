@@ -11,6 +11,9 @@ type CalendarEvent = {
   place: string;
   description: string;
 };
+//Tilåter månad, vecka och dag vy i kalender
+type CalendarViewMode = 'month' | 'week' | 'day';
+
 @Component({
   selector: 'app-kalender',
   standalone: true,
@@ -52,12 +55,26 @@ export class Kalender implements OnInit {
     this.loadEvents();
   }
 
+// Visar event-översikten i kalendern
   get selectedEvent(): CalendarEvent | null {
     if (this.selectedEventId === null) {
       return null;
     }
     return this.events.find(event => event.id === this.selectedEventId) ?? null;
   }
+
+//Visar vecka-vyn i kalendern
+  get selectedWeek() {
+  return this.weeks[this.selectedWeekIndex] ?? [];
+}
+//Visar dag-vyn i kalendern
+get selectedDayForViewEvents() {
+  if (this.selectedDayForView === null) {
+    return [];
+  }
+
+  return this.getEventsForDay(this.selectedDayForView);
+}
 
   createCalendar() {
     const firstDay = new Date(this.year, this.month, 1).getDay();
@@ -115,6 +132,28 @@ setSelectedDayFromWeek() {
     this.selectedDayForView = firstDayInWeek;
   }
 }
+// Samma som med veckovyn fast för dag-vyn
+previousDay() {
+  if (this.selectedDayForView !== null && this.selectedDayForView > 1) {
+    this.selectedDayForView--;
+  }
+}
+nextDay() {
+  const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
+  if (
+    this.selectedDayForView !== null &&
+    this.selectedDayForView < daysInMonth
+  ) {
+    this.selectedDayForView++;
+  }
+}
+get daysInCurrentMonth() {
+  return new Date(this.year, this.month + 1, 0).getDate();
+}
+
+
+
+
  openDay(day: number) {
   this.selectedDay = day;
   this.selectedEventId = null;
@@ -133,6 +172,16 @@ openEvent(event: CalendarEvent) {
     day >= event.startDay && day <= event.endDay
   );
 }
+ // Placerar händelsen på rätt timrad i veckovyn utifrån event.time.
+getEventGridRow(event: CalendarEvent) {
+  const startHour = 6;
+  const endHour = 19;
+  const hour = Number(event.time.split(':')[0]);
+  const clampedHour = Number.isFinite(hour)
+    ? Math.min(Math.max(hour, startHour), endHour)
+    : startHour;
+  return `${clampedHour - startHour + 1} / span 1`;
+}
 
   handleDayKeydown(event: KeyboardEvent, day: number) {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -141,6 +190,7 @@ openEvent(event: CalendarEvent) {
     }
   }
 
+//Hantera drag and drop i kalendern
   handleDragStart(dragEvent: DragEvent, calendarEvent: CalendarEvent) {
     this.draggedEventId = calendarEvent.id;
     dragEvent.dataTransfer?.setData('text/plain', calendarEvent.id);
@@ -296,4 +346,4 @@ deleteEvent() {
 
 
 
-}
+}}
