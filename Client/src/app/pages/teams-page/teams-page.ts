@@ -17,6 +17,11 @@ export class TeamsPage {
   constructor(private route: ActivatedRoute, private router: Router) {
     this.groupId = this.route.snapshot.paramMap.get('groupId');
   }
+
+  removeTeam(id: string) {
+    // fetch anrop till delete här, med id
+  }
+
   teams = [
     {
       id: 1,

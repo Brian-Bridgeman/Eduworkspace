@@ -12,6 +12,11 @@ import { RouterModule } from '@angular/router';
 })
 
 export class CoursesPage {
+  removeCourse(id: string) {
+    // fetch anrop till delete här, med id
+  }
+
+
   searchTerm: string = '';
 
   courses = [

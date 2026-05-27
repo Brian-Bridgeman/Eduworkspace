@@ -31,7 +31,8 @@
                 <td class="mobile-hidden">{{ grupp.plats }}</td>
                 <td class="mobile-hidden">{{ grupp.antalElever }}</td>
                 <td>{{ grupp.status }}</td>
-                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu>
+                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu [item]="grupp"
+                        (delete)="removeGroup($event)"></app-dropdown-menu>
                 </td>
             </tr>
         </tbody>
