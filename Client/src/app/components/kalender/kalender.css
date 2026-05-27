@@ -565,6 +565,15 @@
   cursor: ew-resize;
 }
 
+.time-resize-handle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  cursor: ns-resize;
+  z-index: 3;
+}
 /* Mobil/platta-anpassning kalender */
 
 @media (max-width: 768px) {
