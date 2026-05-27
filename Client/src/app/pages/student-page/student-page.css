@@ -16,3 +16,15 @@ thead {
   top: 0;
   background-color: #f8f8fc;
 }
+
+@media (max-width: 1079px) {
+  .tablet-col {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-col {
+    display: none;
+  }
+}
