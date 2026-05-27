@@ -1,0 +1,30 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tableDiv {
+    flex: 1;
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #f8f8fc;
+}
+
+@media (max-width: 1079px) {
+  .tablet-col {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .desktop-col {
+    display: none;
+  }
+}

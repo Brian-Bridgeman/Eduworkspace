@@ -41,18 +41,25 @@
   </div>
 
   <div class="arbetslag-list">
-    <div class="card arbetslag-card" *ngFor="let group of visibleArbetstlag; let i = index">
+    <div class="card arbetslag-card" *ngFor="let group of visibleArbetstlag; let i = index"
+      [attr.data-group-id]="group.id">
       <div class="arbetslag-header" (click)="toggleArbetstlag(group)">
         <div class="header-left">
           <div class="arbetslag-badge" [attr.data-index]="i">
             {{ i + 1 }}
           </div>
           <div class="header-text">
-            <span class="arbetslag-name">{{ group.name }}</span>
-            <span class="member-count">
-              {{ getMemberCount(group.id) }} tilldelade medlemmar
-            </span>
+            <span class="arbetslag-name" [class.hidden]="group.isEditing">{{ group.name }}</span>
+            <input class="name-edit-input" [class.hidden]="!group.isEditing" [(ngModel)]="group.name"
+              (click)="$event.stopPropagation()" (keydown.enter)="group.isEditing = false"
+              (keydown.escape)="group.isEditing = false" />
+            <span class="member-count">{{ getMemberCount(group.id) }} tilldelade medlemmar</span>
           </div>
+          <button class="edit-name-btn" (click)="toggleEditName($event, group)" title="Redigera namn">
+            <span class="material-symbols-outlined icon-sm">
+              {{ group.isEditing ? 'check' : 'edit' }}
+            </span>
+          </button>
         </div>
         <div class="header-right">
           <span class="expand-icon material-symbols-outlined" [class.rotated]="group.isOpen">

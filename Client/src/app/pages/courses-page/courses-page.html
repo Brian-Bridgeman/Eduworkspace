@@ -1,25 +1,29 @@
-<div>
-    <app-template-header title="Program" subtitle="Här ser du alla program." buttonText="Lägg till program" (searchChange)="searchTerm = $event">
-    </app-template-header>
+<app-template-header title="Kurser" subtitle="Här ser du alla kurser." buttonText="Lägg till kurs"
+    (searchChange)="searchTerm = $event">
+</app-template-header>
 
-    <div class="tableDiv">
-        <table>
-            <thead>
-                <tr>
-                    <th>Program</th>
-                    <th>Kod</th>
-                    <th>Kategori</th>
-                    <th class="actions-column"></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor="let course of filteredCourses" [routerLink]="['/courses', course.id]" class="clickable-row">
-                    <td>{{ course.name }}</td>
-                    <td>{{ course.code }}</td>
-                    <td>{{ course.category }}</td>
-                    <td class="actions-column"><app-dropdown-menu></app-dropdown-menu></td>
-                </tr>
-            </tbody>
-        </table>
+<div class="courses-grid">
+    @for (course of filteredCourses; track course.id) {
+    <div class="course-card" [routerLink]="['/courses', course.id]">
+        <div class="card-header">
+            <div class="header-content">
+                <span class="material-symbols-outlined">
+                    menu_book
+                </span>
+                <div class="header-text">
+                    <h2>{{ course.name }}</h2>
+                </div>
+            </div>
+            <app-dropdown-menu (click)="$event.stopPropagation()" [item]="course"
+                (delete)="removeCourse($event)"></app-dropdown-menu>
+        </div>
+        <hr />
+        <div class="card-body">
+            <div class="info-row">
+                <span class="label">Utbildare</span>
+                <span> {{ course.educator }}</span>
+            </div>
+        </div>
     </div>
+    }
+</div>

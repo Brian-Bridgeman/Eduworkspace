@@ -1,29 +1,29 @@
-<app-template-header title="Elever" subtitle="Här ser du alla registrerade elever." buttonText="Lägg till elev" (searchChange)="searchTerm = $event" (buttonClick)="openModal()"></app-template-header>
-
+<app-template-header title="Deltagare" subtitle="Här ser du alla registrerade deltagare." buttonText="Lägg till deltagare" (searchChange)="searchTerm = $event" (buttonClick)="openModal()"></app-template-header>
 <div class="tableDiv">
     <table>
         <thead>
             <tr>
                 <th>Namn</th>
-                <th>Telefonnummer</th>
-                <th>E-post</th>
-                <th>Företag</th>
-                <th>Kurs</th>
+                <th class="tablet-col">Telefonnummer</th>
+                <th class="tablet-col">E-post</th>
+                <th class="desktop-col">Företag</th>
+                <th class="desktop-col">Kurs</th>
+                <th>Grupp</th>
                 <th class="actions-column"></th>
             </tr>
         </thead>
-
         <tbody>
             <tr *ngFor="let person of filteredPersons" [routerLink]="['/students', person.id]" class="clickable-row">
                 <td class="avatar">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span>{{ person.namn }}</span>
                 </td>
-                <td>{{ person.telefonNr }}</td>
-                <td>{{ person.epost }}</td>
-                <td>{{ person.foretag }}</td>
-                <td>{{ person.kurs }}</td>
-                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                <td class="tablet-col">{{ person.telefonNr }}</td>
+                <td class="tablet-col">{{ person.epost }}</td>
+                <td class="desktop-col">{{ person.foretag }}</td>
+                <td class="desktop-col">{{ person.kurs }}</td>
+                <td>{{ person.grupp }}</td>
+                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu  [item]="person" (delete)="removeStudent($event)"></app-dropdown-menu></td>
             </tr>
         </tbody>
     </table>

@@ -7,7 +7,7 @@
 }
 
 .menu-button {
-    font-size: 15px;
+    font-size: var(--dropdown-font-size, 15px);
     border: none;
     background: transparent;
     cursor: pointer;
@@ -16,7 +16,7 @@
     justify-content: center;
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-right: var(--dropdown-margin-right, 20px);
     border-radius: 10px;
 }
 

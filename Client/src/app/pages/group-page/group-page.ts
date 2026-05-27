@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { Router, RouterLink } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
+
 @Component({
   selector: 'app-group-page',
   imports: [CommonModule, TemplateHeaderComponent, DropdownMenu, RouterLink],
@@ -12,6 +13,10 @@ import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 
 export class GroupPage {
   constructor(private router: Router) { }
+
+  removeGroup(id: string) {
+    // fetch anrop till delete här, med id
+  }
 
   searchTerm: string = '';
 
@@ -97,7 +102,6 @@ export class GroupPage {
       id: '8',
       namn: 'H12 26',
       kurs: 'Systemutveckling med AI',
-
       ar: 2026,
       startdatum: '2026-01-15',
       slutdatum: '2026-06-07',

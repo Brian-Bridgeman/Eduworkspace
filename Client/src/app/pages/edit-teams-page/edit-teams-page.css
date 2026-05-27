@@ -20,6 +20,7 @@
   font-weight: 800;
   color: var(--text-color);
 }
+
 .page-subtitle {
   margin: 0;
   font-size: 14px;
@@ -372,6 +373,43 @@
 .user-tag.unassigned {
   background: #f3f4f6;
   color: #9ca3af;
+}
+
+.name-edit-input {
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-bottom: 2px solid var(--primary, #6366f1);
+  background: transparent;
+  outline: none;
+  width: 180px;
+  color: inherit;
+  padding: 0 2px;
+}
+
+.edit-name-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted, #94a3b8);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  margin-left: 6px;
+  transition: color 0.15s;
+}
+
+.edit-name-btn:hover {
+  color: var(--primary, #6366f1);
+}
+
+.hidden {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
 }
 
 @media screen and (max-width: 768px) {
