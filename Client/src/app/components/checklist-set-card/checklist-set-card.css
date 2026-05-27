@@ -7,6 +7,7 @@
     margin: 10px;
     box-sizing: border-box;
     height: 100%;
+    overflow: hidden;
 }
 
 .card-header {
@@ -23,6 +24,13 @@
     gap: 6px;
 }
 
+.header-text h2,
+.header-text p,
+.check-item span {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
 .header-text h2 {
     font-size: 25px;
     font-weight: 700;
@@ -34,6 +42,11 @@
     margin: 6px 0 0;
     font-size: 15px;
     color: #6b7280;
+}
+
+.header-text,
+.check-item span {
+    min-width: 0;
 }
 
 .card-header .material-symbols-outlined {
