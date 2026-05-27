@@ -54,6 +54,11 @@ table thead th {
   text-align: left;
   font-size: 13px;
   padding: 10px 15px;
+  position: sticky;
+  top: 0;
+  background: #f7f8fc;
+  z-index: 10;
+  box-shadow: 0 2px 4px #0000000d;
 }
 
 tbody tr {
