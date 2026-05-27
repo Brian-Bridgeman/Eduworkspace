@@ -1,0 +1,17 @@
+<div class="modal-backdrop">
+    <div class="modal">
+        <h2>Bekräfta radering</h2>
+
+        <p>Är du säker på att du vill radera {{ item }}?</p>
+
+        <div class="buttons">
+            <button class="cancel-button" (click)="closeModal()">
+                Avbryt
+            </button>
+
+            <button class="delete-button" (click)="confirmDelete()">
+                Radera
+            </button>
+        </div>
+    </div>
+</div>
