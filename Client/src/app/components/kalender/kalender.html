@@ -14,7 +14,39 @@
       →
     </button>
 
+  <!-- Välj vilken kalender-vy som ska visas -->
+  <div class="dropdownvy">
+  <button type="button" class="dropbtn">
+    @if (viewMode === 'month') {
+      <span class="material-symbols-outlined">
+  expand_more
+</span>
+      Visar månad 
+    } @else if (viewMode === 'week') {
+      <span class="material-symbols-outlined">
+  expand_more
+</span>
+      Visar vecka 
+    } @else {
+      <span class="material-symbols-outlined">
+  expand_more
+</span>
+      Visar dag 
+    }
+  </button>
+<!-- Alternativen ändrar viewMode i kalender.ts -->
+  <div class="dropdownvy-content">
+    <button type="button" (click)="setViewMode('month')">Månad</button>
+    <button type="button" (click)="setViewMode('week')">Vecka</button>
+    <button type="button" (click)="setViewMode('day')">Dag</button>
   </div>
+</div>
+
+
+
+
+<!-- Visar endast en kalender-vy åt gången beroende på viewMode -->
+@if (viewMode === 'month') {
 
   <!-- VECKODAGAR -->
   <div class="veckodagar">

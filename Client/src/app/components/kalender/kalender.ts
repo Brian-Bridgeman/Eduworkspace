@@ -77,6 +77,44 @@ export class Kalender implements OnInit {
     }
   }
 
+//Ändrar vy i kalendern
+  setViewMode(mode: CalendarViewMode) {
+  this.viewMode = mode;
+  if (mode === 'week') {
+    this.setCurrentWeek();
+  }
+  if (mode === 'day' && this.selectedDayForView === null) {
+    this.selectedDayForView = this.todayDay;
+  }
+}
+setCurrentWeek() {
+  const dayToShow = this.selectedDayForView ?? this.selectedDay ?? this.todayDay;
+  const currentWeekIndex = this.weeks.findIndex(week =>
+    week.includes(dayToShow)
+  );
+  this.selectedWeekIndex = currentWeekIndex >= 0 ? currentWeekIndex : 0;
+}
+
+// Navigerar till föregående eller nästa vecka i veckovyn
+previousWeek() {
+  if (this.selectedWeekIndex > 0) {
+    this.selectedWeekIndex--;
+    this.setSelectedDayFromWeek();
+  }
+}
+nextWeek() {
+  if (this.selectedWeekIndex < this.weeks.length - 1) {
+    this.selectedWeekIndex++;
+    this.setSelectedDayFromWeek();
+  }
+}
+setSelectedDayFromWeek() {
+  const firstDayInWeek = this.selectedWeek.find(day => day !== null);
+
+  if (firstDayInWeek !== undefined) {
+    this.selectedDayForView = firstDayInWeek;
+  }
+}
  openDay(day: number) {
   this.selectedDay = day;
   this.selectedEventId = null;
