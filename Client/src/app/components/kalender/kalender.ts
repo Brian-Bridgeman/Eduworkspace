@@ -36,16 +36,25 @@ export class Kalender implements OnInit {
   monthName = 'Maj';
   year = 2026;
   month = 4;
-
   today = new Date();
   todayDay = this.today.getDate();
-
   calendarDays: (number | null)[] = [];
   weeks: (number | null)[][] = [];
+
+  // Används i veckovyn för att skapa tidsrader. från 06:00 til 19:00
+  hours = Array.from({ length: 14 }, (_, index) => {
+  const hour = index + 6;
+  return `${hour.toString().padStart(2, '0')}:00`;
+});
+
+  viewMode: CalendarViewMode = 'month'; 
+
+  selectedWeekIndex = 0;
 
   events: CalendarEvent[] = [];
   selectedDay: number | null = null;
   selectedEventId: string | null = null;
+  selectedDayForView: number | null = this.todayDay;
   draggedEventId: string | null = null;
   resizingEventId: string | null = null;
   showEventOverview = false;
@@ -54,7 +63,6 @@ export class Kalender implements OnInit {
     this.createCalendar();
     this.loadEvents();
   }
-
 // Visar event-översikten i kalendern
   get selectedEvent(): CalendarEvent | null {
     if (this.selectedEventId === null) {
@@ -189,7 +197,6 @@ getEventGridRow(event: CalendarEvent) {
       this.openDay(day);
     }
   }
-
 //Hantera drag and drop i kalendern
   handleDragStart(dragEvent: DragEvent, calendarEvent: CalendarEvent) {
     this.draggedEventId = calendarEvent.id;
@@ -346,4 +353,4 @@ deleteEvent() {
 
 
 
-}}
+}
