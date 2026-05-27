@@ -12,7 +12,6 @@ p {
   margin-bottom: 50px;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
-
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -29,10 +28,13 @@ p {
   flex-direction: column;
   border-radius: 1rem;
   background-color: white;
-  padding: 40px 50px 100px 50px;
-  width: 15vw;
+  padding: 40px 35px;
+  width: 100%;
+  min-height: 520px;
+  box-sizing: border-box;
   box-shadow: 0px 5px 10px 0px #d4e2f1;
   transition: all 0.2s ease;
+  position: relative;
 }
 .icon-bubble {
   width: 125px;
@@ -78,6 +80,7 @@ button {
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
+
 @media (max-width: 768px) {
   .icon-bubble {
     height: 60px;
@@ -86,11 +89,11 @@ button {
   .container {
     display: grid;
     grid-template-columns: 90px 1fr;
-    width: 90vw;
-    height: 25vh;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 0px;
+    width: 100%;
+    min-height: 160px;
+    padding: 16px;
+    gap: 10px;
+    align-items: start;
   }
   .icon {
     width: 72px;
@@ -113,19 +116,41 @@ button {
     margin-top: 20px;
   }
   p {
-    font-size: 12px;
+    font-size: 13px;
     margin: 0px 0px 15px 0px;
     max-width: 60%;
     text-align: start;
   }
   button {
-    height: 20%;
+    height: 32px;
     width: 95%;
-    margin: 0px 0px 10px 0px;
+    margin: 0px;
     border-radius: 10px;
     font-size: 12px;
   }
   .icon-bubble {
     margin: 0px;
+  }
+
+  .viewButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: #f8f4ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+  }
+  .viewButton::after {
+    content: '➜';
+    font-size: 22px;
+    color: #8337e7;
+    transform: rotate(0deg);
   }
 }

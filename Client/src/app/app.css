@@ -1,10 +1,12 @@
 :host.start-route {
-  display: block;
+  display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 64px 1fr;
   grid-template-areas:
     'header'
     'page';
-  overflow: auto;
+  height: 100vh;
+  overflow: hidden;
 }
 
 :host {
@@ -23,6 +25,8 @@ app-header {
   grid-area: header;
   display: block;
   height: 64px;
+  z-index: 1000;
+  background: white;
 }
 
 app-sidebar {
@@ -44,7 +48,9 @@ app-footer {
 }
 
 .page.start-route {
-  padding: 0px;
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 0;
 }
 
 .layout {
