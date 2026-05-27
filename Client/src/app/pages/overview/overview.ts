@@ -21,8 +21,8 @@ export class Overview {
       location: 'Sal B',
       status: 'Pågående',
       participants: [
-        {name: 'Oscar'},
-        {name: 'Johan'}]
+        {name: 'Oscar Marcusson'},
+        {name: 'Johan Dahlin'}]
     },
 
     {
@@ -31,8 +31,8 @@ export class Overview {
       location: 'Sal C',
       status: 'Pågående',
       participants: [
-        {name: 'Kalle'},
-        {name: 'Alfred'}]
+        {name: 'Kalle Anka'},
+        {name: 'Alfred Dumpling'}]
     }
   ];
 
@@ -43,8 +43,8 @@ export class Overview {
       location: 'Sal E',
       status: 'Kommande',
       participants: [
-        {name: 'Simon'},
-        {name: 'Hugo'}]
+        {name: 'Simon Knatte'},
+        {name: 'Hugo Larry'}]
     }
   ];
 
@@ -53,7 +53,7 @@ export class Overview {
       date: '2026-05-20',
       group: 'Oscar & Johan',
       note: 'Kontroll av utrustning genomförd.',
-      createdBy: 'Johan'
+      createdBy: 'Johan Kalle'
     }
   ];
 }
