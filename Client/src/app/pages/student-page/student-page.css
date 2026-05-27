@@ -1,0 +1,18 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tableDiv {
+    flex: 1;
+    max-height: none;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #f8f8fc;
+}
