@@ -26,6 +26,7 @@ export class StudentDetailsPage {
   showChecklistModal = false;
   showNoteModal = false;
   newNoteText = '';
+  activeTab = 'overview';
 
   checklists: Checklist[] = [];
   activeChecklist: Checklist | null = null;
@@ -149,7 +150,7 @@ export class StudentDetailsPage {
     this.showNoteModal = false;
 
   }
-  
+
   deleteNote(noteToDelete: any) {
 
   this.activeNoteCollection.notes =
@@ -179,5 +180,6 @@ export class StudentDetailsPage {
     this.closeNoteModal();
 
   }
+ 
 
 }

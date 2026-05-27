@@ -86,31 +86,41 @@
     <!-- TABS -->
     <div class="tabs">
 
-        <button class="tab-button active">
+        <button class="tab-button" [class.active]="activeTab === 'overview'" (click)="activeTab = 'overview'">
+
             Översikt
+
         </button>
 
-        <button class="tab-button">
+        <button class="tab-button" [class.active]="activeTab === 'notes'" (click)="activeTab = 'notes'">
+
             Anteckningar
+
         </button>
 
-        <button class="tab-button">
+        <button class="tab-button" [class.active]="activeTab === 'checklists'" (click)="activeTab = 'checklists'">
+
             Checklistor
+
         </button>
 
-        <button class="tab-button">
+        <button class="tab-button" [class.active]="activeTab === 'files'" (click)="activeTab = 'files'">
+
             Filer
+
         </button>
 
-        <button class="tab-button">
+        <button class="tab-button" [class.active]="activeTab === 'attendance'" (click)="activeTab = 'attendance'">
+
             Närvaro
+
         </button>
 
     </div>
 
     <!-- MAIN CONTENT -->
 
-    <div class="content-grid">
+    <div class="content-grid" *ngIf="activeTab === 'overview'">
 
         <!-- LEFT COLUMN -->
 
@@ -268,7 +278,52 @@
 
     </div>
 
+
+
+<!-- NOTES PAGE -->
+<div *ngIf="activeTab === 'notes'">
+
+    <div class="card">
+
+        <h2>Anteckningar</h2>
+
+    </div>
+
 </div>
+
+<!-- CHECKLIST PAGE -->
+<div *ngIf="activeTab === 'checklists'">
+
+    <div class="card">
+
+        <h2>Checklistor</h2>
+
+    </div>
+
+</div>
+
+<!-- FILES PAGE -->
+<div *ngIf="activeTab === 'files'">
+
+    <div class="card">
+
+        <h2>Filer</h2>
+
+    </div>
+
+</div>
+
+<!-- ATTENDANCE PAGE -->
+<div *ngIf="activeTab === 'attendance'">
+
+    <div class="card">
+
+        <h2>Närvaro</h2>
+
+    </div>
+
+</div>
+
 <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()">
 
 </app-checklist-modal>
