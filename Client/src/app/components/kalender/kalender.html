@@ -127,6 +127,21 @@
                 class="resize-handle"
                 (mousedown)="startResize($event, event)">
               </span>
+} @else if (viewMode === 'week') { 
+  <div class="view-navigation">
+  <button
+    type="button"
+    (click)="previousWeek()"
+    [disabled]="selectedWeekIndex === 0">
+    ←
+  </button>
+  <h3 class="veckotitel">Vecka {{ 18 + selectedWeekIndex }}</h3>
+  <button
+  type="button"
+  (click)="nextWeek()"
+  [disabled]="selectedWeekIndex === weeks.length - 1">
+  →
+</button>
 
 
 
