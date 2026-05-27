@@ -460,6 +460,7 @@
         </div>
 
     </div>
+    
     <!-- ATTENDANCE PAGE -->
     <div *ngIf="activeTab === 'attendance'" class="single-tab-layout">
 
@@ -471,38 +472,50 @@
 
             </div>
 
-            <div class="attendance-stats">
+        <div class="card attendance-card">
 
-                <div class="attendance-box">
+    <div class="card-header">
+        <h2>Närvaro</h2>
+    </div>
 
-                    <h3>92%</h3>
+    <div class="attendance-grid">
 
-                    <p>Total närvaro</p>
+        <div class="attendance-box primary">
 
-                </div>
-
-                <div class="attendance-box">
-
-                    <h3>4</h3>
-
-                    <p>Frånvarodagar</p>
-
-                </div>
-
-                <div class="attendance-box">
-
-                    <h3>2</h3>
-
-                    <p>Sena ankomster</p>
-
-                </div>
-
+            <div class="attendance-top">
+                <h3>92%</h3>
+                <span class="attendance-status good">
+                    Bra
+                </span>
             </div>
+
+            <p>Total närvaro</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
+        </div>
+
+        <div class="attendance-box">
+
+            <h3>4</h3>
+
+            <p>Frånvarodagar</p>
+
+        </div>
+
+        <div class="attendance-box">
+
+            <h3>2</h3>
+
+            <p>Sena ankomster</p>
 
         </div>
 
     </div>
 
+</div>
     <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()">
 
     </app-checklist-modal>
