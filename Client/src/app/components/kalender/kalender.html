@@ -244,7 +244,16 @@
   </button>
 </div>
 
-  <div class="dagvy" (mouseup)="stopResize()">
+  <div class="day-view-header">
+    <div class="week-time-heading"></div>
+
+    <div class="week-view-heading day-view-heading">
+      <span>Dag</span>
+      <strong>{{ selectedDayForView }}</strong>
+    </div>
+  </div>
+
+  <div class="dagvy-tidsvy" (mouseup)="stopResize()">
     <div class="day-time-column">
       @for (hour of hours; track hour) {
         <div class="day-time-label">
@@ -256,6 +265,11 @@
     <div
       class="day-schedule"
       [class.today]="selectedDayForView === todayDay"
+      role="button"
+      tabindex="0"
+      (click)="selectedDayForView !== null && openDay(selectedDayForView)"
+      (keydown)="selectedDayForView !== null && handleDayKeydown($event, selectedDayForView)"
+      (mouseenter)="selectedDayForView !== null && resizeEventToDay(selectedDayForView)"
       (dragover)="handleDragOver($event)"
       (drop)="selectedDayForView !== null && copyEventToDay($event, selectedDayForView)"
     >

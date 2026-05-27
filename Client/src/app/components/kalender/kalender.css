@@ -364,7 +364,8 @@
 
 .view-navigation {
   display: grid;
-  grid-template-columns: 40px auto 40px;align-items: center;
+  grid-template-columns: 40px auto 40px;
+  align-items: center;
   justify-content: center;
   gap: 12px;
   margin-bottom: 12px;
@@ -381,12 +382,73 @@
   cursor: pointer;
   transition: 0.2s;
   display: grid;
+  place-items: center;
   }
 
   .view-navigation button:hover {
     background: #d1bdf9;
     transform: translateY(-1px);
   }
+
+.day-view-header {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.day-view-heading {
+  align-items: center;
+}
+
+.dagvy-tidsvy {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 8px;
+  height: calc(100% - 92px);
+  overflow-y: auto;
+  padding-bottom: 8px;
+}
+
+.day-time-column,
+.day-schedule {
+  display: grid;
+  grid-template-rows: repeat(14, 52px);
+}
+
+.day-time-label {
+  color: #6b6475;
+  font-size: 12px;
+  padding-top: 4px;
+  text-align: right;
+  padding-right: 8px;
+  border-top: 1px solid #e7deef;
+}
+
+.day-schedule {
+  position: relative;
+  min-width: 0;
+  border-radius: 18px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(45, 35, 66, 0.06);
+}
+
+.day-hour-slot {
+  border-top: 1px solid #eee7f4;
+  min-width: 0;
+}
+
+.day-event {
+  z-index: 1;
+  align-self: start;
+  margin: 4px 8px 0;
+  min-height: 40px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
 
 
