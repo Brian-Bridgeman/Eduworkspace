@@ -11,6 +11,7 @@
 </div>
 
 @if (showModal) {
-<app-confirmation-modal [item]="item?.namn || item?.name || item?.gruppNamn" (close)="closeModal()" (confirm)="deleteItem()">
+<app-confirmation-modal [item]="item?.namn || item?.name || item?.gruppNamn || item?.title" (close)="closeModal()"
+    (confirm)="deleteItem()">
 </app-confirmation-modal>
 }

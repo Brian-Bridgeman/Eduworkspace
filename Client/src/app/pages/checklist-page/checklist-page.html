@@ -1,6 +1,5 @@
 <app-template-header title="Checklista" subtitle="Skapa och hantera checklistor" buttonText="Skapa"
-  (buttonClick)="openModal()">
-</app-template-header>
+  (buttonClick)="openModal()" (searchChange)="searchTerm = $event"></app-template-header>
 
 <app-checklist-modal *ngIf="showModal" [checklist]="selectedChecklist" (close)="closeModal()"
   (save)="saveChecklist($event)">
@@ -8,10 +7,10 @@
 
 <div class="checklist-container">
 
-  @for (checklist of checklists; track $index) {
+  @for (checklist of filteredChecklists; track $index) {
   <app-checklist-set-card [title]="checklist.title" [description]="checklist.description"
     [checklistExamples]="checklist.items">
   </app-checklist-set-card>
   }
-  
+
 </div>

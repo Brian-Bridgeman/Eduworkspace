@@ -1,53 +1,12 @@
-.checklist-card {
-    background: white;
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-top: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid #ececec;
-    max-width: 500px;
-}
-
 .checklist-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
 }
 
-.checklist-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.checklist-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.checklist-title:hover {
-    color: #7c4dff;
-}
-
-.delete-btn {
-    background: #7c4dff;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.delete-btn:hover {
-    opacity: 0.9;
-}
-
-.checklist-items {
-    margin-top: 1rem;
-    padding-left: 1.2rem;
-}
-
-.checklist-items li {
-    margin-bottom: 0.5rem;
+@media (max-width: 768px) {
+    .checklist-container {
+        grid-template-columns: 1fr;
+    }
 }

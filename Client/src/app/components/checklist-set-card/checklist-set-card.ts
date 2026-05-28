@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
 
 @Component({
   selector: 'app-checklist-set-card',
   standalone: true,
-  imports: [],
+  imports: [DropdownMenu],
   templateUrl: './checklist-set-card.html',
   styleUrl: './checklist-set-card.css',
 })
@@ -22,14 +23,14 @@ export class ChecklistSetCard {
     this.showAll = !this.showAll;
   }
 
-  menuOpen = false;
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
-
   toggleItem(item: any) {
     item.done = !item.done;
   }
+
+  removeChecklist(id: string) {
+    // fetch anrop till delete här, med id
+  }
+
+
 }
 
