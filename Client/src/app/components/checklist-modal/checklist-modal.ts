@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Component, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 
 @Component({
     selector: 'app-checklist-modal',
@@ -14,11 +14,23 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './checklist-modal.html',
     styleUrl: './checklist-modal.css'
 })
-export class ChecklistModal {
+export class ChecklistModal implements OnChanges {
 
     @Output() close = new EventEmitter<void>();
     @Output() save = new EventEmitter<any>();
     @Input() checklist: any;
+
+    ngOnChanges() {
+
+        if (this.checklist) {
+
+            this.title = this.checklist.title;
+
+            this.description = this.checklist.description;
+
+            this.checklistItems = [...this.checklist.items];
+        }
+    }
 
     checklistName = '';
     title = '';

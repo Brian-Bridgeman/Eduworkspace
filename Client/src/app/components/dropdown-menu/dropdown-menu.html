@@ -3,7 +3,7 @@
 
     @if (isOpen) {
     <div class="dropdown-menu">
-        <button>Redigera</button>
+        <button (click)="edit.emit()">Redigera</button>
         <button>Ladda ner</button>
         <button (click)="openModal()">Radera</button>
     </div>
