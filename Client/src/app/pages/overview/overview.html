@@ -45,21 +45,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let group of ongoingGroups" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
+                <tr *ngFor="let team of ongoingTeams" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
 
-                    <td>{{ group.groupName }}</td>
-                    <td>{{ group.course }}</td>
-                    <td>{{ group.location }}</td>
+                    <td>{{ team.teamName }}</td>
+                    <td>{{ team.course }}</td>
+                    <td>{{ team.location }}</td>
 
                     <td>
                         <span class="ongoing">
-                            {{ group.status }}
+                            {{ team.status }}
                         </span>
                     </td>
 
                     <td class="link">
                         <div class="participants">
-                            @for (participant of group.participants; track participant.name)
+                            @for (participant of team.participants; track participant.name)
                             {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> <span> </span>}
                         </div>
                     </td>
@@ -87,7 +87,8 @@
                     <th>Kurs</th>
                     <th>Plats</th>
                     <th>Status</th>
-                    <th>Deltagare</th>
+                    <th>StartDate</th>
+                    <th>EndDate</th>
                     <th class="action-menu"></th>
                 </tr>
             </thead>
@@ -105,12 +106,8 @@
                             {{ group.status }}
                         </span>
                     </td>
-                    <td class="link">
-                        <div class="participants">
-                            @for (participant of group.participants; track participant.name)
-                            {<a href="#">{{ participant.name }}</a>}
-                        </div>
-                    </td>
+                    <td>{{group.startDate}}</td>
+                    <td>{{group.endDate}}</td>
                     <td class="actions-column" (click)="$event.stopPropagation()">
                         <app-dropdown-menu></app-dropdown-menu>
                     </td>
@@ -155,10 +152,10 @@
 </div>
 
 <div class="mobile-version">
-  <div class="mobile-section-cards">
-        <div class="mobile-statistik-button">
+    <div class="mobile-section-cards">
+        <div class="mobile-statistik-button" (click)="scrollToOngoing()">
             <div class="mobile-statistik-name"><span class="material-symbols-outlined">groups</span>
-                <p>Pågående kurstillfälle</p>
+                <p>Pågående arbetslag</p>
             </div>
             <p>4</p>
         </div>
@@ -192,14 +189,14 @@
 
     <div class="mobile-cards">
         <div class="mobile-section">
-            <h2>Pågående arbetslag</h2>
+            <h2 id="ongoing-section">Pågående arbetslag</h2>
         </div>
     </div>
 
 
-    <div class="mobile-card class clickable-row" *ngFor="let group of ongoingGroups" (click)="goToGroup()">
+    <div class="mobile-card clickable-row" *ngFor="let team of ongoingTeams" (click)="goToTeam()">
         <div class="mobile-card-header">
-            <h2>{{ group.groupName }}</h2>
+            <h2>{{ team.teamName }}</h2>
             <input type="file" accept="image/*" capture="environment" #cameraInput hidden
                 (change)="onImageSelected($event)">
             <button type="button" class="btn-outline icon-btn"
@@ -212,14 +209,14 @@
         </div>
         <div class="mobile-card-info">
             <div class="mobile-card-left">
-                <p class="mobile-info"><span class="material-symbols-outlined">menu_book</span>{{ group.course }}</p>
-                <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location }}
+                <p class="mobile-info"><span class="material-symbols-outlined">menu_book</span>{{ team.course }}</p>
+                <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ team.location }}
                 </p>
             </div>
             <div class="mobile-card-right">
 
                 <span class="ongoing">
-                    {{ group.status }}
+                    {{ team.status }}
                 </span>
 
             </div>
@@ -228,7 +225,7 @@
         <h4 class="mobile-info"><span class="material-symbols-outlined">groups</span>Deltagare</h4>
         <p class="link">
         <div class="participants">
-            @for (participant of group.participants; track participant.name)
+            @for (participant of team.participants; track participant.name)
             {<a [routerLink]="['/students/1']" (click)="$event.stopPropagation()">{{ participant.name }}</a> <span>
             </span>}
         </div>
@@ -238,8 +235,7 @@
     <div class="mobile-section">
         <h2>Kommande kurstillfälle</h2>
 
-        <div class="mobile-card clickable-row" [routerLink]="['/groups/1/teams/1']"
-            *ngFor="let group of upcomingGroups">
+        <div class="mobile-card clickable-row" [routerLink]="['/groups/1']" *ngFor="let group of upcomingGroups">
             <div class="mobile-card-header">
                 <h2>{{ group.groupName }}</h2>
                 <input type="file" accept="image/*" capture="environment" #cameraInput hidden
@@ -254,24 +250,22 @@
             </div>
             <div class="mobile-card-info">
                 <div class="mobile-card-left">
-            <p class="mobile-info"> <span class="material-symbols-outlined">menu_book</span>{{ group.course }}</p>
-            <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location }}</p>
-</div>
-            <div class="mobile-card-right">
-                <span class="ongoing">
-                    {{ group.status }}
-                </span>
-            
-            </div>
+                    <p class="mobile-info"> <span class="material-symbols-outlined">menu_book</span>{{ group.course }}
+                    </p>
+                    <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location
+                        }}</p>
+                </div>
+                <div class="mobile-card-right">
+                    <span class="ongoing">
+                        {{ group.status }}
+                    </span>
+
+                </div>
             </div>
             <hr />
             <h4 class="mobile-info"><span class="material-symbols-outlined">groups</span>Deltagare</h4>
-            <div class="link">
-            <div class="participants">
-                @for (participant of group.participants; track participant.name)
-                {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> }
-            </div>
-        </div>
+            <span>{{group.startDate}}</span>
+            <span>{{group.endDate}}</span>
 
+        </div>
     </div>
-</div>

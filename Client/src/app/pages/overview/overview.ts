@@ -14,7 +14,7 @@ import { routes } from '../../app.routes';
 })
 export class Overview {
 constructor(private router:Router) {}
-goToGroup() {
+goToTeam() {
   this.router.navigate(['/groups/1/teams/1']);
 }
   onImageSelected(event:any) {
@@ -24,9 +24,12 @@ goToGroup() {
     }
   }
 
-  ongoingGroups = [
+  scrollToOngoing() {
+    document.getElementById('ongoing-section')?.scrollIntoView({behavior: 'smooth'})
+  }
+  ongoingTeams = [
     {
-      groupName: 'Oscar & Johan',
+      teamName: 'Oscar & Johan',
       course: 'Elinstallation',
       location: 'Sal B',
       status: 'Pågående',
@@ -36,7 +39,7 @@ goToGroup() {
     },
 
     {
-      groupName: 'Kalle & Alfred',
+      teamName: 'Kalle & Alfred',
       course: 'Webbutveckling',
       location: 'Sal C',
       status: 'Pågående',
@@ -48,13 +51,13 @@ goToGroup() {
 
   upcomingGroups = [
     {
-      groupName: 'Simon & Hugo',
+      groupName: 'H1 26',
       course: 'Industrisäkerhet',
       location: 'Sal E',
       status: 'Kommande',
-      participants: [
-        {name: 'Simon Knatte'},
-        {name: 'Hugo Larry'}]
+      startDate: '2026-01-12',
+      endDate: '2026-03-22'
+      
     }
   ];
 
