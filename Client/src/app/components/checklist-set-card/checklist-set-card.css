@@ -108,4 +108,7 @@ hr {
 
 app-dropdown-menu {
     flex-shrink: 0;
+    --dropdown-margin-right: -10px;
+    --dropdown-font-size: 20px;
+
 }
