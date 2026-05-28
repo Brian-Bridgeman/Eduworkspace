@@ -55,8 +55,23 @@ export class ChecklistModal {
         this.checklistItems.splice(index, 1);
     }
 
-    trackByIndex(index: number): number {
-        return index;
+    moveItemUp(index: number) {
+        if (index === 0)
+            return;
+
+        const item = this.checklistItems[index];
+
+        this.checklistItems.splice(index, 1);
+        this.checklistItems.splice(index - 1, 0, item);
     }
 
+    moveItemDown(index: number) {
+        if (index === this.checklistItems.length - 1)
+            return;
+
+        const item = this.checklistItems[index];
+
+        this.checklistItems.splice(index, 1);
+        this.checklistItems.splice(index + 1, 0, item);
+    }
 }
