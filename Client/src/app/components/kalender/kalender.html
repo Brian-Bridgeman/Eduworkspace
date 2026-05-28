@@ -170,7 +170,10 @@
       @if (day === null) {
         <div class="week-day-time empty-day">
           @for (hour of hours; track hour) {
-            <div class="week-hour-slot"></div>
+            <div
+              class="week-hour-slot"
+              (mouseenter)="resizeEventEndTime(hour)">
+            </div>
           }
         </div>
 
@@ -189,7 +192,10 @@
 
           <!-- S -->
           @for (hour of hours; track hour) {
-            <div class="week-hour-slot"></div>
+            <div
+              class="week-hour-slot"
+              (mouseenter)="resizeEventEndTime(hour)">
+            </div>
           }
           @for (event of getEventsForDay(day); track event.id) {
             <!-- getEventGridRow placerar händelsen på rätt timrad i CSS-gridet -->
@@ -209,11 +215,17 @@
               (dragend)="draggedEventId = null"
             >
               <span class="event-title">
-                {{ event.time }} {{ event.title }}
+                {{ event.time }}-{{ getEventEndTime(event) }} {{ event.title }}
               </span>
               <span
                 class="resize-handle"
                 (mousedown)="startResize($event, event)">
+              </span>
+
+              <span
+                class="time-resize-handle"
+                (mousedown)="startTimeResize($event, event)"
+                (click)="$event.stopPropagation()">
               </span>
             </div>
           }
@@ -274,32 +286,43 @@
       (drop)="selectedDayForView !== null && copyEventToDay($event, selectedDayForView)"
     >
       @for (hour of hours; track hour) {
-        <div class="day-hour-slot"></div>
+        <div
+          class="day-hour-slot"
+          (click)="$event.stopPropagation(); selectedDayForView !== null && openDay(selectedDayForView)"
+          (mouseenter)="resizeEventEndTime(hour)">
+        </div>
       }
 
       @for (event of selectedDayForViewEvents; track event.id) {
-        <div
-          class="event-preview day-event"
-          [style.grid-row]="getEventGridRow(event)"
-          role="button"
-          tabindex="0"
-          draggable="true"
-          (click)="$event.stopPropagation(); openEvent(event)"
-          (keydown)="handleEventKeydown($event, event)"
-          (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
-          (dragend)="draggedEventId = null"
-        >
-          <strong>{{ event.time }} {{ event.title }}</strong>
-          <span>{{ event.place }}</span>
-          <p>{{ event.description }}</p>
-        </div>
-      }
+  <div
+    class="event-preview day-event"
+    [style.grid-row]="getEventGridRow(event)"
+    role="button"
+    tabindex="0"
+    draggable="true"
+    (click)="$event.stopPropagation(); openEvent(event)"
+    (keydown)="handleEventKeydown($event, event)"
+    (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
+    (dragend)="draggedEventId = null"
+  >
+    <strong>{{ event.time }}-{{ getEventEndTime(event) }} {{ event.title }}</strong>
+    <span>{{ event.place }}</span>
+    <p>{{ event.description }}</p>
+
+    <span
+      class="time-resize-handle"
+      (mousedown)="startTimeResize($event, event)"
+      (click)="$event.stopPropagation()">
+    </span>
+  </div>
+}
+
+ <!-- Modal för att skapa, visa, ändra och radera händelser -->
     </div>
   </div>
 
 }
 
- <!-- Modal för att skapa, visa, ändra och radera händelser -->
 @if (selectedDay !== null) {
   <div class="modal-layer">
 
@@ -354,7 +377,7 @@
 
     <div class="overview-section">
       <strong>Tid</strong>
-      <span>{{ selectedEvent.time }}</span>
+      <span>{{ selectedEvent.time }}-{{ getEventEndTime(selectedEvent) }}</span>
     </div>
 
     <div class="overview-section">
@@ -400,6 +423,13 @@
           id="event-time"
           type="time"
           [(ngModel)]="time"
+        />
+
+        <label for="event-end-time">Sluttid</label>
+        <input
+          id="event-end-time"
+          type="time"
+          [(ngModel)]="endTime"
         />
 
         <label for="event-place">Plats</label>
