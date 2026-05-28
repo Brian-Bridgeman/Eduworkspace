@@ -77,6 +77,6 @@ export class TeamsPage {
   }
 
   navigateToEditTeamsPage() {
-    this.router.navigate([`/groups/${this.groupId}/editTeams`])
+    this.router.navigate([`/groups/${this.groupId}/teams`])
   }
 }
