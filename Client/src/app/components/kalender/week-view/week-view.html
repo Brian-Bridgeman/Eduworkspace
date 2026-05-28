@@ -1,0 +1,105 @@
+<div class="view-navigation">
+  <button
+    type="button"
+    (click)="previousWeek.emit()"
+    [disabled]="selectedWeekIndex === 0">
+    ←
+  </button>
+
+  <h3 class="veckotitel">Vecka {{ 18 + selectedWeekIndex }}</h3>
+
+  <button
+    type="button"
+    (click)="nextWeek.emit()"
+    [disabled]="selectedWeekIndex === weeksLength - 1">
+    →
+  </button>
+</div>
+
+<!-- Rubrikrad för veckovyn -->
+<div class="week-view-header">
+  <div class="week-time-heading"></div>
+
+  @for (dayName of veckodagar; track dayName; let index = $index) {
+    <div class="week-view-heading">
+      <span>{{ dayName }}</span>
+      <strong>{{ selectedWeek[index] }}</strong>
+    </div>
+  }
+</div>
+
+<!-- Tidsgrid för veckovyn: vänster kolumn visar timmar, höger visar dagar -->
+<div class="veckovy-tidsvy" (mouseup)="stopResize.emit()">
+  <div class="week-time-column">
+    @for (hour of hours; track hour) {
+      <div class="week-time-label">
+        {{ hour }}
+      </div>
+    }
+  </div>
+
+  @for (day of selectedWeek; track day) {
+    @if (day === null) {
+      <div class="week-day-time empty-day">
+        @for (hour of hours; track hour) {
+          <div
+            class="week-hour-slot"
+            (mouseenter)="resizeEventEndTime.emit(hour)">
+          </div>
+        }
+      </div>
+    } @else {
+      <div
+        class="week-day-time"
+        [class.today]="day === todayDay"
+        role="button"
+        tabindex="0"
+        (click)="openDay.emit(day)"
+        (keydown)="handleDayKeydown.emit({ event: $event, day })"
+        (mouseenter)="resizeEventToDay.emit(day)"
+        (dragover)="handleDragOver.emit($event)"
+        (drop)="copyEventToDay.emit({ dragEvent: $event, day })"
+      >
+        @for (hour of hours; track hour) {
+          <div
+            class="week-hour-slot"
+            (mouseenter)="resizeEventEndTime.emit(hour)">
+          </div>
+        }
+
+        @for (event of getEventsForDay(day); track event.id) {
+          <div
+            class="event-preview week-event"
+            [class.event-start]="day === event.startDay && event.startDay !== event.endDay"
+            [class.event-middle]="day > event.startDay && day < event.endDay"
+            [class.event-end]="day === event.endDay && event.startDay !== event.endDay"
+            [class.event-single]="event.startDay === event.endDay"
+            [style.grid-row]="getEventGridRow(event)"
+            role="button"
+            tabindex="0"
+            draggable="true"
+            (click)="$event.stopPropagation(); openEvent.emit(event)"
+            (keydown)="handleEventKeydown.emit({ event: $event, calendarEvent: event })"
+            (dragstart)="$event.stopPropagation(); handleDragStart.emit({ dragEvent: $event, calendarEvent: event })"
+            (dragend)="dragEnded.emit()"
+          >
+            <span class="event-title">
+              {{ event.time }}-{{ getEventEndTime(event) }} {{ event.title }}
+            </span>
+
+            <span
+              class="resize-handle"
+              (mousedown)="startResize.emit({ event: $event, calendarEvent: event })">
+            </span>
+
+            <span
+              class="time-resize-handle"
+              (mousedown)="startTimeResize.emit({ event: $event, calendarEvent: event })"
+              (click)="$event.stopPropagation()">
+            </span>
+          </div>
+        }
+      </div>
+    }
+  }
+</div>
