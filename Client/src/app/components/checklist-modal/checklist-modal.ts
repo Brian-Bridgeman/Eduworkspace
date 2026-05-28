@@ -36,8 +36,6 @@ export class ChecklistModal {
     }
 
     saveChecklist() {
-        console.log('SAVE EMITTED', this.title);
-
         this.save.emit({
             id: Date.now(),
             title: this.title,
