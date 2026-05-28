@@ -68,14 +68,6 @@
 
                     </div>
 
-                    <div class="detail-item">
-
-                        <i class="fa-solid fa-user"></i>
-
-                        <span>{{ student.mentor }}</span>
-
-                    </div>
-
                 </div>
 
             </div>
@@ -303,8 +295,6 @@
 
     </div>
 
-
-
     <!-- NOTES PAGE -->
     <div *ngIf="activeTab === 'notes'" class="single-tab-layout">
 
@@ -521,30 +511,89 @@
     </app-checklist-modal>
     <div class="test-modal" *ngIf="showNoteModal">
 
-        <div class="test-modal-content">
+        <!-- NOTE MODAL -->
 
-            <h2>Ny anteckning</h2>
+        <div class="modal-overlay" *ngIf="showNoteModal">
 
-            <textarea [(ngModel)]="newNoteText" placeholder="Skriv anteckning...">
+            <div class="note-modal">
 
-        </textarea>
+                <!-- HEADER -->
 
-            <div class="modal-actions">
+                <div class="modal-header">
 
-                <button (click)="closeNoteModal()">
-                    Avbryt
-                </button>
+                    <h2>Ny anteckning</h2>
 
-                <button (click)="saveNote()">
-                    Spara
-                </button>
+                    <button class="close-btn" (click)="closeNoteModal()">
+
+                        ✕
+
+                    </button>
+
+                </div>
+
+                <!-- COURSE TABS -->
+
+                <div class="note-courses">
+
+                    <button class="note-course" [class.active]="activeNoteCollection?.id === 1"
+                        (click)="selectNoteCollection(noteCollections[0])">
+
+                        Fiber
+
+                    </button>
+
+                    <button class="note-course" [class.active]="activeNoteCollection?.id === 2"
+                        (click)="selectNoteCollection(noteCollections[1])">
+
+                        Angular
+
+                    </button>
+
+                    <button class="note-course" [class.active]="activeNoteCollection?.id === 3"
+                        (click)="selectNoteCollection(noteCollections[2])">
+
+                        Backend
+
+                    </button>
+
+                </div>
+
+                <!-- TEXTAREA -->
+
+                <div class="form-group">
+
+                    <label>Anteckning</label>
+
+                    <textarea [(ngModel)]="newNoteText" placeholder="Skriv anteckning här...">
+
+            </textarea>
+
+                </div>
+
+                <!-- ACTIONS -->
+
+                <div class="modal-actions">
+
+                    <button class="cancel-btn" (click)="closeNoteModal()">
+
+                        Avbryt
+
+                    </button>
+
+                    <button class="save-btn" (click)="saveNote()">
+
+                        Spara anteckning
+
+                    </button>
+
+                </div>
 
             </div>
 
         </div>
 
     </div>
-    
+
     <!-- EDIT MODAL -->
 
     <div class="modal-overlay" *ngIf="showEditModal">
@@ -623,9 +672,12 @@
 
                     <div class="course-edit-item" *ngFor="let course of courses">
 
-                        <span>{{ course.name }}</span>
+                        <!-- COURSE NAME -->
 
-                        <select [(ngModel)]="course.status" title="Kursstatus">
+                        <input class="course-name-input" [(ngModel)]="course.name" placeholder="Kursnamn" />
+
+                        <!-- STATUS -->
+                        <select [(ngModel)]="course.status" aria-label="Kursstatus">
 
                             <option value="active">
                                 Pågående
