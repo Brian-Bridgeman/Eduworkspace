@@ -1,0 +1,81 @@
+<!-- DAGVY: visar bara selectedDayForView och dagens händelser -->
+<div class="view-navigation">
+  <button
+    type="button"
+    (click)="previousDay.emit()"
+    [disabled]="selectedDayForView === 1">
+    ←
+  </button>
+
+  <h3 class="veckotitel">Dag {{ selectedDayForView }}</h3>
+
+  <button
+    type="button"
+    (click)="nextDay.emit()"
+    [disabled]="selectedDayForView === daysInCurrentMonth">
+    →
+  </button>
+</div>
+
+<div class="day-view-header">
+  <div class="week-time-heading"></div>
+
+  <div class="week-view-heading day-view-heading">
+    <span>Dag</span>
+    <strong>{{ selectedDayForView }}</strong>
+  </div>
+</div>
+
+<div class="dagvy-tidsvy" (mouseup)="stopResize.emit()">
+  <div class="day-time-column">
+    @for (hour of hours; track hour) {
+      <div class="day-time-label">
+        {{ hour }}
+      </div>
+    }
+  </div>
+
+  <div
+    class="day-schedule"
+    [class.today]="selectedDayForView === todayDay"
+    role="button"
+    tabindex="0"
+    (click)="selectedDayForView !== null && openDay.emit(selectedDayForView)"
+    (keydown)="selectedDayForView !== null && handleDayKeydown.emit({ event: $event, day: selectedDayForView })"
+    (mouseenter)="selectedDayForView !== null && resizeEventToDay.emit(selectedDayForView)"
+    (dragover)="handleDragOver.emit($event)"
+    (drop)="selectedDayForView !== null && copyEventToDay.emit({ dragEvent: $event, day: selectedDayForView })"
+  >
+    @for (hour of hours; track hour) {
+      <div
+        class="day-hour-slot"
+        (click)="$event.stopPropagation(); selectedDayForView !== null && openDay.emit(selectedDayForView)"
+        (mouseenter)="resizeEventEndTime.emit(hour)">
+      </div>
+    }
+
+    @for (event of selectedDayForViewEvents; track event.id) {
+      <div
+        class="event-preview day-event"
+        [style.grid-row]="getEventGridRow(event)"
+        role="button"
+        tabindex="0"
+        draggable="true"
+        (click)="$event.stopPropagation(); openEvent.emit(event)"
+        (keydown)="handleEventKeydown.emit({ event: $event, calendarEvent: event })"
+        (dragstart)="$event.stopPropagation(); handleDragStart.emit({ dragEvent: $event, calendarEvent: event })"
+        (dragend)="dragEnded.emit()"
+      >
+        <strong>{{ event.time }}-{{ getEventEndTime(event) }} {{ event.title }}</strong>
+        <span>{{ event.place }}</span>
+        <p>{{ event.description }}</p>
+
+        <span
+          class="time-resize-handle"
+          (mousedown)="startTimeResize.emit({ event: $event, calendarEvent: event })"
+          (click)="$event.stopPropagation()">
+        </span>
+      </div>
+    }
+  </div>
+</div>
