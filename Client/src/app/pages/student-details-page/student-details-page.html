@@ -86,11 +86,6 @@
                 </div>
 
                 <div class="meta-item">
-                    <span>Kurs</span>
-                    <p>Angular</p>
-                </div>
-
-                <div class="meta-item">
                     <span>Handledare</span>
                     <p>Johan Andersson</p>
                 </div>
@@ -460,62 +455,59 @@
         </div>
 
     </div>
-    
+
     <!-- ATTENDANCE PAGE -->
     <div *ngIf="activeTab === 'attendance'" class="single-tab-layout">
 
-        <div class="card">
-
-            <div class="card-header">
-
-                <h2>Närvaro</h2>
-
-            </div>
-
         <div class="card attendance-card">
 
-    <div class="card-header">
-        <h2>Närvaro</h2>
-    </div>
-
-    <div class="attendance-grid">
-
-        <div class="attendance-box primary">
-
-            <div class="attendance-top">
-                <h3>92%</h3>
-                <span class="attendance-status good">
-                    Bra
-                </span>
+            <div class="card-header">
+                <h2>Närvaro</h2>
             </div>
 
-            <p>Total närvaro</p>
+            <div class="attendance-grid">
 
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
+                <div class="attendance-box primary">
+
+                    <div class="attendance-top">
+
+                        <h3>92%</h3>
+
+                        <span class="attendance-status good">
+                            Bra
+                        </span>
+
+                    </div>
+
+                    <p>Total närvaro</p>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+
+                </div>
+
+                <div class="attendance-box">
+
+                    <h3>4</h3>
+
+                    <p>Frånvarodagar</p>
+
+                </div>
+
+                <div class="attendance-box">
+
+                    <h3>2</h3>
+
+                    <p>Sena ankomster</p>
+
+                </div>
+
             </div>
 
         </div>
 
-        <div class="attendance-box">
-
-            <h3>4</h3>
-
-            <p>Frånvarodagar</p>
-
-        </div>
-
-        <div class="attendance-box">
-
-            <h3>2</h3>
-
-            <p>Sena ankomster</p>
-
-        </div>
-
     </div>
-
-</div>
     <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()">
 
     </app-checklist-modal>
