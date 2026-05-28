@@ -1,0 +1,146 @@
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(31, 25, 45, 0.35);
+}
+
+.modal-layer {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+  z-index: 1;
+  width: min(380px, 100%);
+  padding: 24px;
+  border-radius: 24px;
+  background: #ffffff;
+  color: #2f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 18px 50px rgba(45, 35, 66, 0.18);
+}
+
+.modal input,
+.modal textarea {
+  padding: 12px;
+  border: 1px solid #e6e0ee;
+  border-radius: 14px;
+  background: #fbfaff;
+  color: #2f2937;
+}
+
+.modal input:focus,
+.modal textarea:focus {
+  outline: none;
+  border-color: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.12);
+}
+
+.save-btn,
+.modal button:not(.modal-backdrop):not(.close-btn) {
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  background: #7c3aed;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+}
+
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: #f4f0fb;
+  color: #6b6475;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.beskrivning {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.event-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.overview-card {
+  background: #f8f5ff;
+  border: 1px solid #ece4ff;
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.side-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.overview-section strong {
+  color: #7c3aed;
+  font-size: 16px;
+}
+
+.overview-section span {
+  color: #2f2937;
+  line-height: 1.4;
+}
+
+.delete-btn {
+  align-self: flex-start;
+  padding: 50 16px !important;
+  font-size: 14px !important;
+  color: #b91c1c !important;
+  margin-top: 10px !important;
+}
+
+.delete-btn:hover {
+  background: #fca5a581 !important;
+  color: #7f1d1d !important;
+}
+
+.edit-btn:hover {
+  background: #9752e0c5 !important;
+}
+
+@media (max-width: 600px) {
+  .modal {
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}

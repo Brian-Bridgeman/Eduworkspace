@@ -1,0 +1,190 @@
+.veckodagar {
+  display: grid;
+  grid-template-columns: 52px repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 10px;
+  color: #6b6475;
+  font-family: "Inter", sans-serif;
+  font-size: clamp(10px, 1.1vw, 13px);
+  font-weight: 600;
+}
+
+.veckodagar div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  padding: 8px 8px;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(45, 35, 66, 0.05);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kalender-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: calc(100% - 92px);
+  min-height: 0;
+  padding-bottom: 6px;
+}
+
+.week-row {
+  display: grid;
+  grid-template-columns: 52px repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+.week-row .veckonummer {
+  border-radius: 18px;
+  background: #f0e9ff;
+  color: #7c3aed;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dagruta,
+.empty-day,
+.week-row .veckonummer {
+  height: auto;
+  min-height: 0;
+}
+
+.dagruta,
+.empty-day {
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(45, 35, 66, 0.06);
+}
+
+.dagruta {
+  min-width: 0;
+  padding: clamp(4px, 0.8vw, 8px);
+  font-size: clamp(11px, 1.1vw, 14px);
+  border-radius: 14px;
+  cursor: pointer;
+  overflow-y: auto;
+}
+
+.dagruta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.14);
+}
+
+.today {
+  border: 2px solid #a855f7;
+  box-shadow:
+    0 0 0 4px rgba(168, 85, 247, 0.12),
+    0 8px 22px rgba(124, 58, 237, 0.16);
+}
+
+.event-preview {
+  position: relative;
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: #f3e8ff;
+  color: #6d28d9;
+  font-size: clamp(10px, 1vw, 12px);
+  font-weight: 500;
+  cursor: grab;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.event-preview:hover {
+  background: #ead5ff;
+}
+
+.event-single {
+  border-radius: 12px;
+}
+
+.event-start {
+  border-radius: 12px 0 0 12px;
+  margin-right: -6px;
+}
+
+.event-middle {
+  border-radius: 0;
+  margin-left: -6px;
+  margin-right: -6px;
+}
+
+.event-end {
+  border-radius: 0 12px 12px 0;
+  margin-left: -6px;
+}
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  cursor: ew-resize;
+}
+
+@media (max-width: 768px) {
+  .veckodagar {
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+    gap: 5px;
+    margin-bottom: 8px;
+    font-size: 9px;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .veckodagar > div:first-child {
+    display: none !important;
+  }
+
+  .kalender-wrapper {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: visible;
+  }
+
+  .week-row {
+    grid-template-columns: repeat(7, minmax(0, 1fr)) !important;
+    gap: 6px;
+    flex: none !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .veckonummer,
+  .week-number,
+  .week-nr {
+    display: none !important;
+  }
+
+  .dagruta,
+  .empty-day {
+    aspect-ratio: 1 / 1.8;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 4px;
+    border-radius: 12px;
+    font-size: 10px;
+    overflow: hidden;
+  }
+
+  .event-preview {
+    font-size: 8px;
+    padding: 2px 4px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
