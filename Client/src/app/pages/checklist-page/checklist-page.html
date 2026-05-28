@@ -9,7 +9,7 @@
 
   @for (checklist of filteredChecklists; track $index) {
   <app-checklist-set-card [title]="checklist.title" [description]="checklist.description"
-    [checklistExamples]="checklist.items">
+    [checklistExamples]="checklist.items" (edit)="editChecklist($index)">
   </app-checklist-set-card>
   }
 

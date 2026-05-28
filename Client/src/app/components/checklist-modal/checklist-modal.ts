@@ -1,6 +1,6 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Component, Output, EventEmitter, Input, OnChanges } from '@angular/core';
 import { ChecklistService } from '../../services/checklist.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { ChecklistService } from '../../services/checklist.service';
     templateUrl: './checklist-modal.html',
     styleUrl: './checklist-modal.css'
 })
-export class ChecklistModal {
+export class ChecklistModal implements OnChanges {
     constructor(
         private checklistService: ChecklistService
     ) { }
@@ -24,6 +24,18 @@ export class ChecklistModal {
     @Output() save = new EventEmitter<any>();
     @Input() checklist: any;
     @Input() studentId?: number;
+
+    ngOnChanges() {
+
+        if (this.checklist) {
+
+            this.title = this.checklist.title;
+
+            this.description = this.checklist.description;
+
+            this.checklistItems = [...this.checklist.items];
+        }
+    }
 
     checklistName = '';
     title = '';
@@ -57,8 +69,9 @@ export class ChecklistModal {
                 text: item.text,
                 completed: item.done
             }))
-
+  
         };
+      
 
         this.checklistService.addChecklist(newChecklist);
 
@@ -79,8 +92,23 @@ export class ChecklistModal {
         this.checklistItems.splice(index, 1);
     }
 
-    trackByIndex(index: number): number {
-        return index;
+    moveItemUp(index: number) {
+        if (index === 0)
+            return;
+
+        const item = this.checklistItems[index];
+
+        this.checklistItems.splice(index, 1);
+        this.checklistItems.splice(index - 1, 0, item);
     }
 
+    moveItemDown(index: number) {
+        if (index === this.checklistItems.length - 1)
+            return;
+
+        const item = this.checklistItems[index];
+
+        this.checklistItems.splice(index, 1);
+        this.checklistItems.splice(index + 1, 0, item);
+    }
 }

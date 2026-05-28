@@ -16,6 +16,7 @@ export class DropdownMenu {
 
   @Input() item: any;
   @Output() delete = new EventEmitter<string>();
+  @Output() edit = new EventEmitter<void>();
 
   toggleMenu() {
     this.isOpen = !this.isOpen;
