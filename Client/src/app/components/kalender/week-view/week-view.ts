@@ -16,6 +16,7 @@ export class WeekView {
   @Input() todayDay = 0;
   @Input() hours: string[] = [];
   @Input() draggedEventId: string | null = null;
+  @Input() isTimeResizing = false;
 
   @Input() getEventsForDay: (day: number) => CalendarEvent[] = () => [];
   @Input() getEventGridRow: (event: CalendarEvent) => string = () => '';
@@ -36,4 +37,18 @@ export class WeekView {
   @Output() dragEnded = new EventEmitter<void>();
   @Output() startResize = new EventEmitter<{ event: MouseEvent; calendarEvent: CalendarEvent }>();
   @Output() startTimeResize = new EventEmitter<{ event: MouseEvent; calendarEvent: CalendarEvent }>();
+
+  resizeTimeFromPointer(event: MouseEvent) {
+    if (!this.isTimeResizing || this.hours.length === 0) {
+      return;
+    }
+
+    const column = event.currentTarget as HTMLElement;
+    const bounds = column.getBoundingClientRect();
+    const rowHeight = bounds.height / this.hours.length;
+    const rawIndex = Math.floor((event.clientY - bounds.top) / rowHeight);
+    const hourIndex = Math.max(0, Math.min(this.hours.length - 1, rawIndex));
+
+    this.resizeEventEndTime.emit(this.hours[hourIndex]);
+  }
 }

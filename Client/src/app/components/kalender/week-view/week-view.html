@@ -29,7 +29,10 @@
 </div>
 
 <!-- Tidsgrid för veckovyn: vänster kolumn visar timmar, höger visar dagar -->
-<div class="veckovy-tidsvy" (mouseup)="stopResize.emit()">
+<div
+  class="veckovy-tidsvy"
+  [class.is-time-resizing]="isTimeResizing"
+  (mouseup)="stopResize.emit()">
   <div class="week-time-column">
     @for (hour of hours; track hour) {
       <div class="week-time-label">
@@ -56,15 +59,13 @@
         tabindex="0"
         (click)="openDay.emit(day)"
         (keydown)="handleDayKeydown.emit({ event: $event, day })"
+        (mousemove)="resizeTimeFromPointer($event)"
         (mouseenter)="resizeEventToDay.emit(day)"
         (dragover)="handleDragOver.emit($event)"
         (drop)="copyEventToDay.emit({ dragEvent: $event, day })"
       >
         @for (hour of hours; track hour) {
-          <div
-            class="week-hour-slot"
-            (mouseenter)="resizeEventEndTime.emit(hour)">
-          </div>
+          <div class="week-hour-slot"></div>
         }
 
         @for (event of getEventsForDay(day); track event.id) {

@@ -47,82 +47,23 @@
 
 <!-- Visar endast en kalender-vy åt gången beroende på viewMode -->
 @if (viewMode === 'month') {
-
-  <!-- VECKODAGAR -->
-  <div class="veckodagar">
-    <div class="veckonummer">
-      Vecka
-    </div>
-
-    @for (day of veckodagar; track day) {
-      <div class="veckodag">
-        {{ day }}
-      </div>
-    }
-  </div>
-
-  <!-- MÅNADSVY / KALENDER -->
-  <div class="kalender-wrapper" (mouseup)="stopResize()">
-
-    @for (week of weeks; track week; let index = $index) {
-            <div class="week-row">
-        <div class="veckonummer">
-          {{ 18 + index }}
-        </div>
-
-        @for (day of week; track day) {
-          @if (day === null) {
-            <div class="empty-day"></div>
-
-          } @else {
-            <div
-              class="dagruta"
-              [class.today]="day === todayDay"
-              role="button"
-              tabindex="0"
-              (click)="openDay(day)"
-              (keydown)="handleDayKeydown($event, day)"
-              (mouseenter)="resizeEventToDay(day)"
-              (dragover)="handleDragOver($event)"
-              (drop)="copyEventToDay($event, day)"
-            >
-              <span class="dagnummer">
-                {{ day }}
-              </span>
-              @for (event of getEventsForDay(day); track event.id) {
-                <div
-                  class="event-preview"
-                  [class.event-start]="day === event.startDay && event.startDay !== event.endDay"
-                  [class.event-middle]="day > event.startDay && day < event.endDay"
-                  [class.event-end]="day === event.endDay && event.startDay !== event.endDay"
-                  [class.event-single]="event.startDay === event.endDay"
-                  role="button"
-                  tabindex="0"
-                  draggable="true"
-                  (click)="$event.stopPropagation(); openEvent(event)"
-                  (keydown)="handleEventKeydown($event, event)"
-                  (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
-                  (dragend)="draggedEventId = null"
-                >
-                  <span class="event-title">
-                    {{ event.time }} {{ event.title }}
-                  </span>
-
-                  <span
-                    class="resize-handle"
-                    (mousedown)="startResize($event, event)">
-                  </span>
-                </div>
-              }
-            </div>
-          }
-        }
-      </div>
-    }
-  </div>
-<!-- VECKOVY= visar bara veckan som finns i "selectedWeek" -->
-
-
+  <app-month-view
+    [veckodagar]="veckodagar"
+    [weeks]="weeks"
+    [todayDay]="todayDay"
+    [getEventsForDay]="getEventsForDay.bind(this)"
+    (stopResize)="stopResize()"
+    (openDay)="openDay($event)"
+    (openEvent)="openEvent($event)"
+    (resizeEventToDay)="resizeEventToDay($event)"
+    (handleDragOver)="handleDragOver($event)"
+    (copyEventToDay)="copyEventToDay($event.dragEvent, $event.day)"
+    (handleDayKeydown)="handleDayKeydown($event.event, $event.day)"
+    (handleEventKeydown)="handleEventKeydown($event.event, $event.calendarEvent)"
+    (handleDragStart)="handleDragStart($event.dragEvent, $event.calendarEvent)"
+    (dragEnded)="draggedEventId = null"
+    (startResize)="startResize($event.event, $event.calendarEvent)">
+  </app-month-view>
 } @else if (viewMode === 'week') { 
   <app-week-view
     [veckodagar]="veckodagar"
@@ -132,6 +73,7 @@
     [todayDay]="todayDay"
     [hours]="hours"
     [draggedEventId]="draggedEventId"
+    [isTimeResizing]="resizingTimeEventId !== null"
     [getEventsForDay]="getEventsForDay.bind(this)"
     [getEventGridRow]="getEventGridRow.bind(this)"
     [getEventEndTime]="getEventEndTime.bind(this)"
@@ -158,6 +100,7 @@
     [todayDay]="todayDay"
     [hours]="hours"
     [selectedDayForViewEvents]="selectedDayForViewEvents"
+    [isTimeResizing]="resizingTimeEventId !== null"
     [getEventGridRow]="getEventGridRow.bind(this)"
     [getEventEndTime]="getEventEndTime.bind(this)"
     (previousDay)="previousDay()"
