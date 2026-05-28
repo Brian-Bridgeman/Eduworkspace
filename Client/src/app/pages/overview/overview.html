@@ -170,10 +170,11 @@
             <p>18</p>
         </div>
 
-      
+
 
         <div class="mobile-statistik-button">
-            <div class="mobile-statistik-name" (click)="scrollToUpComingGroups()"><span class="material-symbols-outlined">calendar_month</span>
+            <div class="mobile-statistik-name" (click)="scrollToUpComingGroups()"><span
+                    class="material-symbols-outlined">calendar_month</span>
                 <p>Kommande kurstillfälle</p>
             </div>
             <p>2</p>
@@ -245,8 +246,9 @@
             </div>
             <div class="mobile-card-info">
                 <div class="mobile-card-left">
-                    <p class="mobile-info"><span class="material-symbols-outlined">schedule</span>{{group.startDate}} → {{group.endDate}}</p>
-                   
+                    <p class="mobile-info"><span class="material-symbols-outlined">schedule</span>{{group.startDate}} →
+                        {{group.endDate}}</p>
+
                     <p class="mobile-info"> <span class="material-symbols-outlined">menu_book</span>{{ group.course }}
                     </p>
                     <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location
@@ -259,6 +261,24 @@
 
                 </div>
             </div>
-    
+
         </div>
     </div>
+
+    <div class="mobile-section">
+        <h2>Aktiva deltagare</h2>
+        <div class="mobile-card clickable-row" *ngFor="let person of activePersons">
+            <div class="mobile-card-info">
+                <img src="https://i.pravatar.cc/200" class="student-image" alt="Elevbild" />
+                <div class="student-info">
+                    <h3>{{person.fornamn}} {{person.efternamn}}</h3>
+                    <div class="student-info-details">
+                        <span class="student-group">{{person.grupp}}</span>
+                        <span class="student-company">{{person.foretag}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
