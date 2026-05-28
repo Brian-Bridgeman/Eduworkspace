@@ -1,0 +1,44 @@
+.course-wrapper {
+    background: white;
+    border: 1px solid #ececec;
+    margin-bottom: 1em;
+    border-radius: 20px;
+}
+
+.course-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 24px 24px 0px 24px;
+    border-radius: 20px;
+}
+
+.template-header {
+    padding: 0em 1em 1em 1em;
+}
+
+app-template-header {
+    --template-header-margin-bottom: 0;
+    --template-header-header-container: 0;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #e5e7eb;
+    margin: 20px 0;
+}
+
+.course-card h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.info {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    color: #666;
+}

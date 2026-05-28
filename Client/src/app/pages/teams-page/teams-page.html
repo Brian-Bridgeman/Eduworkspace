@@ -1,12 +1,42 @@
-<app-template-header title="Arbetslag" subtitle="Här ser du alla lagen." buttonText="Lägg till ett lag"
-    (buttonClick)="navigateToEditTeamsPage()" (searchChange)="searchTerm = $event"></app-template-header>
+<div class="course-wrapper">
+    <div class="course-card">
+        <div>
+            <h2>H1 26</h2>
+
+            <div class="info">
+                <span>Elinstallation</span>
+                <span>Sal B</span>
+            </div>
+
+            <div class="dates">
+                12 jan 2026 → 22 mar 2026
+            </div>
+        </div>
+
+        <div class="right">
+            <div className="students">
+                10 / 10 elever
+            </div>
+
+            <div class="status">
+                Kommande
+            </div>
+        </div>
+    </div>
+
+    <div class="template-header">
+        <hr>    
+        <app-template-header title="" subtitle="" buttonText="Hantera arbetslag"
+            (buttonClick)="navigateToEditTeamsPage()" (searchChange)="searchTerm = $event">
+        </app-template-header>
+    </div>
+</div>
 
 <div class="tableDiv">
     <table>
         <thead>
             <tr>
                 <th>Arbetslag</th>
-                <th>Program</th>
                 <th>Grupp</th>
                 <th>Plats</th>
                 <th>Deltagare</th>
@@ -18,7 +48,6 @@
             <tr *ngFor="let team of filteredTeams" [routerLink]="['/groups', groupId, 'teams', team.id]"
                 class="clickable-row">
                 <td>{{ team.gruppNamn }}</td>
-                <td>{{ team.kurs }}</td>
                 <td>{{ team.grupp }}</td>
                 <td>{{ team.plats }}</td>
                 <td>{{ team.deltagare }}</td>
@@ -28,3 +57,5 @@
         </tbody>
     </table>
 </div>
+
+// Här ska komponenten för anteckningar, checklistor och bilder vara (radera kommentar efter du lagt in det)

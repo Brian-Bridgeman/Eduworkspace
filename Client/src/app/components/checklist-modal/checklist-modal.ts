@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Component, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import { ChecklistService } from '../../services/checklist.service';
 
 @Component({
     selector: 'app-checklist-modal',
@@ -15,10 +16,14 @@ import { Component, Output, EventEmitter, Input, OnChanges } from '@angular/core
     styleUrl: './checklist-modal.css'
 })
 export class ChecklistModal implements OnChanges {
+    constructor(
+        private checklistService: ChecklistService
+    ) { }
 
     @Output() close = new EventEmitter<void>();
     @Output() save = new EventEmitter<any>();
     @Input() checklist: any;
+    @Input() studentId?: number;
 
     ngOnChanges() {
 
@@ -48,12 +53,32 @@ export class ChecklistModal implements OnChanges {
     }
 
     saveChecklist() {
-        this.save.emit({
+
+        const newChecklist = {
+
             id: Date.now(),
+
             title: this.title,
-            description: this.description,
-            items: this.checklistItems
-        });
+
+            studentIds: this.studentId
+                ? [this.studentId]
+                : [],
+
+            items: this.checklistItems.map(item => ({
+                id: Date.now() + Math.random(),
+                text: item.text,
+                completed: item.done
+            }))
+  
+        };
+      
+
+        this.checklistService.addChecklist(newChecklist);
+
+        this.save.emit(newChecklist);
+
+        this.closeModal();
+
     }
 
     addItem() {
