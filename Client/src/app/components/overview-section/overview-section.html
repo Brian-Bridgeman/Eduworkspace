@@ -1,0 +1,246 @@
+<div class="content-grid" *ngIf="activeTab === 'overview'">
+
+    <!-- LEFT COLUMN -->
+
+    <div class="left-column">
+
+        <!-- NOTES -->
+
+        <div class="card notes-card">
+
+            <div class="card-header">
+
+                <h2>Anteckningar</h2>
+
+                <button class="small-btn" (click)="openNoteModal()">
+
+                    + Ny anteckning
+
+                </button>
+
+            </div>
+
+            <!-- NOTE COURSE TABS -->
+
+            <div class="notes-scroll">
+
+                <button class="note-tab" *ngFor="let collection of noteCollections"
+                    [class.active]="activeNoteCollection?.id === collection.id"
+                    (click)="selectNoteCollection(collection)">
+
+                    {{ collection.title }}
+
+                </button>
+
+            </div>
+
+            <!-- ACTIVE NOTES -->
+
+            <div *ngIf="activeNoteCollection" class="active-notes">
+
+                <div class="note" *ngFor="let note of activeNoteCollection.notes">
+
+                    <div class="note-top">
+
+                        <p class="date">
+                            {{ note.date }}
+                        </p>
+
+                        <button class="delete-note-btn" (click)="deleteNote(note)">
+
+                            ✕
+
+                        </button>
+
+                    </div>
+
+                    <p>
+                        {{ note.text }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+
+    <div class="right-column">
+
+        <!-- CHECKLISTS -->
+
+        <div class="card checklist-card">
+
+            <div class="card-header">
+
+                <h2>Checklistor</h2>
+
+                <button class="card-link-btn" (click)="openChecklistModal()">
+
+                    + Ny checklista
+
+                </button>
+
+            </div>
+
+            <!-- CHECKLIST COLLECTION -->
+
+            <div class="checklist-scroll">
+
+                <button class="checklist-tab" *ngFor="let checklist of checklists"
+                    [class.active]="activeChecklist?.id === checklist.id" (click)="selectChecklist(checklist)">
+
+                    {{ checklist.title }}
+
+                </button>
+
+            </div>
+
+            <!-- ACTIVE CHECKLIST -->
+
+            <div *ngIf="activeChecklist" class="active-checklist">
+
+                <h3 class="checklist-title">
+                    {{ activeChecklist.title }}
+                </h3>
+
+                <label class="check-item" *ngFor="let item of activeChecklist.items">
+
+                    <input type="checkbox" [checked]="item.completed"
+                        (change)="toggleChecklistItem(activeChecklist, item)" />
+
+                    <span>
+                        {{ item.text }}
+                    </span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+        <!-- FILES -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>Filer och bilder</h2>
+
+                <button class="card-link-btn">
+                    Visa alla
+                </button>
+
+            </div>
+
+            <div class="images">
+
+                <img src="https://picsum.photos/200" alt="bild" />
+
+                <img src="https://picsum.photos/201" alt="bild" />
+
+                <img src="https://picsum.photos/202" alt="bild" />
+
+            </div>
+
+            <button class="upload-btn">
+                Ladda upp fil eller bild
+            </button>
+
+        </div>
+
+    </div>
+
+    <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()">
+
+    </app-checklist-modal>
+    <div class="test-modal" *ngIf="showNoteModal">
+
+        <!-- NOTE MODAL -->
+
+        <div class="modal-overlay" *ngIf="showNoteModal">
+
+            <div class="note-modal">
+
+                <!-- HEADER -->
+
+                <div class="modal-header">
+
+                    <h2>Ny anteckning</h2>
+
+                    <button class="close-btn" (click)="closeNoteModal()">
+
+                        ✕
+
+                    </button>
+
+                </div>
+
+                <!-- COURSE TABS -->
+
+                <div class="note-courses">
+
+                    <button class="note-course" [class.active]="activeNoteCollection?.id === 1"
+                        (click)="selectNoteCollection(noteCollections[0])">
+
+                        Fiber
+
+                    </button>
+
+                    <button class="note-course" [class.active]="activeNoteCollection?.id === 2"
+                        (click)="selectNoteCollection(noteCollections[1])">
+
+                        Angular
+
+                    </button>
+
+                    <button class="note-course" [class.active]="activeNoteCollection?.id === 3"
+                        (click)="selectNoteCollection(noteCollections[2])">
+
+                        Backend
+
+                    </button>
+
+                </div>
+
+                <!-- TEXTAREA -->
+
+                <div class="form-group">
+
+                    <label>Anteckning</label>
+
+                    <textarea [(ngModel)]="newNoteText" placeholder="Skriv anteckning här...">
+
+            </textarea>
+
+                </div>
+
+                <!-- ACTIONS -->
+
+                <div class="modal-actions">
+
+                    <button class="cancel-btn" (click)="closeNoteModal()">
+
+                        Avbryt
+
+                    </button>
+
+                    <button class="save-btn" (click)="saveNote()">
+
+                        Spara anteckning
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
