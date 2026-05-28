@@ -162,7 +162,7 @@
         </div>
 
 
-        
+
 
 
 
@@ -173,7 +173,7 @@
             </div>
             <p>2</p>
         </div>
-<div class="mobile-statistik-button clickable-row" (click)="scrollToActivePersons()">
+        <div class="mobile-statistik-button clickable-row" (click)="scrollToActivePersons()">
             <div class="mobile-statistik-name"><span class="material-symbols-outlined">
                     people
                 </span>
@@ -200,7 +200,9 @@
                 (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
                 <span class="material-symbols-outlined">photo_camera</span>
             </button>
-            <button class="btn-outline icon-btn">
+            <button class="btn-outline icon-btn" (click)="$event.stopPropagation(); 
+                            $event.preventDefault(); 
+                            openNoteModal(team.teamName)">
                 <span class="material-symbols-outlined">edit</span>
             </button>
         </div>
@@ -211,15 +213,14 @@
                 </p>
             </div>
             <div class="mobile-card-right">
-
                 <span class="ongoing">
                     {{ team.status }}
                 </span>
-
             </div>
         </div>
         <hr />
-        <h4 class="mobile-info"><span class="material-symbols-outlined">groups</span>Deltagare</h4>
+        <h4 class="mobile-info"><span class="material-symbols-outlined">groups
+            </span>Deltagare</h4>
         <p class="link">
         <div class="participants">
             @for (participant of team.participants; track participant.name)
@@ -227,7 +228,6 @@
             </span>}
         </div>
     </div>
-
 
     <div class="mobile-section">
         <h2 id="upcoming-groups">Kommande kurstillfälle</h2>
@@ -241,7 +241,8 @@
                     (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
                     <span class="material-symbols-outlined">photo_camera</span>
                 </button>
-                <button class="btn-outline icon-btn">
+                <button class="btn-outline icon-btn"
+                    (click)="$event.stopPropagation(); $event.preventDefault(); openNoteModal(group.groupName)">
                     <span class="material-symbols-outlined">edit</span>
                 </button>
             </div>
@@ -281,6 +282,24 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showNoteModal">
+    <div class="note-modal">
+        <div class="modal-header">
+            <div class="modal-header-left">
+                <h2>Ny anteckning</h2>
+                <p class="note-modal-subtitle">Anteckning läggs till på <strong>{{selectedTeam}}</strong></p>
+            </div>
+            <button class="close-btn" (click)="closeNoteModal()">✕</button>
+        </div>
+        <textarea [(ngModel)]="newNoteText" placeholder="Skriv anteckning här...">
+        </textarea>
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="closeNoteModal()">Avbryt</button>
+            <button class="save-btn" (click)="saveNote()">Spara</button>
         </div>
     </div>
 </div>

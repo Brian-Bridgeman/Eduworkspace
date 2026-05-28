@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { RouterLink } from '@angular/router';
-import { routes } from '../../app.routes';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-overview',
   standalone: true,
-  imports: [CommonModule, DropdownMenu, TemplateHeaderComponent, RouterLink],
+  imports: [CommonModule, DropdownMenu, TemplateHeaderComponent, RouterLink, FormsModule],
   templateUrl: './overview.html',
   styleUrl: './overview.css',
 })
@@ -31,7 +31,29 @@ export class Overview {
     document.getElementById('upcoming-groups')?.scrollIntoView({ behavior: 'smooth' })
   }
   scrollToActivePersons() {
-    document.getElementById('activePersons')?.scrollIntoView({behavior:'smooth'})
+    document.getElementById('activePersons')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  showNoteModal = false;
+  newNoteText = '';
+  selectedTeam = '';
+  openNoteModal(teamName: string) {
+    this.selectedTeam = teamName;
+    this.showNoteModal = true;
+  }
+  closeNoteModal() {
+    this.showNoteModal = false;
+    this.newNoteText = '';
+  }
+  saveNote() {
+    if (!this.newNoteText.trim()) return;
+     this.latestNotes.unshift({ 
+      date: new Date().toLocaleDateString(), 
+      group: this.selectedTeam, 
+      note: this.newNoteText, 
+      createdBy: 'Johan Dahlin' }); 
+      this.newNoteText = ''; 
+      this.closeNoteModal();
   }
   ongoingTeams = [
     {
