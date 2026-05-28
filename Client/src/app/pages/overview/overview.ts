@@ -90,4 +90,16 @@ goToTeam() {
       createdBy: 'Johan Kalle'
     }
   ];
+  activePersons = [
+    { id: '1', fornamn: 'Emma', efternamn: 'Andersson', foretag: 'Tech AB', grupp: 'H1 26' },
+    { id: '2', fornamn: 'Johan', efternamn: 'Berg',  foretag: 'Webbbolaget',  grupp: 'H1 26' },
+    { id: '3', fornamn: 'Kalle', efternamn: 'Svensson',  foretag: 'IT Solutions',  grupp: 'H1 26' },
+    { id: '4', fornamn: 'Alfred', efternamn: 'Nilsson',  foretag: 'Digital AB',  grupp: 'H1 26' },
+    { id: '5', fornamn: 'Sofia', efternamn: 'Lundgren',  foretag: 'Innovate AB', grupp: 'H1 26' },
+    { id: '6', fornamn: 'Erik', efternamn: 'Johansson',  foretag: 'CodeFactory', grupp: 'H1 26' },
+    { id: '7', fornamn: 'Maria', efternamn: 'Ekholm',  foretag: 'DataPark', grupp: 'H1 26' },
+    { id: '8', fornamn: 'Lars', efternamn: 'Lindström',  foretag: 'SoftCorp', grupp: 'H1 26'},
+    { id: '9', fornamn: 'Anna', efternamn: 'Karlsson', foretag: 'NetSolutions', grupp: 'H1 26' },
+    { id: '10', fornamn: 'Per', efternamn: 'Olsson',  foretag: 'TechStart',  grupp: 'H1 26' }
+  ]
 }
