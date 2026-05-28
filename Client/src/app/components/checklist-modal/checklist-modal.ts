@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ChecklistService } from '../../services/checklist.service';
 
 @Component({
     selector: 'app-checklist-modal',
@@ -15,10 +16,14 @@ import { FormsModule } from '@angular/forms';
     styleUrl: './checklist-modal.css'
 })
 export class ChecklistModal {
+    constructor(
+        private checklistService: ChecklistService
+    ) { }
 
     @Output() close = new EventEmitter<void>();
     @Output() save = new EventEmitter<any>();
     @Input() checklist: any;
+    @Input() studentId?: number;
 
     checklistName = '';
     title = '';
@@ -36,14 +41,31 @@ export class ChecklistModal {
     }
 
     saveChecklist() {
-        console.log('SAVE EMITTED', this.title);
 
-        this.save.emit({
+        const newChecklist = {
+
             id: Date.now(),
+
             title: this.title,
-            description: this.description,
-            items: this.checklistItems
-        });
+
+            studentIds: this.studentId
+                ? [this.studentId]
+                : [],
+
+            items: this.checklistItems.map(item => ({
+                id: Date.now() + Math.random(),
+                text: item.text,
+                completed: item.done
+            }))
+
+        };
+
+        this.checklistService.addChecklist(newChecklist);
+
+        this.save.emit(newChecklist);
+
+        this.closeModal();
+
     }
 
     addItem() {
