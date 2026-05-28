@@ -115,8 +115,7 @@
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
         width: 100%;
         box-sizing: border-box;
-        padding: 10px;
-        padding-left: 13px;
+        padding: 0px 10px 10px 10px;
         margin-bottom: 10px;
     }
 
@@ -127,11 +126,13 @@
 
     .mobile-card-header {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
+
     }
 
     .mobile-card-header h2 {
         flex-grow: 1;
+        margin: 20px 0px 0px 0px;
     }
 
     .mobile-statistik-button {
@@ -139,8 +140,6 @@
         align-items: center;
         flex-direction: row;
         background: white;
-        padding: 0 20px;
-
         width: 100%;
         border-radius: 10px;
         padding: 0 5px;
@@ -171,7 +170,7 @@
         border: none;
         height: 1px;
         background: #e5e7eb;
-        margin: 20px 0;
+        margin: 4px 0px 10px 0px;
     }
 
     .mobile-info {
@@ -219,6 +218,7 @@
     .mobile-card-info {
         display: flex;
         align-items: flex-start;
+        padding: 5px 0px 0px 0px;
     }
 
     .mobile-card-left {
@@ -277,11 +277,17 @@
     }
 
 
-.student-info-details {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-}
+    .student-info-details {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .mobile-statistik-button,
+    .mobile-card {
+        box-shadow: 0 8px 24px #0f172a14;
+        cursor: pointer;
+    }
 
 }

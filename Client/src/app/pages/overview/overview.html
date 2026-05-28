@@ -161,14 +161,7 @@
         </div>
 
 
-        <div class="mobile-statistik-button clickable-row">
-            <div class="mobile-statistik-name"><span class="material-symbols-outlined">
-                    people
-                </span>
-                <p>Aktiva deltagare</p>
-            </div>
-            <p>18</p>
-        </div>
+        
 
 
 
@@ -179,7 +172,14 @@
             </div>
             <p>2</p>
         </div>
-
+<div class="mobile-statistik-button clickable-row" (click)="scrollToActivePersons()">
+            <div class="mobile-statistik-name"><span class="material-symbols-outlined">
+                    people
+                </span>
+                <p>Aktiva deltagare</p>
+            </div>
+            <p>10</p>
+        </div>
     </div>
 
 
@@ -266,8 +266,9 @@
     </div>
 
     <div class="mobile-section">
-        <h2>Aktiva deltagare</h2>
-        <div class="mobile-card clickable-row" *ngFor="let person of activePersons" [routerLink]="['/students/1']" (click)="$event.stopPropagation()">
+        <h2 id="activePersons">Aktiva deltagare</h2>
+        <div class="mobile-card clickable-row" *ngFor="let person of activePersons" [routerLink]="['/students/1']"
+            (click)="$event.stopPropagation()">
             <div class="mobile-card-info">
                 <img src={{person.img}} class="student-image" alt="Elevbild" />
                 <div class="student-info">
