@@ -214,11 +214,17 @@ getTimeAsMinutes(time: string) {
 getEventGridRow(event: CalendarEvent) {
   const startHour = 6;
   const endHour = 19;
-  const hour = Number(event.time.split(':')[0]);
-  const clampedHour = Number.isFinite(hour)
-    ? Math.min(Math.max(hour, startHour), endHour)
-    : startHour;
-  return `${clampedHour - startHour + 1} / span 1`;
+
+  const start = this.getTimeAsMinutes(event.time);
+  const end = this.getTimeAsMinutes(event.endTime || this.getDefaultEndTime(event.time));
+
+  const clampedStart = Math.max(start, startHour * 60);
+  const clampedEnd = Math.min(end, endHour * 60);
+
+  const startRow = Math.floor((clampedStart - startHour * 60) / 60) + 1;
+  const span = Math.max(1, Math.ceil((clampedEnd - clampedStart) / 60));
+
+  return `${startRow} / span ${span}`;
 }
 
   handleDayKeydown(event: KeyboardEvent, day: number) {
@@ -229,6 +235,11 @@ getEventGridRow(event: CalendarEvent) {
   }
 //Hantera drag and drop i kalendern
   handleDragStart(dragEvent: DragEvent, calendarEvent: CalendarEvent) {
+    if (this.resizingTimeEventId) {
+      dragEvent.preventDefault();
+      return;
+    }
+
     this.draggedEventId = calendarEvent.id;
     dragEvent.dataTransfer?.setData('text/plain', calendarEvent.id);
 
@@ -265,7 +276,8 @@ copyEventToDay(dragEvent: DragEvent, day: number) {
       ...eventToCopy,
       id: crypto.randomUUID(),
       startDay: day,
-      endDay: day
+      endDay: day,
+      endTime: eventToCopy.endTime || this.getDefaultEndTime(eventToCopy.time)
     }
   ];
 
