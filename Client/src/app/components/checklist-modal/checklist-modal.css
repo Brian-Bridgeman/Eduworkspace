@@ -330,4 +330,23 @@ textarea {
   .save-btn {
     width: 100%;
   }
+
+  .upload-box {
+    padding: 12px 10px;
+    gap: 4px;
+  }
+
+  .upload-icon {
+    font-size: 24px;
+  }
+
+  .upload-box p {
+    margin: 0;
+    font-size: 13px;
+  }
+
+  .upload-box small {
+    font-size: 11px;
+  }
+
 }
