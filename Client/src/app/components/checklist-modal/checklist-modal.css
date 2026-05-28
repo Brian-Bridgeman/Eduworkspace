@@ -42,7 +42,7 @@
 
   color: #111827;
 
-  
+
 }
 
 .close-btn {
@@ -226,6 +226,7 @@ textarea {
 
   transition: 0.2s;
 }
+
 .sr-only {
   position: absolute;
 
@@ -292,5 +293,41 @@ textarea {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 850px) {
+
+  .overlay {
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .modal {
+    width: 90%;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .modal-header h2 {
+    font-size: 24px;
+  }
+
+  .check-item {
+    align-items: flex-start;
+  }
+
+  .check-item input[type="checkbox"] {
+    margin-top: 14px;
+    flex-shrink: 0;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
   }
 }
