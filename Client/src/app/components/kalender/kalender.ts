@@ -8,6 +8,7 @@ type CalendarEvent = {
   endDay: number;
   title: string;
   time: string;
+  endTime?: string;
   place: string;
   description: string;
 };
@@ -57,6 +58,8 @@ export class Kalender implements OnInit {
   selectedDayForView: number | null = this.todayDay;
   draggedEventId: string | null = null;
   resizingEventId: string | null = null;
+  resizingTimeEventId: string | null = null;
+  suppressNextOpen = false;
   showEventOverview = false;
 
   ngOnInit() {
@@ -82,6 +85,23 @@ get selectedDayForViewEvents() {
   }
 
   return this.getEventsForDay(this.selectedDayForView);
+}
+// Default sluttid för ett event baserat på starttiden, 1 timme senare.
+getDefaultEndTime(startTime: string) {
+  if (!startTime) {
+    return '';
+  }
+
+  const [hours, minutes] = startTime.split(':').map(Number);
+  const endHours = Math.min(hours + 1, 23);
+
+  return `${endHours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}`;
+}
+
+getEventEndTime(event: CalendarEvent) {
+  return event.endTime || this.getDefaultEndTime(event.time);
 }
 
   createCalendar() {
@@ -163,6 +183,11 @@ get daysInCurrentMonth() {
 
 
  openDay(day: number) {
+  if (this.resizingEventId || this.resizingTimeEventId || this.suppressNextOpen) {
+    this.suppressNextOpen = false;
+    return;
+  }
+
   this.selectedDay = day;
   this.selectedEventId = null;
   this.showEventOverview = false;
@@ -180,6 +205,11 @@ openEvent(event: CalendarEvent) {
     day >= event.startDay && day <= event.endDay
   );
 }
+getTimeAsMinutes(time: string) {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+
  // Placerar händelsen på rätt timrad i veckovyn utifrån event.time.
 getEventGridRow(event: CalendarEvent) {
   const startHour = 6;
