@@ -25,6 +25,7 @@ export class ChecklistPage {
 
   checklists: any[] = [];
 
+  searchTerm: string = '';
   selectedChecklist: any = null;
 
   selectedIndex: number | null = null;
@@ -75,6 +76,12 @@ export class ChecklistPage {
     this.selectedIndex = index;
 
     this.showModal = true;
+  }
+
+  get filteredChecklists() {
+    return this.checklists.filter(checklist =>
+      checklist.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+    );
   }
 
 }
