@@ -1,8 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { EventModal } from './event-modal/event-modal';
 
-type CalendarEvent = {
+export type CalendarEvent = {
   id: string;
   startDay: number;
   endDay: number;
@@ -18,7 +18,7 @@ type CalendarViewMode = 'month' | 'week' | 'day';
 @Component({
   selector: 'app-kalender',
   standalone: true,
-  imports: [FormsModule],
+  imports: [EventModal],
   templateUrl: './kalender.html',
   styleUrl: './kalender.css'
 })

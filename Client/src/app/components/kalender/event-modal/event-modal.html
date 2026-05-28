@@ -1,0 +1,125 @@
+<div class="modal-layer">
+  <button
+    type="button"
+    class="modal-backdrop"
+    aria-label="Stäng modal"
+    (click)="close.emit()">
+  </button>
+
+  <div class="modal">
+    <button
+      type="button"
+      class="close-btn"
+      (click)="close.emit()">
+      ×
+    </button>
+
+    @if (selectedEvent && showEventOverview) {
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Dagens händelse</h2>
+
+          <button
+            type="button"
+            class="edit-btn"
+            (click)="edit.emit()">
+            Ändra
+          </button>
+        </div>
+
+        <div class="event-overview">
+          <div class="overview-card main-info">
+            <div class="overview-section">
+              <strong>Titel</strong>
+              <span>{{ selectedEvent.title }}</span>
+            </div>
+
+            <div class="overview-section">
+              <strong>Beskrivning</strong>
+              <span>{{ selectedEvent.description }}</span>
+            </div>
+          </div>
+
+          <div class="overview-card side-info">
+            <div class="overview-section">
+              <strong>Tid</strong>
+              <span>{{ selectedEvent.time }}-{{ getEventEndTime(selectedEvent) }}</span>
+            </div>
+
+            <div class="overview-section">
+              <strong>Plats</strong>
+              <span>{{ selectedEvent.place }}</span>
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          class="delete-btn"
+          (click)="delete.emit()">
+          Radera
+        </button>
+      </div>
+    } @else {
+      <h2 id="new-event-title">
+        @if (selectedEvent) {
+          Ändra händelse
+        } @else {
+          Ny händelse
+        }
+      </h2>
+
+      <p>Dag {{ selectedDay }}</p>
+
+      <label for="event-title">Titel</label>
+      <input
+        id="event-title"
+        type="text"
+        placeholder="Titel"
+        [ngModel]="title"
+        (ngModelChange)="titleChange.emit($event)"
+      />
+
+      <label for="event-time">Tid</label>
+      <input
+        id="event-time"
+        type="time"
+        [ngModel]="time"
+        (ngModelChange)="timeChange.emit($event)"
+      />
+
+      <label for="event-end-time">Sluttid</label>
+      <input
+        id="event-end-time"
+        type="time"
+        [ngModel]="endTime"
+        (ngModelChange)="endTimeChange.emit($event)"
+      />
+
+      <label for="event-place">Plats</label>
+      <input
+        id="event-place"
+        type="text"
+        placeholder="Plats"
+        [ngModel]="place"
+        (ngModelChange)="placeChange.emit($event)"
+      />
+
+      <label for="event-description">Beskrivning</label>
+      <textarea
+        id="event-description"
+        class="beskrivning"
+        placeholder="Beskrivning"
+        [ngModel]="description"
+        (ngModelChange)="descriptionChange.emit($event)"
+      ></textarea>
+
+      <button
+        type="button"
+        class="save-btn"
+        (click)="save.emit()">
+        Spara
+      </button>
+    }
+  </div>
+</div>
