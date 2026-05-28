@@ -5,8 +5,12 @@
   align-items: center;
 }
 
+#taBortTomContainer {
+   display: var(--template-header-header-container, flex);
+}
+
 .header-wrapper {
-  margin-bottom: 2em;
+  margin-bottom: var(--template-header-margin-bottom, 2em);
 }
 
 .header-text h1 {
