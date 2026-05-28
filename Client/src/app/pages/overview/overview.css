@@ -78,6 +78,95 @@
     display: none;
 }
 
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.note-modal {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.modal-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header-left p {
+    margin: 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.close-btn {
+    border: none;
+    background: #f3f4f6;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.note-modal textarea {
+    min-height: 160px;
+    border: 1px solid gray;
+    border-radius: 16px;
+    padding: 12px;
+    resize: none;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.note-modal textarea:focus {
+    border-color: #8b5cf6;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-btn,
+.save-btn {
+    flex: 1;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #f3f4f6;
+}
+
+.save-btn {
+    background: #8b5cf6;
+    color: white;
+}
 @media (max-width:600px) {
     .participants {
         flex-direction: row;
