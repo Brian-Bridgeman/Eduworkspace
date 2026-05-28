@@ -1,0 +1,71 @@
+<!-- VECKODAGAR -->
+<div class="veckodagar">
+  <div class="veckonummer">
+    Vecka
+  </div>
+
+  @for (day of veckodagar; track day) {
+    <div class="veckodag">
+      {{ day }}
+    </div>
+  }
+</div>
+
+<!-- MÅNADSVY / KALENDER -->
+<div class="kalender-wrapper" (mouseup)="stopResize.emit()">
+  @for (week of weeks; track week; let index = $index) {
+    <div class="week-row">
+      <div class="veckonummer">
+        {{ 18 + index }}
+      </div>
+
+      @for (day of week; track day) {
+        @if (day === null) {
+          <div class="empty-day"></div>
+        } @else {
+          <div
+            class="dagruta"
+            [class.today]="day === todayDay"
+            role="button"
+            tabindex="0"
+            (click)="openDay.emit(day)"
+            (keydown)="handleDayKeydown.emit({ event: $event, day })"
+            (mouseenter)="resizeEventToDay.emit(day)"
+            (dragover)="handleDragOver.emit($event)"
+            (drop)="copyEventToDay.emit({ dragEvent: $event, day })"
+          >
+            <span class="dagnummer">
+              {{ day }}
+            </span>
+
+            @for (event of getEventsForDay(day); track event.id) {
+              <div
+                class="event-preview"
+                [class.event-start]="day === event.startDay && event.startDay !== event.endDay"
+                [class.event-middle]="day > event.startDay && day < event.endDay"
+                [class.event-end]="day === event.endDay && event.startDay !== event.endDay"
+                [class.event-single]="event.startDay === event.endDay"
+                role="button"
+                tabindex="0"
+                draggable="true"
+                (click)="$event.stopPropagation(); openEvent.emit(event)"
+                (keydown)="handleEventKeydown.emit({ event: $event, calendarEvent: event })"
+                (dragstart)="$event.stopPropagation(); handleDragStart.emit({ dragEvent: $event, calendarEvent: event })"
+                (dragend)="dragEnded.emit()"
+              >
+                <span class="event-title">
+                  {{ event.time }} {{ event.title }}
+                </span>
+
+                <span
+                  class="resize-handle"
+                  (mousedown)="startResize.emit({ event: $event, calendarEvent: event })">
+                </span>
+              </div>
+            }
+          </div>
+        }
+      }
+    </div>
+  }
+</div>
