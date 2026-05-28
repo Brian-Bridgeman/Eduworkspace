@@ -6,33 +6,33 @@
 <div class="cards">
     <div class="card">
         <span class="material-symbols-outlined">groups</span>
-        <h2>4</h2>
-        <p>Pågående kurstillfälle</p>
+        <h2>1</h2>
+        <p>Pågående arbetslag</p>
     </div>
     <div class="card">
 
         <span class="material-symbols-outlined">
             people
         </span>
-        <h2>18</h2>
-        <p>Aktiva deltagare</p>
+        <h2>10</h2>
+        <p>Pågående deltagare</p>
     </div>
     <div class="card">
 
         <span class="material-symbols-outlined">menu_book</span>
-        <h2>6</h2>
+        <h2>3</h2>
         <p>Kurser</p>
     </div>
     <div class="card">
 
         <span class="material-symbols-outlined">calendar_month</span>
-        <h2>2</h2>
+        <h2>1</h2>
         <p>Kommande kurstillfälle</p>
     </div>
 </div>
 
 <div class="section">
-    <h2>Pågående kurstillfälle</h2>
+    <h2>Pågående arbetslag</h2>
     <div class="tableDiv">
         <table>
             <thead>
@@ -171,13 +171,13 @@
                     class="material-symbols-outlined">calendar_month</span>
                 <p>Kommande kurstillfälle</p>
             </div>
-            <p>2</p>
+            <p>1</p>
         </div>
         <div class="mobile-statistik-button clickable-row" (click)="scrollToActivePersons()">
             <div class="mobile-statistik-name"><span class="material-symbols-outlined">
                     people
                 </span>
-                <p>Aktiva deltagare</p>
+                <p>Pågående deltagare</p>
             </div>
             <p>10</p>
         </div>
@@ -268,7 +268,7 @@
     </div>
 
     <div class="mobile-section">
-        <h2 id="activePersons">Aktiva deltagare</h2>
+        <h2 id="activePersons">Pågående deltagare</h2>
         <div class="mobile-card clickable-row" *ngFor="let person of activePersons" [routerLink]="['/students/1']"
             (click)="$event.stopPropagation()">
             <div class="mobile-card-info">
