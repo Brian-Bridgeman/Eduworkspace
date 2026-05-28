@@ -239,6 +239,12 @@
         min-height: 170px;
     }
 
+::ng-deep app-template-header .template-header-btn {
+        display: none;
+    }
+::ng-deep app-template-header app-search-bar .search-box {
+width: 100%;
+    }
     img {
         width: 80px;
         height: 80px;
