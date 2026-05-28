@@ -1,10 +1,8 @@
 .footer {
   grid-area: footer;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   background: white;
   padding: 28px 16px;
   border-top: 1px solid #e5e5e5;
@@ -20,11 +18,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   text-decoration: none;
-  color: #555;
+  color: #555555;  
 }
 
 .material-symbols-outlined {
-  font-size: 1.8rem;
+  font-size: 30px;
+  transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.nav-link:hover .material-symbols-outlined {
+  color: #6d28d9;
+  transform: scale(1.4);
 }
