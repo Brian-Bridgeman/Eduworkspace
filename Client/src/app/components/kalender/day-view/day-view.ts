@@ -14,6 +14,7 @@ export class DayView {
   @Input() todayDay = 0;
   @Input() hours: string[] = [];
   @Input() selectedDayForViewEvents: CalendarEvent[] = [];
+  @Input() isTimeResizing = false;
 
   @Input() getEventGridRow: (event: CalendarEvent) => string = () => '';
   @Input() getEventEndTime: (event: CalendarEvent) => string = () => '';
@@ -32,4 +33,18 @@ export class DayView {
   @Output() handleDragStart = new EventEmitter<{ dragEvent: DragEvent; calendarEvent: CalendarEvent }>();
   @Output() dragEnded = new EventEmitter<void>();
   @Output() startTimeResize = new EventEmitter<{ event: MouseEvent; calendarEvent: CalendarEvent }>();
+
+  resizeTimeFromPointer(event: MouseEvent) {
+    if (!this.isTimeResizing || this.hours.length === 0) {
+      return;
+    }
+
+    const schedule = event.currentTarget as HTMLElement;
+    const bounds = schedule.getBoundingClientRect();
+    const rowHeight = bounds.height / this.hours.length;
+    const rawIndex = Math.floor((event.clientY - bounds.top) / rowHeight);
+    const hourIndex = Math.max(0, Math.min(this.hours.length - 1, rawIndex));
+
+    this.resizeEventEndTime.emit(this.hours[hourIndex]);
+  }
 }
