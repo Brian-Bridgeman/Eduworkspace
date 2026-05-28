@@ -27,6 +27,9 @@ goToTeam() {
   scrollToOngoing() {
     document.getElementById('ongoing-section')?.scrollIntoView({behavior: 'smooth'})
   }
+  scrollToUpComingGroups(){
+    document.getElementById('upcoming-groups')?.scrollIntoView({behavior: 'smooth'})
+  }
   ongoingTeams = [
     {
       teamName: 'Oscar & Johan',
@@ -46,6 +49,24 @@ goToTeam() {
       participants: [
         {name: 'Kalle Anka'},
         {name: 'Alfred Dumpling'}]
+    },
+    {
+      teamName: 'Oscar & Johan',
+      course: 'Elinstallation',
+      location: 'Sal B',
+      status: 'Pågående',
+      participants: [
+        {name: 'Oscar Marcusson'},
+        {name: 'Johan Dahlin'}]
+    },
+    {
+      teamName: 'Oscar & Johan',
+      course: 'Elinstallation',
+      location: 'Sal B',
+      status: 'Pågående',
+      participants: [
+        {name: 'Oscar Marcusson'},
+        {name: 'Johan Dahlin'}]
     }
   ];
 
