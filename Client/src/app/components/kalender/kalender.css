@@ -356,7 +356,7 @@
 .week-event {
   /* Händelsen placeras ovanpå timraderna med grid-row från TypeScript. */
   z-index: 1;
-  align-self: start;
+  align-self: stretch;
   margin: 4px 6px 0;
   min-height: 36px;
   overflow: hidden;
@@ -441,7 +441,7 @@
 
 .day-event {
   z-index: 1;
-  align-self: start;
+  align-self: stretch;
   margin: 4px 8px 0;
   min-height: 40px;
   overflow: hidden;
@@ -449,25 +449,6 @@
   flex-direction: column;
   gap: 2px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* Visar händelser - Modalen */
@@ -645,5 +626,42 @@
   font-size: 19px;
   font-weight: 100;
 }
+.week-view-header,
+.veckovy-tidsvy {
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: 44px repeat(7, minmax(0, 1fr));
+  gap: 4px;
+}
 
+.week-view-heading {
+  padding: 6px 2px;
+  border-radius: 10px;
+  font-size: 9px;
+  overflow: hidden;
+}
+
+.week-view-heading strong {
+  font-size: 12px;
+}
+
+.week-time-column,
+.week-day-time {
+  grid-template-rows: repeat(14, 44px);
+}
+
+.week-time-label {
+  font-size: 10px;
+  padding-right: 4px;
+}
+
+.week-day-time {
+  border-radius: 12px;
+}
+
+.week-event {
+  margin: 3px 2px 0;
+  min-height: 30px;
+  font-size: 8px;
+}
 }
