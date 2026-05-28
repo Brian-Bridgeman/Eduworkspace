@@ -10,6 +10,8 @@ import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
 })
 export class ChecklistSetCard {
 
+  @Input() title = '';
+  @Input() description = '';
   @Input() checklistExamples: any[] = [];
 
   @Output() edit = new EventEmitter<void>();
