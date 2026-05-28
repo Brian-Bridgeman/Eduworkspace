@@ -267,9 +267,9 @@
 
     <div class="mobile-section">
         <h2>Aktiva deltagare</h2>
-        <div class="mobile-card clickable-row" *ngFor="let person of activePersons">
+        <div class="mobile-card clickable-row" *ngFor="let person of activePersons" [routerLink]="['/students/1']" (click)="$event.stopPropagation()">
             <div class="mobile-card-info">
-                <img src="https://i.pravatar.cc/200" class="student-image" alt="Elevbild" />
+                <img src={{person.img}} class="student-image" alt="Elevbild" />
                 <div class="student-info">
                     <h3>{{person.fornamn}} {{person.efternamn}}</h3>
                     <div class="student-info-details">
