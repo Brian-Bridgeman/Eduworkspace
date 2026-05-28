@@ -13,6 +13,16 @@ import { routes } from '../../app.routes';
   styleUrl: './overview.css',
 })
 export class Overview {
+constructor(private router:Router) {}
+goToGroup() {
+  this.router.navigate(['/groups/1/teams/1']);
+}
+  onImageSelected(event:any) {
+    const file = event.target.files[0];
+    if(file) {
+      console.log(file);
+    }
+  }
 
   ongoingGroups = [
     {
