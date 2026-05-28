@@ -22,6 +22,15 @@
         </div>
 
         <div class="form-group">
+
+            <label>Beskrivning</label>
+
+            <textarea [(ngModel)]="description" placeholder="Beskriv checklistan">
+    </textarea>
+
+        </div>
+
+        <div class="form-group">
             <label>Checklistpunkter</label>
 
             @for (item of checklistItems; track $index) {
