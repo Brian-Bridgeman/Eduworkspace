@@ -1,69 +1,58 @@
 <div class="overlay" (click)="closeModal()">
   <div class="modal" (click)="$event.stopPropagation()">
-
     <div class="modal-header">
       <div>
         <h2>Lägg till deltagare</h2>
-        <!-- <p>Fält markerad med * ''</p> -->
       </div>
       <button class="modal-close-button" (click)="closeModal()">✕</button>
     </div>
-
     <div class="modal-body">
       <div class="form-row">
         <div class="form-group">
           <label>Förnamn</label>
-          <input type="text" placeholder="Anna" />
+          <input type="text" placeholder="Anna" [(ngModel)]="student.fornamn" />
         </div>
         <div class="form-group">
           <label>Efternamn</label>
-          <input type="text" placeholder="Andersson" />
+          <input type="text" placeholder="Andersson" [(ngModel)]="student.efternamn" />
         </div>
       </div>
-
       <div class="form-group">
         <label>Grupp</label>
-        <!-- TODO:  hämta alla grupper från backend när komponent skapas och lägg till i select-->
-        <select>
+        <select [(ngModel)]="student.grupp">
           <option value="" disabled selected>Välj en grupp...</option>
-        <!-- TODO:  ta bort nedan temporära options när backend koppling är uppsatt-->
-          <option value="H124">A2 26</option>
-          <option value="H124">A1 26</option>
-          <option value="H124">H3 26</option>
-          <option value="H124">H2 26</option>
-          <option value="H124">H1 26</option>
+          <option value="A2 26">A2 26</option>
+          <option value="A1 26">A1 26</option>
+          <option value="H3 26">H3 26</option>
+          <option value="H2 26">H2 26</option>
+          <option value="H1 26">H1 26</option>
         </select>
       </div>
-
       <div class="form-group">
         <div class="label-row">
           <label>Företag</label>
           <span class="optional">Frivillig</span>
         </div>
-        <input type="text" placeholder="Volvo" />
+        <input type="text" placeholder="Volvo" [(ngModel)]="student.foretag" />
       </div>
-
       <div class="form-group">
         <div class="label-row">
           <label>Telefonnummer</label>
           <span class="optional">Frivillig</span>
         </div>
-        <input type="tel" placeholder="073-123 45 67" />
+        <input type="tel" placeholder="073-123 45 67" [(ngModel)]="student.telefonNr" />
       </div>
-
       <div class="form-group">
         <div class="label-row">
           <label>E-post</label>
           <span class="optional">Frivillig</span>
         </div>
-        <input type="email" placeholder="erik.svensson@exempel.se" />
+        <input type="email" placeholder="erik.svensson@exempel.se" [(ngModel)]="student.epost" />
       </div>
     </div>
-
     <div class="modal-footer">
       <button class="btn-cancel" (click)="closeModal()">Avbryt</button>
       <button class="btn-confirm" (click)="saveModal()">Skapa</button>
     </div>
-
   </div>
 </div>

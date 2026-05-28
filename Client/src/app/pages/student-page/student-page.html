@@ -16,7 +16,7 @@
             <tr *ngFor="let person of filteredPersons" [routerLink]="['/students', person.id]" class="clickable-row">
                 <td class="avatar">
                     <span class="material-symbols-outlined">account_circle</span>
-                    <span>{{ person.namn }}</span>
+                    <span>{{ person.fornamn }} {{ person.efternamn}}</span>
                 </td>
                 <td class="tablet-col">{{ person.telefonNr }}</td>
                 <td class="tablet-col">{{ person.epost }}</td>

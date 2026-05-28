@@ -23,4 +23,8 @@ export class CreateGroupPage {
   exitCreateGroupPage() {
     this.router.navigate(["/groups"]);
   }
+
+  addStudent(student: any) {
+    this.showAddStudentModal = false;
+  }
 }
