@@ -292,6 +292,39 @@ startResize(event: MouseEvent, calendarEvent: CalendarEvent) {
   this.resizingEventId = calendarEvent.id;
 }
 
+startTimeResize(event: MouseEvent, calendarEvent: CalendarEvent) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  this.resizingTimeEventId = calendarEvent.id;
+  this.suppressNextOpen = true;
+}
+
+resizeEventEndTime(hour: string) {
+  if (!this.resizingTimeEventId) return;
+
+  this.events = this.events.map(event => {
+    if (event.id !== this.resizingTimeEventId) {
+      return event;
+    }
+
+    const proposedEndTime = this.getDefaultEndTime(hour);
+    const startMinutes = this.getTimeAsMinutes(event.time);
+    const proposedEndMinutes = this.getTimeAsMinutes(proposedEndTime);
+    const endTime =
+      proposedEndMinutes > startMinutes
+        ? proposedEndTime
+        : this.getDefaultEndTime(event.time);
+
+    return {
+      ...event,
+      endTime
+    };
+  });
+
+  this.saveEvents();
+}
+
 resizeEventToDay(day: number) {
   if (!this.resizingEventId) return;
 
@@ -311,6 +344,7 @@ resizeEventToDay(day: number) {
 
 stopResize() {
   this.resizingEventId = null;
+  this.resizingTimeEventId = null;
 }
 
 
@@ -336,6 +370,7 @@ stopResize() {
   }
 title = '';
 time = '';
+endTime = '';
 place = '';
 description = '';
 
@@ -345,11 +380,13 @@ prepareModal() {
   if (event) {
     this.title = event.title;
     this.time = event.time;
+    this.endTime = event.endTime || this.getDefaultEndTime(event.time);
     this.place = event.place;
     this.description = event.description;
   } else {
     this.title = '';
     this.time = '';
+    this.endTime = '';
     this.place = '';
     this.description = '';
   }
@@ -370,6 +407,7 @@ saveEvent() {
     endDay: this.selectedEvent?.endDay ?? this.selectedDay,
     title: this.title,
     time: this.time,
+    endTime: this.endTime || this.getDefaultEndTime(this.time),
     place: this.place,
     description: this.description
   };
