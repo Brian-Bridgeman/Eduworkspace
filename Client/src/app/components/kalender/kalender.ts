@@ -1,8 +1,11 @@
 
-import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { EventModal } from './event-modal/event-modal';
+import { WeekView } from './week-view/week-view';
+import { DayView } from './day-view/day-view';
+import { MonthView } from './month-view/month-view';
 
-type CalendarEvent = {
+export type CalendarEvent = {
   id: string;
   startDay: number;
   endDay: number;
@@ -18,7 +21,7 @@ type CalendarViewMode = 'month' | 'week' | 'day';
 @Component({
   selector: 'app-kalender',
   standalone: true,
-  imports: [FormsModule],
+  imports: [EventModal, WeekView, DayView, MonthView],
   templateUrl: './kalender.html',
   styleUrl: './kalender.css'
 })
@@ -59,12 +62,18 @@ export class Kalender implements OnInit {
   draggedEventId: string | null = null;
   resizingEventId: string | null = null;
   resizingTimeEventId: string | null = null;
+  resizeChanged = false;
   suppressNextOpen = false;
   showEventOverview = false;
 
   ngOnInit() {
     this.createCalendar();
     this.loadEvents();
+  }
+
+  @HostListener('document:mouseup')
+  handleDocumentMouseup() {
+    this.stopResize();
   }
 // Visar event-översikten i kalendern
   get selectedEvent(): CalendarEvent | null {
@@ -290,6 +299,7 @@ startResize(event: MouseEvent, calendarEvent: CalendarEvent) {
   event.preventDefault();
 
   this.resizingEventId = calendarEvent.id;
+  this.resizeChanged = false;
 }
 
 startTimeResize(event: MouseEvent, calendarEvent: CalendarEvent) {
@@ -297,11 +307,14 @@ startTimeResize(event: MouseEvent, calendarEvent: CalendarEvent) {
   event.preventDefault();
 
   this.resizingTimeEventId = calendarEvent.id;
+  this.resizeChanged = false;
   this.suppressNextOpen = true;
 }
 
 resizeEventEndTime(hour: string) {
   if (!this.resizingTimeEventId) return;
+
+  let changed = false;
 
   this.events = this.events.map(event => {
     if (event.id !== this.resizingTimeEventId) {
@@ -316,35 +329,56 @@ resizeEventEndTime(hour: string) {
         ? proposedEndTime
         : this.getDefaultEndTime(event.time);
 
+    if (event.endTime === endTime) {
+      return event;
+    }
+
+    changed = true;
+
     return {
       ...event,
       endTime
     };
   });
 
-  this.saveEvents();
+  this.resizeChanged = this.resizeChanged || changed;
 }
 
 resizeEventToDay(day: number) {
   if (!this.resizingEventId) return;
+
+  let changed = false;
 
   this.events = this.events.map(event => {
     if (event.id !== this.resizingEventId) {
       return event;
     }
 
+    const endDay = Math.max(event.startDay, day);
+
+    if (event.endDay === endDay) {
+      return event;
+    }
+
+    changed = true;
+
     return {
       ...event,
-      endDay: Math.max(event.startDay, day)
+      endDay
     };
   });
 
-  this.saveEvents();
+  this.resizeChanged = this.resizeChanged || changed;
 }
 
 stopResize() {
+  if ((this.resizingEventId || this.resizingTimeEventId) && this.resizeChanged) {
+    this.saveEvents();
+  }
+
   this.resizingEventId = null;
   this.resizingTimeEventId = null;
+  this.resizeChanged = false;
 }
 
 
