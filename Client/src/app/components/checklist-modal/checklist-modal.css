@@ -107,15 +107,12 @@ textarea {
   height: 34px;
   border: none;
   border-radius: 8px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   transition: 0.2s;
   flex-shrink: 0;
-
   font-family: inherit;
   font-size: 16px;
 }
@@ -164,11 +161,12 @@ textarea {
   display: flex;
   justify-content: flex-end;
   gap: 14px;
-  margin-top: 36px;
+  margin: 36px -28px -28px;
   position: sticky;
-  bottom: 0;
+  bottom: -28px;
   background: white;
-  padding-top: 16px;
+  padding: 16px 28px 28px;
+  border-top: 1px solid #e5e7eb;
 }
 
 .cancel-btn {
@@ -278,6 +276,9 @@ textarea {
 
   .actions {
     flex-direction: column-reverse;
+    margin: 28px -20px -20px;
+    bottom: -20px;
+    padding: 16px 20px 20px;
   }
 
   .cancel-btn,
