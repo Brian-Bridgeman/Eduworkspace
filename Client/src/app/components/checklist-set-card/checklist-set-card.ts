@@ -9,13 +9,10 @@ import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
   styleUrl: './checklist-set-card.css',
 })
 export class ChecklistSetCard {
-  @Input() title = 'Checklista';
-  @Input() description = 'Beskrivning av checklistan?';
-  @Input() checklistExamples = [{ text: 'aaa', done: false },
-  { text: 'bbb', done: false },
-  { text: 'ccc', done: false },
-  { text: 'ddd', done: false }
-  ];
+
+  @Input() checklistExamples: any[] = [];
+
+  @Output() edit = new EventEmitter<void>();
 
   showAll = false;
 
