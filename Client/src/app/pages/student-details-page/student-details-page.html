@@ -48,7 +48,7 @@
 
                         <i class="fa-solid fa-phone"></i>
 
-                        <span>070-111 11 11</span>
+                        <span>{{ student.phone }}</span>
 
                     </div>
 
@@ -56,7 +56,7 @@
 
                         <i class="fa-solid fa-envelope"></i>
 
-                        <span>oscar@mail.com</span>
+                        <span>{{ student.email }}</span>
 
                     </div>
 
@@ -64,7 +64,15 @@
 
                         <i class="fa-solid fa-building"></i>
 
-                        <span>Tech AB</span>
+                        <span>{{ student.company }}</span>
+
+                    </div>
+
+                    <div class="detail-item">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        <span>{{ student.mentor }}</span>
 
                     </div>
 
@@ -92,7 +100,7 @@
 
             </div>
 
-            <button class="edit-btn">
+            <button class="edit-btn" (click)="openEditModal()">
                 Redigera elev
             </button>
 
@@ -536,3 +544,136 @@
         </div>
 
     </div>
+    ```html
+    <!-- EDIT MODAL -->
+
+    <div class="modal-overlay" *ngIf="showEditModal">
+
+        <div class="edit-modal">
+
+            <!-- HEADER -->
+
+            <div class="modal-header">
+
+                <h2>Redigera elev</h2>
+
+                <button class="close-btn" (click)="closeEditModal()" aria-label="Stäng modal">
+                    ✕
+                </button>
+
+            </div>
+
+            <!-- NAMN -->
+
+            <div class="form-group">
+
+                <label>Namn</label>
+
+                <input [(ngModel)]="student.name" placeholder="Namn" />
+
+            </div>
+
+            <!-- TELEFON -->
+
+            <div class="form-group">
+
+                <label>Telefon</label>
+
+                <input [(ngModel)]="student.phone" placeholder="Telefon" />
+
+            </div>
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input [(ngModel)]="student.email" placeholder="Email" />
+
+            </div>
+
+            <!-- FÖRETAG -->
+
+            <div class="form-group">
+
+                <label>Företag</label>
+
+                <input [(ngModel)]="student.company" placeholder="Företag" />
+
+            </div>
+
+            <!-- HANDLEDARE -->
+
+            <div class="form-group">
+
+                <label>Handledare</label>
+
+                <input [(ngModel)]="student.mentor" placeholder="Handledare" />
+
+            </div>
+
+            <!-- KURSER -->
+
+            <div class="course-edit-section">
+
+                <label>KURSER</label>
+
+                <div class="course-edit-list">
+
+                    <div class="course-edit-item" *ngFor="let course of courses">
+
+                        <span>{{ course.name }}</span>
+
+                        <select [(ngModel)]="course.status" title="Kursstatus">
+
+                            <option value="active">
+                                Pågående
+                            </option>
+
+                            <option value="paused">
+                                Pausad
+                            </option>
+
+                            <option value="inactive">
+                                Avslutad
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTIONS -->
+
+            <div class="modal-actions">
+
+                <button class="cancel-btn" (click)="closeEditModal()">
+                    Avbryt
+                </button>
+
+                <button class="save-btn" (click)="saveStudent()">
+                    Spara ändringar
+                </button>
+
+            </div>
+
+            <!-- DELETE -->
+
+            <div class="delete-section">
+
+                <button class="delete-btn" (click)="deleteStudent()">
+                    Ta bort elev
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    ```
+
+</div>

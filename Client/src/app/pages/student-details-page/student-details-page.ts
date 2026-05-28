@@ -91,20 +91,38 @@ export class StudentDetailsPage {
     }
 
   ];
-courses = [
-  {
-    name: 'Frontendutveckling',
-    status: 'active'
-  },
-  {
-    name: 'Java Backend',
-    status: 'inactive'
-  },
-  {
-    name: 'React Native',
-    status: 'paused'
+  courses = [
+    {
+      name: 'Frontendutveckling',
+      status: 'active'
+    },
+    {
+      name: 'Java Backend',
+      status: 'inactive'
+    },
+    {
+      name: 'React Native',
+      status: 'paused'
+    }
+  ];
+
+  showEditModal = false;
+
+  student = {
+    name: 'Oscar Nilsson',
+    phone: '070-111 11 11',
+    email: 'oscar@mail.com',
+    company: 'Tech AB',
+    mentor: 'Johan Andersson'
+  };
+
+  openEditModal() {
+    this.showEditModal = true;
   }
-];
+
+  closeEditModal() {
+    this.showEditModal = false;
+  }
 
   toggleChecklistItem(checklist: Checklist, item: any) {
 
@@ -151,14 +169,14 @@ courses = [
 
   deleteNote(noteToDelete: any) {
 
-  this.activeNoteCollection.notes =
-    this.activeNoteCollection.notes.filter(
+    this.activeNoteCollection.notes =
+      this.activeNoteCollection.notes.filter(
 
-      (note: any) => note !== noteToDelete
+        (note: any) => note !== noteToDelete
 
-    );
+      );
 
-}
+  }
   saveNote() {
 
     if (!this.newNoteText.trim()) return;
@@ -178,6 +196,21 @@ courses = [
     this.closeNoteModal();
 
   }
- 
+  saveStudent() {
+    console.log(this.student);
 
+    this.closeEditModal();
+  }
+  deleteStudent() {
+
+    const confirmed =
+      confirm('Är du säker på att du vill ta bort eleven?');
+
+    if (!confirmed) return;
+
+    console.log('Elev borttagen');
+
+    this.closeEditModal();
+
+  }
 }
