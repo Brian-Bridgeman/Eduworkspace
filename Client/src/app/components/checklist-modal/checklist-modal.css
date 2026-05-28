@@ -78,8 +78,9 @@ textarea:focus {
 }
 
 textarea {
-  min-height: 140px;
+  min-height: 70px;
   resize: none;
+  font-family: inherit;
 }
 
 .check-item {
@@ -122,6 +123,7 @@ textarea {
   font-weight: 600;
   cursor: pointer;
   transition: 0.2s;
+  font-family: inherit;
 }
 
 .add-btn:hover {
