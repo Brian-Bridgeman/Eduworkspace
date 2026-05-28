@@ -213,4 +213,5 @@ export class StudentDetailsPage {
     this.closeEditModal();
 
   }
+  selectedCourse = 'Fiber';
 }

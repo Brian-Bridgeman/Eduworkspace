@@ -54,7 +54,7 @@ body {
 }
 
 .student-details {
-  margin-top: 15px;
+  margin-top: 65px;
 }
 
 .content-grid {
@@ -68,6 +68,7 @@ body {
 .right-column {
   min-width: 0;
 }
+
 /* =========================
    CARDS
 ========================= */
@@ -120,6 +121,7 @@ body {
   gap: 12px;
   margin-bottom: 24px;
 }
+
 /* =========================
    MODAL
 ========================= */
@@ -342,6 +344,86 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
+.course-name-input {
+  flex: 1;
+  height: 46px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 15px;
+  background: white;
+  outline: none;
+  transition: .2s ease;
+}
+
+.course-name-input:focus {
+  border-color: #8b5cf6;
+  box-shadow:
+    0 0 0 4px rgba(139,92,246,.12);
+
+}
+/* =========================
+   NOTE MODAL
+========================= */
+
+.note-modal {
+  width: 720px;
+  max-width: 92%;
+  background: #fff;
+  border-radius: 28px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, .12),
+    0 30px 80px rgba(0, 0, 0, .10);
+  animation: modalIn .18s ease;
+}
+
+.note-courses {
+  display: flex;
+  gap: 10px;
+
+}
+
+.note-course {
+  border: none;
+  background: #f3f4f6;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: .2s ease;
+}
+
+.note-course.active {
+  background: #8b5cf6;
+  color: white;
+
+}
+
+.note-modal textarea {
+  width: 100%;
+  min-height: 180px;
+  border: 2px solid  #c084fc;
+  border-radius: 18px;
+  padding: 18px;
+  resize: none;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: .2s ease;
+  background: #fff;
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, .10);
+}
+
+.note-modal textarea:focus {
+  border-color: #8b5cf6;
+  box-shadow:
+    0 0 0 5px rgba(139, 92, 246, .12);
+}
 
 /* =========================
    FORMS
@@ -388,7 +470,6 @@ body {
   border-color: var(--purple);
   box-shadow: 0 0 0 4px rgba(139, 92, 246, .12);
 }
-
 /* =========================
    BUTTONS
 ========================= */
@@ -396,73 +477,88 @@ body {
 .edit-btn,
 .small-btn,
 .card-link-btn,
-.upload-btn {
+.upload-btn,
+.save-btn,
+.cancel-btn,
+.note-course {
   border: none;
   cursor: pointer;
   border-radius: 12px;
   background: #8b5cf6;
   color: white;
-  transition: 0.2s ease;
+  transition: none;
   box-shadow:
     0 4px 14px rgba(139, 92, 246, 0.18);
 }
 
+/* PADDING */
+
 .edit-btn {
   padding: 14px 24px;
 }
 
 .small-btn,
 .card-link-btn,
-.upload-btn {
+.upload-btn,
+.save-btn,
+.cancel-btn,
+.note-course {
   padding: 10px 16px;
 }
+
+/* HOVER EFFECT */
 
 .edit-btn:hover,
 .small-btn:hover,
 .card-link-btn:hover,
-.upload-btn:hover {
+.upload-btn:hover,
+.save-btn:hover,
+.cancel-btn:hover,
+.note-course:hover {
+  background: #8b5cf6;
+  color: white;
+  transform: none;
+  box-shadow:
+    0 4px 14px rgba(139, 92, 246, 0.18);
+}
+
+/* ACTIVE NOTE COURSE */
+
+.note-course.active {
   background: #7c3aed;
-  transform: translateY(-1px);
+  color: white;
 }
 
-.edit-btn {
-  padding: 14px 24px;
-}
+/* CANCEL BUTTON */
 
-.small-btn,
-.card-link-btn,
-.upload-btn {
-  padding: 10px 16px;
-}
-
-.edit-btn:hover,
-.small-btn:hover,
-.card-link-btn:hover,
-.upload-btn:hover {
-  background: var(--purple-dark);
-}
-
-.modal-actions button:first-child {
+.cancel-btn {
   background: #f3f4f6;
+  color: #111827;
 }
 
-.modal-actions button:last-child {
-  background: var(--purple);
-  color: #fff;
+.cancel-btn:hover {
+  background: #f3f4f6;
+  color: #111827;
 }
+
+/* DELETE BUTTON */
 
 .delete-btn {
   width: 100%;
   height: 52px;
-  border-radius: var(--radius);
+  border-radius: 14px;
+  border: none;
   background: #fee2e2;
   color: #b91c1c;
+  font-weight: 600;
+  cursor: pointer;
+  transition: none;
 }
 
 .delete-btn:hover {
-  background: #fecaca;
+  background: #fee2e2;
+  color: #b91c1c;
 }
-
 /* =========================
    STUDENT INFO
 ========================= */

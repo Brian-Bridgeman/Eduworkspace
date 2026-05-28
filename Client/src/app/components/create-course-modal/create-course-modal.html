@@ -1,0 +1,30 @@
+<div class="overlay" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <h2>Skapa kurs</h2>
+        <p>Fyll i information om kursen</p>
+      </div>
+
+      <button class="modal-close-button" (click)="closeModal()">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Kursnamn</label>
+        <input type="text" placeholder="t.ex. Traverskort" [(ngModel)]="courseName" />
+      </div>
+
+      <div class="form-group">
+        <label>Utbildare</label>
+        <input type="text" placeholder="t.ex. Safe Education" [(ngModel)]="educator" />
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="closeModal()">Avbryt</button>
+
+      <button class="btn-confirm" (click)="saveModal()">Skapa kurs</button>
+    </div>
+  </div>
+</div>
