@@ -1,5 +1,5 @@
 <app-template-header class="header" title="Översikt"
-    subtitle="Här får du en snabb överblick av kurstillfälle och anteckningar." buttonText="Lägg till kommentar">
+    subtitle="Här får du en snabb överblick av arbetslag och kurstillfällen " buttonText="Lägg till kommentar">
 </app-template-header>
 
 <div class="cards">
@@ -155,111 +155,123 @@
 </div>
 
 <div class="mobile-version">
-<div class="mobile-section-cards">
-    <div class="mobile-statistik-button">
-        <div class="mobile-statistik-name"><span class="material-symbols-outlined">groups</span>
-            <p>Pågående kurstillfälle</p>
+  <div class="mobile-section-cards">
+        <div class="mobile-statistik-button">
+            <div class="mobile-statistik-name"><span class="material-symbols-outlined">groups</span>
+                <p>Pågående kurstillfälle</p>
+            </div>
+            <p>4</p>
         </div>
-        <p>4</p>
-
-    </div>
 
 
-    <div class="mobile-statistik-button clickable-row">
-        <div class="mobile-statistik-name"><span class="material-symbols-outlined">
-                people
-            </span>
-            <p>Aktiva deltagare</p>
+        <div class="mobile-statistik-button clickable-row">
+            <div class="mobile-statistik-name"><span class="material-symbols-outlined">
+                    people
+                </span>
+                <p>Aktiva deltagare</p>
+            </div>
+            <p>18</p>
         </div>
-        <p>18</p>
-    </div>
 
-    <div class="mobile-statistik-button">
-        <div class="mobile-statistik-name"><span class="material-symbols-outlined">menu_book</span>
-            <p>Kurser</p>
+        <div class="mobile-statistik-button">
+            <div class="mobile-statistik-name"><span class="material-symbols-outlined">menu_book</span>
+                <p>Kurser</p>
+            </div>
+            <p>6</p>
         </div>
-        <p>6</p>
-    </div>
 
-    <div class="mobile-statistik-button">
-        <div class="mobile-statistik-name"><span class="material-symbols-outlined">calendar_month</span>
-            <p>Kommande kurstillfälle</p>
+        <div class="mobile-statistik-button">
+            <div class="mobile-statistik-name"><span class="material-symbols-outlined">calendar_month</span>
+                <p>Kommande kurstillfälle</p>
+            </div>
+            <p>2</p>
         </div>
-        <p>2</p>
+
     </div>
 
-</div>
 
-
-<div class="mobile-cards">
-    <div class="mobile-section">
-        <h2>Pågående kurstillfälle</h2>
+    <div class="mobile-cards">
+        <div class="mobile-section">
+            <h2>Pågående arbetslag</h2>
+        </div>
     </div>
-</div>
 
 
-<div class="mobile-card class clickable-row" *ngFor="let group of ongoingGroups" (click)="goToGroup()">
-    <div class="mobile-card-header">
-        <h3>{{ group.groupName }}</h3>
-        <input type="file" accept="image/*" capture="environment" #cameraInput hidden
-            (change)="onImageSelected($event)">
-        <button type="button" class="btn-outline icon-btn"
-            (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
-            <span class="material-symbols-outlined">photo_camera</span>
-        </button>
-        <button class="btn-outline icon-btn">
-            <span class="material-symbols-outlined">edit</span>
-        </button>
-    </div>
-    <p class="mobile-info"><span class="material-symbols-outlined">menu_book</span>{{ group.course }}</p>
-    <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location }}</p>
-    <p>
-        <span class="ongoing">
-            {{ group.status }}
-        </span>
-    </p>
-    <hr />
-    <p class="mobile-info"><span class="material-symbols-outlined">groups</span>Deltagare</p>
-    <p class="link">
-    <div class="participants">
-        @for (participant of group.participants; track participant.name)
-        {<a [routerLink]="['/students/1']" (click)="$event.stopPropagation()">{{ participant.name }}</a> <span> </span>}
-    </div>
-</div>
-
-
-<div class="mobile-section">
-    <h2>Kommande kurstillfälle</h2>
-
-    <div class="mobile-card clickable-row" [routerLink]="['/groups/1/teams/1']" *ngFor="let group of upcomingGroups">
+    <div class="mobile-card class clickable-row" *ngFor="let group of ongoingGroups" (click)="goToGroup()">
         <div class="mobile-card-header">
-            <h3>{{ group.groupName }}</h3>
+            <h2>{{ group.groupName }}</h2>
             <input type="file" accept="image/*" capture="environment" #cameraInput hidden
-            (change)="onImageSelected($event)">
-        <button type="button" class="btn-outline icon-btn"
-            (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
-            <span class="material-symbols-outlined">photo_camera</span>
-        </button>
+                (change)="onImageSelected($event)">
+            <button type="button" class="btn-outline icon-btn"
+                (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
+                <span class="material-symbols-outlined">photo_camera</span>
+            </button>
             <button class="btn-outline icon-btn">
                 <span class="material-symbols-outlined">edit</span>
             </button>
         </div>
-        <p class="mobile-info"> <span class="material-symbols-outlined">menu_book</span>{{ group.course }}</p>
-        <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location }}</p>
+        <div class="mobile-card-info">
+            <div class="mobile-card-left">
+                <p class="mobile-info"><span class="material-symbols-outlined">menu_book</span>{{ group.course }}</p>
+                <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location }}
+                </p>
+            </div>
+            <div class="mobile-card-right">
 
-        <p>
-            <span class="ongoing">
-                {{ group.status }}
-            </span>
-        </p>
+                <span class="ongoing">
+                    {{ group.status }}
+                </span>
+
+            </div>
+        </div>
         <hr />
-        <p class="mobile-info"><span class="material-symbols-outlined">groups</span>Deltagare</p>
+        <h4 class="mobile-info"><span class="material-symbols-outlined">groups</span>Deltagare</h4>
         <p class="link">
         <div class="participants">
             @for (participant of group.participants; track participant.name)
-            {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> }
+            {<a [routerLink]="['/students/1']" (click)="$event.stopPropagation()">{{ participant.name }}</a> <span>
+            </span>}
         </div>
     </div>
 
+
+    <div class="mobile-section">
+        <h2>Kommande kurstillfälle</h2>
+
+        <div class="mobile-card clickable-row" [routerLink]="['/groups/1/teams/1']"
+            *ngFor="let group of upcomingGroups">
+            <div class="mobile-card-header">
+                <h2>{{ group.groupName }}</h2>
+                <input type="file" accept="image/*" capture="environment" #cameraInput hidden
+                    (change)="onImageSelected($event)">
+                <button type="button" class="btn-outline icon-btn"
+                    (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
+                    <span class="material-symbols-outlined">photo_camera</span>
+                </button>
+                <button class="btn-outline icon-btn">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+            <div class="mobile-card-info">
+                <div class="mobile-card-left">
+            <p class="mobile-info"> <span class="material-symbols-outlined">menu_book</span>{{ group.course }}</p>
+            <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location }}</p>
 </div>
+            <div class="mobile-card-right">
+                <span class="ongoing">
+                    {{ group.status }}
+                </span>
+            
+            </div>
+            </div>
+            <hr />
+            <h4 class="mobile-info"><span class="material-symbols-outlined">groups</span>Deltagare</h4>
+            <div class="link">
+            <div class="participants">
+                @for (participant of group.participants; track participant.name)
+                {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> }
+            </div>
+        </div>
+
+    </div>
 </div>
