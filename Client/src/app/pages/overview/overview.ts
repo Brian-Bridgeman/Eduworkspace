@@ -122,9 +122,9 @@ export class Overview {
     { id: '4', img: 'https://i.pravatar.cc/150?img=33', fornamn: 'Alfred', efternamn: 'Nilsson', foretag: 'Digital AB', grupp: 'H1 26' },
     { id: '5', img: 'https://i.pravatar.cc/150?img=5', fornamn: 'Sofia', efternamn: 'Lundgren', foretag: 'Innovate AB', grupp: 'H1 26' },
     { id: '6', img: 'https://i.pravatar.cc/150?img=13', fornamn: 'Erik', efternamn: 'Johansson', foretag: 'CodeFactory', grupp: 'H1 26' },
-    { id: '7', img: 'https://i.pravatar.cc/150?img=19', fornamn: 'Maria', efternamn: 'Ekholm', foretag: 'DataPark', grupp: 'H1 26' },
+    { id: '7', img: 'https://i.pravatar.cc/150?img=26', fornamn: 'Maria', efternamn: 'Ekholm', foretag: 'DataPark', grupp: 'H1 26' },
     { id: '8', img: 'https://i.pravatar.cc/150?img=8', fornamn: 'Lars', efternamn: 'Lindström', foretag: 'SoftCorp', grupp: 'H1 26' },
-    { id: '9', img: 'https://i.pravatar.cc/150?img=9', fornamn: 'Anna', efternamn: 'Karlsson', foretag: 'NetSolutions', grupp: 'H1 26' },
+    { id: '9', img: 'https://i.pravatar.cc/150?img=32', fornamn: 'Anna', efternamn: 'Karlsson', foretag: 'NetSolutions', grupp: 'H1 26' },
     { id: '10', img: 'https://i.pravatar.cc/150?img=11', fornamn: 'Per', efternamn: 'Olsson', foretag: 'TechStart', grupp: 'H1 26' }
   ]
 }
