@@ -4,12 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
+import { OverviewSection } from '../../components/overview-section/overview-section';
+
 @Component({
   selector: 'app-teams-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterLink, DropdownMenu],
+  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterLink, DropdownMenu, OverviewSection],
   templateUrl: './teams-page.html',
   styleUrl: './teams-page.css',
 })
+
 export class TeamsPage {
   searchTerm: string = '';
   groupId: string | null = null;

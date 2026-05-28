@@ -1,4 +1,22 @@
-<app-template-header title="C#" subtitle="Här ser du alla kurstillfällen som tillhör kursen." buttonText="Lägg till kurstillfällen" (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()"></app-template-header>
+<div class="course-wrapper">
+    <div class="course-card">
+        <div>
+            <h2>C#</h2>
+
+            <div class="info">
+                <span>Utbildare:</span>
+                <span>Oscar</span>
+            </div>
+        </div>
+    </div>
+    <div class="template-header">
+        <hr>
+        <app-template-header title="" subtitle=""
+            buttonText="Lägg till kurstillfällen" (searchChange)="searchTerm = $event"
+            (buttonClick)="navigateToCreateGroup()">
+        </app-template-header>
+    </div>
+</div>
 
 <div class="tableDiv">
     <table>
@@ -34,4 +52,4 @@
     </table>
 </div>
 
-// Här ska komponenten för anteckningar, checklistor och bilder vara (radera kommentar efter du lagt in det)
+<app-overview-section></app-overview-section>

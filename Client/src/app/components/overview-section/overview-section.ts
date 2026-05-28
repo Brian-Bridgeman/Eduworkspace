@@ -1,28 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ChecklistModal }
-  from '../../components/checklist-modal/checklist-modal';
+import { ChecklistModal } from '../../components/checklist-modal/checklist-modal';
 import { FormsModule } from '@angular/forms';
-
-import {
-  ChecklistService,
-  Checklist
-} from '../../services/checklist.service';
+import { ChecklistService, Checklist } from '../../services/checklist.service';
 
 @Component({
-  selector: 'app-student-details-page',
-
+  selector: 'app-overview-section',
   standalone: true,
-
   imports: [CommonModule, ChecklistModal, FormsModule],
-
-  templateUrl: './student-details-page.html',
-
-  styleUrl: './student-details-page.css',
+  templateUrl: './overview-section.html',
+  styleUrl: './overview-section.css',
 })
-
-export class StudentDetailsPage {
-
+export class OverviewSection {
   showChecklistModal = false;
   showNoteModal = false;
   newNoteText = '';

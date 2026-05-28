@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
 
 @Component({
@@ -9,13 +9,12 @@ import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
   styleUrl: './checklist-set-card.css',
 })
 export class ChecklistSetCard {
-  @Input() title = 'Checklista';
-  @Input() description = 'Beskrivning av checklistan?';
-  @Input() checklistExamples = [{ text: 'aaa', done: false },
-  { text: 'bbb', done: false },
-  { text: 'ccc', done: false },
-  { text: 'ddd', done: false }
-  ];
+
+  @Input() title = '';
+  @Input() description = '';
+  @Input() checklistExamples: any[] = [];
+
+  @Output() edit = new EventEmitter<void>();
 
   showAll = false;
 

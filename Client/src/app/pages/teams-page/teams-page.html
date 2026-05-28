@@ -23,13 +23,13 @@
             </div>
         </div>
     </div>
+
     <div class="template-header">
         <hr>    
         <app-template-header title="" subtitle="" buttonText="Hantera arbetslag"
             (buttonClick)="navigateToEditTeamsPage()" (searchChange)="searchTerm = $event">
         </app-template-header>
     </div>
-
 </div>
 
 <div class="tableDiv">
@@ -58,4 +58,4 @@
     </table>
 </div>
 
-// Här ska komponenten för anteckningar, checklistor och bilder vara (radera kommentar efter du lagt in det)
+<app-overview-section></app-overview-section>

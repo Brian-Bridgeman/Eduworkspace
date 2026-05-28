@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { Router, RouterLink } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
+import { OverviewSection } from '../../components/overview-section/overview-section';
 
 @Component({
   selector: 'app-course-details-page',
-  imports: [CommonModule, TemplateHeaderComponent, DropdownMenu, RouterLink],
+  imports: [CommonModule, TemplateHeaderComponent, DropdownMenu, RouterLink, OverviewSection],
   templateUrl: './course-details-page.html',
   styleUrl: './course-details-page.css',
 })
