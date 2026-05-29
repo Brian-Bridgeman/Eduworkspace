@@ -62,7 +62,7 @@
         (mousemove)="resizeTimeFromPointer($event)"
         (mouseenter)="resizeEventToDay.emit(day)"
         (dragover)="handleDragOver.emit($event)"
-        (drop)="moveEventToDay($event, day)"
+        (drop)="moveEventToDay.emit({ dragEvent: $event, day })"
       >
         @for (hour of hours; track hour) {
           <div class="week-hour-slot"></div>

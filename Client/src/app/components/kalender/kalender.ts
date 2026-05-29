@@ -255,7 +255,7 @@ getEventGridRow(event: CalendarEvent) {
     dragEvent.dataTransfer?.setData('text/plain', calendarEvent.id);
 
     if (dragEvent.dataTransfer) {
-      dragEvent.dataTransfer.effectAllowed = 'copy';
+      dragEvent.dataTransfer.effectAllowed = 'move';
     }
   }
 
@@ -263,7 +263,7 @@ getEventGridRow(event: CalendarEvent) {
     event.preventDefault();
 
     if (event.dataTransfer) {
-      event.dataTransfer.dropEffect = 'copy';
+      event.dataTransfer.dropEffect = 'move';
     }
   }
 
