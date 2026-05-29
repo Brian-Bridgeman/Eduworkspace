@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChecklistModal }
   from '../../components/checklist-modal/checklist-modal';
@@ -8,6 +8,7 @@ import {
   ChecklistService,
   Checklist
 } from '../../services/checklist.service';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-student-details-page',
@@ -21,7 +22,7 @@ import {
   styleUrl: './student-details-page.css',
 })
 
-export class StudentDetailsPage {
+export class StudentDetailsPage implements OnInit {
 
   showChecklistModal = false;
   showNoteModal = false;
@@ -31,7 +32,7 @@ export class StudentDetailsPage {
   checklists: Checklist[] = [];
   activeChecklist: Checklist | null = null;
 
-  constructor(private checklistService: ChecklistService) {
+  constructor(private checklistService: ChecklistService, private breadcrumbService: BreadcrumbService) {
 
     this.checklists =
       this.checklistService.getChecklistsForStudent(1);
@@ -40,6 +41,15 @@ export class StudentDetailsPage {
     this.activeNoteCollection =
       this.noteCollections[0];
 
+  }
+
+  ngOnInit(): void {
+      setTimeout(() => {
+      this.breadcrumbService.set([
+        {label: "Deltagare", url: "/students"},
+        {label: "Oscar Nilsson", url: "/students/1"}
+      ])
+    });
   }
 
   noteCollections = [

@@ -55,7 +55,7 @@ export const routes: Routes = [
         component: TeamsPage,
     },
     {
-      path: 'groups/:groupId/editTeams',
+      path: 'groups/:groupId/teams',
       component: EditTeamsPage
     },
     {
