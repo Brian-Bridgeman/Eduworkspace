@@ -53,21 +53,83 @@
 }
 
 /*=============================================== Dropdown vyn */
+
+/* Dropdown för kalender-vyn */
 .dropdownvy {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Knappen som visar aktuell vy */
+.dropbtn {
+  font-size: 15px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+  color: #2f2937;
+}
+
+.dropbtn:hover {
+  background-color: #f3f0ff;
+  color: #6d28d9;
+  border-radius: 15px;
+}
+
+/* Själva dropdown-menyn */
 .dropdownvy-content {
   display: none;
   position: absolute;
-  z-index: 20;
-  background: #ffffff;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+
+  min-width: 150px;
+  padding: 5px;
+  border-radius: 10px;
+
+  background-color: white;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  border: 1px solid #ececec;
 }
 
+/* Visar menyn när man hovrar */
 .dropdownvy:hover .dropdownvy-content {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+}
+
+/* Knapparna inne i dropdown-menyn */
+.dropdownvy-content button {
+  border: none;
+  background-color: transparent;
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #2f2937;
+}
+
+/* Hover på alternativen */
+.dropdownvy-content button:hover {
+  background-color: #f3f0ff;
+  color: #6d28d9;
+  opacity: 0.8;
+}
+
+.dropdownvy-content button.active {
+  background-color: #eee6ff;
+  color: #6d28d9;
 }
 
 /* Mobil/platta-anpassning kalender */
