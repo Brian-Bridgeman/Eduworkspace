@@ -42,6 +42,8 @@ hr {
     margin-top: 8px;
     color: #666;
 }
+@media (max-width: 800px)
+{
 .mobile-hide{
     display: none;
-}
+}}

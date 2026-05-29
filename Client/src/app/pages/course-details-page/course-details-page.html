@@ -23,10 +23,10 @@
         <thead>
             <tr>
                 <th>Grupp</th>
-                <th>År</th>
+                <th class="mobile-hide">År</th>
                 <th>StartDatum</th>
                 <th>SlutDatum</th>
-                <th  class="mobile-hide">Plats</th>
+                <th>Plats</th>
                 <th class="mobile-hide">Antal Elever</th>
                 <th class="mobile-hide">Status</th>
                 <th class="actions-column"></th>
@@ -39,10 +39,10 @@
                     <span class="material-symbols-outlined">Folder</span>
                     <span>{{ grupp.namn }}</span>
                 </td>
-                <td>{{ grupp.ar }}</td>
+                <td class="mobile-hide">{{ grupp.ar }}</td>
                 <td>{{ grupp.startdatum }}</td>
                 <td>{{ grupp.slutdatum }}</td>
-                <td class="mobile-hide">{{ grupp.plats }}</td>
+                <td>{{ grupp.plats }}</td>
                 <td class="mobile-hide">{{ grupp.antalElever }}</td>
                 <td class="mobile-hide">{{ grupp.status }}</td>
                 <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu>
