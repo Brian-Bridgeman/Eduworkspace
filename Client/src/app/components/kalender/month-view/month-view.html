@@ -32,7 +32,7 @@
             (keydown)="handleDayKeydown.emit({ event: $event, day })"
             (mouseenter)="resizeEventToDay.emit(day)"
             (dragover)="handleDragOver.emit($event)"
-            (drop)="copyEventToDay.emit({ dragEvent: $event, day })"
+            (drop)="moveEventToDay.emit({ dragEvent: $event, day })"
           >
             <span class="dagnummer">
               {{ day }}
