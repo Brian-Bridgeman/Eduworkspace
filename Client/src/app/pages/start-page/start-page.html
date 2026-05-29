@@ -7,13 +7,14 @@
   <div class="container-wrapper">
     <app-start-page-card
       symbol="menu_book"
-      title="Program"
-      description="Hantera och skapa program samt se
+      title="Kurser"
+      description="Hantera och skapa kurser samt se
       kursöversikt."
       type="kurser"
-      viewText="Visa program >"
-      createText="+ Lägg till program"
+      viewText="Visa kurser >"
+      createText="+ Lägg till kurs"
       page="courses"
+      modalPage="createCourse"
     ></app-start-page-card>
     <app-start-page-card
       symbol="group"
@@ -24,15 +25,18 @@
       viewText="Visa deltagare >"
       createText="+ Lägg till deltagare"
       page="students"
+      modalPage="createStudent"
     ></app-start-page-card>
     <app-start-page-card
       symbol="groups"
-      title="Kurser"
-      description="Hantera kurser samt se deltagande elever."
+      title="Grupper"
+      description="Hantera grupper samt se deltagande elever."
       type="grupper"
-      viewText="Visa kurser >"
-      createText="+ Lägg till kurs"
+      viewText="Visa grupper >"
+      createText="+ Lägg till grupp"
       page="groups"
+      modalPage="groups/create"
+      createRoute="/groups/create"
     ></app-start-page-card>
     <app-start-page-card
       symbol="calendar_month"
@@ -41,7 +45,8 @@
       type="kalender"
       viewText="Visa kalender >"
       createText="+ Lägg till händelse"
-      page="calender"
+      page="kalender"
+      modalPage="createEvent"
     ></app-start-page-card>
   </div>
 </div>

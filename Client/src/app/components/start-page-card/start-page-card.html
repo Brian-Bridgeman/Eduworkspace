@@ -7,7 +7,14 @@
   <div class="menu">
     <h1>{{ title }}</h1>
     <p>{{ description }}</p>
-    <button class="viewButton" [ngClass]="type" routerLink="/{{ page }}">{{ viewText }}</button>
-    <button class="createButton" [ngClass]="type">{{ createText }}</button>
+    <button class="viewButton" [ngClass]="type" [routerLink]="['/', page]">{{ viewText }}</button>
+    <button
+      class="createButton"
+      [ngClass]="type"
+      [routerLink]="createRoute ? [createRoute] : ['/', page]"
+      [queryParams]="createRoute ? null : { create: true }"
+    >
+      {{ createText }}
+    </button>
   </div>
 </div>

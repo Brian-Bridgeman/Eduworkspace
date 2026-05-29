@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { CreateCourseModal } from '../../components/create-course-modal/create-course-modal';
 
 @Component({
@@ -11,7 +11,26 @@ import { CreateCourseModal } from '../../components/create-course-modal/create-c
   templateUrl: './courses-page.html',
   styleUrl: './courses-page.css',
 })
-export class CoursesPage {
+export class CoursesPage implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['create'] === 'true') {
+        this.showModal.set(true);
+
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { create: null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      }
+    });
+  }
   removeCourse(id: string) {
     // fetch anrop till delete här, med id
   }
