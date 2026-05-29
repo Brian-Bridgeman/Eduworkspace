@@ -14,7 +14,9 @@
                 }
             </div>
         </div>
-        <app-dropdown-menu (click)="$event.stopPropagation()" (delete)="removeChecklist($event)"></app-dropdown-menu>
+        <app-dropdown-menu [item]="{ name: title }" (click)="$event.stopPropagation()"
+            (delete)="removeChecklist($event)" (edit)="edit.emit()">
+        </app-dropdown-menu>
     </div>
     <hr />
 

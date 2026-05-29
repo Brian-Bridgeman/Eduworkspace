@@ -4,50 +4,106 @@ import { CommonModule } from '@angular/common';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { RouterLink } from '@angular/router';
-import { routes } from '../../app.routes';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-overview',
   standalone: true,
-  imports: [CommonModule, DropdownMenu, TemplateHeaderComponent, RouterLink],
+  imports: [CommonModule, DropdownMenu, TemplateHeaderComponent, RouterLink, FormsModule],
   templateUrl: './overview.html',
   styleUrl: './overview.css',
 })
 export class Overview {
+  constructor(private router: Router) { }
+  goToTeam() {
+    this.router.navigate(['/groups/1/teams/1']);
+  }
+  onImageSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      console.log(file);
+    }
+  }
 
-  ongoingGroups = [
+  scrollToOngoing() {
+    document.getElementById('ongoing-section')?.scrollIntoView({ behavior: 'smooth' })
+  }
+  scrollToUpComingGroups() {
+    document.getElementById('upcoming-groups')?.scrollIntoView({ behavior: 'smooth' })
+  }
+  scrollToActivePersons() {
+    document.getElementById('activePersons')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  showNoteModal = false;
+  newNoteText = '';
+  selectedTeam = '';
+  openNoteModal(teamName: string) {
+    this.selectedTeam = teamName;
+    this.showNoteModal = true;
+  }
+  closeNoteModal() {
+    this.showNoteModal = false;
+    this.newNoteText = '';
+  }
+  saveNote() {
+    if (!this.newNoteText.trim()) return;
+     this.latestNotes.unshift({ 
+      date: new Date().toLocaleDateString(), 
+      group: this.selectedTeam, 
+      note: this.newNoteText, 
+      createdBy: 'Johan Dahlin' }); 
+      this.newNoteText = ''; 
+      this.closeNoteModal();
+  }
+  ongoingTeams = [
     {
-      groupName: 'Oscar & Johan',
+      teamName: 'Oscar & Johan',
       course: 'Elinstallation',
-      group: 'Grupp A',
       location: 'Sal B',
       status: 'Pågående',
       participants: [
-        {name: 'Oscar'},
-        {name: 'Johan'}]
+        { name: 'Oscar Marcusson' },
+        { name: 'Johan Dahlin' }]
     },
 
     {
-      groupName: 'Kalle & Alfred',
+      teamName: 'Kalle & Alfred',
       course: 'Webbutveckling',
-      group: 'Grupp B',
       location: 'Sal C',
       status: 'Pågående',
       participants: [
-        {name: 'Kalle'},
-        {name: 'Alfred'}]
+        { name: 'Kalle Anka' },
+        { name: 'Alfred Dumpling' }]
+    },
+    {
+      teamName: 'Oscar & Johan',
+      course: 'Elinstallation',
+      location: 'Sal B',
+      status: 'Pågående',
+      participants: [
+        { name: 'Oscar Marcusson' },
+        { name: 'Johan Dahlin' }]
+    },
+    {
+      teamName: 'Oscar & Johan',
+      course: 'Elinstallation',
+      location: 'Sal B',
+      status: 'Pågående',
+      participants: [
+        { name: 'Oscar Marcusson' },
+        { name: 'Johan Dahlin' }]
     }
   ];
 
   upcomingGroups = [
     {
-      groupName: 'Simon & Hugo',
+      groupName: 'H1 26',
       course: 'Industrisäkerhet',
-      group: 'Grupp B',
       location: 'Sal E',
       status: 'Kommande',
-      participants: [
-        {name: 'Simon'},
-        {name: 'Hugo'}]
+      startDate: '2026-01-12',
+      endDate: '2026-03-22'
+
     }
   ];
 
@@ -56,7 +112,19 @@ export class Overview {
       date: '2026-05-20',
       group: 'Oscar & Johan',
       note: 'Kontroll av utrustning genomförd.',
-      createdBy: 'Johan'
+      createdBy: 'Johan Kalle'
     }
   ];
+  activePersons = [
+    { id: '1', img: 'https://i.pravatar.cc/150?img=16', fornamn: 'Emma', efternamn: 'Andersson', foretag: 'Tech AB', grupp: 'H1 26' },
+    { id: '2', img: 'https://i.pravatar.cc/150?img=14', fornamn: 'Johan', efternamn: 'Berg', foretag: 'Webbbolaget', grupp: 'H1 26' },
+    { id: '3', img: 'https://i.pravatar.cc/150?img=12', fornamn: 'Kalle', efternamn: 'Svensson', foretag: 'IT Solutions', grupp: 'H1 26' },
+    { id: '4', img: 'https://i.pravatar.cc/150?img=33', fornamn: 'Alfred', efternamn: 'Nilsson', foretag: 'Digital AB', grupp: 'H1 26' },
+    { id: '5', img: 'https://i.pravatar.cc/150?img=5', fornamn: 'Sofia', efternamn: 'Lundgren', foretag: 'Innovate AB', grupp: 'H1 26' },
+    { id: '6', img: 'https://i.pravatar.cc/150?img=13', fornamn: 'Erik', efternamn: 'Johansson', foretag: 'CodeFactory', grupp: 'H1 26' },
+    { id: '7', img: 'https://i.pravatar.cc/150?img=26', fornamn: 'Maria', efternamn: 'Ekholm', foretag: 'DataPark', grupp: 'H1 26' },
+    { id: '8', img: 'https://i.pravatar.cc/150?img=8', fornamn: 'Lars', efternamn: 'Lindström', foretag: 'SoftCorp', grupp: 'H1 26' },
+    { id: '9', img: 'https://i.pravatar.cc/150?img=32', fornamn: 'Anna', efternamn: 'Karlsson', foretag: 'NetSolutions', grupp: 'H1 26' },
+    { id: '10', img: 'https://i.pravatar.cc/150?img=11', fornamn: 'Per', efternamn: 'Olsson', foretag: 'TechStart', grupp: 'H1 26' }
+  ]
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 export interface User {
   id: number;
@@ -29,8 +30,18 @@ export class EditTeamsPage {
   numberOfArberslag: number = 0;
   groupId: string | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private breadcrumbService: BreadcrumbService) {
     this.groupId = this.route.snapshot.paramMap.get('groupId');
+  }
+
+  ngOnInit(): void {
+      setTimeout(() => {
+      this.breadcrumbService.set([
+        {label: "Kurser", url: "/groups"},
+        {label: "H1 26", url: `/groups/${this.groupId}`},
+        {label: "Arbetslag", url: `/groups/${this.groupId}/teams`}
+      ])
+    });
   }
 
   // TODO: hämta användare i grupp från backend

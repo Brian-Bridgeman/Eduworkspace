@@ -7,11 +7,12 @@ import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 import { HostBinding } from '@angular/core';
 import { Settings } from './pages/settings/settings';
+import { Breadcrumb } from './components/breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Sidebar, Header, CommonModule, Footer],
+  imports: [RouterOutlet, Sidebar, Header, CommonModule, Footer, Breadcrumb],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

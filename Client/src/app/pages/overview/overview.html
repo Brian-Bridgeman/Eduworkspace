@@ -1,41 +1,44 @@
-<app-template-header title="Översikt" subtitle="Här får du en snabb överblick av grupper och anteckningar."
-    buttonText="Lägg till kommentar">
+<app-template-header class="header" title="Översikt"
+    subtitle="Här får du en snabb överblick av arbetslag och kurstillfällen som är aktuella idag"
+    buttonText="Lägg till anteckning">
 </app-template-header>
 
 <div class="cards">
     <div class="card">
         <span class="material-symbols-outlined">groups</span>
-        <h2>4</h2>
-        <p>Pågående grupper</p>
+        <h2>1</h2>
+        <p>Pågående arbetslag</p>
     </div>
     <div class="card">
+
         <span class="material-symbols-outlined">
             people
         </span>
-        <h2>18</h2>
-        <p>Aktiva elever</p>
+        <h2>10</h2>
+        <p>Aktiva deltagare</p>
     </div>
     <div class="card">
+
         <span class="material-symbols-outlined">menu_book</span>
-        <h2>6</h2>
+        <h2>3</h2>
         <p>Kurser</p>
     </div>
     <div class="card">
+
         <span class="material-symbols-outlined">calendar_month</span>
-        <h2>2</h2>
-        <p>Kommande grupper</p>
+        <h2>1</h2>
+        <p>Kommande kurstillfälle</p>
     </div>
 </div>
 
 <div class="section">
-    <h2>Pågående grupper</h2>
+    <h2>Pågående arbetslag</h2>
     <div class="tableDiv">
         <table>
             <thead>
                 <tr>
                     <th>Arbetslag</th>
                     <th>Kurs</th>
-                    <th>Grupp</th>
                     <th>Plats</th>
                     <th>Status</th>
                     <th>Deltagare</th>
@@ -43,26 +46,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let group of ongoingGroups" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
+                <tr *ngFor="let team of ongoingTeams" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
 
-                    <td>{{ group.groupName }}</td>
-                    <td>{{ group.course }}</td>
-                    <td>{{ group.group }}</td>
-                    <td>{{ group.location }}</td>
+                    <td>{{ team.teamName }}</td>
+                    <td>{{ team.course }}</td>
+                    <td>{{ team.location }}</td>
 
                     <td>
                         <span class="ongoing">
-                            {{ group.status }}
+                            {{ team.status }}
                         </span>
                     </td>
 
                     <td class="link">
                         <div class="participants">
-                            @for (participant of group.participants; track participant.name)
+                            @for (participant of team.participants; track participant.name)
                             {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> <span> </span>}
                         </div>
                     </td>
-                    <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                    <td class="actions-column" (click)="$event.stopPropagation()">
+                        <app-dropdown-menu></app-dropdown-menu>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -72,7 +76,7 @@
 
 <div class="section">
 
-    <h2>Kommande grupper</h2>
+    <h2>Kommande kurstillfälle</h2>
 
     <div class="tableDiv">
 
@@ -82,21 +86,20 @@
                 <tr>
                     <th>Arbetslag</th>
                     <th>Kurs</th>
-                    <th>Grupp</th>
                     <th>Plats</th>
                     <th>Status</th>
-                    <th>Deltagare</th>
+                    <th>StartDate</th>
+                    <th>EndDate</th>
                     <th class="action-menu"></th>
                 </tr>
             </thead>
 
             <tbody>
 
-                <tr *ngFor="let group of upcomingGroups" class="clickable-row" >
+                <tr *ngFor="let group of upcomingGroups" class="clickable-row">
 
                     <td>{{ group.groupName }}</td>
                     <td>{{ group.course }}</td>
-                    <td>{{ group.group }}</td>
                     <td>{{ group.location }}</td>
 
                     <td>
@@ -104,13 +107,11 @@
                             {{ group.status }}
                         </span>
                     </td>
-                    <td class="link">
-                        <div class="participants">
-                            @for (participant of group.participants; track participant.name)
-                            {<a href="#">{{ participant.name }}</a>}
-                        </div>
+                    <td>{{group.startDate}}</td>
+                    <td>{{group.endDate}}</td>
+                    <td class="actions-column" (click)="$event.stopPropagation()">
+                        <app-dropdown-menu></app-dropdown-menu>
                     </td>
-                    <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
                 </tr>
 
             </tbody>
@@ -131,7 +132,7 @@
             <thead>
                 <tr>
                     <th>Datum</th>
-                    <th>Grupp / Kurs</th>
+                    <th>Tillhör</th>
                     <th>Anteckning</th>
                     <th class="actions-column"></th>
                 </tr>
@@ -141,9 +142,164 @@
 
                     <td>{{ note.date }}</td>
                     <td>{{ note.group }}</td>
-                    <td>{{ note.note }}</td><td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu></td>
+                    <td>{{ note.note }}</td>
+                    <td class="actions-column" (click)="$event.stopPropagation()">
+                        <app-dropdown-menu></app-dropdown-menu>
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="mobile-version">
+    <div class="mobile-section-cards">
+        <div class="mobile-statistik-button" (click)="scrollToOngoing()">
+            <div class="mobile-statistik-name"><span class="material-symbols-outlined">groups</span>
+                <p>Pågående arbetslag</p>
+            </div>
+            <p>4</p>
+        </div>
+
+
+
+
+
+
+        <div class="mobile-statistik-button">
+            <div class="mobile-statistik-name" (click)="scrollToUpComingGroups()"><span
+                    class="material-symbols-outlined">calendar_month</span>
+                <p>Kommande kurstillfälle</p>
+            </div>
+            <p>1</p>
+        </div>
+        <div class="mobile-statistik-button clickable-row" (click)="scrollToActivePersons()">
+            <div class="mobile-statistik-name"><span class="material-symbols-outlined">
+                    people
+                </span>
+                <p>Aktiva deltagare</p>
+            </div>
+            <p>10</p>
+        </div>
+    </div>
+
+
+    <div class="mobile-cards">
+        <div class="mobile-section">
+            <h2 id="ongoing-section">Pågående arbetslag</h2>
+        </div>
+    </div>
+
+
+    <div class="mobile-card clickable-row" *ngFor="let team of ongoingTeams" (click)="goToTeam()">
+        <div class="mobile-card-header">
+            <h2>{{ team.teamName }}</h2>
+            <input type="file" accept="image/*" capture="environment" #cameraInput hidden
+                (change)="onImageSelected($event)">
+            <button type="button" class="btn-outline icon-btn"
+                (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
+                <span class="material-symbols-outlined">photo_camera</span>
+            </button>
+            <button class="btn-outline icon-btn" (click)="$event.stopPropagation(); 
+                            $event.preventDefault(); 
+                            openNoteModal(team.teamName)">
+                <span class="material-symbols-outlined">edit</span>
+            </button>
+        </div>
+        <div class="mobile-card-info">
+            <div class="mobile-card-left">
+                <p class="mobile-info"><span class="material-symbols-outlined">menu_book</span>{{ team.course }}</p>
+                <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ team.location }}
+                </p>
+            </div>
+            <div class="mobile-card-right">
+                <span class="ongoing">
+                    {{ team.status }}
+                </span>
+            </div>
+        </div>
+        <hr />
+        <h4 class="mobile-info"><span class="material-symbols-outlined">groups
+            </span>Deltagare</h4>
+        <p class="link">
+        <div class="participants">
+            @for (participant of team.participants; track participant.name)
+            {<a [routerLink]="['/students/1']" (click)="$event.stopPropagation()">{{ participant.name }}</a> <span>
+            </span>}
+        </div>
+    </div>
+
+    <div class="mobile-section">
+        <h2 id="upcoming-groups">Kommande kurstillfälle</h2>
+
+        <div class="mobile-card clickable-row" [routerLink]="['/groups/1']" *ngFor="let group of upcomingGroups">
+            <div class="mobile-card-header">
+                <h2>{{ group.groupName }}</h2>
+                <input type="file" accept="image/*" capture="environment" #cameraInput hidden
+                    (change)="onImageSelected($event)">
+                <button type="button" class="btn-outline icon-btn"
+                    (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
+                    <span class="material-symbols-outlined">photo_camera</span>
+                </button>
+                <button class="btn-outline icon-btn"
+                    (click)="$event.stopPropagation(); $event.preventDefault(); openNoteModal(group.groupName)">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+            </div>
+            <div class="mobile-card-info">
+                <div class="mobile-card-left">
+                    <p class="mobile-info"><span class="material-symbols-outlined">schedule</span>{{group.startDate}} →
+                        {{group.endDate}}</p>
+
+                    <p class="mobile-info"> <span class="material-symbols-outlined">menu_book</span>{{ group.course }}
+                    </p>
+                    <p class="mobile-info"><span class="material-symbols-outlined">location_on</span>{{ group.location
+                        }}</p>
+                </div>
+                <div class="mobile-card-right">
+                    <span class="ongoing">
+                        {{ group.status }}
+                    </span>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mobile-section">
+        <h2 id="activePersons">Aktiva deltagare</h2>
+        <div class="mobile-card clickable-row" *ngFor="let person of activePersons" [routerLink]="['/students/1']"
+            (click)="$event.stopPropagation()">
+            <div class="mobile-card-info">
+                <img src={{person.img}} class="student-image" alt="Elevbild" />
+                <div class="student-info">
+                    <h3>{{person.fornamn}} {{person.efternamn}}</h3>
+                    <div class="student-info-details">
+                        <span class="student-group">{{person.grupp}}</span>
+                        <span class="student-company">{{person.foretag}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showNoteModal">
+    <div class="note-modal">
+        <div class="modal-header">
+            <div class="modal-header-left">
+                <h2>Ny anteckning</h2>
+                <p class="note-modal-subtitle">Anteckning läggs till på <strong>{{selectedTeam}}</strong></p>
+            </div>
+            <button class="close-btn" (click)="closeNoteModal()">✕</button>
+        </div>
+        <textarea [(ngModel)]="newNoteText" placeholder="Skriv anteckning här...">
+        </textarea>
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="closeNoteModal()">Avbryt</button>
+            <button class="save-btn" (click)="saveNote()">Spara</button>
+        </div>
     </div>
 </div>

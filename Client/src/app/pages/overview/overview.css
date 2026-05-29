@@ -1,15 +1,23 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .cards {
     display: flex;
     gap: 20px;
     margin-bottom: 40px;
 }
+
 .card {
     background-color: white;
     border-radius: 20px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
     padding: 20px;
     width: 220px;
 }
+
 .card span {
     color: #8b5cf6;
     font-size: 32px;
@@ -61,6 +69,321 @@
 
 .participants {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 3px;
+}
+
+.mobile-version {
+
+    display: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.note-modal {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.modal-header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header-left p {
+    margin: 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.close-btn {
+    border: none;
+    background: #f3f4f6;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.note-modal textarea {
+    min-height: 160px;
+    border: 1px solid gray;
+    border-radius: 16px;
+    padding: 12px;
+    resize: none;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+}
+
+.note-modal textarea:focus {
+    border-color: #8b5cf6;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-btn,
+.save-btn {
+    flex: 1;
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: #f3f4f6;
+}
+
+.save-btn {
+    background: #8b5cf6;
+    color: white;
+}
+@media (max-width:600px) {
+    .participants {
+        flex-direction: row;
+    }
+
+    .mobile-version {
+
+        display: contents
+    }
+
+    .cards {
+        display: none;
+    }
+
+    .tableDiv {
+        display: none;
+    }
+
+    .section h2 {
+        display: none;
+    }
+
+    .mobile-cards {
+        display: flex;
+        flex-direction: column;
+
+        padding: 0 12px;
+
+    }
+
+    .mobile-card {
+
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0px 14px 10px 14px;
+        margin-bottom: 10px;
+    }
+
+    .participants {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .mobile-card-header {
+        display: flex;
+        align-items: flex-end;
+
+    }
+
+    .mobile-card-header h2 {
+        flex-grow: 1;
+        margin: 20px 0px 0px 0px;
+    }
+
+    .mobile-statistik-button {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        background: white;
+        width: 100%;
+        border-radius: 10px;
+        padding: 1px;
+        margin-bottom: 4px;
+    }
+
+    .mobile-statistik-name {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-grow: 1;
+        flex-direction: row;
+        padding: 0 0 0 10px;
+    }
+
+    .mobile-statistik-button p {
+        padding-right: 15px;
+    }
+
+    .material-symbols-outlined {
+        color: #8b5cf6;
+    }
+
+    .section {
+        display: none;
+    }
+
+    hr {
+        border: none;
+        height: 1px;
+        background: #e5e7eb;
+        margin: 4px 0px 10px 0px;
+    }
+
+    .mobile-info {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: #8b5cf6;
+        border: 1.5px solid #8b5cf6;
+        padding: 6px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.2s ease;
+    }
+
+    .btn-outline:hover {
+        background: rgba(139, 92, 246, 0.08);
+    }
+
+    .mobile-info {
+        margin: 0px;
+    }
+
+    .participants a {
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 500;
+        background-color: #8a5cf610;
+        color: #8b5cf6;
+    }
+
+    .mobile-card-header button {
+        margin-left: 5px;
+    }
+
+    .mobile-card-info {
+        display: flex;
+        align-items: flex-start;
+        padding: 5px 0px 0px 0px;
+    }
+
+    .mobile-card-left {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .mobile-card-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-start;
+        display: none;
+    }
+
+    .header {
+        min-height: 170px;
+    }
+
+::ng-deep app-template-header .template-header-btn {
+        display: none;
+    }
+::ng-deep app-template-header app-search-bar .search-box {
+width: 100%;
+    }
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+
+    }
+
+    .student-info {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin: 0 8px;
+    }
+
+    .student-info h3 {
+        margin: 0;
+    }
+
+    .student-group {
+        font-weight: 500;
+        margin-top: 10px;
+        background-color: #8a5cf610;
+        color: #8b5cf6;
+        width: fit-content;
+        padding: 3px;
+        border-radius: 8px;
+
+    }
+
+    .student-company {
+        margin-top: 10px;
+        width: fit-content;
+        color: #6b7280;
+        font-weight: 600;
+    }
+
+
+    .student-info-details {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .mobile-statistik-button,
+    .mobile-card {
+        box-shadow: 0 8px 24px #0f172a14;
+        cursor: pointer;
+    }
+
 }

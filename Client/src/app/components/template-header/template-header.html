@@ -9,7 +9,7 @@
   <div class="header-container">
     <app-search-bar (searchChange)="searchChange.emit($event)">
     </app-search-bar>
-    <button (click)="buttonClick.emit()">
+    <button class="template-header-btn"(click)="buttonClick.emit()">
       {{ buttonText }}
     </button>
   </div>

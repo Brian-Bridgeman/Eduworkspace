@@ -5,6 +5,9 @@
     <app-sidebar> </app-sidebar>
   }
   <section class="page" [class.start-route]="isStartRoute">
+    @if(showSidebar) {
+      <app-breadcrumb />
+    }
     <router-outlet></router-outlet>
   </section>
 </div>

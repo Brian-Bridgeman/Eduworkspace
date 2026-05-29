@@ -1,24 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
+import { OverviewSection } from '../../components/overview-section/overview-section';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
+
 @Component({
   selector: 'app-teams-page',
-  imports: [CommonModule, TemplateHeaderComponent, FormsModule, RouterLink, DropdownMenu],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TemplateHeaderComponent,
+    FormsModule,
+    RouterLink,
+    DropdownMenu,
+    OverviewSection,
+    BreadcrumbService,
+  ],
   templateUrl: './teams-page.html',
   styleUrl: './teams-page.css',
 })
-export class TeamsPage {
+export class TeamsPage implements OnInit {
   searchTerm: string = '';
   groupId: string | null = null;
+  breadcrumbService: any;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
   ) {
     this.groupId = this.route.snapshot.paramMap.get('groupId');
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.breadcrumbService.set([
+        { label: 'Grupper', url: '/groups' },
+        { label: 'H1 26', url: '/groups/1' },
+      ]);
+    });
   }
 
   removeTeam(id: string) {
@@ -79,5 +101,6 @@ export class TeamsPage {
 
   navigateToEditTeamsPage() {
     this.router.navigate([`/groups/${this.groupId}/editTeams`]);
+    this.router.navigate([`/groups/${this.groupId}/teams`]);
   }
 }

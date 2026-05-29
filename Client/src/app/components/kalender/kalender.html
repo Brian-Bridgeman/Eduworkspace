@@ -47,419 +47,95 @@
 
 <!-- Visar endast en kalender-vy åt gången beroende på viewMode -->
 @if (viewMode === 'month') {
-
-  <!-- VECKODAGAR -->
-  <div class="veckodagar">
-    <div class="veckonummer">
-      Vecka
-    </div>
-
-    @for (day of veckodagar; track day) {
-      <div class="veckodag">
-        {{ day }}
-      </div>
-    }
-  </div>
-
-  <!-- MÅNADSVY / KALENDER -->
-  <div class="kalender-wrapper" (mouseup)="stopResize()">
-
-    @for (week of weeks; track week; let index = $index) {
-            <div class="week-row">
-        <div class="veckonummer">
-          {{ 18 + index }}
-        </div>
-
-        @for (day of week; track day) {
-          @if (day === null) {
-            <div class="empty-day"></div>
-
-          } @else {
-            <div
-              class="dagruta"
-              [class.today]="day === todayDay"
-              role="button"
-              tabindex="0"
-              (click)="openDay(day)"
-              (keydown)="handleDayKeydown($event, day)"
-              (mouseenter)="resizeEventToDay(day)"
-              (dragover)="handleDragOver($event)"
-              (drop)="copyEventToDay($event, day)"
-            >
-              <span class="dagnummer">
-                {{ day }}
-              </span>
-              @for (event of getEventsForDay(day); track event.id) {
-                <div
-                  class="event-preview"
-                  [class.event-start]="day === event.startDay && event.startDay !== event.endDay"
-                  [class.event-middle]="day > event.startDay && day < event.endDay"
-                  [class.event-end]="day === event.endDay && event.startDay !== event.endDay"
-                  [class.event-single]="event.startDay === event.endDay"
-                  role="button"
-                  tabindex="0"
-                  draggable="true"
-                  (click)="$event.stopPropagation(); openEvent(event)"
-                  (keydown)="handleEventKeydown($event, event)"
-                  (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
-                  (dragend)="draggedEventId = null"
-                >
-                  <span class="event-title">
-                    {{ event.time }} {{ event.title }}
-                  </span>
-
-                  <span
-                    class="resize-handle"
-                    (mousedown)="startResize($event, event)">
-                  </span>
-                </div>
-              }
-            </div>
-          }
-        }
-      </div>
-    }
-  </div>
-<!-- VECKOVY= visar bara veckan som finns i "selectedWeek" -->
-
-
+  <app-month-view
+    [veckodagar]="veckodagar"
+    [weeks]="weeks"
+    [todayDay]="todayDay"
+    [getEventsForDay]="getEventsForDay.bind(this)"
+    (stopResize)="stopResize()"
+    (openDay)="openDay($event)"
+    (openEvent)="openEvent($event)"
+    (resizeEventToDay)="resizeEventToDay($event)"
+    (handleDragOver)="handleDragOver($event)"
+    (moveEventToDay)="moveEventToDay($event.dragEvent, $event.day)"
+    (handleDayKeydown)="handleDayKeydown($event.event, $event.day)"
+    (handleEventKeydown)="handleEventKeydown($event.event, $event.calendarEvent)"
+    (handleDragStart)="handleDragStart($event.dragEvent, $event.calendarEvent)"
+    (dragEnded)="draggedEventId = null"
+    (startResize)="startResize($event.event, $event.calendarEvent)">
+  </app-month-view>
 } @else if (viewMode === 'week') { 
-  <div class="view-navigation">
-  <button
-    type="button"
-    (click)="previousWeek()"
-    [disabled]="selectedWeekIndex === 0">
-    ←
-  </button>
-  <h3 class="veckotitel">Vecka {{ 18 + selectedWeekIndex }}</h3>
-  <button
-  type="button"
-  (click)="nextWeek()"
-  [disabled]="selectedWeekIndex === weeks.length - 1">
-  →
-</button>
-
-
-
-
-</div>
-
-   <!-- Rubrikrad för veckovyn -->
-   <div class="week-view-header">
-    <div class="week-time-heading"></div>
-
-    @for (dayName of veckodagar; track dayName; let index = $index) {
-      <div class="week-view-heading">
-        <span>{{ dayName }}</span>
-        <strong>{{ selectedWeek[index] }}</strong>
-      </div>
-    }
-  </div>
-
-  <!-- Tidsgrid för veckovyn: vänster kolumn visar timmar, höger visar dagar -->
-  <div class="veckovy-tidsvy" (mouseup)="stopResize()">
-    <div class="week-time-column">
-      @for (hour of hours; track hour) {
-        <div class="week-time-label">
-          {{ hour }}
-        </div>
-      }
-    </div>
-
-    @for (day of selectedWeek; track day) {
-      @if (day === null) {
-        <div class="week-day-time empty-day">
-          @for (hour of hours; track hour) {
-            <div
-              class="week-hour-slot"
-              (mouseenter)="resizeEventEndTime(hour)">
-            </div>
-          }
-        </div>
-
-      } @else {
-        <div
-          class="week-day-time"
-          [class.today]="day === todayDay"
-          role="button"
-          tabindex="0"
-          (click)="openDay(day)"
-          (keydown)="handleDayKeydown($event, day)"
-          (mouseenter)="resizeEventToDay(day)"
-          (dragover)="handleDragOver($event)"
-          (drop)="copyEventToDay($event, day)"
-        >
-
-          <!-- S -->
-          @for (hour of hours; track hour) {
-            <div
-              class="week-hour-slot"
-              (mouseenter)="resizeEventEndTime(hour)">
-            </div>
-          }
-          @for (event of getEventsForDay(day); track event.id) {
-            <!-- getEventGridRow placerar händelsen på rätt timrad i CSS-gridet -->
-            <div
-              class="event-preview week-event"
-              [class.event-start]="day === event.startDay && event.startDay !== event.endDay"
-              [class.event-middle]="day > event.startDay && day < event.endDay"
-              [class.event-end]="day === event.endDay && event.startDay !== event.endDay"
-              [class.event-single]="event.startDay === event.endDay"
-              [style.grid-row]="getEventGridRow(event)"
-              role="button"
-              tabindex="0"
-              draggable="true"
-              (click)="$event.stopPropagation(); openEvent(event)"
-              (keydown)="handleEventKeydown($event, event)"
-              (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
-              (dragend)="draggedEventId = null"
-            >
-              <span class="event-title">
-                {{ event.time }}-{{ getEventEndTime(event) }} {{ event.title }}
-              </span>
-              <span
-                class="resize-handle"
-                (mousedown)="startResize($event, event)">
-              </span>
-
-              <span
-                class="time-resize-handle"
-                (mousedown)="startTimeResize($event, event)"
-                (click)="$event.stopPropagation()">
-              </span>
-            </div>
-          }
-        </div>
-      }
-    }
-  </div>
+  <app-week-view
+    [veckodagar]="veckodagar"
+    [selectedWeek]="selectedWeek"
+    [selectedWeekIndex]="selectedWeekIndex"
+    [weeksLength]="weeks.length"
+    [todayDay]="todayDay"
+    [hours]="hours"
+    [draggedEventId]="draggedEventId"
+    [isTimeResizing]="resizingTimeEventId !== null"
+    [getEventsForDay]="getEventsForDay.bind(this)"
+    [getEventGridRow]="getEventGridRow.bind(this)"
+    [getEventEndTime]="getEventEndTime.bind(this)"
+    (previousWeek)="previousWeek()"
+    (nextWeek)="nextWeek()"
+    (stopResize)="stopResize()"
+    (openDay)="openDay($event)"
+    (openEvent)="openEvent($event)"
+    (resizeEventToDay)="resizeEventToDay($event)"
+    (resizeEventEndTime)="resizeEventEndTime($event)"
+    (handleDragOver)="handleDragOver($event)"
+    (moveEventToDay)="moveEventToDay($event.dragEvent, $event.day)"
+    (handleDayKeydown)="handleDayKeydown($event.event, $event.day)"
+    (handleEventKeydown)="handleEventKeydown($event.event, $event.calendarEvent)"
+    (handleDragStart)="handleDragStart($event.dragEvent, $event.calendarEvent)"
+    (dragEnded)="draggedEventId = null"
+    (startResize)="startResize($event.event, $event.calendarEvent)"
+    (startTimeResize)="startTimeResize($event.event, $event.calendarEvent)">
+  </app-week-view>
 } @else {
-
-  <!-- DAGVY= visar bara "selectedDayForView" och dagens händelser -->
-
-  
-<div class="view-navigation">
-  <button
-    type="button"
-    (click)="previousDay()"
-    [disabled]="selectedDayForView === 1">
-    ←
-  </button>
-
-  <h3 class="veckotitel">Dag {{ selectedDayForView }}</h3>
-
-  <button
-    type="button"
-    (click)="nextDay()"
-    [disabled]="selectedDayForView === daysInCurrentMonth">
-    →
-  </button>
-</div>
-
-  <div class="day-view-header">
-    <div class="week-time-heading"></div>
-
-    <div class="week-view-heading day-view-heading">
-      <span>Dag</span>
-      <strong>{{ selectedDayForView }}</strong>
-    </div>
-  </div>
-
-  <div class="dagvy-tidsvy" (mouseup)="stopResize()">
-    <div class="day-time-column">
-      @for (hour of hours; track hour) {
-        <div class="day-time-label">
-          {{ hour }}
-        </div>
-      }
-    </div>
-
-    <div
-      class="day-schedule"
-      [class.today]="selectedDayForView === todayDay"
-      role="button"
-      tabindex="0"
-      (click)="selectedDayForView !== null && openDay(selectedDayForView)"
-      (keydown)="selectedDayForView !== null && handleDayKeydown($event, selectedDayForView)"
-      (mouseenter)="selectedDayForView !== null && resizeEventToDay(selectedDayForView)"
-      (dragover)="handleDragOver($event)"
-      (drop)="selectedDayForView !== null && copyEventToDay($event, selectedDayForView)"
-    >
-      @for (hour of hours; track hour) {
-        <div
-          class="day-hour-slot"
-          (click)="$event.stopPropagation(); selectedDayForView !== null && openDay(selectedDayForView)"
-          (mouseenter)="resizeEventEndTime(hour)">
-        </div>
-      }
-
-      @for (event of selectedDayForViewEvents; track event.id) {
-  <div
-    class="event-preview day-event"
-    [style.grid-row]="getEventGridRow(event)"
-    role="button"
-    tabindex="0"
-    draggable="true"
-    (click)="$event.stopPropagation(); openEvent(event)"
-    (keydown)="handleEventKeydown($event, event)"
-    (dragstart)="$event.stopPropagation(); handleDragStart($event, event)"
-    (dragend)="draggedEventId = null"
-  >
-    <strong>{{ event.time }}-{{ getEventEndTime(event) }} {{ event.title }}</strong>
-    <span>{{ event.place }}</span>
-    <p>{{ event.description }}</p>
-
-    <span
-      class="time-resize-handle"
-      (mousedown)="startTimeResize($event, event)"
-      (click)="$event.stopPropagation()">
-    </span>
-  </div>
+  <app-day-view
+    [selectedDayForView]="selectedDayForView"
+    [daysInCurrentMonth]="daysInCurrentMonth"
+    [todayDay]="todayDay"
+    [hours]="hours"
+    [selectedDayForViewEvents]="selectedDayForViewEvents"
+    [isTimeResizing]="resizingTimeEventId !== null"
+    [getEventGridRow]="getEventGridRow.bind(this)"
+    [getEventEndTime]="getEventEndTime.bind(this)"
+    (previousDay)="previousDay()"
+    (nextDay)="nextDay()"
+    (stopResize)="stopResize()"
+    (openDay)="openDay($event)"
+    (openEvent)="openEvent($event)"
+    (resizeEventToDay)="resizeEventToDay($event)"
+    (resizeEventEndTime)="resizeEventEndTime($event)"
+    (handleDragOver)="handleDragOver($event)"
+    (moveEventToDay)="moveEventToDay($event.dragEvent, $event.day)"
+    (handleDayKeydown)="handleDayKeydown($event.event, $event.day)"
+    (handleEventKeydown)="handleEventKeydown($event.event, $event.calendarEvent)"
+    (handleDragStart)="handleDragStart($event.dragEvent, $event.calendarEvent)"
+    (dragEnded)="draggedEventId = null"
+    (startTimeResize)="startTimeResize($event.event, $event.calendarEvent)">
+  </app-day-view>
 }
 
- <!-- Modal för att skapa, visa, ändra och radera händelser -->
-    </div>
-  </div>
-
-}
-
+<!-- Modal för att skapa, visa, ändra och radera händelser -->
 @if (selectedDay !== null) {
-  <div class="modal-layer">
-
-    <button
-      type="button"
-      class="modal-backdrop"
-      aria-label="Stäng modal"
-      (click)="closeModal()">
-    </button>
-    <div class="modal">
-      <button
-        type="button"
-        class="close-btn"
-        (click)="closeModal()">
-        ×
-      </button>
-
-   @if (selectedEvent && showEventOverview) {
-
-  <div class="modal-content">
-
-    <div class="modal-header">
-      <h2>Dagens händelse</h2>
-
-      <button
-        type="button"
-        class="edit-btn"
-        (click)="showEventOverview = false">
-        Ändra
-      </button>
-    </div>
-
-    <div class="event-overview">
-
-  <!-- Stor ruta -->
-  <div class="overview-card main-info">
-
-    <div class="overview-section">
-      <strong>Titel</strong>
-      <span>{{ selectedEvent.title }}</span>
-    </div>
-
-    <div class="overview-section">
-      <strong>Beskrivning</strong>
-      <span>{{ selectedEvent.description }}</span>
-    </div>
-
-  </div>
-
-  <!-- Liten info-rad -->
-  <div class="overview-card side-info">
-
-    <div class="overview-section">
-      <strong>Tid</strong>
-      <span>{{ selectedEvent.time }}-{{ getEventEndTime(selectedEvent) }}</span>
-    </div>
-
-    <div class="overview-section">
-      <strong>Plats</strong>
-      <span>{{ selectedEvent.place }}</span>
-    </div>
-
-  </div>
-
-</div>
-
-    <button
-      type="button"
-      class="delete-btn"
-      (click)="deleteEvent()">
-      Radera
-    </button>
-
-  </div>
-
-} @else {
-
-        <h2 id="new-event-title">
-          @if (selectedEvent) {
-            Ändra händelse
-          } @else {
-            Ny händelse
-          }
-        </h2>
-
-        <p>Dag {{ selectedDay }}</p>
-
-        <label for="event-title">Titel</label>
-        <input
-          id="event-title"
-          type="text"
-          placeholder="Titel"
-          [(ngModel)]="title"
-        />
-
-        <label for="event-time">Tid</label>
-        <input
-          id="event-time"
-          type="time"
-          [(ngModel)]="time"
-        />
-
-        <label for="event-end-time">Sluttid</label>
-        <input
-          id="event-end-time"
-          type="time"
-          [(ngModel)]="endTime"
-        />
-
-        <label for="event-place">Plats</label>
-        <input
-          id="event-place"
-          type="text"
-          placeholder="Plats"
-          [(ngModel)]="place"
-        />
-
-        <label for="event-description">Beskrivning</label>
-        <textarea
-          id="event-description"
-          class="beskrivning"
-          placeholder="Beskrivning"
-          [(ngModel)]="description"
-        ></textarea>
-
-        <button
-          type="button"
-          class="save-btn"
-          (click)="saveEvent()">
-          Spara
-        </button>
-
-      }
-
-    </div>
-
-  </div>
+  <app-event-modal
+    [selectedDay]="selectedDay"
+    [selectedEvent]="selectedEvent"
+    [showEventOverview]="showEventOverview"
+    [(title)]="title"
+    [(time)]="time"
+    [(endTime)]="endTime"
+    [(place)]="place"
+    [(description)]="description"
+    (close)="closeModal()"
+    (save)="saveEvent()"
+    (delete)="deleteEvent()"
+    (edit)="showEventOverview = false">
+  </app-event-modal>
 }
 
 </div>
