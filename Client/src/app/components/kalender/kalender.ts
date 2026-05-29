@@ -1,4 +1,4 @@
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -20,19 +20,14 @@ type CalendarViewMode = 'month' | 'week' | 'day';
   standalone: true,
   imports: [FormsModule],
   templateUrl: './kalender.html',
-  styleUrl: './kalender.css'
+  styleUrl: './kalender.css',
 })
 export class Kalender implements OnInit {
-  veckodagar = [
-    'MÅNDAG',
-    'TISDAG',
-    'ONSDAG',
-    'TORSDAG',
-    'FREDAG',
-    'LÖRDAG',
-    'SÖNDAG',
-    
-  ];
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
+  veckodagar = ['MÅNDAG', 'TISDAG', 'ONSDAG', 'TORSDAG', 'FREDAG', 'LÖRDAG', 'SÖNDAG'];
 
   monthName = 'Maj';
   year = 2026;
@@ -44,11 +39,11 @@ export class Kalender implements OnInit {
 
   // Används i veckovyn för att skapa tidsrader. från 06:00 til 19:00
   hours = Array.from({ length: 14 }, (_, index) => {
-  const hour = index + 6;
-  return `${hour.toString().padStart(2, '0')}:00`;
-});
+    const hour = index + 6;
+    return `${hour.toString().padStart(2, '0')}:00`;
+  });
 
-  viewMode: CalendarViewMode = 'month'; 
+  viewMode: CalendarViewMode = 'month';
 
   selectedWeekIndex = 0;
 
@@ -65,44 +60,60 @@ export class Kalender implements OnInit {
   ngOnInit() {
     this.createCalendar();
     this.loadEvents();
+
+    this.route.queryParams.subscribe((params) => {
+      if (params['create'] === 'true') {
+        this.selectedDay = this.todayDay;
+
+        this.selectedEventId = null;
+        this.showEventOverview = false;
+
+        this.prepareModal();
+
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { create: null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      }
+    });
   }
-// Visar event-översikten i kalendern
+  // Visar event-översikten i kalendern
   get selectedEvent(): CalendarEvent | null {
     if (this.selectedEventId === null) {
       return null;
     }
-    return this.events.find(event => event.id === this.selectedEventId) ?? null;
+    return this.events.find((event) => event.id === this.selectedEventId) ?? null;
   }
 
-//Visar vecka-vyn i kalendern
+  //Visar vecka-vyn i kalendern
   get selectedWeek() {
-  return this.weeks[this.selectedWeekIndex] ?? [];
-}
-//Visar dag-vyn i kalendern
-get selectedDayForViewEvents() {
-  if (this.selectedDayForView === null) {
-    return [];
+    return this.weeks[this.selectedWeekIndex] ?? [];
+  }
+  //Visar dag-vyn i kalendern
+  get selectedDayForViewEvents() {
+    if (this.selectedDayForView === null) {
+      return [];
+    }
+
+    return this.getEventsForDay(this.selectedDayForView);
+  }
+  // Default sluttid för ett event baserat på starttiden, 1 timme senare.
+  getDefaultEndTime(startTime: string) {
+    if (!startTime) {
+      return '';
+    }
+
+    const [hours, minutes] = startTime.split(':').map(Number);
+    const endHours = Math.min(hours + 1, 23);
+
+    return `${endHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
   }
 
-  return this.getEventsForDay(this.selectedDayForView);
-}
-// Default sluttid för ett event baserat på starttiden, 1 timme senare.
-getDefaultEndTime(startTime: string) {
-  if (!startTime) {
-    return '';
+  getEventEndTime(event: CalendarEvent) {
+    return event.endTime || this.getDefaultEndTime(event.time);
   }
-
-  const [hours, minutes] = startTime.split(':').map(Number);
-  const endHours = Math.min(hours + 1, 23);
-
-  return `${endHours.toString().padStart(2, '0')}:${minutes
-    .toString()
-    .padStart(2, '0')}`;
-}
-
-getEventEndTime(event: CalendarEvent) {
-  return event.endTime || this.getDefaultEndTime(event.time);
-}
 
   createCalendar() {
     const firstDay = new Date(this.year, this.month, 1).getDay();
@@ -122,110 +133,100 @@ getEventEndTime(event: CalendarEvent) {
     }
   }
 
-//Ändrar vy i kalendern
+  //Ändrar vy i kalendern
   setViewMode(mode: CalendarViewMode) {
-  this.viewMode = mode;
-  if (mode === 'week') {
-    this.setCurrentWeek();
+    this.viewMode = mode;
+    if (mode === 'week') {
+      this.setCurrentWeek();
+    }
+    if (mode === 'day' && this.selectedDayForView === null) {
+      this.selectedDayForView = this.todayDay;
+    }
   }
-  if (mode === 'day' && this.selectedDayForView === null) {
-    this.selectedDayForView = this.todayDay;
-  }
-}
-setCurrentWeek() {
-  const dayToShow = this.selectedDayForView ?? this.selectedDay ?? this.todayDay;
-  const currentWeekIndex = this.weeks.findIndex(week =>
-    week.includes(dayToShow)
-  );
-  this.selectedWeekIndex = currentWeekIndex >= 0 ? currentWeekIndex : 0;
-}
-
-// Navigerar till föregående eller nästa vecka i veckovyn
-previousWeek() {
-  if (this.selectedWeekIndex > 0) {
-    this.selectedWeekIndex--;
-    this.setSelectedDayFromWeek();
-  }
-}
-nextWeek() {
-  if (this.selectedWeekIndex < this.weeks.length - 1) {
-    this.selectedWeekIndex++;
-    this.setSelectedDayFromWeek();
-  }
-}
-setSelectedDayFromWeek() {
-  const firstDayInWeek = this.selectedWeek.find(day => day !== null);
-
-  if (firstDayInWeek !== undefined) {
-    this.selectedDayForView = firstDayInWeek;
-  }
-}
-// Samma som med veckovyn fast för dag-vyn
-previousDay() {
-  if (this.selectedDayForView !== null && this.selectedDayForView > 1) {
-    this.selectedDayForView--;
-  }
-}
-nextDay() {
-  const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
-  if (
-    this.selectedDayForView !== null &&
-    this.selectedDayForView < daysInMonth
-  ) {
-    this.selectedDayForView++;
-  }
-}
-get daysInCurrentMonth() {
-  return new Date(this.year, this.month + 1, 0).getDate();
-}
-
-
-
-
- openDay(day: number) {
-  if (this.resizingEventId || this.resizingTimeEventId || this.suppressNextOpen) {
-    this.suppressNextOpen = false;
-    return;
+  setCurrentWeek() {
+    const dayToShow = this.selectedDayForView ?? this.selectedDay ?? this.todayDay;
+    const currentWeekIndex = this.weeks.findIndex((week) => week.includes(dayToShow));
+    this.selectedWeekIndex = currentWeekIndex >= 0 ? currentWeekIndex : 0;
   }
 
-  this.selectedDay = day;
-  this.selectedEventId = null;
-  this.showEventOverview = false;
-  this.prepareModal();
-}
+  // Navigerar till föregående eller nästa vecka i veckovyn
+  previousWeek() {
+    if (this.selectedWeekIndex > 0) {
+      this.selectedWeekIndex--;
+      this.setSelectedDayFromWeek();
+    }
+  }
+  nextWeek() {
+    if (this.selectedWeekIndex < this.weeks.length - 1) {
+      this.selectedWeekIndex++;
+      this.setSelectedDayFromWeek();
+    }
+  }
+  setSelectedDayFromWeek() {
+    const firstDayInWeek = this.selectedWeek.find((day) => day !== null);
 
-openEvent(event: CalendarEvent) {
-  this.selectedDay = event.startDay;
-  this.selectedEventId = event.id;
-  this.showEventOverview = true;
-  this.prepareModal();
-}
- getEventsForDay(day: number) {
-  return this.events.filter(event =>
-    day >= event.startDay && day <= event.endDay
-  );
-}
-getTimeAsMinutes(time: string) {
-  const [hours, minutes] = time.split(':').map(Number);
-  return hours * 60 + minutes;
-}
+    if (firstDayInWeek !== undefined) {
+      this.selectedDayForView = firstDayInWeek;
+    }
+  }
+  // Samma som med veckovyn fast för dag-vyn
+  previousDay() {
+    if (this.selectedDayForView !== null && this.selectedDayForView > 1) {
+      this.selectedDayForView--;
+    }
+  }
+  nextDay() {
+    const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
+    if (this.selectedDayForView !== null && this.selectedDayForView < daysInMonth) {
+      this.selectedDayForView++;
+    }
+  }
+  get daysInCurrentMonth() {
+    return new Date(this.year, this.month + 1, 0).getDate();
+  }
 
- // Placerar händelsen på rätt timrad i veckovyn utifrån event.time.
-getEventGridRow(event: CalendarEvent) {
-  const startHour = 6;
-  const endHour = 19;
+  openDay(day: number) {
+    if (this.resizingEventId || this.resizingTimeEventId || this.suppressNextOpen) {
+      this.suppressNextOpen = false;
+      return;
+    }
 
-  const start = this.getTimeAsMinutes(event.time);
-  const end = this.getTimeAsMinutes(event.endTime || this.getDefaultEndTime(event.time));
+    this.selectedDay = day;
+    this.selectedEventId = null;
+    this.showEventOverview = false;
+    this.prepareModal();
+  }
 
-  const clampedStart = Math.max(start, startHour * 60);
-  const clampedEnd = Math.min(end, endHour * 60);
+  openEvent(event: CalendarEvent) {
+    this.selectedDay = event.startDay;
+    this.selectedEventId = event.id;
+    this.showEventOverview = true;
+    this.prepareModal();
+  }
+  getEventsForDay(day: number) {
+    return this.events.filter((event) => day >= event.startDay && day <= event.endDay);
+  }
+  getTimeAsMinutes(time: string) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  }
 
-  const startRow = Math.floor((clampedStart - startHour * 60) / 60) + 1;
-  const span = Math.max(1, Math.ceil((clampedEnd - clampedStart) / 60));
+  // Placerar händelsen på rätt timrad i veckovyn utifrån event.time.
+  getEventGridRow(event: CalendarEvent) {
+    const startHour = 6;
+    const endHour = 19;
 
-  return `${startRow} / span ${span}`;
-}
+    const start = this.getTimeAsMinutes(event.time);
+    const end = this.getTimeAsMinutes(event.endTime || this.getDefaultEndTime(event.time));
+
+    const clampedStart = Math.max(start, startHour * 60);
+    const clampedEnd = Math.min(end, endHour * 60);
+
+    const startRow = Math.floor((clampedStart - startHour * 60) / 60) + 1;
+    const span = Math.max(1, Math.ceil((clampedEnd - clampedStart) / 60));
+
+    return `${startRow} / span ${span}`;
+  }
 
   handleDayKeydown(event: KeyboardEvent, day: number) {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -233,7 +234,7 @@ getEventGridRow(event: CalendarEvent) {
       this.openDay(day);
     }
   }
-//Hantera drag and drop i kalendern
+  //Hantera drag and drop i kalendern
   handleDragStart(dragEvent: DragEvent, calendarEvent: CalendarEvent) {
     if (this.resizingTimeEventId) {
       dragEvent.preventDefault();
@@ -256,98 +257,92 @@ getEventGridRow(event: CalendarEvent) {
     }
   }
 
+  copyEventToDay(dragEvent: DragEvent, day: number) {
+    dragEvent.preventDefault();
 
-copyEventToDay(dragEvent: DragEvent, day: number) {
-  dragEvent.preventDefault();
+    const draggedId = dragEvent.dataTransfer?.getData('text/plain') || this.draggedEventId;
 
-  const draggedId =
-    dragEvent.dataTransfer?.getData('text/plain') || this.draggedEventId;
+    const eventToCopy = this.events.find((event) => event.id === draggedId);
 
-  const eventToCopy = this.events.find(event => event.id === draggedId);
+    if (!eventToCopy || eventToCopy.startDay === day) {
+      this.draggedEventId = null;
+      return;
+    }
 
-  if (!eventToCopy || eventToCopy.startDay === day) {
+    this.events = [
+      ...this.events,
+      {
+        ...eventToCopy,
+        id: crypto.randomUUID(),
+        startDay: day,
+        endDay: day,
+        endTime: eventToCopy.endTime || this.getDefaultEndTime(eventToCopy.time),
+      },
+    ];
+
     this.draggedEventId = null;
-    return;
+    this.saveEvents();
   }
 
-  this.events = [
-    ...this.events,
-    {
-      ...eventToCopy,
-      id: crypto.randomUUID(),
-      startDay: day,
-      endDay: day,
-      endTime: eventToCopy.endTime || this.getDefaultEndTime(eventToCopy.time)
-    }
-  ];
+  startResize(event: MouseEvent, calendarEvent: CalendarEvent) {
+    event.stopPropagation();
+    event.preventDefault();
 
-  this.draggedEventId = null;
-  this.saveEvents();
-}
+    this.resizingEventId = calendarEvent.id;
+  }
 
-startResize(event: MouseEvent, calendarEvent: CalendarEvent) {
-  event.stopPropagation();
-  event.preventDefault();
+  startTimeResize(event: MouseEvent, calendarEvent: CalendarEvent) {
+    event.stopPropagation();
+    event.preventDefault();
 
-  this.resizingEventId = calendarEvent.id;
-}
+    this.resizingTimeEventId = calendarEvent.id;
+    this.suppressNextOpen = true;
+  }
 
-startTimeResize(event: MouseEvent, calendarEvent: CalendarEvent) {
-  event.stopPropagation();
-  event.preventDefault();
+  resizeEventEndTime(hour: string) {
+    if (!this.resizingTimeEventId) return;
 
-  this.resizingTimeEventId = calendarEvent.id;
-  this.suppressNextOpen = true;
-}
+    this.events = this.events.map((event) => {
+      if (event.id !== this.resizingTimeEventId) {
+        return event;
+      }
 
-resizeEventEndTime(hour: string) {
-  if (!this.resizingTimeEventId) return;
+      const proposedEndTime = this.getDefaultEndTime(hour);
+      const startMinutes = this.getTimeAsMinutes(event.time);
+      const proposedEndMinutes = this.getTimeAsMinutes(proposedEndTime);
+      const endTime =
+        proposedEndMinutes > startMinutes ? proposedEndTime : this.getDefaultEndTime(event.time);
 
-  this.events = this.events.map(event => {
-    if (event.id !== this.resizingTimeEventId) {
-      return event;
-    }
+      return {
+        ...event,
+        endTime,
+      };
+    });
 
-    const proposedEndTime = this.getDefaultEndTime(hour);
-    const startMinutes = this.getTimeAsMinutes(event.time);
-    const proposedEndMinutes = this.getTimeAsMinutes(proposedEndTime);
-    const endTime =
-      proposedEndMinutes > startMinutes
-        ? proposedEndTime
-        : this.getDefaultEndTime(event.time);
+    this.saveEvents();
+  }
 
-    return {
-      ...event,
-      endTime
-    };
-  });
+  resizeEventToDay(day: number) {
+    if (!this.resizingEventId) return;
 
-  this.saveEvents();
-}
+    this.events = this.events.map((event) => {
+      if (event.id !== this.resizingEventId) {
+        return event;
+      }
 
-resizeEventToDay(day: number) {
-  if (!this.resizingEventId) return;
+      return {
+        ...event,
+        endDay: Math.max(event.startDay, day),
+      };
+    });
 
-  this.events = this.events.map(event => {
-    if (event.id !== this.resizingEventId) {
-      return event;
-    }
+    this.saveEvents();
+  }
 
-    return {
-      ...event,
-      endDay: Math.max(event.startDay, day)
-    };
-  });
-
-  this.saveEvents();
-}
-
-stopResize() {
-  this.resizingEventId = null;
-  this.resizingTimeEventId = null;
-}
-
-
+  stopResize() {
+    this.resizingEventId = null;
+    this.resizingTimeEventId = null;
+  }
 
   handleEventKeydown(keyboardEvent: KeyboardEvent, calendarEvent: CalendarEvent) {
     if (keyboardEvent.key === 'Enter' || keyboardEvent.key === ' ') {
@@ -368,69 +363,63 @@ stopResize() {
   saveEvents() {
     localStorage.setItem('calendar-events', JSON.stringify(this.events));
   }
-title = '';
-time = '';
-endTime = '';
-place = '';
-description = '';
+  title = '';
+  time = '';
+  endTime = '';
+  place = '';
+  description = '';
 
-prepareModal() {
-  const event = this.selectedEvent;
+  prepareModal() {
+    const event = this.selectedEvent;
 
-  if (event) {
-    this.title = event.title;
-    this.time = event.time;
-    this.endTime = event.endTime || this.getDefaultEndTime(event.time);
-    this.place = event.place;
-    this.description = event.description;
-  } else {
-    this.title = '';
-    this.time = '';
-    this.endTime = '';
-    this.place = '';
-    this.description = '';
+    if (event) {
+      this.title = event.title;
+      this.time = event.time;
+      this.endTime = event.endTime || this.getDefaultEndTime(event.time);
+      this.place = event.place;
+      this.description = event.description;
+    } else {
+      this.title = '';
+      this.time = '';
+      this.endTime = '';
+      this.place = '';
+      this.description = '';
+    }
   }
-}
 
-closeModal() {
-  this.selectedDay = null;
-  this.selectedEventId = null;
-  this.showEventOverview = false;
-}
+  closeModal() {
+    this.selectedDay = null;
+    this.selectedEventId = null;
+    this.showEventOverview = false;
+  }
 
-saveEvent() {
-  if (this.selectedDay === null) return;
+  saveEvent() {
+    if (this.selectedDay === null) return;
 
-  const savedEvent: CalendarEvent = {
-    id: this.selectedEvent?.id ?? crypto.randomUUID(),
-    startDay: this.selectedDay,
-    endDay: this.selectedEvent?.endDay ?? this.selectedDay,
-    title: this.title,
-    time: this.time,
-    endTime: this.endTime || this.getDefaultEndTime(this.time),
-    place: this.place,
-    description: this.description
-  };
+    const savedEvent: CalendarEvent = {
+      id: this.selectedEvent?.id ?? crypto.randomUUID(),
+      startDay: this.selectedDay,
+      endDay: this.selectedEvent?.endDay ?? this.selectedDay,
+      title: this.title,
+      time: this.time,
+      endTime: this.endTime || this.getDefaultEndTime(this.time),
+      place: this.place,
+      description: this.description,
+    };
 
-  this.events = this.events.filter(event => event.id !== savedEvent.id);
-  this.events = [...this.events, savedEvent];
+    this.events = this.events.filter((event) => event.id !== savedEvent.id);
+    this.events = [...this.events, savedEvent];
 
-  this.saveEvents();
-  this.closeModal();
-}
+    this.saveEvents();
+    this.closeModal();
+  }
 
-deleteEvent() {
-  if (!this.selectedEventId) return;
+  deleteEvent() {
+    if (!this.selectedEventId) return;
 
-  this.events = this.events.filter(
-    event => event.id !== this.selectedEventId
-  );
+    this.events = this.events.filter((event) => event.id !== this.selectedEventId);
 
-  this.saveEvents();
-  this.closeModal();
-}
-
-
-
-
+    this.saveEvents();
+    this.closeModal();
+  }
 }

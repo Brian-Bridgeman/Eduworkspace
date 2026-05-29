@@ -21,5 +21,10 @@ export class StartPageCard {
 
   @Input() type: 'kurser' | 'elever' | 'grupper' | 'kalender' = 'kurser';
 
-  @Input() page: 'courses' | 'students' | 'groups' | 'calender' = 'courses';
+  @Input() page: 'courses' | 'students' | 'groups' | 'kalender' = 'courses';
+
+  @Input() modalPage: 'createCourse' | 'createStudent' | 'groups/create' | 'createEvent' =
+    'createCourse';
+
+  @Input() createRoute?: string;
 }

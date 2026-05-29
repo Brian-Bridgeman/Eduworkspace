@@ -14,7 +14,10 @@ export class TeamsPage {
   searchTerm: string = '';
   groupId: string | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
     this.groupId = this.route.snapshot.paramMap.get('groupId');
   }
 
@@ -29,7 +32,7 @@ export class TeamsPage {
       kurs: 'Elinstallation',
       grupp: 'Grupp A',
       plats: 'Sal B',
-      deltagare: ['Oscar', 'Johan']
+      deltagare: ['Oscar', 'Johan'],
     },
     {
       id: 2,
@@ -37,7 +40,7 @@ export class TeamsPage {
       kurs: 'Webbutveckling',
       grupp: 'Grupp B',
       plats: 'Sal C',
-      deltagare: ['Kalle', 'Alfred']
+      deltagare: ['Kalle', 'Alfred'],
     },
     {
       id: 3,
@@ -45,7 +48,7 @@ export class TeamsPage {
       kurs: 'Systemutveckling med AI',
       grupp: 'Grupp C',
       plats: 'Sal D',
-      deltagare: ['Lisa', 'Emma']
+      deltagare: ['Lisa', 'Emma'],
     },
     {
       id: 4,
@@ -53,7 +56,7 @@ export class TeamsPage {
       kurs: 'Brandskydd',
       grupp: 'Grupp A',
       plats: 'Sal B',
-      deltagare: ['Erik', 'Viktor']
+      deltagare: ['Erik', 'Viktor'],
     },
     {
       id: 5,
@@ -61,19 +64,20 @@ export class TeamsPage {
       kurs: 'Industrisäkerhet',
       grupp: 'Grupp B',
       plats: 'Sal E',
-      deltagare: ['Simon', 'Hugo']
-    }
+      deltagare: ['Simon', 'Hugo'],
+    },
   ];
 
   get filteredTeams() {
-    return this.teams.filter(team =>
-      team.gruppNamn.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      team.kurs.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      team.grupp.toLowerCase().includes(this.searchTerm.toLowerCase())
+    return this.teams.filter(
+      (team) =>
+        team.gruppNamn.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        team.kurs.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        team.grupp.toLowerCase().includes(this.searchTerm.toLowerCase()),
     );
   }
 
   navigateToEditTeamsPage() {
-    this.router.navigate([`/groups/${this.groupId}/editTeams`])
+    this.router.navigate([`/groups/${this.groupId}/editTeams`]);
   }
 }
