@@ -48,7 +48,7 @@
     (mousemove)="resizeTimeFromPointer($event)"
     (mouseenter)="selectedDayForView !== null && resizeEventToDay.emit(selectedDayForView)"
     (dragover)="handleDragOver.emit($event)"
-    (drop)="selectedDayForView !== null && copyEventToDay.emit({ dragEvent: $event, day: selectedDayForView })"
+    (drop)="selectedDayForView !== null && moveEventToDay($event, selectedDayForView)"
   >
     @for (hour of hours; track hour) {
       <div
