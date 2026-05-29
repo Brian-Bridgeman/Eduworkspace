@@ -40,23 +40,24 @@
 
                 <div class="note" *ngFor="let note of activeNoteCollection.notes">
 
-                    <div class="note-top">
+                    <div class="note-left">
 
                         <p class="date">
                             {{ note.date }}
                         </p>
+                    <p>
+                        {{ note.text }}
+                    </p>
 
-                        <button class="delete-note-btn" (click)="deleteNote(note)">
+
+                    </div>
+
+                
+                                            <button class="delete-note-btn" (click)="deleteNote(note)">
 
                             ✕
 
                         </button>
-
-                    </div>
-
-                    <p>
-                        {{ note.text }}
-                    </p>
 
                 </div>
 
