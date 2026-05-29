@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { Router, RouterLink } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { OverviewSection } from '../../components/overview-section/overview-section';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-course-details-page',
@@ -11,8 +12,17 @@ import { OverviewSection } from '../../components/overview-section/overview-sect
   templateUrl: './course-details-page.html',
   styleUrl: './course-details-page.css',
 })
-export class CourseDetailsPage {
-  constructor(private router: Router) { }
+export class CourseDetailsPage implements OnInit {
+  constructor(private router: Router, private breadcrumbService: BreadcrumbService) { }
+
+  ngOnInit(): void {
+      setTimeout(() => {
+      this.breadcrumbService.set([
+        {label: "Kurser", url: "/courses"},
+        {label: "C#", url: "/courses/1"}
+      ])
+    });
+  }
 
   navigateToCreateGroup() {
     this.router.navigate(['/groups/create']);

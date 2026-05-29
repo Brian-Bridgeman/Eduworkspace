@@ -5,6 +5,7 @@ import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { OverviewSection } from '../../components/overview-section/overview-section';
+import { BreadcrumbService } from '../../services/breadcrumb.service';
 
 @Component({
   selector: 'app-teams-page',
@@ -17,8 +18,17 @@ export class TeamsPage {
   searchTerm: string = '';
   groupId: string | null = null;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private breadcrumbService: BreadcrumbService) {
     this.groupId = this.route.snapshot.paramMap.get('groupId');
+  }
+
+  ngOnInit(): void {
+      setTimeout(() => {
+      this.breadcrumbService.set([
+        {label: "Grupper", url: "/groups"},
+        {label: "H1 26", url: "/groups/1"}
+      ])
+    });
   }
 
   removeTeam(id: string) {
