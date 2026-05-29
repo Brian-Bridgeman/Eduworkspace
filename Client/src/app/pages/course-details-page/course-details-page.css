@@ -42,3 +42,6 @@ hr {
     margin-top: 8px;
     color: #666;
 }
+.mobile-hide{
+    display: none;
+}
