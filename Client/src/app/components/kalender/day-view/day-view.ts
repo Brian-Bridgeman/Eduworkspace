@@ -27,7 +27,7 @@ export class DayView {
   @Output() resizeEventToDay = new EventEmitter<number>();
   @Output() resizeEventEndTime = new EventEmitter<string>();
   @Output() handleDragOver = new EventEmitter<DragEvent>();
-  @Output() copyEventToDay = new EventEmitter<{ dragEvent: DragEvent; day: number }>();
+  @Output() moveEventToDay = new EventEmitter<{ dragEvent: DragEvent; day: number }>();
   @Output() handleDayKeydown = new EventEmitter<{ event: KeyboardEvent; day: number }>();
   @Output() handleEventKeydown = new EventEmitter<{ event: KeyboardEvent; calendarEvent: CalendarEvent }>();
   @Output() handleDragStart = new EventEmitter<{ dragEvent: DragEvent; calendarEvent: CalendarEvent }>();

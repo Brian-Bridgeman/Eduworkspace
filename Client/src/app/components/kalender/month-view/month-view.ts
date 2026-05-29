@@ -20,7 +20,7 @@ export class MonthView {
   @Output() openEvent = new EventEmitter<CalendarEvent>();
   @Output() resizeEventToDay = new EventEmitter<number>();
   @Output() handleDragOver = new EventEmitter<DragEvent>();
-  @Output() copyEventToDay = new EventEmitter<{ dragEvent: DragEvent; day: number }>();
+  @Output() moveEventToDay = new EventEmitter<{ dragEvent: DragEvent; day: number }>();
   @Output() handleDayKeydown = new EventEmitter<{ event: KeyboardEvent; day: number }>();
   @Output() handleEventKeydown = new EventEmitter<{ event: KeyboardEvent; calendarEvent: CalendarEvent }>();
   @Output() handleDragStart = new EventEmitter<{ dragEvent: DragEvent; calendarEvent: CalendarEvent }>();

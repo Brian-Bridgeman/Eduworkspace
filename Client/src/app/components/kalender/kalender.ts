@@ -4,6 +4,8 @@ import { EventModal } from './event-modal/event-modal';
 import { WeekView } from './week-view/week-view';
 import { DayView } from './day-view/day-view';
 import { MonthView } from './month-view/month-view';
+import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
+
 
 export type CalendarEvent = {
   id: string;
@@ -21,7 +23,7 @@ type CalendarViewMode = 'month' | 'week' | 'day';
 @Component({
   selector: 'app-kalender',
   standalone: true,
-  imports: [EventModal, WeekView, DayView, MonthView],
+  imports: [EventModal, WeekView, DayView, MonthView, DropdownMenu],
   templateUrl: './kalender.html',
   styleUrl: './kalender.css'
 })
@@ -253,7 +255,7 @@ getEventGridRow(event: CalendarEvent) {
     dragEvent.dataTransfer?.setData('text/plain', calendarEvent.id);
 
     if (dragEvent.dataTransfer) {
-      dragEvent.dataTransfer.effectAllowed = 'copy';
+      dragEvent.dataTransfer.effectAllowed = 'move';
     }
   }
 
@@ -261,38 +263,39 @@ getEventGridRow(event: CalendarEvent) {
     event.preventDefault();
 
     if (event.dataTransfer) {
-      event.dataTransfer.dropEffect = 'copy';
+      event.dataTransfer.dropEffect = 'move';
     }
   }
 
 
-copyEventToDay(dragEvent: DragEvent, day: number) {
+//Hantera att flytta en händelse
+moveEventToDay(dragEvent: DragEvent, day: number) {
   dragEvent.preventDefault();
-
   const draggedId =
     dragEvent.dataTransfer?.getData('text/plain') || this.draggedEventId;
-
-  const eventToCopy = this.events.find(event => event.id === draggedId);
-
-  if (!eventToCopy || eventToCopy.startDay === day) {
+  const eventToMove = this.events.find(event => event.id === draggedId);
+  if (!eventToMove || eventToMove.startDay === day) {
     this.draggedEventId = null;
     return;
   }
 
-  this.events = [
-    ...this.events,
-    {
-      ...eventToCopy,
-      id: crypto.randomUUID(),
-      startDay: day,
-      endDay: day,
-      endTime: eventToCopy.endTime || this.getDefaultEndTime(eventToCopy.time)
+  const eventLength = eventToMove.endDay - eventToMove.startDay;
+  this.events = this.events.map(event => {
+    if (event.id !== draggedId) {
+      return event;
     }
-  ];
 
+    return {
+      ...event,
+      startDay: day,
+      endDay: day + eventLength
+    };
+  });
   this.draggedEventId = null;
   this.saveEvents();
 }
+
+
 
 startResize(event: MouseEvent, calendarEvent: CalendarEvent) {
   event.stopPropagation();
