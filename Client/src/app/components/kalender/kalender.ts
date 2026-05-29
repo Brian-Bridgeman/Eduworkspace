@@ -4,6 +4,7 @@ import { WeekView } from './week-view/week-view';
 import { DayView } from './day-view/day-view';
 import { MonthView } from './month-view/month-view';
 import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export type CalendarEvent = {
   id: string;
@@ -26,6 +27,10 @@ type CalendarViewMode = 'month' | 'week' | 'day';
   styleUrl: './kalender.css',
 })
 export class Kalender implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
   veckodagar = ['MÅNDAG', 'TISDAG', 'ONSDAG', 'TORSDAG', 'FREDAG', 'LÖRDAG', 'SÖNDAG'];
 
   monthName = 'Maj';
@@ -60,6 +65,23 @@ export class Kalender implements OnInit {
   ngOnInit() {
     this.createCalendar();
     this.loadEvents();
+    this.route.queryParams.subscribe((params) => {
+      if (params['create'] === 'true') {
+        this.selectedDay = this.todayDay;
+
+        this.selectedEventId = null;
+        this.showEventOverview = false;
+
+        this.prepareModal();
+
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { create: null },
+          queryParamsHandling: 'merge',
+          replaceUrl: true,
+        });
+      }
+    });
   }
 
   @HostListener('document:mouseup')
