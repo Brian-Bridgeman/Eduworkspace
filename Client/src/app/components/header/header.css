@@ -44,6 +44,25 @@
     color: #7c3aed;
 }
 
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.logo-text h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.logo-text span {
+    font-size: 11px;
+    color: #6b7280;
+    letter-spacing: 0.5px;
+}
+
 .header-right {
     display: flex;
     align-items: center;
