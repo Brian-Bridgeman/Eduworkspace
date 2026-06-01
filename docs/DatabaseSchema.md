@@ -1,0 +1,1 @@
+![Database schema](<Untitled (1).png>)
