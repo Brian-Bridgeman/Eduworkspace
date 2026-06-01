@@ -93,8 +93,33 @@ export class Kalender implements OnInit {
           replaceUrl: true,
         });
       }
+      
     });
   }
+
+  previousMonth() {
+  this.month--;
+
+  if (this.month < 0) {
+    this.month = 11;
+    this.year--;
+  }
+
+  this.createCalendar();// bygger om kalendern när man byter månad
+}
+
+nextMonth() {
+  this.month++;
+
+  if (this.month > 11) {
+    this.month = 0;
+    this.year++;
+  }
+
+  this.createCalendar(); // bygger om kalendern med nya månadens dagar
+}
+
+  
 
   @HostListener('document:mouseup')
   handleDocumentMouseup() {
