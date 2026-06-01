@@ -22,10 +22,9 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: #6b7280;
+  color: #9ca3af;
   border-radius: 14px;
   transition: 0.2s ease;
-  opacity: 0.85;
 }
 
 .nav-link:hover,
@@ -34,7 +33,6 @@
   color: #7c3aed;
   box-shadow: 0 6px 14px #7c3aed1f;
   transform: translateY(-2px);
-  opacity: 1;
 }
 
 .material-symbols-outlined {
