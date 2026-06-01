@@ -14,9 +14,16 @@
         <div class="header-right">
 
             <!-- Dark/Light-mode-knapp -->
-            <button class="mode-btn">
-                <span class="material-symbols-outlined">dark_mode</span><span class="separator">/</span>
-                <span class="material-symbols-outlined">light_mode</span>
+            <button class="mode-btn" (click)="toggleTheme()">
+                <span class="material-symbols-outlined" [class.active]="!darkMode">
+                    light_mode
+                </span>
+
+                <span class="separator">/</span>
+
+                <span class="material-symbols-outlined" [class.active]="darkMode">
+                    dark_mode
+                </span>
             </button>
 
             <!-- Profilbild -->

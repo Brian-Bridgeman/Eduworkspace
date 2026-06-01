@@ -9,4 +9,10 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
 
+  darkMode = false;
+
+  toggleTheme() {
+    this.darkMode = !this.darkMode;
+  }
+
 }

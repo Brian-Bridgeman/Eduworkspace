@@ -108,6 +108,18 @@
 
 .mode-btn .material-symbols-outlined {
     font-size: 16px;
+    opacity: 1;
+    transition: all 0.2s ease;
+}
+
+.mode-btn .material-symbols-outlined.active {
+    color: #7c3aed;
+    transform: scale(1.3);
+    text-shadow: 0 0 10px #7c3aed59;
+}
+
+.mode-btn .material-symbols-outlined:not(.active) {
+    color: #9ca3af;
 }
 
 .profile-btn .material-symbols-outlined {
@@ -119,7 +131,10 @@
 }
 
 .separator {
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #9ca3af;
+    opacity: 0.6;
     line-height: 1;
-    flex-shrink: 0;
+    padding: 2px;
 }
