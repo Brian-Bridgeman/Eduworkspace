@@ -33,10 +33,22 @@ export class Kalender implements OnInit {
   ) {}
   veckodagar = ['MÅNDAG', 'TISDAG', 'ONSDAG', 'TORSDAG', 'FREDAG', 'LÖRDAG', 'SÖNDAG'];
 
-  monthName = 'Maj';
-  year = 2026;
-  month = 4;
+  
+  monthNames = [
+    'Januari', 'Februari', 'Mars', 'April',
+    'Maj', 'Juni', 'Juli', 'Augusti',
+    'September', 'Oktober', 'November', 'December'
+  ];
+
   today = new Date();
+
+  get monthName() {
+    return this.monthNames[this.month];
+  }
+
+  // dynamiska värden för att visa rätt månad och år i kalendern, utgår från dagens datum
+  month = this.today.getMonth(); // 0 = januari, 4 = maj
+  year = this.today.getFullYear();
   todayDay = this.today.getDate();
   calendarDays: (number | null)[] = [];
   weeks: (number | null)[][] = [];
