@@ -17,7 +17,7 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
     RouterLink,
     DropdownMenu,
     OverviewSection,
-    BreadcrumbService,
+    //BreadcrumbService,
   ],
   templateUrl: './teams-page.html',
   styleUrl: './teams-page.css',
