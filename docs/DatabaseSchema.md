@@ -1,1 +1,2 @@
-![Database schema](<Untitled (1).png>)
+# Database schema 
+![Databas schema](Database_schema.png)
