@@ -10,6 +10,7 @@ import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
 })
 export class DropdownMenu {
   constructor(private elementRef: ElementRef) { }
+  static currentlyOpen: DropdownMenu | null = null;
 
   isOpen = false;
   showModal = false;
@@ -19,12 +20,22 @@ export class DropdownMenu {
   @Output() edit = new EventEmitter<void>();
 
   toggleMenu() {
+    if (
+      DropdownMenu.currentlyOpen &&
+      DropdownMenu.currentlyOpen !== this
+    ) DropdownMenu.currentlyOpen.isOpen = false;
+    
     this.isOpen = !this.isOpen;
+    DropdownMenu.currentlyOpen = this.isOpen ? this : null;
   }
 
   openModal() {
     this.showModal = true;
     this.isOpen = false;
+
+    if (DropdownMenu.currentlyOpen === this) {
+      DropdownMenu.currentlyOpen = null;
+    }
   }
 
   closeModal() {
@@ -42,6 +53,10 @@ export class DropdownMenu {
 
     if (!clickedInside) {
       this.isOpen = false;
+    }
+
+    if (DropdownMenu.currentlyOpen === this) {
+      DropdownMenu.currentlyOpen = null;
     }
   }
 }
