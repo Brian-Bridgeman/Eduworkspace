@@ -97,15 +97,6 @@
     transition: 0.2s ease;
 }
 
-.mode-btn:hover,
-.profile-btn:hover {
-    background: #f3e8ff;
-    color: #7c3aed;
-    border-color: #ddd6fe;
-    box-shadow: 0 8px 18px #7c3aed1f;
-    transform: translateY(-2px);
-}
-
 .mode-btn .material-symbols-outlined,
 .profile-btn .material-symbols-outlined {
     transition: transform 0.2s ease;
@@ -142,4 +133,24 @@
     font-weight: 300;
     color: #9ca3af;
     line-height: 1;
+}
+
+@media (hover: hover) {
+
+    .mode-btn:hover,
+    .profile-btn:hover {
+        background: #f3e8ff;
+        color: #7c3aed;
+        border-color: #ddd6fe;
+        box-shadow: 0 8px 18px #7c3aed1f;
+        transform: translateY(-2px);
+    }
+
+    .profile-btn:hover .material-symbols-outlined {
+        transform: scale(1.2);
+    }
+
+    .header-left:hover {
+        transform: scale(1.03);
+    }
 }
