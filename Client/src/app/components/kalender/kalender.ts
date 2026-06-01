@@ -162,6 +162,9 @@ nextMonth() {
   }
 
   createCalendar() {
+    this.calendarDays = []; // Rensar kalendern så månaderna inte slås ihop
+    this.weeks = []; 
+
     const firstDay = new Date(this.year, this.month, 1).getDay();
     const startDay = (firstDay + 6) % 7;
     const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
