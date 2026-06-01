@@ -56,7 +56,7 @@
         "serve": {
           "options": {
             "allowedHosts": ["agile.soundtargetmedia.com"]
-          }
+          },
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
