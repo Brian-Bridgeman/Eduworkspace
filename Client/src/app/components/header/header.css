@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     max-width: none;
-    font-family: 'Nunito', sans-serif;
+    font-family: inherit;
 }
 
 .header {
@@ -27,7 +27,7 @@
 .header-left .title {
     margin: 0;
     font-size: 25px;
-    font-weight: 500;
+    font-weight: 700;
     color: #111827;
 }
 
