@@ -28,6 +28,10 @@ export class CourseDetailsPage implements OnInit {
     this.router.navigate(['/groups/create']);
   }
 
+   removeCourse(id: string) {
+    // fetch anrop till delete här, med id
+  }
+  
   searchTerm: string = '';
 
   courseGroups = [

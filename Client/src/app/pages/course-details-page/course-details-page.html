@@ -11,9 +11,8 @@
     </div>
     <div class="template-header">
         <hr>
-        <app-template-header title="" subtitle=""
-            buttonText="Lägg till kurstillfällen" (searchChange)="searchTerm = $event"
-            (buttonClick)="navigateToCreateGroup()">
+        <app-template-header title="" subtitle="" buttonText="Lägg till kurstillfällen"
+            (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
         </app-template-header>
     </div>
 </div>
@@ -45,7 +44,12 @@
                 <td>{{ grupp.plats }}</td>
                 <td class="mobile-hide">{{ grupp.antalElever }}</td>
                 <td class="mobile-hide">{{ grupp.status }}</td>
-                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu></app-dropdown-menu>
+                <td class="actions-column">
+                    <app-dropdown-menu 
+                        (click)="$event.stopPropagation()"
+                        [item]="grupp"
+                        (delete)="removeCourse($event)">
+                    </app-dropdown-menu>
                 </td>
             </tr>
         </tbody>
