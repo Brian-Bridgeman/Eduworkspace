@@ -10,6 +10,8 @@ export type CalendarEvent = {
   id: string;
   startDay: number;
   endDay: number;
+  month: number;
+  year: number;
   title: string;
   time: string;
   endTime?: string;
@@ -119,9 +121,7 @@ nextMonth() {
   this.createCalendar(); // bygger om kalendern med nya månadens dagar
 }
 
-  
-
-  @HostListener('document:mouseup')
+@HostListener('document:mouseup')
   handleDocumentMouseup() {
     this.stopResize();
   }
@@ -253,7 +253,12 @@ nextMonth() {
     this.prepareModal();
   }
   getEventsForDay(day: number) {
-    return this.events.filter((event) => day >= event.startDay && day <= event.endDay);
+  return this.events.filter(event =>
+    event.month === this.month &&
+    event.year === this.year &&
+    day >= event.startDay &&
+    day <= event.endDay
+  );
   }
   getTimeAsMinutes(time: string) {
     const [hours, minutes] = time.split(':').map(Number);
@@ -470,15 +475,17 @@ nextMonth() {
     if (this.selectedDay === null) return;
 
     const savedEvent: CalendarEvent = {
-      id: this.selectedEvent?.id ?? crypto.randomUUID(),
-      startDay: this.selectedDay,
-      endDay: this.selectedEvent?.endDay ?? this.selectedDay,
-      title: this.title,
-      time: this.time,
-      endTime: this.endTime || this.getDefaultEndTime(this.time),
-      place: this.place,
-      description: this.description,
-    };
+        id: this.selectedEvent?.id ?? crypto.randomUUID(),
+  startDay: this.selectedDay,
+  endDay: this.selectedEvent?.endDay ?? this.selectedDay,
+  month: this.month,
+  year: this.year,
+  title: this.title,
+  time: this.time,
+  endTime: this.endTime || this.getDefaultEndTime(this.time),
+  place: this.place,
+  description: this.description,
+};
 
     this.events = this.events.filter((event) => event.id !== savedEvent.id);
     this.events = [...this.events, savedEvent];
