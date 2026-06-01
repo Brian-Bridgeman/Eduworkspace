@@ -2,18 +2,19 @@
 
   <!-- HEADER -->
   <div class="kalender-header">
-    <button id="back-button" 
-      class="back-button"
-      (click)="previousMonth()">
-    ←
-          </button>
-    
-    <h1>{{ monthName }}</h1>
-    <h2>{{ year }}</h2>
-    
-    <button id="forward-button" class="forward-button" (click)="nextMonth()">
-      →
-    </button>
+    <button
+  id="back-button"
+  class="back-button"
+  (click)="previousMonth()">
+  ←
+</button>
+
+<button
+  id="forward-button"
+  class="forward-button"
+  (click)="nextMonth()">
+  →
+</button>
       </div>
 
   <!-- Välj vilken kalender-vy som ska visas -->
