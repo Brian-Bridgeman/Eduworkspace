@@ -1,4 +1,9 @@
-<app-template-header title="Deltagare" subtitle="Här ser du alla registrerade deltagare." buttonText="Lägg till deltagare" (searchChange)="searchTerm = $event" (buttonClick)="openModal()"></app-template-header>
+<div class="page-header">
+    <app-template-header title="Deltagare" subtitle="Här ser du alla registrerade deltagare."
+        buttonText="Lägg till deltagare" (searchChange)="searchTerm = $event"
+        (buttonClick)="openModal()"></app-template-header>
+</div>
+
 <div class="tableDiv">
     <table>
         <thead>
@@ -15,7 +20,7 @@
         <tbody>
             <tr *ngFor="let person of filteredPersons" [routerLink]="['/students', person.id]" class="clickable-row">
                 <td class="avatar">
-                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="material-symbols-outlined">person_outline</span>
                     <span>{{ person.fornamn }} {{ person.efternamn}}</span>
                 </td>
                 <td class="tablet-col">{{ person.telefonNr }}</td>
@@ -23,14 +28,13 @@
                 <td class="desktop-col">{{ person.foretag }}</td>
                 <td class="desktop-col">{{ person.kurs }}</td>
                 <td>{{ person.grupp }}</td>
-                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu  [item]="person" (delete)="removeStudent($event)"></app-dropdown-menu></td>
+                <td class="actions-column" (click)="$event.stopPropagation()"><app-dropdown-menu [item]="person"
+                        (delete)="removeStudent($event)"></app-dropdown-menu></td>
             </tr>
         </tbody>
     </table>
 </div>
 @if (showModal()) {
-    <app-add-student-modal
-        (close)="showModal.set(false)"
-        (save)="addStudent($event)">
-    </app-add-student-modal>
+<app-add-student-modal (close)="showModal.set(false)" (save)="addStudent($event)">
+</app-add-student-modal>
 }

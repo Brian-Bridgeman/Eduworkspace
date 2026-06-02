@@ -1,35 +1,7 @@
-<div class="course-wrapper">
-    <div class="course-card">
-        <div>
-            <h2>H1 26</h2>
-
-            <div class="info">
-                <span>Elinstallation</span>
-                <span>Sal B</span>
-            </div>
-
-            <div class="dates">
-                12 jan 2026 → 22 mar 2026
-            </div>
-        </div>
-
-        <div class="right">
-            <div className="students">
-                10 / 10 elever
-            </div>
-
-            <div class="status">
-                Kommande
-            </div>
-        </div>
-    </div>
-
-    <div class="template-header">
-        <hr>    
-        <app-template-header title="" subtitle="" buttonText="Hantera arbetslag"
-            (buttonClick)="navigateToEditTeamsPage()" (searchChange)="searchTerm = $event">
-        </app-template-header>
-    </div>
+<div class="page-header">
+    <app-template-header title="H1 26" subtitle="Elinstallation · Sal B · 12 jan 2026 → 22 mar 2026"
+        buttonText="Hantera arbetslag" (buttonClick)="navigateToEditTeamsPage()" (searchChange)="searchTerm = $event">
+    </app-template-header>
 </div>
 
 <div class="tableDiv">

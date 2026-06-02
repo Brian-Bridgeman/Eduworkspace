@@ -28,9 +28,12 @@ export class StudentDetailsPage implements OnInit {
   showNoteModal = false;
   newNoteText = '';
   activeTab = 'overview';
-
   checklists: Checklist[] = [];
   activeChecklist: Checklist | null = null;
+  expandedCommentIndex: number | null = null;
+
+  selectedCourse: any = null;
+  showCourseModal = false;
 
   constructor(private checklistService: ChecklistService, private breadcrumbService: BreadcrumbService) {
 
@@ -44,10 +47,10 @@ export class StudentDetailsPage implements OnInit {
   }
 
   ngOnInit(): void {
-      setTimeout(() => {
+    setTimeout(() => {
       this.breadcrumbService.set([
-        {label: "Deltagare", url: "/students"},
-        {label: "Oscar Nilsson", url: "/students/1"}
+        { label: "Deltagare", url: "/students" },
+        { label: "Oscar Nilsson", url: "/students/1" }
       ])
     });
   }
@@ -104,15 +107,18 @@ export class StudentDetailsPage implements OnInit {
   courses = [
     {
       name: 'Frontendutveckling',
-      status: 'active'
+      status: 'active',
+      comment: ''
     },
     {
       name: 'Java Backend',
-      status: 'inactive'
+      status: 'inactive',
+      comment: 'Kursen avslutad och godkänd.'
     },
     {
       name: 'React Native',
-      status: 'paused'
+      status: 'paused',
+      comment: 'Pausad på grund av sjukskrivning.'
     }
   ];
 
@@ -223,5 +229,38 @@ export class StudentDetailsPage implements OnInit {
     this.closeEditModal();
 
   }
-  selectedCourse = 'Fiber';
+
+  openCourseModal(course: any) {
+    console.log('Kurs klickad', course);
+
+    this.selectedCourse = course;
+    this.showCourseModal = true;
+
+    console.log('showCourseModal', this.showCourseModal);
+  }
+
+  closeCourseModal() {
+    this.showCourseModal = false;
+  }
+
+  toggleComment(index: number) {
+
+    this.expandedCommentIndex =
+      this.expandedCommentIndex === index
+        ? null
+        : index;
+
+  }
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'active':
+        return 'Pågående';
+      case 'paused':
+        return 'Pausad';
+      case 'inactive':
+        return 'Avslutad';
+      default:
+        return status;
+    }
+  }
 }

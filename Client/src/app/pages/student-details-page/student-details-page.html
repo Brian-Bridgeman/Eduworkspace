@@ -20,7 +20,7 @@
 
                 <div class="course-list">
 
-                    <div class="course-item" *ngFor="let course of courses">
+                    <div class="course-item" *ngFor="let course of courses" (click)="openCourseModal(course)">
 
                         <span class="course-badge" [ngClass]="course.status">
 
@@ -662,6 +662,7 @@
 
             </div>
 
+
             <!-- KURSER -->
 
             <div class="course-edit-section">
@@ -670,45 +671,53 @@
 
                 <div class="course-edit-list">
 
-                    <div class="course-edit-item" *ngFor="let course of courses">
+                    <div class="course-edit-item" *ngFor="let course of courses; let i = index">
 
-                        <!-- COURSE NAME -->
+                        <div class="course-row">
 
-                        <input class="course-name-input" [(ngModel)]="course.name" placeholder="Kursnamn" />
+                            <input class="course-name-input" [(ngModel)]="course.name" placeholder="Kursnamn"
+                                title="Kursnamn">
 
-                        <!-- STATUS -->
-                        <select [(ngModel)]="course.status" aria-label="Kursstatus">
+                            <select title="Kursstatus" [(ngModel)]="course.status">
 
-                            <option value="active">
-                                Pågående
-                            </option>
+                                <option value="active">Pågående</option>
+                                <option value="paused">Pausad</option>
+                                <option value="inactive">Avslutad</option>
 
-                            <option value="paused">
-                                Pausad
-                            </option>
+                            </select>
 
-                            <option value="inactive">
-                                Avslutad
-                            </option>
+                        </div>
 
-                        </select>
+                        <button type="button" class="comment-link" (click)="toggleComment(i)">
+
+                            Kommentar
+
+                        </button>
+
+                        <textarea *ngIf="expandedCommentIndex === i" class="course-comment" [(ngModel)]="course.comment"
+                            placeholder="Skriv kommentar">
+                         </textarea>
 
                     </div>
-
                 </div>
 
             </div>
+
 
             <!-- ACTIONS -->
 
             <div class="modal-actions">
 
                 <button class="cancel-btn" (click)="closeEditModal()">
+
                     Avbryt
+
                 </button>
 
                 <button class="save-btn" (click)="saveStudent()">
+
                     Spara ändringar
+
                 </button>
 
             </div>
@@ -718,13 +727,56 @@
             <div class="delete-section">
 
                 <button class="delete-btn" (click)="deleteStudent()">
+
                     Ta bort elev
+
                 </button>
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    <!-- COURSE MODAL -->
+
+    <div class="modal-overlay" *ngIf="showCourseModal">
+        <div class="edit-modal">
+
+            <div class="modal-header">
+
+                <h2>{{ selectedCourse?.name }}</h2>
+
+                <button class="close-btn" (click)="closeCourseModal()">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="course-status">Status</label>
+
+                <input id="course-status" aria-label="Kursstatus" [value]="getStatusText(selectedCourse?.status)"
+                    readonly>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="course-comment">Kommentar</label>
+
+                <div class="course-comment-view">
+                    {{ selectedCourse?.comment || 'Ingen kommentar finns.' }}
+                </div>
 
             </div>
 
         </div>
 
     </div>
-
 </div>
