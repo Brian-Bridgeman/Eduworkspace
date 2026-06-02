@@ -1,9 +1,14 @@
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
     WebRootPath = "wwwroot/browser"
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument();
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlite("Data Source=app.db");
+});
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
