@@ -39,3 +39,20 @@ button {
 button:hover {
   background: #6d28d9;
 }
+
+@media (max-width: 768px) {
+  .header-container {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .header-text h1 {
+    font-size: 26px;
+  }
+
+  button {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
+}
