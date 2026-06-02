@@ -17,6 +17,7 @@ app.UseStaticFiles();
 
 app.MapFallbackToFile("index.html");
 
+app.MapExampleEndpoints();
 app.MapCourseEndpoints();
 
 app.Run();
