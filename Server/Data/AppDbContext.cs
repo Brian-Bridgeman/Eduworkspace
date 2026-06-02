@@ -18,9 +18,10 @@ public class AppDbContext: DbContext
         public DbSet <FileData> Files {get;set;}
         public DbSet <Checklist> Checklists {get;set;}
         public DbSet <ChecklistItem> ChecklistItems{get; set;}
-        public DbSet <ChecklistRelation> checklistRelations {get;set;}
+        public DbSet <ChecklistRelation> ChecklistRelations {get;set;}
         public DbSet <ChecklistRelationItem> ChecklistRelationItems {get;set;}
         public DbSet <FileRelation> FileRelations {get;set;}
         public DbSet <UserCourseStatus> UserCourseStatuses {get;set;}
-        public DbSet <UserCourseSessionRelation> userCourseSessionRelations{get;set;}
+        public DbSet <UserCourseSessionRelation> UserCourseSessionRelations{get;set;}
+        public DbSet <UserCourseRelation> UserCourseRelations {get;set;}
 }
