@@ -675,7 +675,8 @@
 
                         <div class="course-row">
 
-                            <input class="course-name-input" [(ngModel)]="course.name" placeholder="Kursnamn" title="Kursnamn">
+                            <input class="course-name-input" [(ngModel)]="course.name" placeholder="Kursnamn"
+                                title="Kursnamn">
 
                             <select title="Kursstatus" [(ngModel)]="course.status">
 
@@ -687,10 +688,9 @@
 
                         </div>
 
-                        <button class ="comment-link === 'paused' || course.status === 'inactive'" type="button"
-                            class="comment-link" (click)="toggleComment(i)">
+                        <button type="button" class="comment-link" (click)="toggleComment(i)">
 
-                            💬 Kommentar
+                            Kommentar
 
                         </button>
 
@@ -703,7 +703,8 @@
 
             </div>
 
-            <!-- ACTIONS --><!-- ACTIONS -->
+
+            <!-- ACTIONS -->
 
             <div class="modal-actions">
 
@@ -733,6 +734,49 @@
 
             </div>
 
+
+
         </div>
 
     </div>
+
+    <!-- COURSE MODAL -->
+
+    <div class="modal-overlay" *ngIf="showCourseModal">
+        <div class="edit-modal">
+
+            <div class="modal-header">
+
+                <h2>{{ selectedCourse?.name }}</h2>
+
+                <button class="close-btn" (click)="closeCourseModal()">
+
+                    ✕
+
+                </button>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="course-status">Status</label>
+
+                <input id="course-status" aria-label="Kursstatus" [value]="getStatusText(selectedCourse?.status)"
+                    readonly>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="course-comment">Kommentar</label>
+
+                <div class="course-comment-view">
+                    {{ selectedCourse?.comment || 'Ingen kommentar finns.' }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

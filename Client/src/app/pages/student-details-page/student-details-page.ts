@@ -30,6 +30,7 @@ export class StudentDetailsPage implements OnInit {
   activeTab = 'overview';
   checklists: Checklist[] = [];
   activeChecklist: Checklist | null = null;
+  expandedCommentIndex: number | null = null;
 
   selectedCourse: any = null;
   showCourseModal = false;
@@ -230,14 +231,17 @@ export class StudentDetailsPage implements OnInit {
   }
 
   openCourseModal(course: any) {
+    console.log('Kurs klickad', course);
+
     this.selectedCourse = course;
     this.showCourseModal = true;
+
+    console.log('showCourseModal', this.showCourseModal);
   }
 
   closeCourseModal() {
     this.showCourseModal = false;
   }
-  expandedCommentIndex: number | null = null;
 
   toggleComment(index: number) {
 
@@ -246,5 +250,17 @@ export class StudentDetailsPage implements OnInit {
         ? null
         : index;
 
+  }
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'active':
+        return 'Pågående';
+      case 'paused':
+        return 'Pausad';
+      case 'inactive':
+        return 'Avslutad';
+      default:
+        return status;
+    }
   }
 }
