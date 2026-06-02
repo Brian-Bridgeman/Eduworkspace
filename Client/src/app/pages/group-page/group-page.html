@@ -21,7 +21,7 @@
         <tbody>
             <tr *ngFor="let grupp of filteredGroups" [routerLink]="['/groups', grupp.id]" class="clickable-row">
                 <td class="avatar">
-                    <span class="material-symbols-outlined">Folder</span>
+                    <span class="material-symbols-outlined">groups</span>
                     <span>{{ grupp.namn }}</span>
                 </td>
                 <td>{{ grupp.kurs }}</td>
