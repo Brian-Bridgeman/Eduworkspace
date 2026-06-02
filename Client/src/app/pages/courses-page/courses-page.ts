@@ -1,23 +1,47 @@
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
-import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { CreateCourseModal } from '../../components/create-course-modal/create-course-modal';
 
 @Component({
   selector: 'app-courses-page',
-  imports: [TemplateHeaderComponent, RouterModule, CommonModule, DropdownMenu, CreateCourseModal],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    TemplateHeaderComponent,
+    DropdownMenu,
+    CreateCourseModal
+  ],
   templateUrl: './courses-page.html',
   styleUrl: './courses-page.css',
 })
 export class CoursesPage implements OnInit {
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
+
+  courses = signal<any[]>([]);
+  searchTerm = signal('');
+  showModal = signal(false);
+
+  filteredCourses = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+
+    return this.courses().filter(course =>
+      (course.name ?? course.Name ?? '').toLowerCase().includes(term) ||
+      (course.educator ?? course.Educator ?? '').toLowerCase().includes(term)
+    );
+  });
 
   ngOnInit(): void {
+    this.loadCourses();
+
     this.route.queryParams.subscribe((params) => {
       if (params['create'] === 'true') {
         this.showModal.set(true);
@@ -31,42 +55,53 @@ export class CoursesPage implements OnInit {
       }
     });
   }
-  removeCourse(id: string) {
-    // fetch anrop till delete här, med id
+
+  async loadCourses() {
+    try {
+      const response = await fetch('/api/courses');
+      const data = await response.json();
+
+      this.courses.set(data);
+    } catch (error) {
+      console.error('Failed to load courses:', error);
+    }
   }
-  addCourse(course: any) {
-    this.courses.push(course);
-    this.showModal.set(false);
+
+  async removeCourse(id: number) {
+    try {
+      await fetch(`/api/courses/${id}`, {
+        method: 'DELETE'
+      });
+
+      this.courses.update(courses =>
+        courses.filter(c => c.id !== id)
+      );
+    } catch (error) {
+      console.error('Failed to delete course:', error);
+    }
   }
-  showModal = signal(false);
+
+  async addCourse(course: any) {
+    try {
+      const response = await fetch('/api/courses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(course)
+      });
+
+      const newCourse = await response.json();
+
+      this.courses.update(courses => [...courses, newCourse]);
+      this.showModal.set(false);
+
+    } catch (error) {
+      console.error('Failed to add course:', error);
+    }
+  }
+
   openModal() {
     this.showModal.set(true);
-  }
-  searchTerm: string = '';
-
-  courses = [
-    {
-      id: '1',
-      name: 'C#',
-      educator: 'Oscar',
-    },
-    {
-      id: '2',
-      name: 'FIB',
-      educator: 'Johan',
-    },
-    {
-      id: '3',
-      name: 'NIB',
-      educator: 'Johan',
-    },
-  ];
-
-  get filteredCourses() {
-    return this.courses.filter(
-      (course) =>
-        course.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        course.educator.toLowerCase().includes(this.searchTerm.toLowerCase()),
-    );
   }
 }

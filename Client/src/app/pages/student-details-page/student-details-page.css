@@ -393,6 +393,7 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
+
 .course-name-input {
   flex: 1;
   height: 46px;
@@ -408,7 +409,7 @@ body {
 .course-name-input:focus {
   border-color: #8b5cf6;
   box-shadow:
-    0 0 0 4px rgba(139,92,246,.12);
+    0 0 0 4px rgba(139, 92, 246, .12);
 
 }
 .comment-toggle-btn {
@@ -498,7 +499,7 @@ body {
 .note-modal textarea {
   width: 100%;
   min-height: 180px;
-  border: 2px solid  #c084fc;
+  border: 2px solid #c084fc;
   border-radius: 18px;
   padding: 18px;
   resize: none;
@@ -562,6 +563,7 @@ body {
   border-color: var(--purple);
   box-shadow: 0 0 0 4px rgba(139, 92, 246, .12);
 }
+
 /* =========================
    BUTTONS
 ========================= */
@@ -651,6 +653,7 @@ body {
   background: #fee2e2;
   color: #b91c1c;
 }
+
 /* =========================
    STUDENT INFO
 ========================= */
@@ -662,7 +665,7 @@ body {
 }
 
 .student-right {
-  min-width: 260px;
+  min-width: 0;
   padding: 28px;
   border-radius: 24px;
   background: #f8fafc;
@@ -700,8 +703,8 @@ body {
 
 .course-list {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
+  gap: 12px;
   margin: 24px 0;
 }
 
@@ -709,8 +712,8 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0 18px;
   position: relative;
+  min-width: 0;
 }
 
 .course-item:not(:last-child)::after {
@@ -728,6 +731,9 @@ body {
   color: #374151;
   font-size: 14px;
   font-weight: 600;
+
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .course-badge {
@@ -942,58 +948,97 @@ body {
 /* =========================
    TABLET
   ========================= */
-
-@media (max-width:1200px) {
-
-  .content-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 1100px) {
 
   .student-card {
     flex-direction: column;
     align-items: flex-start;
+    padding: 18px 24px;
+    width: 100%;
   }
 
+  .student-left {
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .student-info {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .student-right {
+    display: none;
+  }
+
+  .student-image {
+    width: 220px;
+    height: 220px;
+  }
+
+  .student-top h1 {
+    font-size: 42px;
+    word-break: break-word;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+  ========================= */
+
+@media (max-width: 400px) {
+  .tab-button {
+    min-width: 100px;
+    font-size: 13px;
+  }
 }
 
 /* =========================
    MOBILE
 ========================= */
-
 @media (max-width:768px) {
 
-  * {
-    box-sizing: border-box;
+  .page {
+    padding: 0 !important;
   }
-
-  html,
-  body {
-    overflow-x: hidden;
-  }
-
-  /* PAGE */
 
   .student-details-page {
-    padding: 10px;
-    overflow-x: hidden;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .course-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .course-name {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   /* =========================
      PROFILE CARD
   ========================= */
-
   .student-card {
-    width: 100%;
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    border-radius: 24px;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    box-sizing: border-box;
   }
 
   .student-left {
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1002,6 +1047,8 @@ body {
 
   .student-info {
     width: 100%;
+    text-align: left;
+    box-sizing: border-box;
   }
 
   .student-image {
@@ -1016,10 +1063,6 @@ body {
     margin-bottom: 10px;
     word-break: break-word;
   }
-
-  /* =========================
-     COURSES
-  ========================= */
 
   .course-list {
     display: flex;
@@ -1037,29 +1080,6 @@ body {
     display: none;
   }
 
-  /* =========================
-     DETAILS
-  ========================= */
-
-  .student-details {
-    gap: 14px;
-  }
-
-  .detail-item {
-    font-size: 15px;
-  }
-
-  /* =========================
-     HIDE RIGHT PANEL
-  ========================= */
-
-  .student-right {
-    display: none;
-  }
-
-  /* =========================
-     MOBILE TABS
-  ========================= */
 
   .tabs {
     display: flex;
@@ -1075,21 +1095,13 @@ body {
     text-align: center;
   }
 
-  /* HIDE OVERVIEW */
-
   .tab-button:first-child {
     display: none;
   }
 
-  /* HIDE OVERVIEW CONTENT */
-
   .content-grid {
     display: none !important;
   }
-
-  /* =========================
-     CARDS
-  ========================= */
 
   .card {
     width: 100%;
@@ -1097,6 +1109,101 @@ body {
     border-radius: 22px;
   }
 
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+
+  .small-btn,
+  .card-link-btn,
+  .upload-btn,
+  .modal-actions button {
+    width: 100%;
+  }
+
+  .upload-btn,
+  .card-link-btn {
+    height: 44px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+
+  .notes-card,
+  .checklist-card {
+    height: auto;
+    min-height: unset;
+  }
+
+  .note {
+    margin-bottom: 18px;
+  }
+
+  .check-item {
+    padding: 14px 0;
+    font-size: 15px;
+  }
+
+  .images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .images img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+
+  .edit-modal,
+  .test-modal-content {
+    width: 100%;
+    max-width: 95%;
+    padding: 22px;
+    border-radius: 24px;
+  }
+
+  .modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .course-edit-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .course-edit-item select {
+    width: 100%;
+  }
+
+  /* =========================
+     HIDE RIGHT PANEL
+  ========================= */
+
+  .student-right {
+    display: none;
+  }
+
+  /* =========================
+     MOBILE TABS
+  ========================= */
+
+  .tab-button:first-child {
+    display: none;
+  }
+
+  /* =========================
+     CARDS
+  ========================= */
   .card-header {
     display: flex;
     flex-direction: column;
@@ -1149,13 +1256,6 @@ body {
   /* =========================
      FILES
   ========================= */
-
-  .images {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 16px 0;
-  }
 
   .images img {
     width: 100%;
