@@ -18,4 +18,5 @@ public class AppDbContext: DbContext
         public DbSet <FileData> Files {get;set;}
         public DbSet <Checklist> Checklists {get;set;}
         public DbSet <ChecklistItem> ChecklistItems{get; set;}
+        public DbSet <ChecklistRelation> checklistRelations {get;set;}
 }
