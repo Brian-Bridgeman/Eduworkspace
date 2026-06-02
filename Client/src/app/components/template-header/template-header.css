@@ -6,31 +6,59 @@
 }
 
 #taBortTomContainer {
-   display: var(--template-header-header-container, flex);
+  display: var(--template-header-header-container, flex);
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .header-wrapper {
-  margin-bottom: var(--template-header-margin-bottom, 2em);
+  margin-bottom: var(--template-header-margin-bottom, 0.25em);
 }
 
 .header-text h1 {
   margin: 0;
   font-size: 32px;
+  font-weight: 700;
+  color: #111827;
 }
 
 .header-text p {
-  color: gray;
+  color: #6b7280;
   margin-top: 4px;
+  margin-bottom: 0;
 }
 
 button {
   flex-shrink: 0;
-  
-  padding: 10px 16px;
-  border-radius: 8px;
+  padding: 12px 18px;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
-
-  background-color: #8b5cf6;
+  background-color: #7c3aed;
   color: white;
+  font-family: inherit;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #6d28d9;
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .header-text h1 {
+    font-size: 26px;
+  }
+
+  button {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
 }

@@ -1,11 +1,28 @@
 .breadcrumb {
-    color: gray;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #6b7280;
 }
 
-a {
-    color: gray;
+.breadcrumb a {
+    color: #6b7280;
     text-decoration: none;
+    transition: color 0.2s ease;
 }
-.open-page{
-    color: #8b5cf6;
+
+.breadcrumb a:hover {
+    color: #7c3aed;
+}
+
+.open-page {
+    color: #374151;
+    font-weight: 600;
+}
+
+.separator {
+    color: #9ca3af;
 }
