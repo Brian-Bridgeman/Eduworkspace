@@ -16,5 +16,6 @@ public class AppDbContext: DbContext
         public DbSet <Image> Images {get;set;}
         public DbSet <Note> Notes {get;set;}
         public DbSet <FileData> Files {get;set;}
-        public DbSet <CheckList> CheckLists {get;set;}
+        public DbSet <Checklist> Checklists {get;set;}
+        public DbSet <ChecklistItem> ChecklistItems{get; set;}
 }
