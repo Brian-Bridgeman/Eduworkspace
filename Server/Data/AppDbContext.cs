@@ -21,5 +21,6 @@ public class AppDbContext: DbContext
         public DbSet <ChecklistRelation> checklistRelations {get;set;}
         public DbSet <ChecklistRelationItem> ChecklistRelationItems {get;set;}
         public DbSet <FileRelation> FileRelations {get;set;}
-        public DbSet <UserCourseStatus> userCourseStatuses {get;set;}
+        public DbSet <UserCourseStatus> UserCourseStatuses {get;set;}
+        public DbSet <UserCourseSessionRelation> userCourseSessionRelations{get;set;}
 }
