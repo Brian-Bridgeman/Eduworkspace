@@ -1,22 +1,7 @@
-<div class="course-wrapper">
-    <div class="course-card">
-        <div>
-            <h2>C#</h2>
-
-            <div class="info">
-                <span>Utbildare:</span>
-                <span>Oscar</span>
-            </div>
-        </div>
-    </div>
-    <div class="template-header">
-        <hr>
-        <div class="page-header">
-            <app-template-header title="" subtitle="" buttonText="Lägg till kurstillfällen"
-                (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
-            </app-template-header>
-        </div>
-    </div>
+<div class="page-header">
+    <app-template-header title="C#" subtitle="Utbildare: Oscar" buttonText="Lägg till kurstillfällen"
+        (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
+    </app-template-header>
 </div>
 
 <div class="tableDiv">

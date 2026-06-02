@@ -7,20 +7,26 @@
 
 #taBortTomContainer {
   display: var(--template-header-header-container, flex);
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .header-wrapper {
-  margin-bottom: var(--template-header-margin-bottom, 2em);
+  margin-bottom: var(--template-header-margin-bottom, 0.25em);
 }
 
 .header-text h1 {
   margin: 0;
   font-size: 32px;
+  font-weight: 700;
+  color: #111827;
 }
 
 .header-text p {
-  color: gray;
+  color: #6b7280;
   margin-top: 4px;
+  margin-bottom: 0;
 }
 
 button {

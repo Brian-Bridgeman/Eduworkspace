@@ -108,6 +108,15 @@ tbody tr:last-child td {
   background-color: #faf5ff;
 }
 
+.page-header {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px #0f172a0f;
+}
+
 /* Media quarys för mobil*/
 
 @media screen and (max-width: 768px) {
