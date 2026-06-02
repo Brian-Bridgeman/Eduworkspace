@@ -2,13 +2,12 @@
   title="Kurser"
   subtitle="Här ser du alla kurser."
   buttonText="Lägg till kurs"
-  (searchChange)="searchTerm = $event"
-  (buttonClick)="openModal()"
->
+  (searchChange)="searchTerm.set($event)"
+  (buttonClick)="openModal()">
 </app-template-header>
 
 <div class="courses-grid">
-  @for (course of filteredCourses; track course.id) {
+  @for (course of filteredCourses(); track course.id) {
     <div class="course-card" [routerLink]="['/courses', course.id]">
       <div class="card-header">
         <div class="header-content">
@@ -20,7 +19,7 @@
         <app-dropdown-menu
           (click)="$event.stopPropagation()"
           [item]="course"
-          (delete)="removeCourse($event)"
+         (delete)="removeCourse(+$event)"
         ></app-dropdown-menu>
       </div>
       <hr />
