@@ -15,4 +15,5 @@ public class AppDbContext: DbContext
         public DbSet <CalendarEvent> CalendarEvents {get;set;}
         public DbSet <Image> Images {get;set;}
         public DbSet <Note> Notes {get;set;}
+        public DbSet <FileData> Files {get;set;}
 }
