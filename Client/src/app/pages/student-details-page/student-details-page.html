@@ -20,7 +20,7 @@
 
                 <div class="course-list">
 
-                    <div class="course-item" *ngFor="let course of courses">
+                    <div class="course-item" *ngFor="let course of courses" (click)="openCourseModal(course)">
 
                         <span class="course-badge" [ngClass]="course.status">
 
@@ -662,6 +662,7 @@
 
             </div>
 
+
             <!-- KURSER -->
 
             <div class="course-edit-section">
@@ -670,45 +671,52 @@
 
                 <div class="course-edit-list">
 
-                    <div class="course-edit-item" *ngFor="let course of courses">
+                    <div class="course-edit-item" *ngFor="let course of courses; let i = index">
 
-                        <!-- COURSE NAME -->
+                        <div class="course-row">
 
-                        <input class="course-name-input" [(ngModel)]="course.name" placeholder="Kursnamn" />
+                            <input class="course-name-input" [(ngModel)]="course.name" placeholder="Kursnamn" title="Kursnamn">
 
-                        <!-- STATUS -->
-                        <select [(ngModel)]="course.status" aria-label="Kursstatus">
+                            <select title="Kursstatus" [(ngModel)]="course.status">
 
-                            <option value="active">
-                                Pågående
-                            </option>
+                                <option value="active">Pågående</option>
+                                <option value="paused">Pausad</option>
+                                <option value="inactive">Avslutad</option>
 
-                            <option value="paused">
-                                Pausad
-                            </option>
+                            </select>
 
-                            <option value="inactive">
-                                Avslutad
-                            </option>
+                        </div>
 
-                        </select>
+                        <button class ="comment-link === 'paused' || course.status === 'inactive'" type="button"
+                            class="comment-link" (click)="toggleComment(i)">
+
+                            💬 Kommentar
+
+                        </button>
+
+                        <textarea *ngIf="expandedCommentIndex === i" class="course-comment" [(ngModel)]="course.comment"
+                            placeholder="Skriv kommentar">
+                         </textarea>
 
                     </div>
-
                 </div>
 
             </div>
 
-            <!-- ACTIONS -->
+            <!-- ACTIONS --><!-- ACTIONS -->
 
             <div class="modal-actions">
 
                 <button class="cancel-btn" (click)="closeEditModal()">
+
                     Avbryt
+
                 </button>
 
                 <button class="save-btn" (click)="saveStudent()">
+
                     Spara ändringar
+
                 </button>
 
             </div>
@@ -718,7 +726,9 @@
             <div class="delete-section">
 
                 <button class="delete-btn" (click)="deleteStudent()">
+
                     Ta bort elev
+
                 </button>
 
             </div>
@@ -726,5 +736,3 @@
         </div>
 
     </div>
-
-</div>
