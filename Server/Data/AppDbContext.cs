@@ -11,4 +11,5 @@ public class AppDbContext: DbContext
         public DbSet <Company> Companies {get;set;}
         public DbSet <CourseSession> CourseSessions {get;set;}
         public DbSet <Team> Teams {get;set;}
+        public DbSet <TeamMember> TeamMembers {get;set;}
 }
