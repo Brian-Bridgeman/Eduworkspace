@@ -145,3 +145,17 @@ tbody tr:last-child td {
     grid-template-rows: 80px 1fr !important;
   }
 }
+
+@media (max-width: 1150px) {
+
+  table thead th,
+  tbody td {
+    padding: 12px 8px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .avatar {
+    gap: 8px;
+  }
+}
