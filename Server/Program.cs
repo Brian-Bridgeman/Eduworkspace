@@ -9,4 +9,6 @@ app.UseStaticFiles();
 
 app.MapFallbackToFile("index.html");
 
+app.MapCourseEndpoints();
+
 app.Run();
