@@ -1,4 +1,5 @@
 .veckodagar {
+  font-family: 'Nunito', sans-serif !important;
   display: grid;
   grid-template-columns: 52px repeat(7, minmax(0, 1fr));
   gap: 6px;
