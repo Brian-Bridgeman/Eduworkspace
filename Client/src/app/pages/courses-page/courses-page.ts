@@ -33,6 +33,7 @@ export class CoursesPage implements OnInit {
   searchTerm = signal('');
   showModal = signal(false);
   errorMessage = signal('');
+  loading = signal(true);
 
   filteredCourses = computed(() => {
     const term = this.searchTerm().toLowerCase();
@@ -62,8 +63,10 @@ export class CoursesPage implements OnInit {
 
   async loadCourses() {
     try {
+      this.loading.set(true);
       this.client.getApiCourses().subscribe(courses => {
         this.courses.set(courses);
+        this.loading.set(false);
       });
     } catch (error) {
       console.error('Failed to load courses:', error);

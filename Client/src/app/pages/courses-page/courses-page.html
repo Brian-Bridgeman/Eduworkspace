@@ -4,6 +4,11 @@
   </app-template-header>
 </div>
 
+@if (loading())
+{
+  <p class="loading-statement">Laddar kurser...</p>
+}
+@else{
 <div class="courses-grid">
   @for (course of filteredCourses(); track course.id) {
   <div class="course-card" [routerLink]="['/courses', course.id]">
@@ -27,6 +32,7 @@
   </div>
   }
 </div>
+}
 @if (showModal()) {
 <app-create-course-modal 
         [errorMessage]="errorMessage()"
