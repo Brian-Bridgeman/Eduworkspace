@@ -15,11 +15,23 @@ public static class CourseEndpoints
     {
         app.MapGet("api/courses", async (AppDbContext db) =>
         {
-            return Results.Ok(
-                await db.Courses
-                .Include(c => c.CourseSessions)
-                .ToListAsync()
-            );
+            var courses = await db.Courses
+            
+            /*.Include(c => c.UserCourseRelations)  Behövs inte användas här. Include är användbar om man vill hämta hela objektet, men vi behöver bara fälte
+                .ThenInclude(k => k.User)
+            .Include(c => c.UserCourseRelations)
+                .ThenInclude(c =>c.Role)*/
+            .Select(c => new CourseDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Educator = c.UserCourseRelations
+                .Where(r => r.Role!.Name == "Lärare")
+                .Select(r => r.User!.FirstName + " " + r.User.LastName)
+                .FirstOrDefault() ?? ""
+            })
+                .ToListAsync();
+            return Results.Ok(courses);
         })
         .Produces<List<Course>>(StatusCodes.Status200OK);
 
