@@ -483,5 +483,6 @@ $RECYCLE.BIN/
 Server/wwwroot
 
 # Ignore SQLite database files
+*.db
 *.db-shm
 *.db-wal
