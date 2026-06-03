@@ -29,7 +29,7 @@
 .kalender-header h1,
 .kalender-header h2 {
   margin: 0;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif Important;
   font-weight: 100;
 }
 
@@ -64,6 +64,7 @@
 
 /* Knappen som visar aktuell vy */
 .dropbtn {
+  font-family: 'Nunito', sans-serif !important;
   font-size: 15px;
   border: none;
   background: transparent;
@@ -109,6 +110,7 @@
 
 /* Knapparna inne i dropdown-menyn */
 .dropdownvy-content button {
+  font-family: 'Nunito', sans-serif !important;
   border: none;
   background-color: transparent;
   text-align: left;
