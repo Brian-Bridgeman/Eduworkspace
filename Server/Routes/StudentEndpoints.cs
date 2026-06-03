@@ -28,7 +28,8 @@ public static class StudentEndpoints
         app.MapGet("api/students", () =>
         {
             return Results.Ok(students);
-        });
+        }).Produces<List<StudentDto>>(StatusCodes.Status200OK);
+
         app.MapPost("api/students", (CreateStudentDto dto) =>
         {
             var student = new StudentDto
@@ -45,7 +46,8 @@ public static class StudentEndpoints
             students.Add(student);
 
             return Results.Ok(student);
-        });
+        }).Produces<StudentDto>(StatusCodes.Status200OK);
+
         app.MapDelete("api/students/{id:int}", (int id) =>
         {
             var student = students.FirstOrDefault(c => c.Id == id);
@@ -56,7 +58,9 @@ public static class StudentEndpoints
             students.Remove(student);
 
             return Results.Ok();
-        });
+        }).Produces(StatusCodes.Status200OK)
+          .Produces(StatusCodes.Status404NotFound);
+          
         return app;
     }
     public class StudentDto
