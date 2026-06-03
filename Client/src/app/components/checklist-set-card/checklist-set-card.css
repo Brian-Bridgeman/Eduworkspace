@@ -7,6 +7,16 @@
     margin: 0px;
     box-sizing: border-box;
     height: 100%;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.checklist-card:hover {
+    background-color: #fcfcff;
+    box-shadow:
+        0 12px 30px #0f172a1f,
+        0 0 0 1px #7c3aed1a;
 }
 
 .card-header {
