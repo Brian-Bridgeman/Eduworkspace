@@ -31,17 +31,20 @@ public static class CourseEndpoints
         {
             var fullname = dto.Educator.Split(' ');
             if(fullname.Length < 2)
-            {return Results.BadRequest("Skriv för ech efternamn");}
+            {return Results.BadRequest("Skriv för- ech efternamn på läraren");}
 
             var firstName = fullname[0];
             var lastName = fullname[1];
              var user = await db.Users
-             .FirstOrDefaultAsync(r=> r.FirstName == firstName || r.LastName == lastName );
+             .FirstOrDefaultAsync(r=> r.FirstName == firstName && r.LastName == lastName );
 
             if(user == null)
             {return Results.BadRequest("Läraren finns inte");}
 
             var teacherRole = await db.Roles.FirstAsync(r => r.Name == "Lärare");
+
+            if(string.IsNullOrWhiteSpace(dto.Name))
+            {return Results.BadRequest("Kursnamn måste anges");}
             var course = new Course
             {
                 Name = dto.Name,
@@ -84,13 +87,19 @@ public static class CourseEndpoints
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
 
-    /*    app.MapPut("api/courses/{id:int}", (int id, UpdateCourseDto dto) =>
+        //MapPut funkar, testat med postman
+        app.MapPut("api/courses/{id:int}", async(int id, UpdateCourseDto dto, AppDbContext db) =>
         {
+            var course = await db.Courses.FindAsync(id);
+            if(course == null)
+            {return Results.NotFound();}
+            course.Name = dto.Name;
+            await db.SaveChangesAsync();
             return Results.NoContent();
         })
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
-*/
+
         return app;
     }
 
