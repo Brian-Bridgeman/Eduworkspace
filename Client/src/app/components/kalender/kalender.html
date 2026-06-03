@@ -131,11 +131,22 @@
     [selectedDay]="selectedDay"
     [selectedEvent]="selectedEvent"
     [showEventOverview]="showEventOverview"
+
+    [month]="month"
+    [year]="year"
+    [weeks]="weeks"
+    [monthName]="monthName"
+
     [(title)]="title"
     [(time)]="time"
     [(endTime)]="endTime"
     [(place)]="place"
     [(description)]="description"
+
+    (selectedDayChange)="selectedDay = $event"
+    (previousMonthClick)="previousMonth()"
+    (nextMonthClick)="nextMonth()"
+
     (close)="closeModal()"
     (save)="saveEvent()"
     (delete)="deleteEvent()"
