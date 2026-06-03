@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 public static class CourseEndpoints
 {
     private static List<CourseDto> courses = new()
@@ -11,11 +13,15 @@ public static class CourseEndpoints
 
     public static IEndpointRouteBuilder MapCourseEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("api/courses", () =>
+        app.MapGet("api/courses", async (AppDbContext db) =>
         {
-            return Results.Ok(courses);
+            return Results.Ok(
+                await db.Courses
+                .Include(c => c.CourseSessions)
+                .ToListAsync()
+            );
         })
-        .Produces<List<CourseDto>>(StatusCodes.Status200OK);
+        .Produces<List<Course>>(StatusCodes.Status200OK);
 
         app.MapPost("api/courses", (CreateCourseDto dto) =>
         {

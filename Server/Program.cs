@@ -5,11 +5,22 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Angular", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlite("Data Source=app.db");
 });
 var app = builder.Build();
+
 
 if (app.Environment.IsDevelopment())
 {
@@ -19,10 +30,11 @@ if (app.Environment.IsDevelopment())
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseCors("Angular");
 
-app.MapFallbackToFile("index.html");
 
 app.MapExampleEndpoints();
 app.MapCourseEndpoints();
+app.MapFallbackToFile("index.html");
 
 app.Run();
