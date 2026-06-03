@@ -6,22 +6,25 @@
                 Användarnamn eller e-post</label>
             <input [(ngModel)]="username" type="text" placeholder="Ange användarnamn eller e-post">
 
-            <label for="password">Lösenord</label>
-            <input [(ngModel)]="password" type="password" placeholder="Lösenord">
+            <div class="form-group">
+                <label for="password">Lösenord</label>
+                <input [(ngModel)]="password" type="password" placeholder="Lösenord">
+            </div>
         </div>
 
-        <button (click)="login()">
-            Logga in
-        </button>
+        <div class="login-buttons">
+            <button (click)="login()">
+                Logga in
+            </button>
 
-        <button type="button" class="link-btn">
-            Skapa konto
-        </button>
+            <button type="button" class="link-btn">
+                Skapa konto
+            </button>
 
-        <button type="button" class="link-btn">
-            Glömt lösenord
-        </button>
-
+            <button type="button" class="link-btn">
+                Glömt lösenord
+            </button>
+        </div>
 
 
     </div>
