@@ -10,12 +10,12 @@
     border-radius: 12px;
     padding: 28px;
     box-shadow: 0 8px 24px #0f172a14;
-    transition: 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
 }
 
 .course-card:hover {
-    margin-top: 0.2em;
+    transform: translateY(-3px);
 }
 
 .card-header {
