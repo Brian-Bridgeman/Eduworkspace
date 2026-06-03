@@ -97,7 +97,7 @@ export class CoursesPage implements OnInit {
     catch (error: any) {
 
       this.errorMessage.set(
-        error.response ?? 'Nånting gick fel'
+        error.response.replaceAll('"', '')
       );
       console.error('Failed to add course:', error);
 

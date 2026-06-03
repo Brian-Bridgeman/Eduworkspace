@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 export class CreateCourseModal {
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<any>();
+  @Input() errorMessage = '';
 
   courseName = '';
   educator = '';

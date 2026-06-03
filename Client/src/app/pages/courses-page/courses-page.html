@@ -28,6 +28,9 @@
   }
 </div>
 @if (showModal()) {
-<app-create-course-modal (close)="showModal.set(false)" (save)="addCourse($event)">
+<app-create-course-modal 
+        [errorMessage]="errorMessage()"
+        (close)="showModal.set(false)" 
+        (save)="addCourse($event)">
 </app-create-course-modal>
 }
