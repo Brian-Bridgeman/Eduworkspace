@@ -61,17 +61,49 @@
         </button>
       </div>
     } @else {
+
+<!-- _____________________________________Minikalender -->
       <h2 id="new-event-title">
-        @if (selectedEvent) {
-          Ändra händelse
-        } @else {
-          Ny händelse
-        }
-      </h2>
+  @if (selectedEvent) {
+    Ändra händelse
+  } @else {
+    Ny händelse
+  }
+</h2>
 
-      <p>Dag {{ selectedDay }}</p>
+<div class="mini-calendar">
+  <div class="mini-calendar-header">
+    <button type="button" (click)="previousMonthClick.emit()">←</button>
+    <strong>{{ monthName }} {{ year }}</strong>
+    <button type="button" (click)="nextMonthClick.emit()">→</button>
+  </div>
+  <div class="mini-weekdays">
+    <span>M</span>
+    <span>T</span>
+    <span>O</span>
+    <span>T</span>
+    <span>F</span>
+    <span>L</span>
+    <span>S</span>
+  </div>
 
-      <label for="event-title">Titel</label>
+  <div class="mini-week" *ngFor="let week of weeks">
+    <button
+      type="button"
+      class="mini-day"
+      *ngFor="let day of week"
+      [class.empty]="day === null"
+      [class.selected]="isSelectedDay(day)"
+      (click)="selectDay(day)">
+      {{ day || '' }}
+    </button>
+  </div>
+</div>
+<label for="event-title">Titel</label>
+<!-- _____________________________________ -->
+
+
+
       <input
         id="event-title"
         type="text"
