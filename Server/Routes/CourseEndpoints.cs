@@ -7,45 +7,53 @@ public static class CourseEndpoints
         new CourseDto { Id = 3, Name = "NIB", Educator = "Johan" }
     };
 
-    private static int _nextId = 4;
+    private static int nextId = 4;
 
     public static IEndpointRouteBuilder MapCourseEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet("api/courses", () =>
         {
             return Results.Ok(courses);
-        });
+        })
+        .Produces<List<CourseDto>>(StatusCodes.Status200OK);
 
         app.MapPost("api/courses", (CreateCourseDto dto) =>
         {
             var course = new CourseDto
             {
-                Id = _nextId++,
+                Id = nextId++,
                 Name = dto.Name,
                 Educator = dto.Educator
             };
 
             courses.Add(course);
 
-            return Results.Ok(course);
-        });
+            return Results.Created($"api/courses/{course.Id}", course);
+        })
+        .Produces<CourseDto>(StatusCodes.Status201Created);
 
         app.MapDelete("api/courses/{id:int}", (int id) =>
         {
             var course = courses.FirstOrDefault(c => c.Id == id);
 
-            if (course == null)
-                return Results.NotFound();
+            if (course != null) courses.Remove(course);
 
-            courses.Remove(course);
+            return Results.NoContent();
+        })
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound);
 
-            return Results.Ok();
-        });
+        app.MapPut("api/courses/{id:int}", (int id, UpdateCourseDto dto) =>
+        {
+            return Results.NoContent();
+        })
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound);
 
         return app;
     }
 
-// Temporärt tills att db ef grejerna är klart
+    // Temporärt tills att db ef grejerna är klart
     public class CourseDto
     {
         public int Id { get; set; }
@@ -57,5 +65,10 @@ public static class CourseEndpoints
     {
         public string Name { get; set; } = "";
         public string Educator { get; set; } = "";
+    }
+
+    public class UpdateCourseDto
+    {
+        public string Name { get; set; } = "";
     }
 }
