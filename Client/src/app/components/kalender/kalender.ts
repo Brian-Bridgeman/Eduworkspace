@@ -3,7 +3,7 @@ import { EventModal } from './event-modal/event-modal';
 import { WeekView } from './week-view/week-view';
 import { DayView } from './day-view/day-view';
 import { MonthView } from './month-view/month-view';
-import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
+//import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
 import { ActivatedRoute, Router } from '@angular/router';
 
 export type CalendarEvent = {
@@ -22,7 +22,7 @@ type CalendarViewMode = 'month' | 'week' | 'day';
 @Component({
   selector: 'app-kalender',
   standalone: true,
-  imports: [EventModal, WeekView, DayView, MonthView, DropdownMenu],
+  imports: [EventModal, WeekView, DayView, MonthView],
   templateUrl: './kalender.html',
   styleUrl: './kalender.css',
 })
@@ -30,7 +30,7 @@ export class Kalender implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+  ) { }
   veckodagar = ['MÅNDAG', 'TISDAG', 'ONSDAG', 'TORSDAG', 'FREDAG', 'LÖRDAG', 'SÖNDAG'];
 
   monthName = 'Maj';
