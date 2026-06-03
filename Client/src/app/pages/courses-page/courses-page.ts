@@ -1,7 +1,7 @@
 import { Component, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-
+import { Client } from '../../services/api-client.service';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { CreateCourseModal } from '../../components/create-course-modal/create-course-modal';
@@ -24,6 +24,7 @@ export class CoursesPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private client: Client,
   ) { }
 
   courses = signal<any[]>([]);
