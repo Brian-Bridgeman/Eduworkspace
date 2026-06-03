@@ -87,5 +87,10 @@ export const routes: Routes = [
     {
         path: 'settings',
         component: Settings
+    },
+    {
+        path: '**',
+        redirectTo: 'login'
     }
+
 ];
