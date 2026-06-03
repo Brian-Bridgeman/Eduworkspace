@@ -481,3 +481,8 @@ $RECYCLE.BIN/
 # Vim temporary swap files
 *.swp
 Server/wwwroot
+
+# Ignore SQLite database files
+*.db
+*.db-shm
+*.db-wal

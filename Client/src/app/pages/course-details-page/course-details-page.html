@@ -1,20 +1,7 @@
-<div class="course-wrapper">
-    <div class="course-card">
-        <div>
-            <h2>C#</h2>
-
-            <div class="info">
-                <span>Utbildare:</span>
-                <span>Oscar</span>
-            </div>
-        </div>
-    </div>
-    <div class="template-header">
-        <hr>
-        <app-template-header title="" subtitle="" buttonText="Lägg till kurstillfällen"
-            (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
-        </app-template-header>
-    </div>
+<div class="page-header">
+    <app-template-header title="C#" subtitle="Utbildare: Oscar" buttonText="Lägg till kurstillfällen"
+        (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
+    </app-template-header>
 </div>
 
 <div class="tableDiv">
@@ -35,7 +22,7 @@
         <tbody>
             <tr *ngFor="let grupp of filteredGroups" [routerLink]="['/groups', grupp.id]" class="clickable-row">
                 <td class="avatar">
-                    <span class="material-symbols-outlined">Folder</span>
+                    <span class="material-symbols-outlined">groups</span>
                     <span>{{ grupp.namn }}</span>
                 </td>
                 <td class="mobile-hide">{{ grupp.ar }}</td>
@@ -45,9 +32,7 @@
                 <td class="mobile-hide">{{ grupp.antalElever }}</td>
                 <td class="mobile-hide">{{ grupp.status }}</td>
                 <td class="actions-column">
-                    <app-dropdown-menu 
-                        (click)="$event.stopPropagation()"
-                        [item]="grupp"
+                    <app-dropdown-menu (click)="$event.stopPropagation()" [item]="grupp"
                         (delete)="removeCourse($event)">
                     </app-dropdown-menu>
                 </td>
