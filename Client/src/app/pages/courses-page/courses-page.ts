@@ -5,6 +5,7 @@ import { Client } from '../../services/api-client.service';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { CreateCourseModal } from '../../components/create-course-modal/create-course-modal';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-courses-page',
@@ -59,10 +60,9 @@ export class CoursesPage implements OnInit {
 
   async loadCourses() {
     try {
-      const response = await fetch('/api/courses');
-      const data = await response.json();
-
-      this.courses.set(data);
+      this.client.getApiCourses().subscribe(courses => {
+        this.courses.set(courses);
+      });
     } catch (error) {
       console.error('Failed to load courses:', error);
     }
@@ -70,13 +70,12 @@ export class CoursesPage implements OnInit {
 
   async removeCourse(id: number) {
     try {
-      await fetch(`/api/courses/${id}`, {
-        method: 'DELETE'
-      });
+      await firstValueFrom(this.client.deleteApiCourses(id));
 
       this.courses.update(courses =>
         courses.filter(c => c.id !== id)
       );
+
     } catch (error) {
       console.error('Failed to delete course:', error);
     }
@@ -84,17 +83,11 @@ export class CoursesPage implements OnInit {
 
   async addCourse(course: any) {
     try {
-      const response = await fetch('/api/courses', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(course)
-      });
+      const createdCourse = await firstValueFrom(
+        this.client.postApiCourses(course)
+      );
 
-      const newCourse = await response.json();
-
-      this.courses.update(courses => [...courses, newCourse]);
+      this.courses.update(courses => [...courses, createdCourse]);
       this.showModal.set(false);
 
     } catch (error) {
