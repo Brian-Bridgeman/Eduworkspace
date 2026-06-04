@@ -65,3 +65,39 @@
     border-color: #7c3aed;
     box-shadow: 0 0 0 1px #7c3aed1f;
 }
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.register-btn,
+.cancel-btn {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.register-btn {
+    background: #7c3aed;
+    color: white;
+}
+
+.register-btn:hover {
+    background: #6d28d9;
+}
+
+.cancel-btn {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.cancel-btn:hover {
+    background: #e5e7eb;
+}
