@@ -27,5 +27,5 @@ public class User
     public List<CalendarEvent> CreatedCalendarEvents { get; set; } = [];
 
     //User kan har flera checklistor som den äger 
-    public List<UserCourseRelation> UserCOurseRelations {get;set;} = [];
+    public List<UserCourseRelation> UserCourseRelations {get;set;} = [];
 }
