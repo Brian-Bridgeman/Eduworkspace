@@ -9,22 +9,20 @@ import { ConfirmationModal } from '../confirmation-modal/confirmation-modal';
   styleUrl: './dropdown-menu.css',
 })
 export class DropdownMenu {
-  constructor(private elementRef: ElementRef) { }
+  constructor(private elementRef: ElementRef) {}
   static currentlyOpen: DropdownMenu | null = null;
 
   isOpen = false;
   showModal = false;
 
   @Input() item: any;
-  @Output() delete = new EventEmitter<string>();
+  @Output() delete = new EventEmitter<number>();
   @Output() edit = new EventEmitter<void>();
 
   toggleMenu() {
-    if (
-      DropdownMenu.currentlyOpen &&
-      DropdownMenu.currentlyOpen !== this
-    ) DropdownMenu.currentlyOpen.isOpen = false;
-    
+    if (DropdownMenu.currentlyOpen && DropdownMenu.currentlyOpen !== this)
+      DropdownMenu.currentlyOpen.isOpen = false;
+
     this.isOpen = !this.isOpen;
     DropdownMenu.currentlyOpen = this.isOpen ? this : null;
   }

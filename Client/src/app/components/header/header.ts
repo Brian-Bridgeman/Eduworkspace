@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
+
+  constructor(public router: Router) { }
 
   darkMode = false;
 
