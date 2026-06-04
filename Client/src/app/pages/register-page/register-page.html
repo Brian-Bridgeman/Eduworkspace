@@ -1,5 +1,40 @@
 <div class="register-page">
     <div class="register-card">
         <h1>Skapa konto</h1>
+
+        <div class="form-group">
+            <label for="username">Användarnamn</label>
+            <input id="username" [(ngModel)]="username" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="firstName">Förnamn</label>
+            <input id="firstName" [(ngModel)]="firstName" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Efternamn</label>
+            <input id="lastName" [(ngModel)]="lastName" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Mobilnummer (valfritt)</label>
+            <input id="phone" [(ngModel)]="phone" type="tel">
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-post</label>
+            <input id="email" [(ngModel)]="email" type="email">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Lösenord</label>
+            <input id="password" [(ngModel)]="password" type="password">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Bekräfta lösenord</label>
+            <input id="confirmPassword" [(ngModel)]="confirmPassword" type="password">
+        </div>
     </div>
 </div>

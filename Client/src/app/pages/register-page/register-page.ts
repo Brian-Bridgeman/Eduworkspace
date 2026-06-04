@@ -4,8 +4,17 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-page',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './register-page.html',
   styleUrl: './register-page.css',
 })
-export class RegisterPage { }
+export class RegisterPage {
+
+  username = '';
+  firstName = '';
+  lastName = '';
+  phone = '';
+  email = '';
+  password = '';
+  confirmPassword = '';
+}
