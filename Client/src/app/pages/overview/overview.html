@@ -196,7 +196,7 @@
     <div class="mobile-card clickable-row" *ngFor="let team of ongoingTeams" (click)="goToTeam()">
         <div class="mobile-card-header">
             <h2>{{ team.teamName }}</h2>
-            <input type="file" accept="image/*" capture="environment" #cameraInput hidden
+            <input type="file" accept="image/*" #cameraInput hidden
                 (change)="onImageSelected($event)">
             <button type="button" class="btn-outline icon-btn"
                 (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">
@@ -237,7 +237,7 @@
         <div class="mobile-card clickable-row" [routerLink]="['/groups/1']" *ngFor="let group of upcomingGroups">
             <div class="mobile-card-header">
                 <h2>{{ group.groupName }}</h2>
-                <input type="file" accept="image/*" capture="environment" #cameraInput hidden
+                <input type="file" accept="image/*" #cameraInput hidden
                     (change)="onImageSelected($event)">
                 <button type="button" class="btn-outline icon-btn"
                     (click)=" $event.stopPropagation();$event.preventDefault(); cameraInput.click()">

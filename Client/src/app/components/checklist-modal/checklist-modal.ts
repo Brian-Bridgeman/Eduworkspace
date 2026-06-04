@@ -44,7 +44,8 @@ export class ChecklistModal implements OnChanges {
     checklistItems = [
         {
             text: '',
-            done: false
+            done: false,
+           comments: ['']
         }
     ];
 
@@ -69,11 +70,16 @@ export class ChecklistModal implements OnChanges {
             items: this.checklistItems.map(item => ({
                 id: Date.now() + Math.random(),
                 text: item.text,
-                completed: item.done
+                completed: item.done,
+                comments: item.comments.filter(
+                    (comment: string) => comment.trim() !== ''
+                ),
+                
             }))
 
         };
 
+        console.log(newChecklist);
 
         this.checklistService.addChecklist(newChecklist);
 
@@ -86,7 +92,8 @@ export class ChecklistModal implements OnChanges {
     addItem() {
         this.checklistItems.push({
             text: '',
-            done: false
+            done: false,
+            comments: ['']
         });
     }
 
@@ -112,5 +119,12 @@ export class ChecklistModal implements OnChanges {
 
         this.checklistItems.splice(index, 1);
         this.checklistItems.splice(index + 1, 0, item);
+    }
+    addComment(item: any) {
+        item.comments.push('');
+    }
+
+    removeComment(item: any, index: number) {
+        item.comments.splice(index, 1);
     }
 }
