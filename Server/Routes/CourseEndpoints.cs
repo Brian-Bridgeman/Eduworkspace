@@ -1,50 +1,100 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+
 public static class CourseEndpoints
 {
-    private static List<CourseDto> courses = new()
-    {
-        new CourseDto { Id = 1, Name = "C#", Educator = "Oscar" },
-        new CourseDto { Id = 2, Name = "FIB", Educator = "Johan" },
-        new CourseDto { Id = 3, Name = "NIB", Educator = "Johan" }
-    };
-
-    private static int nextId = 4;
-
     public static IEndpointRouteBuilder MapCourseEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("api/courses", () =>
+        app.MapGet("api/courses", async (AppDbContext db) =>
         {
+            var courses = await db.Courses
+            
+            /*.Include(c => c.UserCourseRelations)  Behövs inte användas här. Include är användbar om man vill hämta hela objektet, men vi behöver bara fälte
+                .ThenInclude(k => k.User)
+            .Include(c => c.UserCourseRelations)
+                .ThenInclude(c =>c.Role)*/
+            .Select(c => new CourseDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Educator = c.UserCourseRelations
+                .Where(r => r.Role!.Name == "Lärare")
+                .Select(r => r.User!.FirstName + " " + r.User.LastName)
+                .FirstOrDefault() ?? ""
+            })
+                .ToListAsync();
             return Results.Ok(courses);
         })
-        .Produces<List<CourseDto>>(StatusCodes.Status200OK);
+        .Produces<List<Course>>(StatusCodes.Status200OK);
 
-        app.MapPost("api/courses", (CreateCourseDto dto) =>
+        app.MapPost("api/courses", async (CreateCourseDto dto, AppDbContext db) =>
         {
-            var course = new CourseDto
+            var fullname = dto.Educator.Split(' ');
+            if(fullname.Length < 2)
+            {return Results.BadRequest("Skriv för- ech efternamn på läraren");}
+
+            var firstName = fullname[0];
+            var lastName = fullname[1];
+             var user = await db.Users
+             .FirstOrDefaultAsync(r=> r.FirstName == firstName && r.LastName == lastName );
+
+            if(user == null)
+            {return Results.BadRequest("Läraren finns inte");}
+
+            var teacherRole = await db.Roles.FirstAsync(r => r.Name == "Lärare");
+
+            if(string.IsNullOrWhiteSpace(dto.Name))
+            {return Results.BadRequest("Kursnamn måste anges");}
+            var course = new Course
             {
-                Id = nextId++,
                 Name = dto.Name,
-                Educator = dto.Educator
             };
+            db.Courses.Add(course);
+            await db.SaveChangesAsync();
+           
+            var relation = new UserCourseRelation
+            {
+                UserId = user.Id,
+                CourseId = course.Id,
+                RoleId = teacherRole.Id
+            };
+            db.UserCourseRelations.Add(relation);
+            await db.SaveChangesAsync();
 
-            courses.Add(course);
-
-            return Results.Created($"api/courses/{course.Id}", course);
+            return Results.Created($"api/courses/{course.Id}", 
+            new CourseDto
+            {
+                Id = course.Id,
+                Name = course.Name,
+                Educator = dto.Educator
+            });
         })
         .Produces<CourseDto>(StatusCodes.Status201Created);
 
-        app.MapDelete("api/courses/{id:int}", (int id) =>
+        app.MapDelete("api/courses/{id:int}", async (int id, AppDbContext db) =>
         {
-            var course = courses.FirstOrDefault(c => c.Id == id);
+            var course = await db.Courses.FindAsync(id);
+            if(course == null)
+            {return Results.NotFound();}
 
-            if (course != null) courses.Remove(course);
-
+            var relation = db.UserCourseRelations
+            .Where(r => r.CourseId == id);
+            db.UserCourseRelations.RemoveRange(relation);
+            db.Courses.Remove(course);
+            await db.SaveChangesAsync();
             return Results.NoContent();
         })
         .Produces(StatusCodes.Status204NoContent)
         .Produces(StatusCodes.Status404NotFound);
 
-        app.MapPut("api/courses/{id:int}", (int id, UpdateCourseDto dto) =>
+        //MapPut funkar, testat med postman
+        app.MapPut("api/courses/{id:int}", async(int id, UpdateCourseDto dto, AppDbContext db) =>
         {
+            var course = await db.Courses.FindAsync(id);
+            if(course == null)
+            {return Results.NotFound();}
+            course.Name = dto.Name;
+            await db.SaveChangesAsync();
             return Results.NoContent();
         })
         .Produces(StatusCodes.Status204NoContent)

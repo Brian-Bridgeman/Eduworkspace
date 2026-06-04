@@ -6,6 +6,7 @@ import { TemplateHeaderComponent } from '../../components/template-header/templa
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { CreateCourseModal } from '../../components/create-course-modal/create-course-modal';
 import { firstValueFrom } from 'rxjs';
+import { ApiException } from '../../services/api-client.service';
 
 @Component({
   selector: 'app-courses-page',
@@ -31,6 +32,8 @@ export class CoursesPage implements OnInit {
   courses = signal<any[]>([]);
   searchTerm = signal('');
   showModal = signal(false);
+  errorMessage = signal('');
+  loading = signal(true);
 
   filteredCourses = computed(() => {
     const term = this.searchTerm().toLowerCase();
@@ -60,8 +63,10 @@ export class CoursesPage implements OnInit {
 
   async loadCourses() {
     try {
+      this.loading.set(true);
       this.client.getApiCourses().subscribe(courses => {
         this.courses.set(courses);
+        this.loading.set(false);
       });
     } catch (error) {
       console.error('Failed to load courses:', error);
@@ -83,15 +88,22 @@ export class CoursesPage implements OnInit {
 
   async addCourse(course: any) {
     try {
+      this.errorMessage.set('');
       const createdCourse = await firstValueFrom(
         this.client.postApiCourses(course)
       );
 
       this.courses.update(courses => [...courses, createdCourse]);
       this.showModal.set(false);
+    }
 
-    } catch (error) {
+    catch (error: any) {
+
+      this.errorMessage.set(
+        error.response.replaceAll('"', '')
+      );
       console.error('Failed to add course:', error);
+
     }
   }
 
