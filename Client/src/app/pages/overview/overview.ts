@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
@@ -6,7 +6,7 @@ import { TemplateHeaderComponent } from '../../components/template-header/templa
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Client } from '../../services/api-client.service';
-import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-overview',
   standalone: true,
@@ -17,15 +17,16 @@ import { ChangeDetectorRef } from '@angular/core';
 export class Overview implements OnInit {
   constructor(private router: Router,
               private apiClient: Client,
-              private cdr: ChangeDetectorRef //hjälper att uppdatera sidan direkt med statistiken
   ) { }
 
-  statistics: any;
-  ongoingTeam: any;
+  statistics = signal<any>(null);
+  ongoingTeam = signal<any[]>([]);
+  upcomingCourse = signal<any[]>([]);
 
   ngOnInit(){
-    this.apiClient.getApiOverviewStatistic().subscribe(data => {this.statistics = data;
-    this.apiClient.getApiVerviewOngoingteams().subscribe(data => {this.ongoingTeam = data;this.cdr.detectChanges();})
+    this.apiClient.getApiOverviewStatistic().subscribe(data => {this.statistics.set(data)
+    this.apiClient.getApiOverviewOngoingteams().subscribe(data => {this.ongoingTeam.set(data)})
+    this.apiClient.getApiOverviewUpcomingcourse().subscribe(data => {this.upcomingCourse.set(data)})
     })
   }
   goToTeam() {
@@ -69,17 +70,7 @@ export class Overview implements OnInit {
       this.newNoteText = ''; 
       this.closeNoteModal();
   }
-  upcomingGroups = [
-    {
-      groupName: 'H1 26',
-      course: 'Industrisäkerhet',
-      location: 'Sal E',
-      status: 'Kommande',
-      startDate: '2026-01-12',
-      endDate: '2026-03-22'
-
-    }
-  ];
+ 
 
   latestNotes = [
     {

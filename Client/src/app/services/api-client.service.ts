@@ -554,8 +554,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    getApiVerviewOngoingteams(): Observable<OngoingTeams[]> {
-        let url_ = this.baseUrl + "/api/verview/ongoingteams";
+    getApiOverviewOngoingteams(): Observable<TeamDto[]> {
+        let url_ = this.baseUrl + "/api/overview/ongoingteams";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -567,20 +567,20 @@ export class Client {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetApiVerviewOngoingteams(response_);
+            return this.processGetApiOverviewOngoingteams(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetApiVerviewOngoingteams(response_ as any);
+                    return this.processGetApiOverviewOngoingteams(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<OngoingTeams[]>;
+                    return _observableThrow(e) as any as Observable<TeamDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<OngoingTeams[]>;
+                return _observableThrow(response_) as any as Observable<TeamDto[]>;
         }));
     }
 
-    protected processGetApiVerviewOngoingteams(response: HttpResponseBase): Observable<OngoingTeams[]> {
+    protected processGetApiOverviewOngoingteams(response: HttpResponseBase): Observable<TeamDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -594,7 +594,62 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(OngoingTeams.fromJS(item));
+                    result200!.push(TeamDto.fromJS(item));
+            }
+            else {
+                result200 = null as any;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    getApiOverviewUpcomingcourse(): Observable<CourseSessionDto[]> {
+        let url_ = this.baseUrl + "/api/overview/upcomingcourse";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetApiOverviewUpcomingcourse(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetApiOverviewUpcomingcourse(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CourseSessionDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CourseSessionDto[]>;
+        }));
+    }
+
+    protected processGetApiOverviewUpcomingcourse(response: HttpResponseBase): Observable<CourseSessionDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(CourseSessionDto.fromJS(item));
             }
             else {
                 result200 = null as any;
@@ -1040,7 +1095,7 @@ export class User implements IUser {
     mobileNumber?: string | undefined;
     passwordHash?: string | undefined;
     createdCalendarEvents?: CalendarEvent[];
-    userCOurseRelations?: UserCourseRelation[];
+    userCourseRelations?: UserCourseRelation[];
 
     constructor(data?: IUser) {
         if (data) {
@@ -1069,10 +1124,10 @@ export class User implements IUser {
                 for (let item of _data["createdCalendarEvents"])
                     this.createdCalendarEvents!.push(CalendarEvent.fromJS(item));
             }
-            if (Array.isArray(_data["userCOurseRelations"])) {
-                this.userCOurseRelations = [] as any;
-                for (let item of _data["userCOurseRelations"])
-                    this.userCOurseRelations!.push(UserCourseRelation.fromJS(item));
+            if (Array.isArray(_data["userCourseRelations"])) {
+                this.userCourseRelations = [] as any;
+                for (let item of _data["userCourseRelations"])
+                    this.userCourseRelations!.push(UserCourseRelation.fromJS(item));
             }
         }
     }
@@ -1102,10 +1157,10 @@ export class User implements IUser {
             for (let item of this.createdCalendarEvents)
                 data["createdCalendarEvents"].push(item ? item.toJSON() : undefined as any);
         }
-        if (Array.isArray(this.userCOurseRelations)) {
-            data["userCOurseRelations"] = [];
-            for (let item of this.userCOurseRelations)
-                data["userCOurseRelations"].push(item ? item.toJSON() : undefined as any);
+        if (Array.isArray(this.userCourseRelations)) {
+            data["userCourseRelations"] = [];
+            for (let item of this.userCourseRelations)
+                data["userCourseRelations"].push(item ? item.toJSON() : undefined as any);
         }
         return data;
     }
@@ -1124,7 +1179,7 @@ export interface IUser {
     mobileNumber?: string | undefined;
     passwordHash?: string | undefined;
     createdCalendarEvents?: CalendarEvent[];
-    userCOurseRelations?: UserCourseRelation[];
+    userCourseRelations?: UserCourseRelation[];
 }
 
 export class Image implements IImage {
@@ -1563,7 +1618,7 @@ export interface IStatisticDto {
     courseSession?: number;
 }
 
-export class OngoingTeams implements IOngoingTeams {
+export class TeamDto implements ITeamDto {
     id?: number;
     name?: string;
     course?: string | undefined;
@@ -1571,7 +1626,7 @@ export class OngoingTeams implements IOngoingTeams {
     status?: string | undefined;
     deltagare?: string[] | undefined;
 
-    constructor(data?: IOngoingTeams) {
+    constructor(data?: ITeamDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1595,9 +1650,9 @@ export class OngoingTeams implements IOngoingTeams {
         }
     }
 
-    static fromJS(data: any): OngoingTeams {
+    static fromJS(data: any): TeamDto {
         data = typeof data === 'object' ? data : {};
-        let result = new OngoingTeams();
+        let result = new TeamDto();
         result.init(data);
         return result;
     }
@@ -1618,13 +1673,69 @@ export class OngoingTeams implements IOngoingTeams {
     }
 }
 
-export interface IOngoingTeams {
+export interface ITeamDto {
     id?: number;
     name?: string;
     course?: string | undefined;
     location?: string | undefined;
     status?: string | undefined;
     deltagare?: string[] | undefined;
+}
+
+export class CourseSessionDto implements ICourseSessionDto {
+    id?: number;
+    name?: string;
+    course?: string;
+    location?: string;
+    startDate?: Date;
+    endDate?: Date;
+
+    constructor(data?: ICourseSessionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.course = _data["course"];
+            this.location = _data["location"];
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : undefined as any;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : undefined as any;
+        }
+    }
+
+    static fromJS(data: any): CourseSessionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CourseSessionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["course"] = this.course;
+        data["location"] = this.location;
+        data["startDate"] = this.startDate ? formatDate(this.startDate) : undefined as any;
+        data["endDate"] = this.endDate ? formatDate(this.endDate) : undefined as any;
+        return data;
+    }
+}
+
+export interface ICourseSessionDto {
+    id?: number;
+    name?: string;
+    course?: string;
+    location?: string;
+    startDate?: Date;
+    endDate?: Date;
 }
 
 function formatDate(d: Date) {

@@ -19,7 +19,7 @@ public static class OverviewEndpoints
             .Where(l => ongoingCourseSessionsIds
             .Contains(l.CourseSessionId))
             .Select(l => l.User)
-            .Distinct() //varför??
+            .Distinct()
             .CountAsync();
 
             //pågående arbetslag
@@ -39,15 +39,21 @@ public static class OverviewEndpoints
         });
 
 
-        app.MapGet("/api/verview/ongoingteams", async (AppDbContext db) =>
+        app.MapGet("/api/overview/ongoingteams", async (AppDbContext db) =>
                     {
+                        var today = DateOnly.FromDateTime(DateTime.Today);
+                        var ongoingCourseSessionsIds = await db.CourseSessions.Where(k => k.StartDate < today && k.EndDate > today).Select(i => i.Id).ToListAsync();
 
                         var info = await db.Teams
-                        .Include(r => r.CourseSession)
-                            .ThenInclude(r => r.Course)
-                        .Include(r => r.TeamMembers)
-                             .ThenInclude(r => r.User)
-                        .Select(r => new ongoingTeams
+                        /* .Include(r => r.CourseSession)
+                             .ThenInclude(r => r.Course)
+                         .Include(r => r.TeamMembers)
+                              .ThenInclude(r => r.User)
+                              .Where(l => ongoingCourseSessionsIds
+                             .Contains(l.CourseSessionId))*/
+                        .Where(l => ongoingCourseSessionsIds
+                        .Contains(l.CourseSessionId))
+                        .Select(r => new TeamDto
                         {
                             Id = r.Id,
                             Name = r.Name,
@@ -58,6 +64,27 @@ public static class OverviewEndpoints
 
                         return info;
                     });
+
+        app.MapGet("/api/overview/upcomingcourse", async (AppDbContext db) =>
+        {
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            var info = await db.CourseSessions
+            .Where(k => k.StartDate > today)
+            .Select(r => new CourseSessionDto
+            {
+                Id = r.Id,
+                Name = r.Name,
+                Course = r.Course!.Name,
+                Location = r.Location,
+                StartDate = r.StartDate,
+                EndDate = r.EndDate
+
+               
+            }).ToListAsync();
+
+            return info;
+        });
+
         app.MapGet("api/test", () => { return "Hello"; });
 
         return app;
@@ -72,7 +99,7 @@ public class StatisticDto
     public int CourseSession { get; set; }
 }
 
-public class ongoingTeams
+public class TeamDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = "";
@@ -80,4 +107,14 @@ public class ongoingTeams
     public string? Location { get; set; }
     public string? Status { get; set; }
     public List<string>? Deltagare { get; set; }
+}
+
+public class CourseSessionDto
+{
+    public int Id {get;set;}
+    public string Name {get;set;} = "";
+    public string Course{get;set;} = "";
+    public string Location{get;set;} = "";
+    public DateOnly StartDate{get;set;}
+    public DateOnly EndDate {get;set;}
 }
