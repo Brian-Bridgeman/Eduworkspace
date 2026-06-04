@@ -17,7 +17,7 @@
 
 .login-card h1 {
     font-size: 28px;
-    font-weight: 700px;
+    font-weight: 700;
     text-align: center;
 }
 
@@ -37,7 +37,7 @@
 .form-group input {
     width: 100%;
     box-sizing: border-box;
-    padding: 8px;
+    padding: 12px 14px;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
     font: inherit;
@@ -45,6 +45,10 @@
     font-size: 14px;
     background: #fafbfc;
     transition: all 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #9ca3af;
 }
 
 .form-group input:hover {
