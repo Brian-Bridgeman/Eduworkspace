@@ -22,14 +22,39 @@
 
     <div class="checklist-preview">
         <ul class="checklist">
+            <template>
             @for (item of (showAll ? checklistExamples : checklistExamples.slice(0, 3)); track $index) {
             <li>
-                <label class="check-item">
-                    <input type="checkbox" [checked]="item.done" (change)="toggleItem(item)" />
+
+               <input
+                    type="checkbox"
+                    [checked]="item.completed"
+                    (change)="toggleItem(item)"
+                    title="Markera checklistpunkt" />
+
+                <label>
                     <span>{{ item.text }}</span>
                 </label>
+
+                @if (item.comments?.length) {
+
+                <div class="comments">
+
+                    @for(comment of item.comments; track $index) {
+
+                    <div class="comment">
+                        {{ comment }}
+                    </div>
+
+                    }
+
+                </div>
+
+                }
+
             </li>
             }
+            </template>
         </ul>
 
         @if (checklistExamples.length > 3) {

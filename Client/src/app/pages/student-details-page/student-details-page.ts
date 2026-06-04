@@ -9,13 +9,17 @@ import {
   Checklist
 } from '../../services/checklist.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 
 @Component({
   selector: 'app-student-details-page',
 
   standalone: true,
 
-  imports: [CommonModule, ChecklistModal, FormsModule],
+  imports: [CommonModule,
+    ChecklistModal,
+    FormsModule,
+    DropdownMenu],
 
   templateUrl: './student-details-page.html',
 
@@ -159,6 +163,15 @@ export class StudentDetailsPage implements OnInit {
     this.showChecklistModal = false;
 
   }
+  saveChecklist(checklist: Checklist) {
+
+    this.checklists.push(checklist);
+
+    this.activeChecklist = checklist;
+
+    this.closeChecklistModal();
+
+  }
   selectChecklist(checklist: Checklist) {
 
     this.activeChecklist = checklist;
@@ -171,6 +184,7 @@ export class StudentDetailsPage implements OnInit {
     this.activeNoteCollection = collection;
 
   }
+
   openNoteModal() {
 
     this.showNoteModal = true;
@@ -239,6 +253,32 @@ export class StudentDetailsPage implements OnInit {
     console.log('showCourseModal', this.showCourseModal);
   }
 
+  deleteChecklist() {
+
+
+  console.log('DELETE KÖRS');
+
+    if (!this.activeChecklist) {
+      return;
+    }
+
+    const confirmed = confirm(
+      `Ta bort checklistan "${this.activeChecklist.title}"?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.checklists = this.checklists.filter(
+      checklist => checklist.id !== this.activeChecklist?.id
+    );
+
+    this.activeChecklist =
+      this.checklists.length > 0
+        ? this.checklists[0]
+        : null;
+  }
   closeCourseModal() {
     this.showCourseModal = false;
   }
@@ -263,4 +303,5 @@ export class StudentDetailsPage implements OnInit {
         return status;
     }
   }
+  
 }
