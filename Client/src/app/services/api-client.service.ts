@@ -16,125 +16,59 @@ export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
 @Injectable()
 export class Client {
-  private http: HttpClient;
-  private baseUrl: string;
-  protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-  constructor(
-    @Inject(HttpClient) http: HttpClient,
-    @Optional() @Inject(API_BASE_URL) baseUrl?: string,
-  ) {
-    this.http = http;
-    this.baseUrl = baseUrl ?? 'http://localhost:5138';
-  }
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ?? "http://localhost:5138";
+    }
 
-  getApiExamplesAll(): Observable<ExampleDto[]> {
-    let url_ = this.baseUrl + '/api/examples';
-    url_ = url_.replace(/[?&]$/, '');
+    getApiExamplesAll(): Observable<ExampleDto[]> {
+        let url_ = this.baseUrl + "/api/examples";
+        url_ = url_.replace(/[?&]$/, "");
 
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'application/json',
-      }),
-    };
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
 
-    return this.http
-      .request('get', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processGetApiExamplesAll(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processGetApiExamplesAll(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<ExampleDto[]>;
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetApiExamplesAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetApiExamplesAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ExampleDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ExampleDto[]>;
+        }));
+    }
+
+    protected processGetApiExamplesAll(response: HttpResponseBase): Observable<ExampleDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ExampleDto.fromJS(item));
             }
-          } else return _observableThrow(response_) as any as Observable<ExampleDto[]>;
-        }),
-      );
-  }
-
-  protected processGetApiExamplesAll(response: HttpResponseBase): Observable<ExampleDto[]> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText: string) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-          if (Array.isArray(resultData200)) {
-            result200 = [] as any;
-            for (let item of resultData200) result200!.push(ExampleDto.fromJS(item));
-          } else {
-            result200 = null as any;
-          }
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText: string) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf(null as any);
-  }
-
-  postApiExamples(dto: CreateExampleDto): Observable<ExampleDto> {
-    let url_ = this.baseUrl + '/api/examples';
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(dto);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      }),
-    };
-
-    return this.http
-      .request('post', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processPostApiExamples(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processPostApiExamples(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<ExampleDto>;
+            else {
+                result200 = null as any;
             }
             return _observableOf(result200);
             }));
@@ -360,7 +294,6 @@ export class Client {
     }
 
     getApiCourses(): Observable<Course[]> {
-    getApiCourses(): Observable<Course[]> {
         let url_ = this.baseUrl + "/api/courses";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -380,15 +313,12 @@ export class Client {
                     return this.processGetApiCourses(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<Course[]>;
-                    return _observableThrow(e) as any as Observable<Course[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<Course[]>;
                 return _observableThrow(response_) as any as Observable<Course[]>;
         }));
     }
 
-    protected processGetApiCourses(response: HttpResponseBase): Observable<Course[]> {
     protected processGetApiCourses(response: HttpResponseBase): Observable<Course[]> {
         const status = response.status;
         const responseBlob =
@@ -403,91 +333,6 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(Course.fromJS(item));
-            }
-          } else return _observableThrow(response_) as any as Observable<ExampleDto>;
-        }),
-      );
-  }
-
-  protected processGetApiExamples(response: HttpResponseBase): Observable<ExampleDto> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText: string) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === '' ? null : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = ExampleDto.fromJS(resultData200);
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText: string) => {
-          return throwException('A server side error occurred.', status, _responseText, _headers);
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText: string) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf(null as any);
-  }
-
-  putApiExamples(id: number, dto: UpdateExampleDto): Observable<void> {
-    let url_ = this.baseUrl + '/api/examples/{id}';
-    if (id === undefined || id === null)
-      throw new globalThis.Error("The parameter 'id' must be defined.");
-    url_ = url_.replace('{id}', encodeURIComponent('' + id));
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(dto);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http
-      .request('put', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processPutApiExamples(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processPutApiExamples(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<void>;
                     result200!.push(Course.fromJS(item));
             }
             else {
@@ -989,7 +834,7 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    getApiOverviewUpcomingcourse(): Observable<CourseSessionDto[]> {
+    getApiOverviewUpcomingcourse(): Observable<CourseSessionDto2[]> {
         let url_ = this.baseUrl + "/api/overview/upcomingcourse";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -1008,14 +853,14 @@ export class Client {
                 try {
                     return this.processGetApiOverviewUpcomingcourse(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<CourseSessionDto[]>;
+                    return _observableThrow(e) as any as Observable<CourseSessionDto2[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<CourseSessionDto[]>;
+                return _observableThrow(response_) as any as Observable<CourseSessionDto2[]>;
         }));
     }
 
-    protected processGetApiOverviewUpcomingcourse(response: HttpResponseBase): Observable<CourseSessionDto[]> {
+    protected processGetApiOverviewUpcomingcourse(response: HttpResponseBase): Observable<CourseSessionDto2[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -1029,7 +874,7 @@ export class Client {
             if (Array.isArray(resultData200)) {
                 result200 = [] as any;
                 for (let item of resultData200)
-                    result200!.push(CourseSessionDto.fromJS(item));
+                    result200!.push(CourseSessionDto2.fromJS(item));
             }
             else {
                 result200 = null as any;
@@ -1836,673 +1681,124 @@ export interface IRole {
     name?: string;
 }
 
-export class Course implements ICourse {
-    id?: number;
-    name?: string;
-    courseSessions?: CourseSession[];
-    userCourseRelations?: UserCourseRelation[];
-
-    constructor(data?: ICourse) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            if (Array.isArray(_data["courseSessions"])) {
-                this.courseSessions = [] as any;
-                for (let item of _data["courseSessions"])
-                    this.courseSessions!.push(CourseSession.fromJS(item));
-            }
-            if (Array.isArray(_data["userCourseRelations"])) {
-                this.userCourseRelations = [] as any;
-                for (let item of _data["userCourseRelations"])
-                    this.userCourseRelations!.push(UserCourseRelation.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): Course {
-        data = typeof data === 'object' ? data : {};
-        let result = new Course();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        if (Array.isArray(this.courseSessions)) {
-            data["courseSessions"] = [];
-            for (let item of this.courseSessions)
-                data["courseSessions"].push(item ? item.toJSON() : undefined as any);
-        }
-        if (Array.isArray(this.userCourseRelations)) {
-            data["userCourseRelations"] = [];
-            for (let item of this.userCourseRelations)
-                data["userCourseRelations"].push(item ? item.toJSON() : undefined as any);
-        }
-        return data;
-    }
-}
-
-export interface ICourse {
-    id?: number;
-    name?: string;
-    courseSessions?: CourseSession[];
-    userCourseRelations?: UserCourseRelation[];
-}
-
-export class CourseSession implements ICourseSession {
-    id?: number;
-    name?: string;
-    courseId?: number;
-    course?: Course | undefined;
-    startDate?: Date;
-    endDate?: Date;
-    location?: string;
-    teams?: Team[];
-
-    constructor(data?: ICourseSession) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.courseId = _data["courseId"];
-            this.course = _data["course"] ? Course.fromJS(_data["course"]) : undefined as any;
-            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : undefined as any;
-            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : undefined as any;
-            this.location = _data["location"];
-            if (Array.isArray(_data["teams"])) {
-                this.teams = [] as any;
-                for (let item of _data["teams"])
-                    this.teams!.push(Team.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): CourseSession {
-        data = typeof data === 'object' ? data : {};
-        let result = new CourseSession();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["courseId"] = this.courseId;
-        data["course"] = this.course ? this.course.toJSON() : undefined as any;
-        data["startDate"] = this.startDate ? formatDate(this.startDate) : undefined as any;
-        data["endDate"] = this.endDate ? formatDate(this.endDate) : undefined as any;
-        data["location"] = this.location;
-        if (Array.isArray(this.teams)) {
-            data["teams"] = [];
-            for (let item of this.teams)
-                data["teams"].push(item ? item.toJSON() : undefined as any);
-        }
-        return data;
-    }
-}
-
-export interface ICourseSession {
-    id?: number;
-    name?: string;
-    courseId?: number;
-    course?: Course | undefined;
-    startDate?: Date;
-    endDate?: Date;
-    location?: string;
-    teams?: Team[];
-}
-
-export class Team implements ITeam {
-    id?: number;
-    name?: string;
-    courseSessionId?: number;
-    courseSession?: CourseSession | undefined;
-
-    constructor(data?: ITeam) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.courseSessionId = _data["courseSessionId"];
-            this.courseSession = _data["courseSession"] ? CourseSession.fromJS(_data["courseSession"]) : undefined as any;
-        }
-    }
-
-    static fromJS(data: any): Team {
-        data = typeof data === 'object' ? data : {};
-        let result = new Team();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["courseSessionId"] = this.courseSessionId;
-        data["courseSession"] = this.courseSession ? this.courseSession.toJSON() : undefined as any;
-        return data;
-    }
-}
-
-export interface ITeam {
-    id?: number;
-    name?: string;
-    courseSessionId?: number;
-    courseSession?: CourseSession | undefined;
-}
-
-export class UserCourseRelation implements IUserCourseRelation {
-    id?: number;
-    userId?: number;
-    user?: User | undefined;
-    courseId?: number;
-    course?: Course | undefined;
-    roleId?: number;
-    role?: Role | undefined;
-
-    constructor(data?: IUserCourseRelation) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.userId = _data["userId"];
-            this.user = _data["user"] ? User.fromJS(_data["user"]) : undefined as any;
-            this.courseId = _data["courseId"];
-            this.course = _data["course"] ? Course.fromJS(_data["course"]) : undefined as any;
-            this.roleId = _data["roleId"];
-            this.role = _data["role"] ? Role.fromJS(_data["role"]) : undefined as any;
-        }
-    }
-
-    static fromJS(data: any): UserCourseRelation {
-        data = typeof data === 'object' ? data : {};
-        let result = new UserCourseRelation();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["userId"] = this.userId;
-        data["user"] = this.user ? this.user.toJSON() : undefined as any;
-        data["courseId"] = this.courseId;
-        data["course"] = this.course ? this.course.toJSON() : undefined as any;
-        data["roleId"] = this.roleId;
-        data["role"] = this.role ? this.role.toJSON() : undefined as any;
-        return data;
-    }
-}
-
-export interface IUserCourseRelation {
-    id?: number;
-    userId?: number;
-    user?: User | undefined;
-    courseId?: number;
-    course?: Course | undefined;
-    roleId?: number;
-    role?: Role | undefined;
-}
-
-export class User implements IUser {
-    id?: number;
-    username?: string | undefined;
-    imageId?: number | undefined;
-    profileImage?: Image | undefined;
-    companyId?: number | undefined;
-    company?: Company | undefined;
-    firstName?: string;
-    lastName?: string;
-    email?: string | undefined;
-    mobileNumber?: string | undefined;
-    passwordHash?: string | undefined;
-    createdCalendarEvents?: CalendarEvent[];
-    userCOurseRelations?: UserCourseRelation[];
-
-    constructor(data?: IUser) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.username = _data["username"];
-            this.imageId = _data["imageId"];
-            this.profileImage = _data["profileImage"] ? Image.fromJS(_data["profileImage"]) : undefined as any;
-            this.companyId = _data["companyId"];
-            this.company = _data["company"] ? Company.fromJS(_data["company"]) : undefined as any;
-            this.firstName = _data["firstName"];
-            this.lastName = _data["lastName"];
-            this.email = _data["email"];
-            this.mobileNumber = _data["mobileNumber"];
-            this.passwordHash = _data["passwordHash"];
-            if (Array.isArray(_data["createdCalendarEvents"])) {
-                this.createdCalendarEvents = [] as any;
-                for (let item of _data["createdCalendarEvents"])
-                    this.createdCalendarEvents!.push(CalendarEvent.fromJS(item));
-            }
-            if (Array.isArray(_data["userCOurseRelations"])) {
-                this.userCOurseRelations = [] as any;
-                for (let item of _data["userCOurseRelations"])
-                    this.userCOurseRelations!.push(UserCourseRelation.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): User {
-        data = typeof data === 'object' ? data : {};
-        let result = new User();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["username"] = this.username;
-        data["imageId"] = this.imageId;
-        data["profileImage"] = this.profileImage ? this.profileImage.toJSON() : undefined as any;
-        data["companyId"] = this.companyId;
-        data["company"] = this.company ? this.company.toJSON() : undefined as any;
-        data["firstName"] = this.firstName;
-        data["lastName"] = this.lastName;
-        data["email"] = this.email;
-        data["mobileNumber"] = this.mobileNumber;
-        data["passwordHash"] = this.passwordHash;
-        if (Array.isArray(this.createdCalendarEvents)) {
-            data["createdCalendarEvents"] = [];
-            for (let item of this.createdCalendarEvents)
-                data["createdCalendarEvents"].push(item ? item.toJSON() : undefined as any);
-        }
-        if (Array.isArray(this.userCOurseRelations)) {
-            data["userCOurseRelations"] = [];
-            for (let item of this.userCOurseRelations)
-                data["userCOurseRelations"].push(item ? item.toJSON() : undefined as any);
-        }
-        return data;
-    }
-}
-
-export interface IUser {
-    id?: number;
-    username?: string | undefined;
-    imageId?: number | undefined;
-    profileImage?: Image | undefined;
-    companyId?: number | undefined;
-    company?: Company | undefined;
-    firstName?: string;
-    lastName?: string;
-    email?: string | undefined;
-    mobileNumber?: string | undefined;
-    passwordHash?: string | undefined;
-    createdCalendarEvents?: CalendarEvent[];
-    userCOurseRelations?: UserCourseRelation[];
-}
-
-export class Image implements IImage {
-    id?: number;
-    name?: string;
-    description?: string | undefined;
-    path?: string;
-    createdAt?: Date;
-
-    constructor(data?: IImage) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            this.description = _data["description"];
-            this.path = _data["path"];
-            this.createdAt = _data["createdAt"] ? new Date(_data["createdAt"].toString()) : undefined as any;
-        }
-    }
-
-    static fromJS(data: any): Image {
-        data = typeof data === 'object' ? data : {};
-        let result = new Image();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        data["description"] = this.description;
-        data["path"] = this.path;
-        data["createdAt"] = this.createdAt ? this.createdAt.toISOString() : undefined as any;
-        return data;
-    }
-}
-
-export interface IImage {
-    id?: number;
-    name?: string;
-    description?: string | undefined;
-    path?: string;
-    createdAt?: Date;
-}
-
-export class Company implements ICompany {
-    id?: number;
-    name?: string;
-    users?: User[];
-
-    constructor(data?: ICompany) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-            if (Array.isArray(_data["users"])) {
-                this.users = [] as any;
-                for (let item of _data["users"])
-                    this.users!.push(User.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): Company {
-        data = typeof data === 'object' ? data : {};
-        let result = new Company();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        if (Array.isArray(this.users)) {
-            data["users"] = [];
-            for (let item of this.users)
-                data["users"].push(item ? item.toJSON() : undefined as any);
-        }
-        return data;
-    }
-}
-
-export interface ICompany {
-    id?: number;
-    name?: string;
-    users?: User[];
-}
-
-export class CalendarEvent implements ICalendarEvent {
-    id?: number;
-    title?: string;
-    startTime?: Date;
-    endTime?: Date | undefined;
-    location?: string | undefined;
-    description?: string | undefined;
-    createdBy?: number | undefined;
-    createdByUser?: User | undefined;
-
-    constructor(data?: ICalendarEvent) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.title = _data["title"];
-            this.startTime = _data["startTime"] ? new Date(_data["startTime"].toString()) : undefined as any;
-            this.endTime = _data["endTime"] ? new Date(_data["endTime"].toString()) : undefined as any;
-            this.location = _data["location"];
-            this.description = _data["description"];
-            this.createdBy = _data["createdBy"];
-            this.createdByUser = _data["createdByUser"] ? User.fromJS(_data["createdByUser"]) : undefined as any;
-        }
-    }
-
-    static fromJS(data: any): CalendarEvent {
-        data = typeof data === 'object' ? data : {};
-        let result = new CalendarEvent();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["title"] = this.title;
-        data["startTime"] = this.startTime ? this.startTime.toISOString() : undefined as any;
-        data["endTime"] = this.endTime ? this.endTime.toISOString() : undefined as any;
-        data["location"] = this.location;
-        data["description"] = this.description;
-        data["createdBy"] = this.createdBy;
-        data["createdByUser"] = this.createdByUser ? this.createdByUser.toJSON() : undefined as any;
-        return data;
-    }
-}
-
-export interface ICalendarEvent {
-    id?: number;
-    title?: string;
-    startTime?: Date;
-    endTime?: Date | undefined;
-    location?: string | undefined;
-    description?: string | undefined;
-    createdBy?: number | undefined;
-    createdByUser?: User | undefined;
-}
-
-export class Role implements IRole {
-    id?: number;
-    name?: string;
-
-    constructor(data?: IRole) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (this as any)[property] = (data as any)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"];
-        }
-    }
-
-    static fromJS(data: any): Role {
-        data = typeof data === 'object' ? data : {};
-        let result = new Role();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name;
-        return data;
-    }
-}
-
-export interface IRole {
-    id?: number;
-    name?: string;
-}
-
 export class CourseDto implements ICourseDto {
-  id?: number;
-  name?: string;
-  educator?: string;
+    id?: number;
+    name?: string;
+    educator?: string;
 
-  constructor(data?: ICourseDto) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property)) (this as any)[property] = (data as any)[property];
-      }
+    constructor(data?: ICourseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
     }
-  }
 
-  init(_data?: any) {
-    if (_data) {
-      this.id = _data['id'];
-      this.name = _data['name'];
-      this.educator = _data['educator'];
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.educator = _data["educator"];
+        }
     }
-  }
 
-  static fromJS(data: any): CourseDto {
-    data = typeof data === 'object' ? data : {};
-    let result = new CourseDto();
-    result.init(data);
-    return result;
-  }
+    static fromJS(data: any): CourseDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CourseDto();
+        result.init(data);
+        return result;
+    }
 
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['educator'] = this.educator;
-    return data;
-  }
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["educator"] = this.educator;
+        return data;
+    }
 }
 
 export interface ICourseDto {
-  id?: number;
-  name?: string;
-  educator?: string;
+    id?: number;
+    name?: string;
+    educator?: string;
 }
 
 export class CreateCourseDto implements ICreateCourseDto {
-  name?: string;
-  educator?: string;
+    name?: string;
+    educator?: string;
 
-  constructor(data?: ICreateCourseDto) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property)) (this as any)[property] = (data as any)[property];
-      }
+    constructor(data?: ICreateCourseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
     }
-  }
 
-  init(_data?: any) {
-    if (_data) {
-      this.name = _data['name'];
-      this.educator = _data['educator'];
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.educator = _data["educator"];
+        }
     }
-  }
 
-  static fromJS(data: any): CreateCourseDto {
-    data = typeof data === 'object' ? data : {};
-    let result = new CreateCourseDto();
-    result.init(data);
-    return result;
-  }
+    static fromJS(data: any): CreateCourseDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateCourseDto();
+        result.init(data);
+        return result;
+    }
 
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data['name'] = this.name;
-    data['educator'] = this.educator;
-    return data;
-  }
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["educator"] = this.educator;
+        return data;
+    }
 }
 
 export interface ICreateCourseDto {
-  name?: string;
-  educator?: string;
+    name?: string;
+    educator?: string;
 }
 
 export class UpdateCourseDto implements IUpdateCourseDto {
-  name?: string;
+    name?: string;
 
-  constructor(data?: IUpdateCourseDto) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property)) (this as any)[property] = (data as any)[property];
-      }
+    constructor(data?: IUpdateCourseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
     }
-  }
 
-  init(_data?: any) {
-    if (_data) {
-      this.name = _data['name'];
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+        }
     }
-  }
 
-  static fromJS(data: any): UpdateCourseDto {
-    data = typeof data === 'object' ? data : {};
-    let result = new UpdateCourseDto();
-    result.init(data);
-    return result;
-  }
+    static fromJS(data: any): UpdateCourseDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateCourseDto();
+        result.init(data);
+        return result;
+    }
 
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data['name'] = this.name;
-    return data;
-  }
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        return data;
+    }
 }
 
 export interface IUpdateCourseDto {
-  name?: string;
+    name?: string;
 }
 
 export class CourseSessionDto implements ICourseSessionDto {
@@ -2661,12 +1957,6 @@ export interface IUpdateCourseSessionDto {
     location?: string;
 }
 
-function formatDate(d: Date) {
-    return d.getFullYear() + '-' + 
-        (d.getMonth() < 9 ? ('0' + (d.getMonth()+1)) : (d.getMonth()+1)) + '-' +
-        (d.getDate() < 10 ? ('0' + d.getDate()) : d.getDate());
-}
-
 export class StatisticDto implements IStatisticDto {
     courses?: number;
     students?: number;
@@ -2823,7 +2113,7 @@ export interface IStudentDto {
     name?: string;
 }
 
-export class CourseSessionDto implements ICourseSessionDto {
+export class CourseSessionDto2 implements ICourseSessionDto2 {
     id?: number;
     name?: string;
     course?: string;
@@ -2831,7 +2121,7 @@ export class CourseSessionDto implements ICourseSessionDto {
     startDate?: Date;
     endDate?: Date;
 
-    constructor(data?: ICourseSessionDto) {
+    constructor(data?: ICourseSessionDto2) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2851,9 +2141,9 @@ export class CourseSessionDto implements ICourseSessionDto {
         }
     }
 
-    static fromJS(data: any): CourseSessionDto {
+    static fromJS(data: any): CourseSessionDto2 {
         data = typeof data === 'object' ? data : {};
-        let result = new CourseSessionDto();
+        let result = new CourseSessionDto2();
         result.init(data);
         return result;
     }
@@ -2870,7 +2160,7 @@ export class CourseSessionDto implements ICourseSessionDto {
     }
 }
 
-export interface ICourseSessionDto {
+export interface ICourseSessionDto2 {
     id?: number;
     name?: string;
     course?: string;
@@ -2942,58 +2232,48 @@ function formatDate(d: Date) {
 }
 
 export class ApiException extends Error {
-  override message: string;
-  status: number;
-  response: string;
-  headers: { [key: string]: any };
-  result: any;
+    override message: string;
+    status: number;
+    response: string;
+    headers: { [key: string]: any; };
+    result: any;
 
-  constructor(
-    message: string,
-    status: number,
-    response: string,
-    headers: { [key: string]: any },
-    result: any,
-  ) {
-    super();
+    constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
+        super();
 
-    this.message = message;
-    this.status = status;
-    this.response = response;
-    this.headers = headers;
-    this.result = result;
-  }
+        this.message = message;
+        this.status = status;
+        this.response = response;
+        this.headers = headers;
+        this.result = result;
+    }
 
-  protected isApiException = true;
+    protected isApiException = true;
 
-  static isApiException(obj: any): obj is ApiException {
-    return obj.isApiException === true;
-  }
+    static isApiException(obj: any): obj is ApiException {
+        return obj.isApiException === true;
+    }
 }
 
-function throwException(
-  message: string,
-  status: number,
-  response: string,
-  headers: { [key: string]: any },
-  result?: any,
-): Observable<any> {
-  if (result !== null && result !== undefined) return _observableThrow(result);
-  else return _observableThrow(new ApiException(message, status, response, headers, null));
+function throwException(message: string, status: number, response: string, headers: { [key: string]: any; }, result?: any): Observable<any> {
+    if (result !== null && result !== undefined)
+        return _observableThrow(result);
+    else
+        return _observableThrow(new ApiException(message, status, response, headers, null));
 }
 
 function blobToText(blob: any): Observable<string> {
-  return new Observable<string>((observer: any) => {
-    if (!blob) {
-      observer.next('');
-      observer.complete();
-    } else {
-      let reader = new FileReader();
-      reader.onload = (event) => {
-        observer.next((event.target as any).result);
-        observer.complete();
-      };
-      reader.readAsText(blob);
-    }
-  });
+    return new Observable<string>((observer: any) => {
+        if (!blob) {
+            observer.next("");
+            observer.complete();
+        } else {
+            let reader = new FileReader();
+            reader.onload = event => {
+                observer.next((event.target as any).result);
+                observer.complete();
+            };
+            reader.readAsText(blob);
+        }
+    });
 }
