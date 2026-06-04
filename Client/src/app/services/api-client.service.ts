@@ -1626,6 +1626,7 @@ export interface IStatisticDto {
 
 export class TeamDto implements ITeamDto {
     id?: number;
+    courseSessionId?: number;
     name?: string;
     course?: string | undefined;
     location?: string | undefined;
@@ -1644,6 +1645,7 @@ export class TeamDto implements ITeamDto {
     init(_data?: any) {
         if (_data) {
             this.id = _data["id"];
+            this.courseSessionId = _data["courseSessionId"];
             this.name = _data["name"];
             this.course = _data["course"];
             this.location = _data["location"];
@@ -1666,6 +1668,7 @@ export class TeamDto implements ITeamDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["courseSessionId"] = this.courseSessionId;
         data["name"] = this.name;
         data["course"] = this.course;
         data["location"] = this.location;
@@ -1681,6 +1684,7 @@ export class TeamDto implements ITeamDto {
 
 export interface ITeamDto {
     id?: number;
+    courseSessionId?: number;
     name?: string;
     course?: string | undefined;
     location?: string | undefined;

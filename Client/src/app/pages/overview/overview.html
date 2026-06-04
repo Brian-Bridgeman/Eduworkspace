@@ -48,7 +48,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let team of ongoingTeam()" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
+                <tr *ngFor="let team of ongoingTeam()" class="clickable-row" [routerLink]="['/groups', team.courseSessionId, 'teams', team.id]">
 
                     <td>{{ team.name }}</td>
                     <td>{{ team.course }}</td>
@@ -98,7 +98,7 @@
 
             <tbody>
 
-                <tr *ngFor="let group of upcomingCourse()" class="clickable-row">
+                <tr *ngFor="let group of upcomingCourse()" class="clickable-row" (click)="$event.stopPropagation()"[routerLink]="['/groups', group.id]" >
 
                     <td>{{ group.name }}</td>
                     <td>{{ group.course }}</td>
@@ -191,7 +191,7 @@
     </div>
 
 
-    <div class="mobile-card clickable-row" *ngFor="let team of ongoingTeam()" (click)="goToTeam()">
+    <div class="mobile-card clickable-row" *ngFor="let team of ongoingTeam()"   [routerLink]="['/groups', team.courseSessionId, 'teams', team.id]">
         <div class="mobile-card-header">
             <h2>{{ team.name }}</h2>
             <input type="file" accept="image/*" capture="environment" #cameraInput hidden
@@ -232,7 +232,7 @@
     <div class="mobile-section">
         <h2 id="upcoming-groups">Kommande kurstillfälle</h2>
 
-        <div class="mobile-card clickable-row" [routerLink]="['/groups/1']" *ngFor="let group of upcomingCourse()">
+        <div class="mobile-card clickable-row" (click)="$event.stopPropagation()" *ngFor="let group of upcomingCourse()" [routerLink]="['/groups', group.id]"  >
             <div class="mobile-card-header">
                 <h2>{{ group.name }}</h2>
                 <input type="file" accept="image/*" capture="environment" #cameraInput hidden

@@ -56,6 +56,7 @@ public static class OverviewEndpoints
                         {
                             Id = r.Id,
                             Name = r.Name,
+                            CourseSessionId = r.CourseSession!.Id,
                             Course = r.CourseSession!.Course!.Name,
                             Location = r.CourseSession!.Location,
                             Deltagare = r.TeamMembers.Select(d => new StudentDto
@@ -121,6 +122,7 @@ public class StatisticDto
 public class TeamDto
 {
     public int Id { get; set; }
+    public int CourseSessionId {get;set;}
     public string Name { get; set; } = "";
     public string? Course { get; set; }
     public string? Location { get; set; }
