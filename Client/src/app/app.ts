@@ -25,6 +25,9 @@ export class App {
   @HostBinding('class.start-route')
   isStartRoute = false;
 
+  @HostBinding('class.login-route')
+  isLoginRoute = false;
+
   constructor(private router: Router) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -32,6 +35,7 @@ export class App {
         const currentUrl = event.urlAfterRedirects;
 
         this.isStartRoute = currentUrl === '/start';
+        this.isLoginRoute = currentUrl === '/login';
 
         this.showSidebar = currentUrl !== '/start' && currentUrl !== '/login';
       });
