@@ -59,7 +59,7 @@ public static class OverviewEndpoints
                             CourseSessionId = r.CourseSession!.Id,
                             Course = r.CourseSession!.Course!.Name,
                             Location = r.CourseSession!.Location,
-                            Deltagare = r.TeamMembers.Select(d => new StudentDto
+                            Deltagare = r.TeamMembers.Select(d => new OverviewStudentDto
                             {
                                 Id = d.User!.Id,
                                 Name = d.User!.FirstName + " " + d.User!.LastName
@@ -127,7 +127,7 @@ public class TeamDto
     public string? Course { get; set; }
     public string? Location { get; set; }
     public string? Status { get; set; }
-    public List<StudentDto>? Deltagare { get; set; } = [];
+    public List<OverviewStudentDto>? Deltagare { get; set; } = [];
 }
 
 public class CourseSessionDto
@@ -149,8 +149,9 @@ public class ActiveStudentDto
     public string? CourseSession { get; set; }
 }
 
-public class StudentDto
+public class OverviewStudentDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = "";
 }
+

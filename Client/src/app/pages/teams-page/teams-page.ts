@@ -46,7 +46,7 @@ export class TeamsPage implements OnInit {
     });
   }
 
-  removeTeam(id: string) {
+  removeTeam(id: number) {
     // fetch anrop till delete här, med id
   }
 

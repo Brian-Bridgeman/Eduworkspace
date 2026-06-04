@@ -37,6 +37,7 @@ app.MapExampleEndpoints();
 app.MapCourseEndpoints();
 app.MapCourseDetailsEndpoints();
 app.MapOverviewEndpoints();
+app.MapStudentEndpoints();
 app.MapFallbackToFile("index.html");
 
 app.Run();
