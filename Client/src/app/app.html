@@ -2,16 +2,16 @@
 
 <div class="layout">
   @if (showSidebar) {
-    <app-sidebar> </app-sidebar>
+  <app-sidebar> </app-sidebar>
   }
-  <section class="page" [class.start-route]="isStartRoute">
+  <section class="page" [class.start-route]="isStartRoute" [class.login-route]="isLoginRoute">
     @if(showSidebar) {
-      <app-breadcrumb />
+    <app-breadcrumb />
     }
     <router-outlet></router-outlet>
   </section>
 </div>
 
 @if (showSidebar) {
-  <app-footer></app-footer>
+<app-footer></app-footer>
 }
