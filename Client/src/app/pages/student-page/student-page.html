@@ -3,7 +3,7 @@
     title="Deltagare"
     subtitle="Här ser du alla registrerade deltagare."
     buttonText="Lägg till deltagare"
-    (searchChange)="searchTerm = $event"
+    (searchChange)="searchTerm.set($event)"
     (buttonClick)="openModal()"
   ></app-template-header>
 </div>
@@ -23,7 +23,7 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let person of filteredPersons"
+        *ngFor="let person of filteredPersons()"
         [routerLink]="['/students', person.id]"
         class="clickable-row"
       >

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
@@ -8,8 +8,10 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { Signal } from '@angular/core';
 import { AddStudentModal } from '../../components/add-student-modal/add-student-modal';
 import { Client, StudentDto } from '../../services/api-client.service';
+
 @Component({
   selector: 'app-student-page',
+  standalone: true,
   imports: [
     CommonModule,
     TemplateHeaderComponent,
@@ -45,15 +47,29 @@ export class StudentPage implements OnInit {
       }
     });
   }
-  addStudent(student: any) {
-    this.persons.push(student);
-    this.showModal.set(false);
+  async addStudent(student: any) {
+    try {
+      const response = await fetch('/api/students', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(student),
+      });
+
+      const newCourse = await response.json();
+
+      this.persons.update((students) => [...students, newCourse]);
+      this.showModal.set(false);
+    } catch (error) {
+      console.error('Failed to add student:', error);
+    }
   }
 
   loadStudents() {
     this.api.getApiStudents().subscribe({
       next: (students) => {
-        this.persons = students;
+        this.persons.set(students);
       },
       error: (err) => {
         console.error('Failed to load students', err);
@@ -66,20 +82,28 @@ export class StudentPage implements OnInit {
     this.showModal.set(true);
   }
 
-  removeStudent(id: string) {
-    // fetch anrop till delete här, med id
+  async removeStudent(id: number) {
+    try {
+      await fetch(`/api/students/${id}`, {
+        method: 'DELETE',
+      });
+
+      this.persons.update((students) => students.filter((c) => c.id !== id));
+    } catch (error) {
+      console.error('Failed to delete student:', error);
+    }
   }
+  persons = signal<StudentDto[]>([]);
+  searchTerm = signal('');
 
-  searchTerm: string = '';
+  filteredPersons = computed(() => {
+    const term = this.searchTerm().toLowerCase();
 
-  persons: StudentDto[] = [];
-
-  get filteredPersons() {
-    return this.persons.filter(
+    return this.persons().filter(
       (person) =>
-        (person.name ?? '').toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        (person.course ?? '').toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        (person.company ?? '').toLowerCase().includes(this.searchTerm.toLowerCase()),
+        (person.name ?? '').toLowerCase().includes(term) ||
+        (person.course ?? '').toLowerCase().includes(term) ||
+        (person.company ?? '').toLowerCase().includes(term),
     );
-  }
+  });
 }

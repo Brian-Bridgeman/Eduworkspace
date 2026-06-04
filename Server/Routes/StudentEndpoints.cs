@@ -82,4 +82,8 @@ public static class StudentEndpoints
         public string Course {get; set;} = "";
         public string Group {get; set;} = "";
     }
+    public class UpdateStudentDto
+    {
+        public string Name { get; set; } = "";
+    }
 }
