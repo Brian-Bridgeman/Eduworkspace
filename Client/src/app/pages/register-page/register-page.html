@@ -37,11 +37,11 @@
             <input id="confirmPassword" [(ngModel)]="confirmPassword" type="password">
         </div>
 
-        <button class="register-btn">
+        <button class="register-btn" (click)="register()">
             Skapa konto
         </button>
 
-        <button class="cancel-btn">
+        <button class="cancel-btn" (click)="cancel()">
             Avbryt
         </button>
     </div>

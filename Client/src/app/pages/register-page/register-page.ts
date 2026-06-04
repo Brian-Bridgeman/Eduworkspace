@@ -17,4 +17,14 @@ export class RegisterPage {
   email = '';
   password = '';
   confirmPassword = '';
+
+  constructor(private router: Router) { }
+
+  register() {
+    this.router.navigate(['/start']);
+  }
+
+  cancel() {
+    this.router.navigate(['/login']);
+  }
 }
