@@ -43,10 +43,20 @@
     font: inherit;
     color: #111827;
     font-size: 14px;
+    background: #fafbfc;
+    transition: all 0.2s ease;
+}
+
+.form-group input:hover {
+    border-color: #c4b5fd;
+    background: white;
 }
 
 .form-group input:focus {
     outline: none;
+    background: white;
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 1px #7c3aed1f;
 }
 
 .login-btn {
