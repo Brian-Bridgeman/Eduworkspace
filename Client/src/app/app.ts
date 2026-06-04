@@ -25,8 +25,8 @@ export class App {
   @HostBinding('class.start-route')
   isStartRoute = false;
 
-  @HostBinding('class.login-route')
-  isLoginRoute = false;
+  @HostBinding('class.auth-route')
+  isAuthRoute = false;
 
   constructor(private router: Router) {
     this.router.events
@@ -35,9 +35,9 @@ export class App {
         const currentUrl = event.urlAfterRedirects;
 
         this.isStartRoute = currentUrl === '/start';
-        this.isLoginRoute = currentUrl === '/login';
+        this.isAuthRoute = ['/login', '/register'].includes(currentUrl);
 
-        this.showSidebar = currentUrl !== '/start' && currentUrl !== '/login';
+        this.showSidebar = currentUrl !== '/start' && currentUrl !== '/login' && currentUrl !== '/register';
       });
   }
   addChecklist(checklist: any) {

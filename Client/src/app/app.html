@@ -4,7 +4,7 @@
   @if (showSidebar) {
   <app-sidebar> </app-sidebar>
   }
-  <section class="page" [class.start-route]="isStartRoute" [class.login-route]="isLoginRoute">
+  <section class="page" [class.start-route]="isStartRoute" [class.auth-route]="isAuthRoute">
     @if(showSidebar) {
     <app-breadcrumb />
     }
