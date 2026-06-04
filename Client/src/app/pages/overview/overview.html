@@ -8,7 +8,7 @@
 <div class="cards">
     <div class="card">
         <span class="material-symbols-outlined">groups</span>
-        <h2>1</h2>
+        <h2>{{statistics?.teams}}</h2>
         <p>Pågående arbetslag</p>
     </div>
     <div class="card">
@@ -16,19 +16,19 @@
         <span class="material-symbols-outlined">
             people
         </span>
-        <h2>10</h2>
+        <h2>{{statistics?.students}}</h2>
         <p>Aktiva deltagare</p>
     </div>
     <div class="card">
 
         <span class="material-symbols-outlined">menu_book</span>
-        <h2>3</h2>
-        <p>Kurser</p>
+        <h2>{{statistics?.courses}}</h2>
+        <p>Pågående kurstillfälle</p>
     </div>
     <div class="card">
 
         <span class="material-symbols-outlined">calendar_month</span>
-        <h2>1</h2>
+        <h2>{{statistics?.courseSession}}</h2>
         <p>Kommande kurstillfälle</p>
     </div>
 </div>
@@ -48,22 +48,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let team of ongoingTeams" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
+                <tr *ngFor="let team of ongoingTeam" class="clickable-row" [routerLink]="['/groups/1/teams/1']">
 
-                    <td>{{ team.teamName }}</td>
+                    <td>{{ team.name }}</td>
                     <td>{{ team.course }}</td>
                     <td>{{ team.location }}</td>
 
                     <td>
                         <span class="ongoing">
-                            {{ team.status }}
+                            Pågående
                         </span>
                     </td>
 
                     <td class="link">
                         <div class="participants">
-                            @for (participant of team.participants; track participant.name)
-                            {<a href="#" [routerLink]="['/students/1']">{{ participant.name }}</a> <span> </span>}
+                            @for (participant of team.deltagare; track participant)
+                            {<a href="#" [routerLink]="['/students/1']">{{ participant }}</a> <span> </span>}
                         </div>
                     </td>
                     <td class="actions-column" (click)="$event.stopPropagation()">
@@ -193,9 +193,9 @@
     </div>
 
 
-    <div class="mobile-card clickable-row" *ngFor="let team of ongoingTeams" (click)="goToTeam()">
+    <div class="mobile-card clickable-row" *ngFor="let team of ongoingTeam" (click)="goToTeam()">
         <div class="mobile-card-header">
-            <h2>{{ team.teamName }}</h2>
+            <h2>{{ team.name }}</h2>
             <input type="file" accept="image/*" capture="environment" #cameraInput hidden
                 (change)="onImageSelected($event)">
             <button type="button" class="btn-outline icon-btn"
@@ -221,12 +221,12 @@
             </div>
         </div>
         <hr />
-        <h4 class="mobile-info"><span class="material-symbols-outlined">groups
+        <h4 class="mobile-info"><span clSass="material-symbols-outlined">groups
             </span>Deltagare</h4>
         <p class="link">
         <div class="participants">
-            @for (participant of team.participants; track participant.name)
-            {<a [routerLink]="['/students/1']" (click)="$event.stopPropagation()">{{ participant.name }}</a> <span>
+            @for (participant of team.deltagare; track participant)
+            {<a [routerLink]="['/students/1']" (click)="$event.stopPropagation()">{{ participant}}</a> <span>
             </span>}
         </div>
     </div>

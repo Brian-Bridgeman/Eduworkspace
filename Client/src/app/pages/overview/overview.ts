@@ -1,19 +1,33 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Client } from '../../services/api-client.service';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-overview',
   standalone: true,
   imports: [CommonModule, DropdownMenu, TemplateHeaderComponent, RouterLink, FormsModule],
   templateUrl: './overview.html',
-  styleUrl: './overview.css',
+  styleUrl: './overview.css'
 })
-export class Overview {
-  constructor(private router: Router) { }
+export class Overview implements OnInit {
+  constructor(private router: Router,
+              private apiClient: Client,
+              private cdr: ChangeDetectorRef //hjälper att uppdatera sidan direkt med statistiken
+  ) { }
+
+  statistics: any;
+  ongoingTeam: any;
+
+  ngOnInit(){
+    this.apiClient.getApiOverviewStatistic().subscribe(data => {this.statistics = data;
+    this.apiClient.getApiVerviewOngoingteams().subscribe(data => {this.ongoingTeam = data;this.cdr.detectChanges();})
+    })
+  }
   goToTeam() {
     this.router.navigate(['/groups/1/teams/1']);
   }
@@ -55,46 +69,6 @@ export class Overview {
       this.newNoteText = ''; 
       this.closeNoteModal();
   }
-  ongoingTeams = [
-    {
-      teamName: 'Oscar & Johan',
-      course: 'Elinstallation',
-      location: 'Sal B',
-      status: 'Pågående',
-      participants: [
-        { name: 'Oscar Marcusson' },
-        { name: 'Johan Dahlin' }]
-    },
-
-    {
-      teamName: 'Kalle & Alfred',
-      course: 'Webbutveckling',
-      location: 'Sal C',
-      status: 'Pågående',
-      participants: [
-        { name: 'Kalle Anka' },
-        { name: 'Alfred Dumpling' }]
-    },
-    {
-      teamName: 'Oscar & Johan',
-      course: 'Elinstallation',
-      location: 'Sal B',
-      status: 'Pågående',
-      participants: [
-        { name: 'Oscar Marcusson' },
-        { name: 'Johan Dahlin' }]
-    },
-    {
-      teamName: 'Oscar & Johan',
-      course: 'Elinstallation',
-      location: 'Sal B',
-      status: 'Pågående',
-      participants: [
-        { name: 'Oscar Marcusson' },
-        { name: 'Johan Dahlin' }]
-    }
-  ];
-
   upcomingGroups = [
     {
       groupName: 'H1 26',
