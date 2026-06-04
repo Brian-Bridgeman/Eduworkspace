@@ -29,13 +29,14 @@ export class App {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        const isStart = event.urlAfterRedirects === '/start';
+        const currentUrl = event.urlAfterRedirects;
 
-        this.isStartRoute = isStart;
-        this.showSidebar = !isStart;
+        this.isStartRoute = currentUrl === '/start';
+
+        this.showSidebar = currentUrl !== '/start' && currentUrl !== '/login';
       });
   }
-   addChecklist(checklist: any) {
+  addChecklist(checklist: any) {
     this.checklists.update(list => [...list, checklist]);
   }
 }
