@@ -35,7 +35,7 @@ public static class OverviewEndpoints
             };
 
 
-        });
+        }).Produces<StatisticDto>(StatusCodes.Status200OK);
 
 
         app.MapGet("/api/overview/ongoingteams", async (AppDbContext db) =>
@@ -43,7 +43,7 @@ public static class OverviewEndpoints
                         var today = DateOnly.FromDateTime(DateTime.Today);
                         var ongoingCourseSessionsIds = await db.CourseSessions.Where(k => k.StartDate < today && k.EndDate > today).Select(i => i.Id).ToListAsync();
 
-                        var info = await db.Teams
+                        var teams = await db.Teams
                         /* .Include(r => r.CourseSession)
                              .ThenInclude(r => r.Course)
                          .Include(r => r.TeamMembers)
@@ -66,13 +66,13 @@ public static class OverviewEndpoints
                             }).ToList()
                         }).ToListAsync();
 
-                        return info;
-                    });
+                        return teams;
+                    }).Produces<List<TeamDto>>(StatusCodes.Status200OK);
 
         app.MapGet("/api/overview/upcomingcourse", async (AppDbContext db) =>
         {
             var today = DateOnly.FromDateTime(DateTime.Today);
-            var info = await db.CourseSessions
+            var courses = await db.CourseSessions
                     .Where(k => k.StartDate > today)
                     .Select(r => new CourseSessionDto
                     {
@@ -86,13 +86,13 @@ public static class OverviewEndpoints
 
                     }).ToListAsync();
 
-            return info;
-        });
+            return courses;
+        }).Produces<List<CourseSessionDto>>(StatusCodes.Status200OK);
 
         app.MapGet("/api/overview/activestudents", async (AppDbContext db) =>
         {
             var today = DateOnly.FromDateTime(DateTime.Today);
-            var info = await db.UserCourseSessionRelations
+            var students = await db.UserCourseSessionRelations
                 .Where(k => k.CourseSession!.StartDate < today && k.CourseSession!.EndDate > today)
                 .Select(k => new ActiveStudentDto
                 {
@@ -104,7 +104,7 @@ public static class OverviewEndpoints
                     CourseSession = k.CourseSession!.Name
                 })
                 .ToListAsync();
-            return info;
+            return students;
 
         });
         return app;
