@@ -13,6 +13,7 @@ import { Overview } from './pages/overview/overview';
 import { Settings } from './pages/settings/settings';
 import { EditTeamsPage } from './pages/edit-teams-page/edit-teams-page';
 import { CourseDetailsPage } from './pages/course-details-page/course-details-page';
+import { RegisterPage } from './pages/register-page/register-page';
 
 export const routes: Routes = [
 
@@ -41,7 +42,7 @@ export const routes: Routes = [
         component: StudentDetailsPage
     },
 
-     {
+    {
         path: 'courses/:id',
         component: CourseDetailsPage
     },
@@ -50,17 +51,17 @@ export const routes: Routes = [
         path: 'kalender',
         component: Kalender
     },
-     {
+    {
         path: 'groups/:groupId',
         component: TeamsPage,
     },
     {
-      path: 'groups/:groupId/teams',
-      component: EditTeamsPage
+        path: 'groups/:groupId/teams',
+        component: EditTeamsPage
     },
     {
-      path: 'groups/:groupId/teams/:teamId',
-      component: TeamDetailsPage
+        path: 'groups/:groupId/teams/:teamId',
+        component: TeamDetailsPage
     },
     {
         path: 'checklist',
@@ -70,7 +71,7 @@ export const routes: Routes = [
         path: 'overview',
         component: Overview
     },
-     {
+    {
         path: 'groups/:id', //kolla om groups/id ersätts med groups/groupId
         component: TeamsPage
     },
@@ -82,5 +83,9 @@ export const routes: Routes = [
     {
         path: 'settings',
         component: Settings
+    },
+    {
+        path: 'register',
+        component: RegisterPage
     }
 ];
