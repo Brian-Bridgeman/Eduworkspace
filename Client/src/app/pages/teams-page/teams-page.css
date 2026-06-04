@@ -1,0 +1,14 @@
+@media (max-width: 768px) {
+
+  .page-header {
+    margin-bottom: 12px;
+  }
+
+  .tableDiv {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+}

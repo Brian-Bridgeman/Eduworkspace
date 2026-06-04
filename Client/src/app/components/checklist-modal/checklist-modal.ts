@@ -60,6 +60,8 @@ export class ChecklistModal implements OnChanges {
 
             title: this.title,
 
+            description: this.description,
+
             studentIds: this.studentId
                 ? [this.studentId]
                 : [],
@@ -69,9 +71,9 @@ export class ChecklistModal implements OnChanges {
                 text: item.text,
                 completed: item.done
             }))
-  
+
         };
-      
+
 
         this.checklistService.addChecklist(newChecklist);
 
