@@ -35,7 +35,7 @@ app.UseCors("Angular");
 
 app.MapExampleEndpoints();
 app.MapCourseEndpoints();
-app.MapStudentEndpoints();
+app.MapCourseDetailsEndpoints();
 app.MapFallbackToFile("index.html");
 
 app.Run();
