@@ -10,7 +10,7 @@ public class FileRelation
     public FileData? FileData { get; set; }
 
     public int? ImageId { get; set; }
-    public Image? Image { get; set; }
+    public ImageData? Image { get; set; }
 
     //Till detta ska Image/File/Note kopplas till:  
     public int? UserId { get; set; }

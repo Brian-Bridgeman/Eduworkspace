@@ -10,7 +10,7 @@ public class User
     public string? Username { get; set; }
 
     public int? ImageId { get; set; }
-    public Image? ProfileImage { get; set; }
+    public ImageData? ProfileImage { get; set; }
 
     public int? CompanyId { get; set; }
     public Company? Company { get; set; }
