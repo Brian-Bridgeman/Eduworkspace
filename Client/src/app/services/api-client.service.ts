@@ -664,8 +664,8 @@ export class Client {
         return _observableOf(null as any);
     }
 
-    getApiTest(): Observable<string> {
-        let url_ = this.baseUrl + "/api/test";
+    getApiOverviewActivestudents(): Observable<ActiveStudentDto[]> {
+        let url_ = this.baseUrl + "/api/overview/activestudents";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -677,20 +677,20 @@ export class Client {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetApiTest(response_);
+            return this.processGetApiOverviewActivestudents(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetApiTest(response_ as any);
+                    return this.processGetApiOverviewActivestudents(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<string>;
+                    return _observableThrow(e) as any as Observable<ActiveStudentDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<string>;
+                return _observableThrow(response_) as any as Observable<ActiveStudentDto[]>;
         }));
     }
 
-    protected processGetApiTest(response: HttpResponseBase): Observable<string> {
+    protected processGetApiOverviewActivestudents(response: HttpResponseBase): Observable<ActiveStudentDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -701,8 +701,14 @@ export class Client {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = resultData200 !== undefined ? resultData200 : null as any;
-    
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ActiveStudentDto.fromJS(item));
+            }
+            else {
+                result200 = null as any;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1086,7 +1092,7 @@ export class User implements IUser {
     id?: number;
     username?: string | undefined;
     imageId?: number | undefined;
-    profileImage?: Image | undefined;
+    profileImage?: ImageData | undefined;
     companyId?: number | undefined;
     company?: Company | undefined;
     firstName?: string;
@@ -1111,7 +1117,7 @@ export class User implements IUser {
             this.id = _data["id"];
             this.username = _data["username"];
             this.imageId = _data["imageId"];
-            this.profileImage = _data["profileImage"] ? Image.fromJS(_data["profileImage"]) : undefined as any;
+            this.profileImage = _data["profileImage"] ? ImageData.fromJS(_data["profileImage"]) : undefined as any;
             this.companyId = _data["companyId"];
             this.company = _data["company"] ? Company.fromJS(_data["company"]) : undefined as any;
             this.firstName = _data["firstName"];
@@ -1170,7 +1176,7 @@ export interface IUser {
     id?: number;
     username?: string | undefined;
     imageId?: number | undefined;
-    profileImage?: Image | undefined;
+    profileImage?: ImageData | undefined;
     companyId?: number | undefined;
     company?: Company | undefined;
     firstName?: string;
@@ -1182,14 +1188,14 @@ export interface IUser {
     userCourseRelations?: UserCourseRelation[];
 }
 
-export class Image implements IImage {
+export class ImageData implements IImageData {
     id?: number;
     name?: string;
     description?: string | undefined;
     path?: string;
     createdAt?: Date;
 
-    constructor(data?: IImage) {
+    constructor(data?: IImageData) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -1208,9 +1214,9 @@ export class Image implements IImage {
         }
     }
 
-    static fromJS(data: any): Image {
+    static fromJS(data: any): ImageData {
         data = typeof data === 'object' ? data : {};
-        let result = new Image();
+        let result = new ImageData();
         result.init(data);
         return result;
     }
@@ -1226,7 +1232,7 @@ export class Image implements IImage {
     }
 }
 
-export interface IImage {
+export interface IImageData {
     id?: number;
     name?: string;
     description?: string | undefined;
@@ -1624,7 +1630,7 @@ export class TeamDto implements ITeamDto {
     course?: string | undefined;
     location?: string | undefined;
     status?: string | undefined;
-    deltagare?: string[] | undefined;
+    deltagare?: StudentDto[] | undefined;
 
     constructor(data?: ITeamDto) {
         if (data) {
@@ -1645,7 +1651,7 @@ export class TeamDto implements ITeamDto {
             if (Array.isArray(_data["deltagare"])) {
                 this.deltagare = [] as any;
                 for (let item of _data["deltagare"])
-                    this.deltagare!.push(item);
+                    this.deltagare!.push(StudentDto.fromJS(item));
             }
         }
     }
@@ -1667,7 +1673,7 @@ export class TeamDto implements ITeamDto {
         if (Array.isArray(this.deltagare)) {
             data["deltagare"] = [];
             for (let item of this.deltagare)
-                data["deltagare"].push(item);
+                data["deltagare"].push(item ? item.toJSON() : undefined as any);
         }
         return data;
     }
@@ -1679,7 +1685,47 @@ export interface ITeamDto {
     course?: string | undefined;
     location?: string | undefined;
     status?: string | undefined;
-    deltagare?: string[] | undefined;
+    deltagare?: StudentDto[] | undefined;
+}
+
+export class StudentDto implements IStudentDto {
+    id?: number;
+    name?: string;
+
+    constructor(data?: IStudentDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): StudentDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new StudentDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+export interface IStudentDto {
+    id?: number;
+    name?: string;
 }
 
 export class CourseSessionDto implements ICourseSessionDto {
@@ -1736,6 +1782,62 @@ export interface ICourseSessionDto {
     location?: string;
     startDate?: Date;
     endDate?: Date;
+}
+
+export class ActiveStudentDto implements IActiveStudentDto {
+    id?: number | undefined;
+    image?: ImageData | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    company?: string | undefined;
+    courseSession?: string | undefined;
+
+    constructor(data?: IActiveStudentDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.image = _data["image"] ? ImageData.fromJS(_data["image"]) : undefined as any;
+            this.firstName = _data["firstName"];
+            this.lastName = _data["lastName"];
+            this.company = _data["company"];
+            this.courseSession = _data["courseSession"];
+        }
+    }
+
+    static fromJS(data: any): ActiveStudentDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ActiveStudentDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["image"] = this.image ? this.image.toJSON() : undefined as any;
+        data["firstName"] = this.firstName;
+        data["lastName"] = this.lastName;
+        data["company"] = this.company;
+        data["courseSession"] = this.courseSession;
+        return data;
+    }
+}
+
+export interface IActiveStudentDto {
+    id?: number | undefined;
+    image?: ImageData | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    company?: string | undefined;
+    courseSession?: string | undefined;
 }
 
 function formatDate(d: Date) {

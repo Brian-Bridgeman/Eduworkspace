@@ -19,7 +19,6 @@ public static class OverviewEndpoints
             .Where(l => ongoingCourseSessionsIds
             .Contains(l.CourseSessionId))
             .Select(l => l.User)
-            .Distinct()
             .CountAsync();
 
             //pågående arbetslag
@@ -59,7 +58,11 @@ public static class OverviewEndpoints
                             Name = r.Name,
                             Course = r.CourseSession!.Course!.Name,
                             Location = r.CourseSession!.Location,
-                            Deltagare = r.TeamMembers.Select(d => d.User!.FirstName + " " + d.User!.LastName).ToList()
+                            Deltagare = r.TeamMembers.Select(d => new StudentDto
+                            {
+                                Id = d.User!.Id,
+                                Name = d.User!.FirstName + " " + d.User!.LastName
+                            }).ToList()
                         }).ToListAsync();
 
                         return info;
@@ -69,24 +72,40 @@ public static class OverviewEndpoints
         {
             var today = DateOnly.FromDateTime(DateTime.Today);
             var info = await db.CourseSessions
-            .Where(k => k.StartDate > today)
-            .Select(r => new CourseSessionDto
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Course = r.Course!.Name,
-                Location = r.Location,
-                StartDate = r.StartDate,
-                EndDate = r.EndDate
+                    .Where(k => k.StartDate > today)
+                    .Select(r => new CourseSessionDto
+                    {
+                        Id = r.Id,
+                        Name = r.Name,
+                        Course = r.Course!.Name,
+                        Location = r.Location,
+                        StartDate = r.StartDate,
+                        EndDate = r.EndDate
 
-               
-            }).ToListAsync();
+
+                    }).ToListAsync();
 
             return info;
         });
 
-        app.MapGet("api/test", () => { return "Hello"; });
+        app.MapGet("/api/overview/activestudents", async (AppDbContext db) =>
+        {
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            var info = await db.UserCourseSessionRelations
+                .Where(k => k.CourseSession!.StartDate < today && k.CourseSession!.EndDate > today)
+                .Select(k => new ActiveStudentDto
+                {
+                    Id = k.User!.Id,
+                    Image = k.User.ProfileImage,
+                    FirstName = k.User.FirstName,
+                    LastName = k.User.LastName,
+                    Company = k.User!.Company!.Name,
+                    CourseSession = k.CourseSession!.Name
+                })
+                .ToListAsync();
+            return info;
 
+        });
         return app;
     }
 }
@@ -106,15 +125,30 @@ public class TeamDto
     public string? Course { get; set; }
     public string? Location { get; set; }
     public string? Status { get; set; }
-    public List<string>? Deltagare { get; set; }
+    public List<StudentDto>? Deltagare { get; set; } = [];
 }
 
 public class CourseSessionDto
 {
-    public int Id {get;set;}
-    public string Name {get;set;} = "";
-    public string Course{get;set;} = "";
-    public string Location{get;set;} = "";
-    public DateOnly StartDate{get;set;}
-    public DateOnly EndDate {get;set;}
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
+    public string Course { get; set; } = "";
+    public string Location { get; set; } = "";
+    public DateOnly StartDate { get; set; }
+    public DateOnly EndDate { get; set; }
+}
+public class ActiveStudentDto
+{
+    public int? Id { get; set; }
+    public ImageData? Image { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string? Company { get; set; }
+    public string? CourseSession { get; set; }
+}
+
+public class StudentDto
+{
+    public int Id { get; set; }
+    public string Name { get; set; } = "";
 }
