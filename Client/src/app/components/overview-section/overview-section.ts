@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ChecklistModal } from '../../components/checklist-modal/checklist-modal';
 import { FormsModule } from '@angular/forms';
 import { ChecklistService, Checklist } from '../../services/checklist.service';
+import { DropdownMenu } from '../dropdown-menu/dropdown-menu';
 
 @Component({
   selector: 'app-overview-section',
   standalone: true,
-  imports: [CommonModule, ChecklistModal, FormsModule],
+  imports: [CommonModule, ChecklistModal, FormsModule, DropdownMenu],
   templateUrl: './overview-section.html',
   styleUrl: './overview-section.css',
 })
@@ -130,6 +131,40 @@ export class OverviewSection {
   closeChecklistModal() {
 
     this.showChecklistModal = false;
+
+  }
+  saveChecklist(checklist: Checklist) {
+
+    this.checklists.push(checklist);
+
+    this.activeChecklist = checklist;
+
+    this.closeChecklistModal();
+
+  }
+
+  deleteChecklist() {
+
+    if (!this.activeChecklist) {
+      return;
+    }
+
+    const confirmed = confirm(
+      `Ta bort checklistan "${this.activeChecklist.title}"?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.checklists = this.checklists.filter(
+      checklist => checklist.id !== this.activeChecklist?.id
+    );
+
+    this.activeChecklist =
+      this.checklists.length > 0
+        ? this.checklists[0]
+        : null;
 
   }
   selectChecklist(checklist: Checklist) {
