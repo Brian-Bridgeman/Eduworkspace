@@ -60,6 +60,28 @@
                 + Lägg till punkt
             </button>
         </div>
+        
+        <div class="comments-section">
+
+            @for(comment of item.comments; track $index) {
+
+            <div class="comment-row">
+
+                <input type="text" [(ngModel)]="item.comments[$index]" placeholder="Kommentar..." />
+
+                <button type="button" class="delete-btn" (click)="removeComment(item, $index)">
+                    ✕
+                </button>
+
+            </div>
+
+            }
+
+            <button type="button" class="add-btn" (click)="addComment(item)">
+                + Lägg till kommentar
+            </button>
+
+        </div>
 
         <div class="form-group">
 

@@ -45,19 +45,19 @@
                         <p class="date">
                             {{ note.date }}
                         </p>
-                    <p>
-                        {{ note.text }}
-                    </p>
+                        <p>
+                            {{ note.text }}
+                        </p>
 
 
                     </div>
 
-                
-                                            <button class="delete-note-btn" (click)="deleteNote(note)">
 
-                            ✕
+                    <button class="delete-note-btn" (click)="deleteNote(note)">
 
-                        </button>
+                        ✕
+
+                    </button>
 
                 </div>
 
@@ -79,14 +79,28 @@
 
                 <h2>Checklistor</h2>
 
-                <button class="card-link-btn" (click)="openChecklistModal()">
+                <div class="header-actions">
 
-                    + Ny checklista
+                    <span>TEST</span>
 
-                </button>
+<app-dropdown-menu
+  *ngIf="activeChecklist"
+  [item]="{
+    id: activeChecklist.id,
+    title: activeChecklist.title
+  }"
+  (delete)="deleteChecklist()">
+</app-dropdown-menu>
+
+                    <button class="card-link-btn" (click)="openChecklistModal()">
+
+                        + Ny checklista
+
+                    </button>
+
+                </div>
 
             </div>
-
             <!-- CHECKLIST COLLECTION -->
 
             <div class="checklist-scroll">
@@ -155,9 +169,13 @@
 
     </div>
 
-    <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()">
-
+   <app-checklist-modal
+    *ngIf="showChecklistModal"
+    [studentId]="1"
+    (close)="closeChecklistModal()"
+    (save)="saveChecklist($event)">
     </app-checklist-modal>
+
     <div class="test-modal" *ngIf="showNoteModal">
 
         <!-- NOTE MODAL -->

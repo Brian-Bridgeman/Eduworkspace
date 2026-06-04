@@ -13,6 +13,7 @@ import { Overview } from './pages/overview/overview';
 import { Settings } from './pages/settings/settings';
 import { EditTeamsPage } from './pages/edit-teams-page/edit-teams-page';
 import { CourseDetailsPage } from './pages/course-details-page/course-details-page';
+import { RegisterPage } from './pages/register-page/register-page';
 import { LoginPage } from './pages/login-page/login-page';
 
 export const routes: Routes = [
@@ -89,8 +90,11 @@ export const routes: Routes = [
         component: Settings
     },
     {
+        path: 'register',
+        component: RegisterPage
+    },
+    {
         path: '**',
         redirectTo: 'login'
     }
-
 ];

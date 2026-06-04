@@ -217,11 +217,22 @@
 
                     <h2>Checklistor</h2>
 
-                    <button class="card-link-btn" (click)="openChecklistModal()">
+                    <div class="header-actions">
 
-                        + Ny checklista
+                        <app-dropdown-menu 
+                                    *ngIf="activeChecklist" [item]="{
+                                    id: activeChecklist.id,
+                                    name: activeChecklist.title
+                                }" (delete)="deleteChecklist()">
+                        </app-dropdown-menu>
 
-                    </button>
+                        <button class="card-link-btn" (click)="openChecklistModal()">
+
+                            + Ny checklista
+
+                        </button>
+
+                    </div>
 
                 </div>
 
@@ -506,9 +517,11 @@
         </div>
 
     </div>
-    <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()">
 
+    <app-checklist-modal *ngIf="showChecklistModal" [studentId]="1" (close)="closeChecklistModal()"
+        (save)="saveChecklist($event)">
     </app-checklist-modal>
+
     <div class="test-modal" *ngIf="showNoteModal">
 
         <!-- NOTE MODAL -->
