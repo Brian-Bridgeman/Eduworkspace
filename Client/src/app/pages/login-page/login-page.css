@@ -14,3 +14,9 @@
     padding: 32px;
     box-shadow: 0 12px 30px #0f172a1f;
 }
+
+.login-card h1 {
+    font-size: 28px;
+    font-weight: 700px;
+    text-align: center;
+}
