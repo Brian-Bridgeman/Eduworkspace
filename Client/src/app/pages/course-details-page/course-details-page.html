@@ -1,6 +1,6 @@
 <div class="page-header">
-    <app-template-header title="C#" subtitle="Utbildare: Oscar" buttonText="Lägg till kurstillfällen"
-        (searchChange)="searchTerm = $event" (buttonClick)="navigateToCreateGroup()">
+    <app-template-header [title]="courseName()" subtitle="Utbildare: Oscar" buttonText="Lägg till kurstillfällen"
+        (searchChange)="searchTerm.set($event)" (buttonClick)="navigateToCreateGroup()">
     </app-template-header>
 </div>
 
@@ -20,20 +20,20 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let grupp of filteredGroups" [routerLink]="['/groups', grupp.id]" class="clickable-row">
+            <tr *ngFor="let grupp of filteredSessions()" [routerLink]="['/groups', grupp.id]" class="clickable-row">
                 <td class="avatar">
                     <span class="material-symbols-outlined">groups</span>
-                    <span>{{ grupp.namn }}</span>
+                    <span>{{ grupp.name }}</span>
                 </td>
-                <td class="mobile-hide">{{ grupp.ar }}</td>
-                <td>{{ grupp.startdatum }}</td>
-                <td>{{ grupp.slutdatum }}</td>
-                <td>{{ grupp.plats }}</td>
-                <td class="mobile-hide">{{ grupp.antalElever }}</td>
-                <td class="mobile-hide">{{ grupp.status }}</td>
+                <td class="mobile-hide">{{grupp.startDate | date: 'yyyy'}}</td>
+                <td>{{grupp.startDate | date: 'yyyy-MM-dd'}}</td>
+                <td>{{grupp.endDate | date: 'yyyy-MM-dd'}}</td>
+                <td>{{ grupp.location }}</td>
+                <td class="mobile-hide"><!--{{ grupp.antalElever }}-->10</td>
+                <td class="mobile-hide"><!--{{ grupp.status }}-->Pågående</td>
                 <td class="actions-column">
                     <app-dropdown-menu (click)="$event.stopPropagation()" [item]="grupp"
-                        (delete)="removeCourse($event)">
+                        (delete)="removeSession(+$event)">
                     </app-dropdown-menu>
                 </td>
             </tr>
