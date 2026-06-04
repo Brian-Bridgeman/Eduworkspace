@@ -1,28 +1,33 @@
 h1 {
   color: #202e41;
   font-size: 30px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: inherit;
   margin-bottom: 10px;
   text-align: center;
 }
+
 p {
   color: #6b768c;
   font-size: 20px;
   margin-top: 0px;
   margin-bottom: 50px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: inherit;
   text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
 }
+
 .icon {
   display: contents;
 }
+
 .menu {
   display: contents;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -36,6 +41,7 @@ p {
   transition: all 0.2s ease;
   position: relative;
 }
+
 .icon-bubble {
   width: 125px;
   height: 125px;
@@ -47,6 +53,7 @@ p {
   justify-content: center;
   margin: 0 auto 20px;
 }
+
 .icon-bubble .material-symbols-outlined {
   font-size: 60px;
 }
@@ -64,16 +71,20 @@ button {
   transition: all 0.2s ease;
   cursor: pointer;
 }
+
 .viewButton {
   border-color: transparent;
 }
+
 .createButton {
   background-color: transparent;
 }
+
 .viewButton:hover,
 .createButton:hover {
   filter: brightness(95%);
 }
+
 .viewButton:hover,
 .createButton:hover,
 .container:hover {
@@ -86,6 +97,7 @@ button {
     height: 60px;
     width: 60px;
   }
+
   .container {
     display: grid;
     grid-template-columns: 90px 1fr;
@@ -95,6 +107,7 @@ button {
     gap: 10px;
     align-items: start;
   }
+
   .icon {
     width: 72px;
     height: 72px;
@@ -103,24 +116,29 @@ button {
     align-items: center;
     justify-content: center;
   }
+
   .menu {
     display: flex;
     flex-direction: column;
     align-items: start;
   }
+
   .icon-bubble .material-symbols-outlined {
     font-size: 30px;
   }
+
   h1 {
     font-size: 18px;
     margin-top: 20px;
   }
+
   p {
     font-size: 13px;
     margin: 0px 0px 15px 0px;
     max-width: 60%;
     text-align: start;
   }
+
   button {
     height: 32px;
     width: 95%;
@@ -128,6 +146,7 @@ button {
     border-radius: 10px;
     font-size: 12px;
   }
+
   .icon-bubble {
     margin: 0px;
   }
@@ -147,6 +166,7 @@ button {
     justify-content: center;
     font-size: 0;
   }
+
   .viewButton::after {
     content: '➜';
     font-size: 22px;
