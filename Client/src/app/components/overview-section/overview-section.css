@@ -93,6 +93,7 @@ body {
     0 2px 10px rgba(0, 0, 0, 0.02),
     0 8px 30px rgba(0, 0, 0, 0.04);
 }
+
 .student-card {
   width: 100%;
   padding: 32px;
@@ -342,6 +343,7 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
+
 .course-name-input {
   flex: 1;
   height: 46px;
@@ -357,9 +359,10 @@ body {
 .course-name-input:focus {
   border-color: #8b5cf6;
   box-shadow:
-    0 0 0 4px rgba(139,92,246,.12);
+    0 0 0 4px rgba(139, 92, 246, .12);
 
 }
+
 /* =========================
    NOTE MODAL
 ========================= */
@@ -404,7 +407,7 @@ body {
 .note-modal textarea {
   width: 100%;
   min-height: 180px;
-  border: 2px solid  #c084fc;
+  border: 2px solid #c084fc;
   border-radius: 18px;
   padding: 18px;
   resize: none;
@@ -468,6 +471,7 @@ body {
   border-color: var(--purple);
   box-shadow: 0 0 0 4px rgba(139, 92, 246, .12);
 }
+
 /* =========================
    BUTTONS
 ========================= */
@@ -557,6 +561,7 @@ body {
   background: #fee2e2;
   color: #b91c1c;
 }
+
 /* =========================
    STUDENT INFO
 ========================= */
@@ -846,19 +851,21 @@ body {
 }
 
 
-  .note {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  .note-left{
-    display: flex;
-    flex-direction: column;
-align-items: flex-start;
-  }
-    .note p {
-    margin: 3px;
-  }
+.note {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.note-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.note p {
+  margin: 3px;
+}
 
 /* =========================
    TABLET
@@ -867,8 +874,9 @@ align-items: flex-start;
 @media (max-width:1200px) {
 
   .notes-card {
-  height: auto;
-}
+    height: auto;
+  }
+
   .content-grid {
     grid-template-columns: 1fr;
   }
@@ -1026,9 +1034,11 @@ align-items: flex-start;
     gap: 14px;
     margin-bottom: 18px;
   }
-  .card-header h2{
+
+  .card-header h2 {
     margin: 3px;
   }
+
   .card-header button {
     font-size: 15px;
   }
@@ -1038,10 +1048,13 @@ align-items: flex-start;
   ========================= */
 
   .small-btn,
-  .card-link-btn,
+  .card-link-btn {
+    width: auto;
+  }
+
   .upload-btn,
   .modal-actions button {
-    width: 40%;
+    width: 100%;
   }
 
   .upload-btn,
@@ -1049,6 +1062,12 @@ align-items: flex-start;
     padding: 5px;
     border-radius: 14px;
     font-size: 14px;
+  }
+
+  .small-btn,
+  .card-link-btn {
+    padding: 6px 10px;
+    font-size: 13px;
   }
 
   /* =========================
@@ -1136,15 +1155,17 @@ align-items: flex-start;
   .note p {
     margin: 0;
   }
+
   .note {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  .note-left{
+
+  .note-left {
     display: flex;
     flex-direction: column;
-align-items: flex-start;
+    align-items: flex-start;
   }
 
 

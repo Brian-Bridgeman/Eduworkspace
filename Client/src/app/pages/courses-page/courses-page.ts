@@ -5,6 +5,8 @@ import { Client } from '../../services/api-client.service';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { CreateCourseModal } from '../../components/create-course-modal/create-course-modal';
+import { firstValueFrom } from 'rxjs';
+import { ApiException } from '../../services/api-client.service';
 
 @Component({
   selector: 'app-courses-page',
@@ -30,6 +32,8 @@ export class CoursesPage implements OnInit {
   courses = signal<any[]>([]);
   searchTerm = signal('');
   showModal = signal(false);
+  errorMessage = signal('');
+  loading = signal(true);
 
   filteredCourses = computed(() => {
     const term = this.searchTerm().toLowerCase();
@@ -59,10 +63,11 @@ export class CoursesPage implements OnInit {
 
   async loadCourses() {
     try {
-      const response = await fetch('/api/courses');
-      const data = await response.json();
-
-      this.courses.set(data);
+      this.loading.set(true);
+      this.client.getApiCourses().subscribe(courses => {
+        this.courses.set(courses);
+        this.loading.set(false);
+      });
     } catch (error) {
       console.error('Failed to load courses:', error);
     }
@@ -70,13 +75,12 @@ export class CoursesPage implements OnInit {
 
   async removeCourse(id: number) {
     try {
-      await fetch(`/api/courses/${id}`, {
-        method: 'DELETE'
-      });
+      await firstValueFrom(this.client.deleteApiCourses(id));
 
       this.courses.update(courses =>
         courses.filter(c => c.id !== id)
       );
+
     } catch (error) {
       console.error('Failed to delete course:', error);
     }
@@ -84,21 +88,22 @@ export class CoursesPage implements OnInit {
 
   async addCourse(course: any) {
     try {
-      const response = await fetch('/api/courses', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(course)
-      });
+      this.errorMessage.set('');
+      const createdCourse = await firstValueFrom(
+        this.client.postApiCourses(course)
+      );
 
-      const newCourse = await response.json();
-
-      this.courses.update(courses => [...courses, newCourse]);
+      this.courses.update(courses => [...courses, createdCourse]);
       this.showModal.set(false);
+    }
 
-    } catch (error) {
+    catch (error: any) {
+
+      this.errorMessage.set(
+        error.response.replaceAll('"', '')
+      );
       console.error('Failed to add course:', error);
+
     }
   }
 

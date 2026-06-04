@@ -10,12 +10,16 @@
     border-radius: 12px;
     padding: 28px;
     box-shadow: 0 8px 24px #0f172a14;
-    transition: 0.2s ease;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .course-card:hover {
-    margin-top: 0.2em;
+    background-color: #fcfcff;
+    box-shadow:
+        0 12px 30px #0f172a1f,
+        0 0 0 1px #7c3aed1a;
 }
 
 .card-header {
@@ -29,6 +33,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
+    min-width: 0;
 }
 
 app-dropdown-menu {
@@ -46,6 +51,8 @@ app-dropdown-menu {
     font-size: 22px;
     font-weight: 700;
     color: #111827;
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .header-text p {
@@ -70,12 +77,19 @@ hr {
 .info-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 12px;
 }
 
 .label {
     color: #6b7280;
     font-weight: 600;
+    flex-shrink: 0;
+}
+
+.info-row span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
 }
 
 .empty-state {

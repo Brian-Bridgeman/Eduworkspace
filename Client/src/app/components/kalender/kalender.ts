@@ -10,6 +10,8 @@ export type CalendarEvent = {
   id: string;
   startDay: number;
   endDay: number;
+  month: number;
+  year: number;
   title: string;
   time: string;
   endTime?: string;
@@ -33,10 +35,22 @@ export class Kalender implements OnInit {
   ) { }
   veckodagar = ['MÅNDAG', 'TISDAG', 'ONSDAG', 'TORSDAG', 'FREDAG', 'LÖRDAG', 'SÖNDAG'];
 
-  monthName = 'Maj';
-  year = 2026;
-  month = 4;
+  
+  monthNames = [
+    'Januari', 'Februari', 'Mars', 'April',
+    'Maj', 'Juni', 'Juli', 'Augusti',
+    'September', 'Oktober', 'November', 'December'
+  ];
+
   today = new Date();
+
+  get monthName() {
+    return this.monthNames[this.month];
+  }
+
+  // dynamiska värden för att visa rätt månad och år i kalendern, utgår från dagens datum
+  month = this.today.getMonth(); // 0 = januari, 4 = maj
+  year = this.today.getFullYear();
   todayDay = this.today.getDate();
   calendarDays: (number | null)[] = [];
   weeks: (number | null)[][] = [];
@@ -81,10 +95,33 @@ export class Kalender implements OnInit {
           replaceUrl: true,
         });
       }
+      
     });
   }
 
-  @HostListener('document:mouseup')
+  previousMonth() {
+  this.month--;
+
+  if (this.month < 0) {
+    this.month = 11;
+    this.year--;
+  }
+
+  this.createCalendar();// bygger om kalendern när man byter månad
+}
+
+nextMonth() {
+  this.month++;
+
+  if (this.month > 11) {
+    this.month = 0;
+    this.year++;
+  }
+
+  this.createCalendar(); // bygger om kalendern med nya månadens dagar
+}
+
+@HostListener('document:mouseup')
   handleDocumentMouseup() {
     this.stopResize();
   }
@@ -125,6 +162,9 @@ export class Kalender implements OnInit {
   }
 
   createCalendar() {
+    this.calendarDays = []; // Rensar kalendern så månaderna inte slås ihop
+    this.weeks = []; 
+
     const firstDay = new Date(this.year, this.month, 1).getDay();
     const startDay = (firstDay + 6) % 7;
     const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
@@ -213,7 +253,12 @@ export class Kalender implements OnInit {
     this.prepareModal();
   }
   getEventsForDay(day: number) {
-    return this.events.filter((event) => day >= event.startDay && day <= event.endDay);
+  return this.events.filter(event =>
+    event.month === this.month &&
+    event.year === this.year &&
+    day >= event.startDay &&
+    day <= event.endDay
+  );
   }
   getTimeAsMinutes(time: string) {
     const [hours, minutes] = time.split(':').map(Number);
@@ -430,15 +475,17 @@ export class Kalender implements OnInit {
     if (this.selectedDay === null) return;
 
     const savedEvent: CalendarEvent = {
-      id: this.selectedEvent?.id ?? crypto.randomUUID(),
-      startDay: this.selectedDay,
-      endDay: this.selectedEvent?.endDay ?? this.selectedDay,
-      title: this.title,
-      time: this.time,
-      endTime: this.endTime || this.getDefaultEndTime(this.time),
-      place: this.place,
-      description: this.description,
-    };
+        id: this.selectedEvent?.id ?? crypto.randomUUID(),
+  startDay: this.selectedDay,
+  endDay: this.selectedEvent?.endDay ?? this.selectedDay,
+  month: this.month,
+  year: this.year,
+  title: this.title,
+  time: this.time,
+  endTime: this.endTime || this.getDefaultEndTime(this.time),
+  place: this.place,
+  description: this.description,
+};
 
     this.events = this.events.filter((event) => event.id !== savedEvent.id);
     this.events = [...this.events, savedEvent];

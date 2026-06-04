@@ -2,16 +2,21 @@
 
   <!-- HEADER -->
   <div class="kalender-header">
-    <button id="back-button" class="back-button">
-      ←
-    </button>
     
-    <h1>{{ monthName }}</h1>
-    <h2>{{ year }}</h2>
-    
-    <button id="forward-button" class="forward-button">
-      →
-    </button>
+    <button
+  id="back-button"
+  class="back-button"
+  (click)="previousMonth()">
+  ←
+</button>
+ <h1>{{ monthName }}</h1>
+ <h2>{{year}}</h2>
+<button
+  id="forward-button"
+  class="forward-button"
+  (click)="nextMonth()">
+  →
+</button>
       </div>
 
   <!-- Välj vilken kalender-vy som ska visas -->
@@ -126,11 +131,22 @@
     [selectedDay]="selectedDay"
     [selectedEvent]="selectedEvent"
     [showEventOverview]="showEventOverview"
+
+    [month]="month"
+    [year]="year"
+    [weeks]="weeks"
+    [monthName]="monthName"
+
     [(title)]="title"
     [(time)]="time"
     [(endTime)]="endTime"
     [(place)]="place"
     [(description)]="description"
+
+    (selectedDayChange)="selectedDay = $event"
+    (previousMonthClick)="previousMonth()"
+    (nextMonthClick)="nextMonth()"
+
     (close)="closeModal()"
     (save)="saveEvent()"
     (delete)="deleteEvent()"

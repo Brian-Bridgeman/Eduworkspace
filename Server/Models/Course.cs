@@ -6,5 +6,6 @@ public class Course
 
     //EN kurs har listan av kurstillfälle
     public List<CourseSession> CourseSessions { get; set; } = [];
+    public List<UserCourseRelation> UserCourseRelations {get;set;} = [];
 
 }

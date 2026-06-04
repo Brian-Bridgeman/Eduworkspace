@@ -116,7 +116,15 @@ tbody tr:last-child td {
   margin-bottom: 10px;
   box-shadow: 0 4px 12px #0f172a0f;
 }
-
+.error-message {
+  color: red;
+  font-style: italic;
+  padding: 0;
+  margin: 0;
+}
+.loading-statement{
+  color: #7c3aed;
+}
 /* Media quarys för mobil*/
 
 @media screen and (max-width: 768px) {
