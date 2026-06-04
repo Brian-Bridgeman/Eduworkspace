@@ -13,7 +13,7 @@ public class AppDbContext: DbContext
         public DbSet <Team> Teams {get;set;}
         public DbSet <TeamMember> TeamMembers {get;set;}
         public DbSet <CalendarEvent> CalendarEvents {get;set;}
-        public DbSet <Image> Images {get;set;}
+        public DbSet <ImageData> Images {get;set;}
         public DbSet <Note> Notes {get;set;}
         public DbSet <FileData> Files {get;set;}
         public DbSet <Checklist> Checklists {get;set;}

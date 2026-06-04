@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260604060928_AddTeamMembersList")]
+    partial class AddTeamMembersList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -289,7 +292,7 @@ namespace Server.Migrations
                     b.ToTable("FileRelations");
                 });
 
-            modelBuilder.Entity("ImageData", b =>
+            modelBuilder.Entity("Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -426,9 +429,6 @@ namespace Server.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ProfileImageId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
@@ -439,7 +439,7 @@ namespace Server.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("ProfileImageId");
+                    b.HasIndex("ImageId");
 
                     b.HasIndex("Username")
                         .IsUnique();
@@ -627,7 +627,7 @@ namespace Server.Migrations
                         .WithMany()
                         .HasForeignKey("FileDataId");
 
-                    b.HasOne("ImageData", "Image")
+                    b.HasOne("Image", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
 
@@ -702,9 +702,9 @@ namespace Server.Migrations
                         .WithMany("Users")
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("ImageData", "ProfileImage")
+                    b.HasOne("Image", "ProfileImage")
                         .WithMany()
-                        .HasForeignKey("ProfileImageId");
+                        .HasForeignKey("ImageId");
 
                     b.Navigation("Company");
 
@@ -726,7 +726,7 @@ namespace Server.Migrations
                         .IsRequired();
 
                     b.HasOne("User", "User")
-                        .WithMany("UserCourseRelations")
+                        .WithMany("UserCOurseRelations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -802,7 +802,7 @@ namespace Server.Migrations
                 {
                     b.Navigation("CreatedCalendarEvents");
 
-                    b.Navigation("UserCourseRelations");
+                    b.Navigation("UserCOurseRelations");
                 });
 #pragma warning restore 612, 618
         }

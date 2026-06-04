@@ -4,4 +4,5 @@ public class Team
     public string Name { get; set; } = "";
     public int CourseSessionId { get; set; }
     public CourseSession? CourseSession { get; set; }
+    public List<TeamMember> TeamMembers {get;set;} = [];
 }

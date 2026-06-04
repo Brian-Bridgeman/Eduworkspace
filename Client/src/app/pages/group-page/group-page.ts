@@ -14,7 +14,7 @@ import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 export class GroupPage {
   constructor(private router: Router) { }
 
-  removeGroup(id: string) {
+  removeGroup(id: number) {
     // fetch anrop till delete här, med id
   }
 

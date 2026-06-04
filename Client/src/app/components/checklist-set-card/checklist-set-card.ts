@@ -26,7 +26,7 @@ export class ChecklistSetCard {
     item.done = !item.done;
   }
 
-  removeChecklist(id: string) {
+  removeChecklist(id: number) {
     // fetch anrop till delete här, med id
   }
 
