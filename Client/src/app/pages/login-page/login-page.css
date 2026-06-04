@@ -20,3 +20,30 @@
     font-weight: 700px;
     text-align: center;
 }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    font: inherit;
+    color: #111827;
+}
+
+.form-group input:focus {
+    outline: none;
+}
