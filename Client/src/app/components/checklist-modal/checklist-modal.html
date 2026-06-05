@@ -26,14 +26,16 @@
             <label>Beskrivning</label>
 
             <textarea [(ngModel)]="description" placeholder="Eventuell beskrivning">
-    </textarea>
+            </textarea>
 
         </div>
 
         <div class="form-group">
+
             <label>Checklistpunkter</label>
 
             @for (item of checklistItems; track $index) {
+
             <div class="check-item">
 
                 <input type="checkbox" [(ngModel)]="item.done" aria-label="Checklist checkbox" />
@@ -52,15 +54,35 @@
                 <button type="button" class="delete-btn" (click)="removeItem($index)">
                     ✕
                 </button>
-
+                <button type="button" class="add-btn" (click)="addItem()">
+                                + Lägg till punkt
+                            </button>
+                
             </div>
-            }
 
-            <button type="button" class="add-btn" (click)="addItem()">
-                + Lägg till punkt
-            </button>
-        </div>
-
+            <div class="comments-section">
+                
+                @for(comment of item.comments; track $index) {
+                    
+                    <div class="comment-row">
+                        
+                        <input type="text" [(ngModel)]="item.comments[$index]" placeholder="Kommentar..." />
+                        
+                        <button type="button" class="delete-btn" (click)="removeComment(item, $index)">
+                            ✕
+                        </button>
+                        
+                    </div>
+                    
+                }
+                <button type="button" class="add-btn" (click)="addComment(item)">
+                    + Lägg till kommentar
+                </button>
+                
+            </div>
+        }
+    </div>
+    
         <div class="form-group">
 
             <label>Bilaga</label>

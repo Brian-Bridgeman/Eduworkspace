@@ -1,25 +1,37 @@
 <header class="app-header">
     <div class="header">
-        <div class="header-left">
+        <div class="header-left" routerLink="/start">
             <div class="logo-icon">
                 <span class="material-symbols-outlined logo-icon">
                     school
                 </span>
             </div>
-            <h1 class="title">FIB Portal</h1>
+            <div class="logo-text">
+                <h1>EWS</h1>
+                <span>EDUWORKSPACE</span>
+            </div>
         </div>
         <div class="header-right">
 
             <!-- Dark/Light-mode-knapp -->
-            <button class="mode-btn">
-                <span class="material-symbols-outlined">dark_mode</span><span class="separator">/</span>
-                <span class="material-symbols-outlined">light_mode</span>
+            <button class="mode-btn" (click)="toggleTheme()">
+                <span class="material-symbols-outlined" [class.active]="!darkMode">
+                    light_mode
+                </span>
+
+                <span class="separator">|</span>
+
+                <span class="material-symbols-outlined" [class.active]="darkMode">
+                    dark_mode
+                </span>
             </button>
 
             <!-- Profilbild -->
+            @if (router.url !== '/login' && router.url !== '/register') {
             <button class="profile-btn">
-                <span class="material-symbols-outlined">account_circle</span>
+                <span class="material-symbols-outlined">person_outline</span>
             </button>
+            }
 
         </div>
     </div>

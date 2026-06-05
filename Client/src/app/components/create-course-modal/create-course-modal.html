@@ -12,18 +12,19 @@
     <div class="modal-body">
       <div class="form-group">
         <label>Kursnamn</label>
-        <input type="text" placeholder="t.ex. Traverskort" [(ngModel)]="courseName" />
+        <input type="text" placeholder="t.ex. FIB" [(ngModel)]="courseName" />
       </div>
-
+      
       <div class="form-group">
         <label>Utbildare</label>
-        <input type="text" placeholder="t.ex. Safe Education" [(ngModel)]="educator" />
+        <input type="text" placeholder="t.ex. Oscar Andersson" [(ngModel)]="educator" />
       </div>
+      @if(errorMessage) {
+        <p class="error-message">{{errorMessage}}</p>}
     </div>
 
     <div class="modal-footer">
       <button class="btn-cancel" (click)="closeModal()">Avbryt</button>
-
       <button class="btn-confirm" (click)="saveModal()">Skapa kurs</button>
     </div>
   </div>

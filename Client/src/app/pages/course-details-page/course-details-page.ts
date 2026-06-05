@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TemplateHeaderComponent } from '../../components/template-header/template-header';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 import { OverviewSection } from '../../components/overview-section/overview-section';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { firstValueFrom } from 'rxjs';
+import { Client } from '../../services/api-client.service';
+import { CourseSessionDto } from '../../services/api-client.service';
 
 @Component({
   selector: 'app-course-details-page',
@@ -13,61 +16,63 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
   styleUrl: './course-details-page.css',
 })
 export class CourseDetailsPage implements OnInit {
-  constructor(private router: Router, private breadcrumbService: BreadcrumbService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private breadcrumbService: BreadcrumbService,
+    private client: Client,
+  ) { }
+
+  courseId = signal<number>(1);
+  searchTerm = signal('');
+  sessions = signal<CourseSessionDto[]>([]);
+
+  courseName = signal('');
+
+  filteredSessions = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+
+    return this.sessions().filter(session =>
+      (session.name ?? '').toLowerCase().includes(term) ||
+      (session.courseName ?? '').toLowerCase().includes(term) ||
+      (session.location ?? '').toLowerCase().includes(term)
+    );
+  });
 
   ngOnInit(): void {
-      setTimeout(() => {
-      this.breadcrumbService.set([
-        {label: "Kurser", url: "/courses"},
-        {label: "C#", url: "/courses/1"}
-      ])
+    this.route.params.subscribe(params => {
+      const id = Number(params['id']);
+      this.courseId.set(id);
+
+      this.loadSessions();
     });
+
+    this.breadcrumbService.set([
+      { label: 'Kurser', url: '/courses' }
+    ]);
   }
 
   navigateToCreateGroup() {
     this.router.navigate(['/groups/create']);
   }
 
-  searchTerm: string = '';
+  async loadSessions() {
+    const sessions = await firstValueFrom(
+      this.client.getApiCoursesSessions(this.courseId())
+    );
 
-  courseGroups = [
-    {
-      id: '3',
-      namn: 'H3 26',
-      ar: 2026,
-      startdatum: '2026-08-18',
-      slutdatum: '2026-12-19',
-      plats: 'Sal D',
-      antalElever: '22 / 25',
-      status: 'Pågående'
-    },
-    {
-      id: '4',
-      namn: 'H4 26',
-      ar: 2026,
-      startdatum: '2026-08-18',
-      slutdatum: '2026-12-19',
-      plats: 'Sal E',
-      antalElever: '20 / 22',
-      status: 'Pågående'
-    },
-    {
-      id: '8',
-      namn: 'H12 26',
-      ar: 2026,
-      startdatum: '2026-01-15',
-      slutdatum: '2026-06-07',
-      plats: 'Online',
-      antalElever: '24 / 25',
-      status: 'Avslutad'
-    }
-  ];
+    this.sessions.set(sessions);
 
-  get filteredGroups() {
-    return this.courseGroups.filter(group =>
-      group.namn.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      group.ar.toString().includes(this.searchTerm.toLowerCase()) ||
-      group.plats.toLowerCase().includes(this.searchTerm.toLowerCase())
+    this.courseName.set(sessions[0]?.courseName ?? '');
+  }
+
+  async removeSession(sessionId: number) {
+    await firstValueFrom(
+      this.client.deleteApiCoursesSessions(this.courseId(), sessionId)
+    );
+
+    this.sessions.update(s =>
+      s.filter(x => x.id !== sessionId)
     );
   }
 }

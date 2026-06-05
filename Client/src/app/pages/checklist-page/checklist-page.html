@@ -1,5 +1,7 @@
-<app-template-header title="Checklista" subtitle="Skapa och hantera checklistor" buttonText="Skapa"
-  (buttonClick)="openModal()" (searchChange)="searchTerm = $event"></app-template-header>
+<div class="page-header">
+  <app-template-header title="Checklista" subtitle="Skapa och hantera checklistor" buttonText="Skapa"
+    (buttonClick)="openModal()" (searchChange)="searchTerm = $event"></app-template-header>
+</div>
 
 <app-checklist-modal *ngIf="showModal" [checklist]="selectedChecklist" (close)="closeModal()"
   (save)="saveChecklist($event)">

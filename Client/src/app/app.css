@@ -1,4 +1,5 @@
-:host.start-route {
+:host.start-route,
+:host.auth-route {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 64px 1fr;
@@ -43,11 +44,13 @@ app-footer {
 .page {
   grid-area: page;
   padding: 1rem;
-  overflow: auto;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
 }
 
-.page.start-route {
+.page.start-route,
+.page.auth-route {
   grid-column: 1 / -1;
   width: 100%;
   padding: 0;

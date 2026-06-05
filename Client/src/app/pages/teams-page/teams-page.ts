@@ -10,6 +10,7 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
 @Component({
   selector: 'app-teams-page',
   standalone: true,
+
   imports: [
     CommonModule,
     TemplateHeaderComponent,
@@ -17,19 +18,21 @@ import { BreadcrumbService } from '../../services/breadcrumb.service';
     RouterLink,
     DropdownMenu,
     OverviewSection,
-    BreadcrumbService,
   ],
+
   templateUrl: './teams-page.html',
   styleUrl: './teams-page.css',
 })
+
 export class TeamsPage implements OnInit {
   searchTerm: string = '';
   groupId: string | null = null;
-  breadcrumbService: any;
+  
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private breadcrumbService: BreadcrumbService
   ) {
     this.groupId = this.route.snapshot.paramMap.get('groupId');
   }
@@ -43,7 +46,7 @@ export class TeamsPage implements OnInit {
     });
   }
 
-  removeTeam(id: string) {
+  removeTeam(id: number) {
     // fetch anrop till delete här, med id
   }
 

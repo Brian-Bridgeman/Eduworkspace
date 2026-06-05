@@ -1,72 +1,14 @@
-.course-wrapper {
-    background: white;
-    border: 1px solid #ececec;
-    margin-bottom: 1em;
-    border-radius: 20px;
-}
+@media (max-width: 768px) {
 
-.course-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .page-header {
+    margin-bottom: 12px;
+  }
 
-    padding: 24px 24px 0px 24px;
-    border-radius: 20px;
-}
+  .tableDiv {
+    overflow-x: auto;
+  }
 
-.template-header {
-    padding: 1em;
-}
-
-app-template-header {
-    --template-header-margin-bottom: 0;
-    --template-header-header-container: 0;
-}
-
-hr {
-    border: none;
-    height: 1px;
-    background: #e5e7eb;
-    margin: 20px 0;
-}
-
-.course-card h2 {
-    margin: 0;
-    font-size: 28px;
-    font-weight: 700;
-}
-
-.info {
-    display: flex;
-    gap: 12px;
-    margin-top: 8px;
-    color: #666;
-}
-
-.dates {
-    margin-top: 14px;
-    color: #444;
-}
-
-.right {
-    text-align: right;
-}
-
-.students {
-    font-size: 22px;
-    font-weight: 700;
-}
-
-.status {
-    margin-top: 10px;
-
-    display: inline-block;
-
-    padding: 6px 12px;
-    border-radius: 999px;
-
-    background: #f3e8ff;
-    color: #7c3aed;
-
-    font-weight: 600;
+  table {
+    min-width: 600px;
+  }
 }

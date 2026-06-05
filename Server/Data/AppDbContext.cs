@@ -1,0 +1,27 @@
+using Microsoft.EntityFrameworkCore;
+
+
+public class AppDbContext: DbContext
+{
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {}
+        public DbSet <User> Users {get;set;}
+        public DbSet <Role> Roles {get;set;}
+        public DbSet <Course> Courses {get;set;}
+        public DbSet <Company> Companies {get;set;}
+        public DbSet <CourseSession> CourseSessions {get;set;}
+        public DbSet <Team> Teams {get;set;}
+        public DbSet <TeamMember> TeamMembers {get;set;}
+        public DbSet <CalendarEvent> CalendarEvents {get;set;}
+        public DbSet <ImageData> Images {get;set;}
+        public DbSet <Note> Notes {get;set;}
+        public DbSet <FileData> Files {get;set;}
+        public DbSet <Checklist> Checklists {get;set;}
+        public DbSet <ChecklistItem> ChecklistItems{get; set;}
+        public DbSet <ChecklistRelation> ChecklistRelations {get;set;}
+        public DbSet <ChecklistRelationItem> ChecklistRelationItems {get;set;}
+        public DbSet <FileRelation> FileRelations {get;set;}
+        public DbSet <UserCourseStatus> UserCourseStatuses {get;set;}
+        public DbSet <UserCourseSessionRelation> UserCourseSessionRelations{get;set;}
+        public DbSet <UserCourseRelation> UserCourseRelations {get;set;}
+}

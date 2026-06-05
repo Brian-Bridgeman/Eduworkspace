@@ -9,13 +9,17 @@ import {
   Checklist
 } from '../../services/checklist.service';
 import { BreadcrumbService } from '../../services/breadcrumb.service';
+import { DropdownMenu } from '../../components/dropdown-menu/dropdown-menu';
 
 @Component({
   selector: 'app-student-details-page',
 
   standalone: true,
 
-  imports: [CommonModule, ChecklistModal, FormsModule],
+  imports: [CommonModule,
+    ChecklistModal,
+    FormsModule,
+    DropdownMenu],
 
   templateUrl: './student-details-page.html',
 
@@ -28,9 +32,12 @@ export class StudentDetailsPage implements OnInit {
   showNoteModal = false;
   newNoteText = '';
   activeTab = 'overview';
-
   checklists: Checklist[] = [];
   activeChecklist: Checklist | null = null;
+  expandedCommentIndex: number | null = null;
+
+  selectedCourse: any = null;
+  showCourseModal = false;
 
   constructor(private checklistService: ChecklistService, private breadcrumbService: BreadcrumbService) {
 
@@ -44,10 +51,10 @@ export class StudentDetailsPage implements OnInit {
   }
 
   ngOnInit(): void {
-      setTimeout(() => {
+    setTimeout(() => {
       this.breadcrumbService.set([
-        {label: "Deltagare", url: "/students"},
-        {label: "Oscar Nilsson", url: "/students/1"}
+        { label: "Deltagare", url: "/students" },
+        { label: "Oscar Nilsson", url: "/students/1" }
       ])
     });
   }
@@ -104,15 +111,18 @@ export class StudentDetailsPage implements OnInit {
   courses = [
     {
       name: 'Frontendutveckling',
-      status: 'active'
+      status: 'active',
+      comment: ''
     },
     {
       name: 'Java Backend',
-      status: 'inactive'
+      status: 'inactive',
+      comment: 'Kursen avslutad och godkänd.'
     },
     {
       name: 'React Native',
-      status: 'paused'
+      status: 'paused',
+      comment: 'Pausad på grund av sjukskrivning.'
     }
   ];
 
@@ -153,6 +163,15 @@ export class StudentDetailsPage implements OnInit {
     this.showChecklistModal = false;
 
   }
+  saveChecklist(checklist: Checklist) {
+
+    this.checklists.push(checklist);
+
+    this.activeChecklist = checklist;
+
+    this.closeChecklistModal();
+
+  }
   selectChecklist(checklist: Checklist) {
 
     this.activeChecklist = checklist;
@@ -165,6 +184,7 @@ export class StudentDetailsPage implements OnInit {
     this.activeNoteCollection = collection;
 
   }
+
   openNoteModal() {
 
     this.showNoteModal = true;
@@ -223,5 +243,65 @@ export class StudentDetailsPage implements OnInit {
     this.closeEditModal();
 
   }
-  selectedCourse = 'Fiber';
+
+  openCourseModal(course: any) {
+    console.log('Kurs klickad', course);
+
+    this.selectedCourse = course;
+    this.showCourseModal = true;
+
+    console.log('showCourseModal', this.showCourseModal);
+  }
+
+  deleteChecklist() {
+
+
+  console.log('DELETE KÖRS');
+
+    if (!this.activeChecklist) {
+      return;
+    }
+
+    const confirmed = confirm(
+      `Ta bort checklistan "${this.activeChecklist.title}"?`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    this.checklists = this.checklists.filter(
+      checklist => checklist.id !== this.activeChecklist?.id
+    );
+
+    this.activeChecklist =
+      this.checklists.length > 0
+        ? this.checklists[0]
+        : null;
+  }
+  closeCourseModal() {
+    this.showCourseModal = false;
+  }
+
+  toggleComment(index: number) {
+
+    this.expandedCommentIndex =
+      this.expandedCommentIndex === index
+        ? null
+        : index;
+
+  }
+  getStatusText(status: string): string {
+    switch (status) {
+      case 'active':
+        return 'Pågående';
+      case 'paused':
+        return 'Pausad';
+      case 'inactive':
+        return 'Avslutad';
+      default:
+        return status;
+    }
+  }
+  
 }
