@@ -25,7 +25,7 @@ public static class CourseEndpoints
                 .ToListAsync();
             return Results.Ok(courses);
         })
-        .Produces<List<Course>>(StatusCodes.Status200OK);
+        .Produces<List<CourseDto>>(StatusCodes.Status200OK);
 
         app.MapPost("api/courses", async (CreateCourseDto dto, AppDbContext db) =>
         {
