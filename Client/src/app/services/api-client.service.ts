@@ -505,6 +505,231 @@ export class Client {
         }
         return _observableOf(null as any);
     }
+
+    getApiCoursesSessions(courseId: number): Observable<CourseSessionDto[]> {
+        let url_ = this.baseUrl + "/api/courses/{courseId}/sessions";
+        if (courseId === undefined || courseId === null)
+            throw new globalThis.Error("The parameter 'courseId' must be defined.");
+        url_ = url_.replace("{courseId}", encodeURIComponent("" + courseId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetApiCoursesSessions(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetApiCoursesSessions(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CourseSessionDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CourseSessionDto[]>;
+        }));
+    }
+
+    protected processGetApiCoursesSessions(response: HttpResponseBase): Observable<CourseSessionDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(CourseSessionDto.fromJS(item));
+            }
+            else {
+                result200 = null as any;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    postApiCoursesSessions(courseId: number, dto: CreateCourseSessionDto): Observable<CourseSessionDto> {
+        let url_ = this.baseUrl + "/api/courses/{courseId}/sessions";
+        if (courseId === undefined || courseId === null)
+            throw new globalThis.Error("The parameter 'courseId' must be defined.");
+        url_ = url_.replace("{courseId}", encodeURIComponent("" + courseId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(dto);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPostApiCoursesSessions(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPostApiCoursesSessions(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CourseSessionDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CourseSessionDto>;
+        }));
+    }
+
+    protected processPostApiCoursesSessions(response: HttpResponseBase): Observable<CourseSessionDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 201) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result201: any = null;
+            let resultData201 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result201 = CourseSessionDto.fromJS(resultData201);
+            return _observableOf(result201);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    deleteApiCoursesSessions(courseId: number, sessionId: number): Observable<void> {
+        let url_ = this.baseUrl + "/api/courses/{courseId}/sessions/{sessionId}";
+        if (courseId === undefined || courseId === null)
+            throw new globalThis.Error("The parameter 'courseId' must be defined.");
+        url_ = url_.replace("{courseId}", encodeURIComponent("" + courseId));
+        if (sessionId === undefined || sessionId === null)
+            throw new globalThis.Error("The parameter 'sessionId' must be defined.");
+        url_ = url_.replace("{sessionId}", encodeURIComponent("" + sessionId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteApiCoursesSessions(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteApiCoursesSessions(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDeleteApiCoursesSessions(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    putApiCoursesSessions(courseId: number, sessionId: number, dto: UpdateCourseSessionDto): Observable<void> {
+        let url_ = this.baseUrl + "/api/courses/{courseId}/sessions/{sessionId}";
+        if (courseId === undefined || courseId === null)
+            throw new globalThis.Error("The parameter 'courseId' must be defined.");
+        url_ = url_.replace("{courseId}", encodeURIComponent("" + courseId));
+        if (sessionId === undefined || sessionId === null)
+            throw new globalThis.Error("The parameter 'sessionId' must be defined.");
+        url_ = url_.replace("{sessionId}", encodeURIComponent("" + sessionId));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(dto);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPutApiCoursesSessions(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPutApiCoursesSessions(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processPutApiCoursesSessions(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("A server side error occurred.", status, _responseText, _headers);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 export class ExampleDto implements IExampleDto {
@@ -1289,6 +1514,162 @@ export class UpdateCourseDto implements IUpdateCourseDto {
 
 export interface IUpdateCourseDto {
     name?: string;
+}
+
+export class CourseSessionDto implements ICourseSessionDto {
+    id?: number;
+    name?: string;
+    courseId?: number;
+    courseName?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
+
+    constructor(data?: ICourseSessionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+            this.courseId = _data["courseId"];
+            this.courseName = _data["courseName"];
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : undefined as any;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : undefined as any;
+            this.location = _data["location"];
+        }
+    }
+
+    static fromJS(data: any): CourseSessionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CourseSessionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["courseId"] = this.courseId;
+        data["courseName"] = this.courseName;
+        data["startDate"] = this.startDate ? formatDate(this.startDate) : undefined as any;
+        data["endDate"] = this.endDate ? formatDate(this.endDate) : undefined as any;
+        data["location"] = this.location;
+        return data;
+    }
+}
+
+export interface ICourseSessionDto {
+    id?: number;
+    name?: string;
+    courseId?: number;
+    courseName?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
+}
+
+export class CreateCourseSessionDto implements ICreateCourseSessionDto {
+    name?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
+
+    constructor(data?: ICreateCourseSessionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : undefined as any;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : undefined as any;
+            this.location = _data["location"];
+        }
+    }
+
+    static fromJS(data: any): CreateCourseSessionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateCourseSessionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["startDate"] = this.startDate ? formatDate(this.startDate) : undefined as any;
+        data["endDate"] = this.endDate ? formatDate(this.endDate) : undefined as any;
+        data["location"] = this.location;
+        return data;
+    }
+}
+
+export interface ICreateCourseSessionDto {
+    name?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
+}
+
+export class UpdateCourseSessionDto implements IUpdateCourseSessionDto {
+    name?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
+
+    constructor(data?: IUpdateCourseSessionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (this as any)[property] = (data as any)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+            this.startDate = _data["startDate"] ? new Date(_data["startDate"].toString()) : undefined as any;
+            this.endDate = _data["endDate"] ? new Date(_data["endDate"].toString()) : undefined as any;
+            this.location = _data["location"];
+        }
+    }
+
+    static fromJS(data: any): UpdateCourseSessionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateCourseSessionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["startDate"] = this.startDate ? formatDate(this.startDate) : undefined as any;
+        data["endDate"] = this.endDate ? formatDate(this.endDate) : undefined as any;
+        data["location"] = this.location;
+        return data;
+    }
+}
+
+export interface IUpdateCourseSessionDto {
+    name?: string;
+    startDate?: Date;
+    endDate?: Date;
+    location?: string;
 }
 
 function formatDate(d: Date) {

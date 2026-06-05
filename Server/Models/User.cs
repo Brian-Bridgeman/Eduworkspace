@@ -10,7 +10,7 @@ public class User
     public string? Username { get; set; }
 
     public int? ImageId { get; set; }
-    public Image? ProfileImage { get; set; }
+    public ImageData? ProfileImage { get; set; }
 
     public int? CompanyId { get; set; }
     public Company? Company { get; set; }
@@ -27,5 +27,5 @@ public class User
     public List<CalendarEvent> CreatedCalendarEvents { get; set; } = [];
 
     //User kan har flera checklistor som den äger 
-    public List<UserCourseRelation> UserCOurseRelations {get;set;} = [];
+    public List<UserCourseRelation> UserCourseRelations {get;set;} = [];
 }
