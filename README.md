@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎓 EduWorkspace (EWS)
+#  EduWorkspace (EWS)
 
 **Ett digitalt verktyg som ersätter manuell pappers- och mapphantering vid utbildningar – byggt med Angular och ASP.NET Core.**
 
@@ -15,7 +15,7 @@
 
 ---
 
-## 📋 Innehåll
+##  Innehåll
 
 - [Vad är EduWorkspace?](#-vad-är-eduworkspace)
 - [Problemet vi löser](#-problemet-vi-löser)
@@ -30,7 +30,7 @@
 
 ---
 
-## 🚀 Vad är EduWorkspace?
+##  Vad är EduWorkspace?
 
 **EduWorkspace** (EWS) är en webbapplikation som hjälper utbildningsansvariga att hålla ordning på
 **kurser, deltagare, grupper och dokumentation** på ett och samma ställe.
@@ -43,7 +43,7 @@ som ingår i vilka arbetslag, och dokumentera anteckningar, bilder och checklist
 
 ---
 
-## 🎯 Problemet vi löser
+##  Problemet vi löser
 
 Idag hanteras mycket av dokumentationen manuellt. För varje utbildningsmoment och varje grupp skapas mappar
 fyllda med anteckningar och bilder, som till slut ska sammanställas och skickas in till relevanta myndigheter.
@@ -68,7 +68,7 @@ direkt i mobilen eller på datorn.
 
 ---
 
-## 📸 Skärmdumpar
+##  Skärmdumpar
 
 ### Startsida – snabb överblick
 Den ansvariga möts av en personlig översikt med direktlänkar till kurser, deltagare, grupper och kalender.
@@ -117,25 +117,25 @@ och snabbknapp för att ta bilder ute på fält.
 
 ---
 
-## ✨ Funktioner
+##  Funktioner
 
 | Funktion | Beskrivning |
 | --- | --- |
-| 📚 **Kurser** | Skapa, redigera och ta bort kurser samt koppla ansvarig utbildare. |
-| 📅 **Kurstillfällen** | Lägg upp kurstillfällen med start-/slutdatum och plats. |
-| 👥 **Deltagare** | Registrera deltagare med kontaktuppgifter, företag och grupptillhörighet. |
-| 🧑‍🤝‍🧑 **Grupper / arbetslag** | Organisera deltagare i grupper kopplade till ett kurstillfälle. |
-| 📝 **Anteckningar** | För anteckningar på kurs-, grupp- eller deltagarnivå, taggade efter ämne. |
-| ✅ **Checklistor** | Skapa återanvändbara checklistor och bocka av moment. |
-| 🗓️ **Kalender** | Planera och visualisera viktiga datum i en månadsvy. |
-| 📊 **Översikt/Dashboard** | Realtidsstatistik över pågående arbetslag, aktiva deltagare och kommande tillfällen. |
-| 📷 **Fältdokumentation** | Snabbknapp för kamera direkt i mobilvyn (bilder ute på plats). |
-| 📱 **PWA / mobilanpassad** | Installerbar webbapp med responsiv layout och offline-stöd via service worker. |
-| 🌗 **Tema** | Växla mellan ljust och mörkt läge. |
+|  **Kurser** | Skapa, redigera och ta bort kurser samt koppla ansvarig utbildare. |
+|  **Kurstillfällen** | Lägg upp kurstillfällen med start-/slutdatum och plats. |
+|  **Deltagare** | Registrera deltagare med kontaktuppgifter, företag och grupptillhörighet. |
+|  **Grupper / arbetslag** | Organisera deltagare i grupper kopplade till ett kurstillfälle. |
+|  **Anteckningar** | För anteckningar på kurs-, grupp- eller deltagarnivå, taggade efter ämne. |
+|  **Checklistor** | Skapa återanvändbara checklistor och bocka av moment. |
+|  **Kalender** | Planera och visualisera viktiga datum i en månadsvy. |
+|  **Översikt/Dashboard** | Realtidsstatistik över pågående arbetslag, aktiva deltagare och kommande tillfällen. |
+|  **Fältdokumentation** | Snabbknapp för kamera direkt i mobilvyn (bilder ute på plats). |
+|  **PWA / mobilanpassad** | Installerbar webbapp med responsiv layout och offline-stöd via service worker. |
+|  **Tema** | Växla mellan ljust och mörkt läge. |
 
 ---
 
-## 🛠️ Teknik & arkitektur
+##  Teknik & arkitektur
 
 EduWorkspace är en klassisk **klient–server-applikation** där en Angular-frontend kommunicerar med ett
 ASP.NET Core-backend via ett REST-API.
@@ -170,7 +170,7 @@ ASP.NET Core-backend via ett REST-API.
 
 ---
 
-## 🗄️ Datamodell
+##  Datamodell
 
 Databasen är modellerad med Entity Framework Core (Code First). Centrala entiteter är **kurser**,
 **kurstillfällen**, **användare/deltagare**, **grupper (teams)** samt kopplingstabeller för relationer –
@@ -180,7 +180,7 @@ plus stöd för **anteckningar**, **bilder**, **filer** och **checklistor**.
 
 ---
 
-## ⚙️ Kom igång
+##  Kom igång
 
 ### Förutsättningar
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
@@ -207,11 +207,11 @@ npm start                     # startar dev-servern på http://localhost:4200
 
 Öppna sedan **http://localhost:4200** i webbläsaren.
 
-> 💡 Den genererade API-klienten kan uppdateras med `npm run gen-api` (kräver att backend körs).
+>  Den genererade API-klienten kan uppdateras med `npm run gen-api` (kräver att backend körs).
 
 ---
 
-## 📂 Projektstruktur
+##  Projektstruktur
 
 ```text
 Eduworkspace/
@@ -231,20 +231,20 @@ Eduworkspace/
 
 ---
 
-## 🚧 Status & vidareutveckling
+##  Status & vidareutveckling
 
 EduWorkspace är ett aktivt utvecklingsprojekt. Grundfunktionerna för kurser, deltagare, grupper, anteckningar,
 checklistor, kalender och översikt är på plats. På önskelistan/roadmappen finns bland annat:
 
-- 🎙️ **Röstanteckningar** med automatisk tal-till-text för dokumentation ute på fält
-- 📎 **Uppladdning av bilder och filer** på kurs-, grupp- och deltagarnivå
-- 👤 **Deltagarvy** som samlar allt en person varit involverad i (kurs, grupp och individnivå)
-- 🔐 **Inloggning & behörigheter**
-- 📲 **Android-app** som komplement till webbappen
+-  **Röstanteckningar** med automatisk tal-till-text för dokumentation ute på fält
+-  **Uppladdning av bilder och filer** på kurs-, grupp- och deltagarnivå
+-  **Deltagarvy** som samlar allt en person varit involverad i (kurs, grupp och individnivå)
+-  **Inloggning & behörigheter**
+-  **Android-app** som komplement till webbappen
 
 ---
 
-## 👤 Om projektet
+##  Om projektet
 
 EduWorkspace har utvecklats som ett **grupprojekt** inom en utbildning i systemutveckling, med fokus på en
 modern och relevant teknikstack (Angular + ASP.NET Core). Projektet visar arbete med full-stack-utveckling:
